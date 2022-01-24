@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "671472034390",
+    "project_id": "toyproject-sns",
+    "storage_bucket": "toyproject-sns.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671472034390:android:5b02837e7a0e76ce7311f7",
+        "android_client_info": {
+          "package_name": "org.techtown.sns_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671472034390-8r68ubhgc5k79stiu9i8rgnf3dsnj402.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXdaGrKhOcFWu-rSE7ddiduYCX1lhDLWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671472034390-8r68ubhgc5k79stiu9i8rgnf3dsnj402.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
