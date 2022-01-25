@@ -74,6 +74,17 @@ public class SignUpActivity extends AppCompatActivity {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    // 로그아웃을 누른 뒤 회원가입창에서 다시 뒤로가기를 누르면 메인 액티비티 창이 또
+    // 나타나는 현상을 없애기 위함.
+    // 회원가입 창에서 뒤로가기를 누르면 앱을 종료하는 코드
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
+    }
+
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
