@@ -1,10 +1,11 @@
 package org.techtown.sns_project;
 
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.RegisterButton).setOnClickListener(onClickListener);
+        findViewById(R.id.ToSignInView).setOnClickListener(onClickListener);
     }
 
     public void onStart() {
@@ -38,22 +40,38 @@ public class SignUpActivity extends AppCompatActivity {
         // EditText로 형 변환해준 이유는 일반 View는 getText 메서드를 사용할 수 없어서이다.
         String email = ((EditText)findViewById(R.id.EmailEditText)).getText().toString();
         String password = ((EditText)findViewById(R.id.PasswordEditText)).getText().toString();
+        String passwordCheck = ((EditText)findViewById(R.id.PasswordCheckEditText)).getText().toString();
 
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this,
-                new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            // 성공했을 때 UI 로직
-                        }
-                        else {
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            // Toast 일단 생략, 실패했을 때 UI로직
-                        }
-                    }
-                });
+        if(email.length() > 0 && password.length() > 0 && passwordCheck.length() > 0) {
+            if (password.equals(passwordCheck)) {
+                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this,
+                        new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    //Log.d(TAG, "createUserWithEmail:success");
+                                    StartToast("회원가입에 성공하였습니다.");
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    // 성공했을 때 UI 로직
+                                } else {
+                                    //Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                    StartToast("회원가입에 실패하였습니다.");
+                                    // Toast 일단 생략, 실패했을 때 UI로직
+                                }
+                            }
+                        });
+            } else {
+                // Toast 창 띄워주기
+                StartToast("비밀번호가 일치하지 않습니다.");
+            }
+        }
+        else {
+            StartToast("빈칸이 있는지 확인해주세요.");
+        }
+    }
+
+    private void StartToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -65,7 +83,15 @@ public class SignUpActivity extends AppCompatActivity {
                 case R.id.RegisterButton:
                     SignUp();
                     break;
+                case R.id.ToSignInView:
+                    StartActivity();
+                    break;
             }
         }
     };
+
+    private void StartActivity() {
+        Intent intent = new Intent(this, SignInActivity.class);
+        startActivity(intent);
+    }
 }

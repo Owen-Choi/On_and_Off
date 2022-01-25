@@ -21,6 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 새로 추가되는 Activity(view?)들은 모두 manifest에 추가를 해주어야 한다. -->
+        <activity android:name=".SignInActivity"></activity>
     </application>
 
 </manifest>
