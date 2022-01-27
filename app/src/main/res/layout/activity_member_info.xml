@@ -7,11 +7,11 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/SignInText"
+        android:id="@+id/MemberInfoText"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:gravity="center"
-        android:text="로그인"
+        android:text="회원정보"
         android:textColor="#000000"
         android:textSize="24sp" />
 
@@ -22,34 +22,42 @@
         android:paddingBottom="5dp">
 
         <EditText
-            android:id="@+id/EmailEditText"
+            android:id="@+id/NameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:ems="10"
-            android:hint="이메일"
-            android:inputType="textEmailAddress" />
+            android:hint="이름"
+            android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/PasswordEditText"
+            android:id="@+id/PhoneEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:ems="10"
-            android:hint="비밀번호"
-            android:inputType="textPassword" />
+            android:hint="전화번호"
+            android:inputType="phone" />
 
-        <Button
-            android:id="@+id/SignInButton"
+        <EditText
+            android:id="@+id/DateEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="로그인" />
+            android:ems="10"
+            android:hint="생년월일"
+            android:inputType="date" />
 
-        <Button
-            android:id="@+id/ToPasswordInitButton"
+        <EditText
+            android:id="@+id/AddressEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="비밀번호 재설정" />
+            android:ems="10"
+            android:hint="주소"
+            android:inputType="textPostalAddress" />
+
+        <Button
+            android:id="@+id/CheckButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="확인" />
 
     </LinearLayout>
 

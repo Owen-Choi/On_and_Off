@@ -24,6 +24,8 @@
         <!-- 새로 추가되는 Activity(view?)들은 모두 manifest에 추가를 해주어야 한다. -->
         <activity android:name=".SignInActivity"></activity>
         <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".Password_Init_Activity"></activity>
+        <activity android:name=".MemberInfoActivity"></activity>
     </application>
 
 </manifest>
