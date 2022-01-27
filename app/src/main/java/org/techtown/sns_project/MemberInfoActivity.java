@@ -11,11 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MemberInfoActivity extends AppCompatActivity {
 
@@ -33,20 +36,29 @@ public class MemberInfoActivity extends AppCompatActivity {
 
     private void SetInfo() {
         String name = ((EditText)findViewById(R.id.NameEditText)).getText().toString();
-        if(name.length() > 0) {
-            user = mAuth.getInstance().getCurrentUser();
-            UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(name).build();
+        String phone = ((EditText)findViewById(R.id.PhoneEditText)).getText().toString();
+        String date = ((EditText)findViewById(R.id.DateEditText)).getText().toString();
+        String address = ((EditText)findViewById(R.id.AddressEditText)).getText().toString();
 
-            if(user != null) {
-                user.updateProfile(profileChangeRequest).addOnCompleteListener(
-                        new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        StartToast("회원정보 등록에 성공하였습니다.");
-                    }
-                });
-            }
+        if(name.length() > 0 && phone.length() > 9 && date.length() > 5 && address.length() > 1) {
+            user = mAuth.getCurrentUser();
+            // Firestore 데이터베이스 인스턴스 생성
+            // DB에 수월하게 접근하기 위해 일종의 데이터 프레임을 제공하는 객체를 만든다.
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            MemberInfoClass memberInfo = new MemberInfoClass(name, phone, date, address);
+            db.collection("users").document(user.getUid()).set(memberInfo)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            StartToast("회원정보 등록에 성공하였습니다.");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    StartToast("회원정보 등록에 실패하였습니다.");
+                }
+            });
         }
     }
 
