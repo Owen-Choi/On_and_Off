@@ -33,6 +33,11 @@ public class MemberInfoActivity extends AppCompatActivity {
         findViewById(R.id.CheckButton).setOnClickListener(onClickListener);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     private void SetInfo() {
         String name = ((EditText)findViewById(R.id.NameEditText)).getText().toString();
@@ -47,11 +52,13 @@ public class MemberInfoActivity extends AppCompatActivity {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
             MemberInfoClass memberInfo = new MemberInfoClass(name, phone, date, address);
+            // user.getUid를 하는 이유는 유저마다 다른 경로(document)를 갖게 하기 위함이다.
             db.collection("users").document(user.getUid()).set(memberInfo)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             StartToast("회원정보 등록에 성공하였습니다.");
+                            finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
