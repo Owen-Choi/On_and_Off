@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "SignUpActivity";
+    private RadioGroup radioGroup;
+    private boolean NormalUser, EnterpriseUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,10 @@ public class SignInActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.SignInButton).setOnClickListener(onClickListener);
         findViewById(R.id.ToPasswordInitButton).setOnClickListener(onClickListener);
+        RadioButton NormalUserButton = findViewById(R.id.NormalUserButton);
+        RadioButton EnterpriseUserButton = findViewById(R.id.EnterpriseUserButton);
+        radioGroup = findViewById(R.id.UserChoiceRadioButtonGroup);
+
     }
 
     public void onStart() {
@@ -90,5 +98,28 @@ public class SignInActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
+
+//    View.OnClickListener RadioButtonOnClickListener = new RadioButton.OnClickListener(){
+//        @Override
+//        public void onClick(View view) {
+//            switch()
+//        }
+//    }
+
+    // 반영 안됨. 수정 필요.
+    final RadioGroup.OnCheckedChangeListener radioGroupButtonChangeListener
+            = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup radioGroup, int i) {
+            switch (i) {
+                case R.id.NormalUserButton:
+                    StartToast("일반 유저 버튼을 선택하셨습니다.");
+                    NormalUser = true;
+                case R.id.EnterpriseUserButton:
+                    StartToast("기업 유저 버튼을 선택하셨습니다.");
+                    EnterpriseUser = true;
+            }
+        }
+    };
 
 }

@@ -48,6 +48,24 @@
             android:hint="비밀번호 확인"
             android:inputType="textPassword" />
 
+        <RadioGroup
+            android:id="@+id/UserChoiceRadioButtonGroup"
+            android:layout_width="match_parent"
+            android:layout_height="90dp">
+
+            <RadioButton
+                android:id="@+id/NormalUserButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Normal" />
+
+            <RadioButton
+                android:id="@+id/EnterpriseUserButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enterprise" />
+        </RadioGroup>
+
         <Button
             android:id="@+id/RegisterButton"
             android:layout_width="match_parent"
