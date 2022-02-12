@@ -1,4 +1,4 @@
-package org.techtown.sns_project;
+package org.techtown.sns_project.Enterprise;
 
 
 import android.content.Intent;
@@ -16,13 +16,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class NormalSignInActivity extends AppCompatActivity {
+import org.techtown.sns_project.MainActivity;
+import org.techtown.sns_project.Password_Init_Activity;
+import org.techtown.sns_project.R;
+import org.techtown.sns_project.SignInActivity;
+
+public class EnterpriseSignInActivity extends AppCompatActivity implements SignInActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "SignUpActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_normal_sign_in);
+        setContentView(R.layout.activity_enterprise_sign_in);
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.SignInButton).setOnClickListener(onClickListener);
         findViewById(R.id.ToPasswordInitButton).setOnClickListener(onClickListener);
@@ -36,7 +41,8 @@ public class NormalSignInActivity extends AppCompatActivity {
         }
     }
 
-    private void SignIn() {
+    @Override
+    public void SignIn() {
         String email = ((EditText)findViewById(R.id.EmailEditText)).getText().toString();
         String password = ((EditText)findViewById(R.id.PasswordEditText)).getText().toString();
         if(email.length() > 0 && password.length() > 0) {

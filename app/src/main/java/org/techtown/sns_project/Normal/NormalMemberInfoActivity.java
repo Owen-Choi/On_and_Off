@@ -1,4 +1,4 @@
-package org.techtown.sns_project;
+package org.techtown.sns_project.Normal;
 
 
 import android.content.Intent;
@@ -10,17 +10,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class MemberInfoActivity extends AppCompatActivity {
+import org.techtown.sns_project.MemberInfo;
+import org.techtown.sns_project.MemberInfoClass;
+import org.techtown.sns_project.R;
+
+public class NormalMemberInfoActivity extends AppCompatActivity implements MemberInfo {
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -28,7 +28,7 @@ public class MemberInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_member_info);
+        setContentView(R.layout.activity_normal_member_info);
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.CheckButton).setOnClickListener(onClickListener);
     }
@@ -39,7 +39,8 @@ public class MemberInfoActivity extends AppCompatActivity {
         finish();
     }
 
-    private void SetInfo() {
+    @Override
+    public void SetInfo() {
         String name = ((EditText)findViewById(R.id.NameEditText)).getText().toString();
         String phone = ((EditText)findViewById(R.id.PhoneEditText)).getText().toString();
         String date = ((EditText)findViewById(R.id.DateEditText)).getText().toString();
@@ -53,6 +54,7 @@ public class MemberInfoActivity extends AppCompatActivity {
 
             MemberInfoClass memberInfo = new MemberInfoClass(name, phone, date, address);
             // user.getUid를 하는 이유는 유저마다 다른 경로(document)를 갖게 하기 위함이다.
+            // 기업용 유저는 컬렉션을 구분하도록 한다.
             db.collection("users").document(user.getUid()).set(memberInfo)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

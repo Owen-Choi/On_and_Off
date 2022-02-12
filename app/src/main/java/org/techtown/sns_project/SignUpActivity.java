@@ -17,6 +17,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.techtown.sns_project.Enterprise.EnterpriseMemberInfoActivity;
+import org.techtown.sns_project.Enterprise.EnterpriseSignInActivity;
+import org.techtown.sns_project.Normal.NormalMemberInfoActivity;
+import org.techtown.sns_project.Normal.NormalSignInActivity;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -29,7 +37,8 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.RegisterButton).setOnClickListener(onClickListener);
-        findViewById(R.id.ToSignInView).setOnClickListener(onClickListener);
+        findViewById(R.id.ToNormalMemberSignInView).setOnClickListener(onClickListener);
+        findViewById(R.id.ToEnterpriseMemberSignInView).setOnClickListener(onClickListener);
         radioGroup = findViewById(R.id.UserChoiceRadioButtonGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -72,10 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     //Log.d(TAG, "createUserWithEmail:success");
                                     StartToast("회원가입에 성공하였습니다.");
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    if(isNormal)
-                                        StartActivity(NormalSignInActivity.class);
-                                    if(isEnter)
-                                        StartActivity(EnterpriseSignInActivity.class);
+                                    MemberInfochecker(user);
                                     // 성공했을 때 UI 로직
                                 } else {
                                     //Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -118,8 +124,11 @@ public class SignUpActivity extends AppCompatActivity {
                 case R.id.RegisterButton:
                     SignUp();
                     break;
-                case R.id.ToSignInView:
+                case R.id.ToNormalMemberSignInView:
                     StartActivity(NormalSignInActivity.class);
+                    break;
+                case R.id.ToEnterpriseMemberSignInView:
+                    StartActivity(EnterpriseSignInActivity.class);
                     break;
             }
         }
@@ -141,4 +150,36 @@ public class SignUpActivity extends AppCompatActivity {
             isEnter = true;
         }
     }
+
+    // 여기서는 회원의 종류와 회원정보의 유무에 따라 다른 화면을 띄워준다.
+    private void MemberInfochecker(FirebaseUser user) {
+        FirebaseFirestore fb = FirebaseFirestore.getInstance();
+        String temp;
+        temp = isNormal ? "users" : "enterprises";
+        DocumentReference documentReference = fb.collection(temp)
+                .document(user.getUid());
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if(document != null){
+                        if(document.exists())
+                            // 이미 등록한 회원 정보가 있다면 바로 로그인화면으로 이동하도록 한다.
+                            if(isNormal)
+                                StartActivity(NormalSignInActivity.class);
+                            else
+                                StartActivity(EnterpriseSignInActivity.class);
+                        else
+                            // 등록한 회원정보가 없다면 회원 등록 화면으로 이동하도록 한다.
+                            if(isNormal)
+                                StartActivity(NormalMemberInfoActivity.class);
+                            else
+                                StartActivity(EnterpriseMemberInfoActivity.class);
+                    }
+                }
+            }
+        });
+    }
+
 }

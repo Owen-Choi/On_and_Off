@@ -73,10 +73,16 @@
             android:text="회원가입" />
 
         <Button
-            android:id="@+id/ToSignInView"
+            android:id="@+id/ToNormalMemberSignInView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="로그인하기" />
+            android:text="일반 회원으로 로그인하기" />
+
+        <Button
+            android:id="@+id/ToEnterpriseMemberSignInView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="기업 회원으로 로그인하기" />
 
     </LinearLayout>
 
