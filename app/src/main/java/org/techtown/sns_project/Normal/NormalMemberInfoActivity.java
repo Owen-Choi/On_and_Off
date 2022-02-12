@@ -30,7 +30,7 @@ public class NormalMemberInfoActivity extends AppCompatActivity implements Membe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal_member_info);
         mAuth = FirebaseAuth.getInstance();
-        findViewById(R.id.CheckButton).setOnClickListener(onClickListener);
+        findViewById(R.id.NormalMemberInfoCheckButton).setOnClickListener(onClickListener);
     }
 
     @Override
@@ -60,6 +60,7 @@ public class NormalMemberInfoActivity extends AppCompatActivity implements Membe
                         @Override
                         public void onSuccess(Void unused) {
                             StartToast("회원정보 등록에 성공하였습니다.");
+                            // 일반용 메인화면 띄우기.
                             finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -81,7 +82,7 @@ public class NormalMemberInfoActivity extends AppCompatActivity implements Membe
             // view에서 id를 받아오는데
             switch (view.getId()) {
                 // id가 RegisterButton에서 받아온 아이디라면 :
-                case R.id.CheckButton:
+                case R.id.NormalMemberInfoCheckButton:
                     SetInfo();
                     break;
             }

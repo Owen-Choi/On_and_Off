@@ -30,7 +30,7 @@ public class EnterpriseMemberInfoActivity extends AppCompatActivity implements M
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enterprise_member_info);
         mAuth = FirebaseAuth.getInstance();
-        findViewById(R.id.CheckButton).setOnClickListener(onClickListener);
+        findViewById(R.id.EnterpriseMemberInfoCheckButton).setOnClickListener(onClickListener);
     }
 
     @Override
@@ -41,10 +41,10 @@ public class EnterpriseMemberInfoActivity extends AppCompatActivity implements M
 
     @Override
     public void SetInfo() {
-        String Company_name = ((EditText)findViewById(R.id.NameEditText)).getText().toString();
-        String telephone = ((EditText)findViewById(R.id.PhoneEditText)).getText().toString();
-        String Founding_date = ((EditText)findViewById(R.id.DateEditText)).getText().toString();
-        String Location = ((EditText)findViewById(R.id.AddressEditText)).getText().toString();
+        String Company_name = ((EditText)findViewById(R.id.EnterpriseNameEditText)).getText().toString();
+        String telephone = ((EditText)findViewById(R.id.EnterprisePhoneEditText)).getText().toString();
+        String Founding_date = ((EditText)findViewById(R.id.FoundingDateEditText)).getText().toString();
+        String Location = ((EditText)findViewById(R.id.EnterpriseAddressEditText)).getText().toString();
 
         if(Company_name.length() > 0 && telephone.length() > 9 && Founding_date.length() > 5 && Location.length() > 1) {
             user = mAuth.getCurrentUser();
@@ -60,6 +60,7 @@ public class EnterpriseMemberInfoActivity extends AppCompatActivity implements M
                         @Override
                         public void onSuccess(Void unused) {
                             StartToast("회원정보 등록에 성공하였습니다.");
+                            // 기업용 메인화면 띄우기.
                             finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -81,7 +82,7 @@ public class EnterpriseMemberInfoActivity extends AppCompatActivity implements M
             // view에서 id를 받아오는데
             switch (view.getId()) {
                 // id가 RegisterButton에서 받아온 아이디라면 :
-                case R.id.CheckButton:
+                case R.id.EnterpriseMemberInfoCheckButton:
                     SetInfo();
                     break;
             }
