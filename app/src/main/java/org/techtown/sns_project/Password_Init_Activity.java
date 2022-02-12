@@ -12,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
+import org.techtown.sns_project.Normal.NormalMainActivity;
 
 public class Password_Init_Activity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -60,7 +60,7 @@ public class Password_Init_Activity extends AppCompatActivity {
     };
 
     private void StartMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, NormalMainActivity.class);
         // 동일한 창이 여러번 뜨게 만드는 것이 아니라 기존에 켜져있던 창을 앞으로 끌어와주는 기능.
         // 이 플래그를 추가하지 않을 경우 창들이 중복돼서 계속 팝업되게 된다.
         // 메인화면을 띄우는 모든 코드에서 이 플래그를 추가해줘야 하는 것 같다.

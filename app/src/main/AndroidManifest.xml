@@ -15,7 +15,7 @@
         android:theme="@style/Theme.SNS_project">
         <!-- activity에서 SignUpActivity를 넣으면 첫 실행시 해당 화면이 실행된다. -->
         <activity
-            android:name=".MainActivity"
+            android:name=".InitialActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +30,8 @@
         <activity android:name=".Normal.NormalMemberInfoActivity"></activity>
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".Password_Init_Activity"></activity>
+        <activity android:name=".Enterprise.EnterpriseMainActivity"></activity>
+        <activity android:name=".Normal.NormalMainActivity"></activity>
     </application>
 
 </manifest>

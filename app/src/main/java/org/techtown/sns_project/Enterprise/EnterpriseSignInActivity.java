@@ -16,7 +16,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.techtown.sns_project.MainActivity;
+import org.techtown.sns_project.Normal.NormalMainActivity;
 import org.techtown.sns_project.Password_Init_Activity;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.SignInActivity;
@@ -54,7 +54,7 @@ public class EnterpriseSignInActivity extends AppCompatActivity implements SignI
                                 StartToast("로그인 성공");
                                 // 로그인한 사용자의 정보를 가져오는 메서드로 추정
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                StartActivity(MainActivity.class);
+                                StartActivity(NormalMainActivity.class);
                                 // UI 파트
                             } else {
                                 StartToast("로그인 실패");
