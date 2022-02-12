@@ -3,8 +3,10 @@ package org.techtown.sns_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "SignUpActivity";
+    private RadioGroup radioGroup;
+    private static boolean isNormal, isEnter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,22 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.RegisterButton).setOnClickListener(onClickListener);
         findViewById(R.id.ToSignInView).setOnClickListener(onClickListener);
+        radioGroup = findViewById(R.id.UserChoiceRadioButtonGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int id) {
+                switch (id) {
+                    case R.id.NormalUserButton:
+                        Log.d(TAG, "onCheckedChanged: 일반 유저");
+                        changeState(1);
+                        break;
+                    case R.id.EnterpriseUserButton:
+                        Log.d(TAG, "onCheckedChanged: 기업 유저");
+                        changeState(2);
+                        break;
+                }
+            }
+        });
     }
 
     public void onStart() {
@@ -42,7 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
         String password = ((EditText)findViewById(R.id.PasswordEditText)).getText().toString();
         String passwordCheck = ((EditText)findViewById(R.id.PasswordCheckEditText)).getText().toString();
 
-        if(email.length() > 0 && password.length() > 0 && passwordCheck.length() > 0) {
+        if(email.length() > 0 && password.length() > 0 && passwordCheck.length() > 0 && (isNormal || isEnter)) {
             if (password.equals(passwordCheck)) {
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this,
                         new OnCompleteListener<AuthResult>() {
@@ -52,7 +72,10 @@ public class SignUpActivity extends AppCompatActivity {
                                     //Log.d(TAG, "createUserWithEmail:success");
                                     StartToast("회원가입에 성공하였습니다.");
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    StartActivity(SignInActivity.class);
+                                    if(isNormal)
+                                        StartActivity(NormalSignInActivity.class);
+                                    if(isEnter)
+                                        StartActivity(EnterpriseSignInActivity.class);
                                     // 성공했을 때 UI 로직
                                 } else {
                                     //Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -96,7 +119,7 @@ public class SignUpActivity extends AppCompatActivity {
                     SignUp();
                     break;
                 case R.id.ToSignInView:
-                    StartActivity(SignInActivity.class);
+                    StartActivity(NormalSignInActivity.class);
                     break;
             }
         }
@@ -105,5 +128,17 @@ public class SignUpActivity extends AppCompatActivity {
     private void StartActivity(Class c) {
         Intent intent = new Intent(this, c);
         startActivity(intent);
+    }
+
+    // 일반용 유저와 기업용 유저의 전환을 위함.
+    private static void changeState(int id) {
+        if(id == 1) {
+            isNormal = true;
+            isEnter = false;
+        }
+        else if(id == 2){
+            isNormal = false;
+            isEnter = true;
+        }
     }
 }

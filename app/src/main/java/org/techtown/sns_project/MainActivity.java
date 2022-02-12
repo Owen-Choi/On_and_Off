@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         else {
             // DB의 document를 들고온 뒤 안에 데이터가 있으면 넘어가고 없으면 회원 정보를 입력하게 한다.
             // 즉 순서는 회원가입 -> 로그인 -> 메인화면 -> 회원정보 입력 순으로 이루어진다.
+            // 회원가입 -> 회원정보 입력 -> 로그인 -> 메인화면 순으로 바꿀 예정이다.
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             DocumentReference docRef = db.collection("users").document(user.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
