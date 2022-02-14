@@ -60,7 +60,7 @@ public class EnterpriseMemberInfoActivity extends AppCompatActivity implements M
                         @Override
                         public void onSuccess(Void unused) {
                             StartToast("회원정보 등록에 성공하였습니다.");
-                            // 기업용 메인화면 띄우기.
+                            StartActivity(EnterpriseMainActivity.class);
                             finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {

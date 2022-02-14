@@ -60,7 +60,7 @@ public class NormalMemberInfoActivity extends AppCompatActivity implements Membe
                         @Override
                         public void onSuccess(Void unused) {
                             StartToast("회원정보 등록에 성공하였습니다.");
-                            // 일반용 메인화면 띄우기.
+                            StartActivity(NormalMainActivity.class);
                             finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
