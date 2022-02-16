@@ -15,18 +15,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/AlarmText"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center_horizontal"
-                android:text="Alarm" />
-
-            <Switch
-                android:id="@+id/AlarmSwitch"
+            <Button
+                android:id="@+id/EnterpriseAlarmButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Alarm" />
+
+            <FrameLayout
+                android:id="@+id/SettingsFrame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </FrameLayout>
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,7 +40,7 @@ public class EnterpriseMainActivity extends AppCompatActivity {
                     FirebaseAuth.getInstance().signOut();
                     StartActivity(SignUpActivity.class);
                 case R.id.EnterpriseSettings:
-                    //StartActivity();
+                    StartActivity(EnterpriseSettingActivity.class);
                     break;
             }
         }
