@@ -23,7 +23,6 @@ import org.techtown.sns_project.SignInActivity;
 
 public class EnterpriseSignInActivity extends AppCompatActivity implements SignInActivity {
     private FirebaseAuth mAuth;
-    private static final String TAG = "SignUpActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +53,7 @@ public class EnterpriseSignInActivity extends AppCompatActivity implements SignI
                                 StartToast("로그인 성공");
                                 // 로그인한 사용자의 정보를 가져오는 메서드로 추정
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                StartActivity(NormalMainActivity.class);
+                                StartActivity(EnterpriseMainActivity.class);
                                 // UI 파트
                             } else {
                                 StartToast("로그인 실패");
@@ -77,13 +76,11 @@ public class EnterpriseSignInActivity extends AppCompatActivity implements SignI
         public void onClick(View view) {
             // view에서 id를 받아오는데
             switch (view.getId()) {
-                // id가 RegisterButton에서 받아온 아이디라면 :
                 case R.id.SignInButton:
                     SignIn();
                     break;
                 case R.id.ToPasswordInitButton:
                     StartActivity(Password_Init_Activity.class);
-                    break;
             }
         }
     };

@@ -13,12 +13,12 @@ import org.techtown.sns_project.R;
 import org.techtown.sns_project.SignUpActivity;
 
 public class NormalMainActivity extends AppCompatActivity {
-    private final String TAG = "MainActivityDB";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal_main);
         findViewById(R.id.NormalMemberLogoutButton).setOnClickListener(onClickListener);
+        findViewById(R.id.NormalSettings).setOnClickListener(onClickListener);
         // manifest에서 첫 화면은 MainActivity로 설정되어있는데,
         // 로그인이 되지 않은 상태면 로그인창을 띄워야 한다.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -38,6 +38,10 @@ public class NormalMainActivity extends AppCompatActivity {
                 case R.id.NormalMemberLogoutButton:
                     FirebaseAuth.getInstance().signOut();
                     StartActivity(SignUpActivity.class);
+                    break;
+                case R.id.NormalSettings:
+                    //StartActivity();
+                    break;
             }
         }
     };

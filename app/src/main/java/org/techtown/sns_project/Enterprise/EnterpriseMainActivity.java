@@ -19,6 +19,7 @@ public class EnterpriseMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enterprise_main);
         findViewById(R.id.EnterpriseMemberLogoutButton).setOnClickListener(onClickListener);
+        findViewById(R.id.EnterpriseSettings).setOnClickListener(onClickListener);
         // manifest에서 첫 화면은 MainActivity로 설정되어있는데,
         // 로그인이 되지 않은 상태면 로그인창을 띄워야 한다.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -38,6 +39,9 @@ public class EnterpriseMainActivity extends AppCompatActivity {
                 case R.id.EnterpriseMemberLogoutButton:
                     FirebaseAuth.getInstance().signOut();
                     StartActivity(SignUpActivity.class);
+                case R.id.EnterpriseSettings:
+                    //StartActivity();
+                    break;
             }
         }
     };
