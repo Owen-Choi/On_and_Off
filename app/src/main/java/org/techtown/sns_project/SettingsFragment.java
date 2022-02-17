@@ -1,6 +1,7 @@
 package org.techtown.sns_project;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -21,12 +22,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
           setPreferencesFromResource(R.xml.root_preferences, rootKey);
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse("https://github.com/Owen-Choi/ToyProject_SNS"));
 
         Preference mypref = (Preference)findPreference("contact_preference");
         mypref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                startActivity(new Intent(getContext(), NormalMainActivity.class));
+                startActivity(i);
                 return true;
             }
         });

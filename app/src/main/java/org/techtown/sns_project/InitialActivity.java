@@ -21,7 +21,6 @@ public class InitialActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // main 말고 전용 xml 만들 예정.
         setContentView(R.layout.activity_initial);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {

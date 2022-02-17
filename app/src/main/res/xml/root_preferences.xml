@@ -45,9 +45,18 @@
 
         <SwitchPreferenceCompat
             android:key="notifications"
-            app:title="Disable notifications"
-            android:summaryOn="더 이상 소식을 받을 수 없습니다."
-            android:summaryOff="계속 소식을 받을 수 있습니다."/>
+            app:title="Enable notifications"
+            android:summaryOn="알림을 켭니다."
+            android:summaryOff="알림을 끕니다."/>
+
+        <ListPreference
+            android:dependency="notifications"
+            android:key="bellsounds"
+            android:title="Sounds"
+            app:defaultValue="BellName1"
+            app:entries="@array/bell_sounds_entries"
+            app:entryValues="@array/bell_sounds_values"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -5,8 +5,22 @@
         <item>Reply to all</item>
     </string-array>
 
+    <string-array name="bell_sounds_entries">
+        <item>BellName1</item>
+        <item>BellName2</item>
+        <item>BellName3</item>
+        <item>BellName4</item>
+    </string-array>
+
     <string-array name="reply_values">
         <item>reply</item>
         <item>reply_all</item>
+    </string-array>
+
+    <string-array name="bell_sounds_values">
+        <item>BellName1</item>
+        <item>BellName2</item>
+        <item>BellName3</item>
+        <item>BellName4</item>
     </string-array>
 </resources>
