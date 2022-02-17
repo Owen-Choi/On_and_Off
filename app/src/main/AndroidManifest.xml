@@ -32,6 +32,7 @@
         <activity android:name=".Password_Init_Activity"></activity>
         <activity android:name=".Enterprise.EnterpriseMainActivity"></activity>
         <activity android:name=".Normal.NormalMainActivity"></activity>
+        <activity android:name=".Enterprise.EnterpriseSettingActivity"></activity>
     </application>
 
 </manifest>
