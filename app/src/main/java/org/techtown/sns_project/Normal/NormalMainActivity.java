@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.SignUpActivity;
+import org.techtown.sns_project.cameraexample.ScanQR;
 
 public class NormalMainActivity extends AppCompatActivity {
     @Override
@@ -19,6 +20,7 @@ public class NormalMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_normal_main);
         findViewById(R.id.NormalMemberLogoutButton).setOnClickListener(onClickListener);
         findViewById(R.id.NormalSettings).setOnClickListener(onClickListener);
+        findViewById(R.id.NormalQRScanButton).setOnClickListener(onClickListener);
         // manifest에서 첫 화면은 MainActivity로 설정되어있는데,
         // 로그인이 되지 않은 상태면 로그인창을 띄워야 한다.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -42,6 +44,8 @@ public class NormalMainActivity extends AppCompatActivity {
                 case R.id.NormalSettings:
                     //StartActivity();
                     break;
+                case R.id.NormalQRScanButton:
+                    StartActivity(ScanQR.class);
             }
         }
     };

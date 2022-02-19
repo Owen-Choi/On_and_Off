@@ -20,4 +20,12 @@
         android:text="Setting"
         tools:layout_editor_absoluteX="315dp"
         tools:layout_editor_absoluteY="0dp" />
+
+    <Button
+        android:id="@+id/NormalQRScanButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QR"
+        tools:layout_editor_absoluteX="183dp"
+        tools:layout_editor_absoluteY="0dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
