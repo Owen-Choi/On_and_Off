@@ -125,7 +125,7 @@ public class Activity_codi extends AppCompatActivity {
                         Glide.with(txt_ProductImg).load("https:"+productImg.attr("src")).error(R.drawable.ic_launcher_background).into(txt_ProductImg);
                         txt_ProductTitle.setText(product_INFO.text());
                         txt_ProductPrice.setText(price.text());
-                        //
+
                         int count=0;
                         for (Element element : product_Brand){
                             if(count==0){
@@ -170,6 +170,7 @@ public class Activity_codi extends AppCompatActivity {
                         }
                         for(Element ele : Similar_Brand)
                         {
+                            listSBrand.add(ele.text());
                             listSBrand.add(ele.text());
                         }
                         for(Element ele : Similar_Title)

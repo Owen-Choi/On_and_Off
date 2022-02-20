@@ -10,14 +10,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.SignUpActivity;
+import org.techtown.sns_project.qr.New_Parser;
 import org.techtown.sns_project.qr.Parser;
 
 import java.io.IOException;
 
 public class EnterpriseQRActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,15 +34,13 @@ public class EnterpriseQRActivity extends AppCompatActivity {
         public void onClick(View view) {
             if(view.getId() == R.id.URLButton){
                 String URL = ((EditText)findViewById(R.id.URLTextBox)).getText().toString();
-                if(URL == null)
+                if(URL.equals(""))
                     StartToast("please fill the blank");
                 else {
-                    try {
-                        Parser parser = new Parser(URL);
-                        parser.StoreInfo();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        New_Parser new_parser = new New_Parser(firebaseAuth, firebaseUser, db, URL);
                 }
             }
         }

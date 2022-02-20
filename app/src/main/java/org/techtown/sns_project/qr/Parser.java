@@ -25,6 +25,7 @@ public class Parser {
 
     public void StoreInfo() throws IOException {
         new Thread(() -> {
+            String TAG = "Temp";
             Document doc = null;
             try {
                 doc = Jsoup.connect(URL).userAgent("Mozilla/5.0").get();
