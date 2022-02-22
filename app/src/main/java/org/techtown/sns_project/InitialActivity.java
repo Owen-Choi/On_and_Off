@@ -24,7 +24,7 @@ public class InitialActivity extends AppCompatActivity {
         setContentView(R.layout.activity_initial);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
-            StartActivity(SignUpActivity.class);
+            StartActivity(CommonSignInActivity.class);
         }
         else{
             // 로그인이 되어있다면 회원 정보가 등록됐는지 본다.

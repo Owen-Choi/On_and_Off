@@ -29,7 +29,6 @@ public class NormalSignInActivity extends AppCompatActivity implements SignInAct
         setContentView(R.layout.activity_normal_sign_in);
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.SignInButton).setOnClickListener(onClickListener);
-        findViewById(R.id.ToPasswordInitButton).setOnClickListener(onClickListener);
     }
 
     public void onStart() {
@@ -79,9 +78,6 @@ public class NormalSignInActivity extends AppCompatActivity implements SignInAct
                 // id가 RegisterButton에서 받아온 아이디라면 :
                 case R.id.SignInButton:
                     SignIn();
-                    break;
-                case R.id.ToPasswordInitButton:
-                    StartActivity(Password_Init_Activity.class);
                     break;
             }
         }

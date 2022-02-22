@@ -37,8 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.RegisterButton).setOnClickListener(onClickListener);
-        findViewById(R.id.ToNormalMemberSignInView).setOnClickListener(onClickListener);
-        findViewById(R.id.ToEnterpriseMemberSignInView).setOnClickListener(onClickListener);
+        findViewById(R.id.ToCommonSignInButton).setOnClickListener(onClickListener);
         radioGroup = findViewById(R.id.UserChoiceRadioButtonGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -124,11 +123,8 @@ public class SignUpActivity extends AppCompatActivity {
                 case R.id.RegisterButton:
                     SignUp();
                     break;
-                case R.id.ToNormalMemberSignInView:
-                    StartActivity(NormalSignInActivity.class);
-                    break;
-                case R.id.ToEnterpriseMemberSignInView:
-                    StartActivity(EnterpriseSignInActivity.class);
+                case R.id.ToCommonSignInButton:
+                    StartActivity(CommonSignInActivity.class);
                     break;
             }
         }

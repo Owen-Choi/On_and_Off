@@ -7,11 +7,11 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/EnterpriseSignInText"
+        android:id="@+id/CommonSignInText"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:gravity="center"
-        android:text="기업 회원 로그인"
+        android:text="회원 로그인"
         android:textColor="#000000"
         android:textSize="24sp" />
 
@@ -44,6 +44,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="로그인" />
+
+        <Button
+            android:id="@+id/CommonSignUpButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="회원가입" />
 
     </LinearLayout>
 

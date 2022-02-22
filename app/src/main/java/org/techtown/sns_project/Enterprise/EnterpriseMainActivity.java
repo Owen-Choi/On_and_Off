@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.techtown.sns_project.CommonSignInActivity;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.SignUpActivity;
 
@@ -39,7 +40,7 @@ public class EnterpriseMainActivity extends AppCompatActivity {
                 // 로그아웃 버튼을 누르면 로그아웃과 동시에 SignUp 페이지로 회귀
                 case R.id.EnterpriseMemberLogoutButton:
                     FirebaseAuth.getInstance().signOut();
-                    StartActivity(SignUpActivity.class);
+                    StartActivity(CommonSignInActivity.class);
                 case R.id.EnterpriseSettings:
                     StartActivity(EnterpriseSettingActivity.class);
                     break;

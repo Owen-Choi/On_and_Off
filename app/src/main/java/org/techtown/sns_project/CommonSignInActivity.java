@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Enterprise;
+package org.techtown.sns_project;
 
 
 import android.content.Intent;
@@ -15,18 +15,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
+import org.techtown.sns_project.Enterprise.EnterpriseMainActivity;
 import org.techtown.sns_project.Normal.NormalMainActivity;
-import org.techtown.sns_project.Password_Init_Activity;
-import org.techtown.sns_project.R;
-import org.techtown.sns_project.SignInActivity;
 
-public class EnterpriseSignInActivity extends AppCompatActivity implements SignInActivity {
+public class CommonSignInActivity extends AppCompatActivity implements SignInActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private FirebaseFirestore db;
@@ -34,9 +30,11 @@ public class EnterpriseSignInActivity extends AppCompatActivity implements SignI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_enterprise_sign_in);
+        setContentView(R.layout.activity_common_sign_in);
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.SignInButton).setOnClickListener(onClickListener);
+        findViewById(R.id.CommonSignUpButton).setOnClickListener(onClickListener);
+        //findViewById(R.id.ToPasswordInitButton).setOnClickListener(onClickListener);
     }
 
     public void onStart() {
@@ -58,14 +56,11 @@ public class EnterpriseSignInActivity extends AppCompatActivity implements SignI
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                // 여기서 user가 일반회원이라면 로그인 실패를 띄워야 한다.
                                 firebaseUser = mAuth.getCurrentUser();
                                 db = FirebaseFirestore.getInstance();
                                 CheckUser(firebaseUser, db);
-                                // UI 파트
                             } else {
                                 StartToast("로그인 실패 : 로그인 정보가 일치하지 않습니다.");
-                                // UI 파트
                             }
                         }
                     });
@@ -86,6 +81,10 @@ public class EnterpriseSignInActivity extends AppCompatActivity implements SignI
                 case R.id.SignInButton:
                     SignIn();
                     break;
+//                case R.id.ToPasswordInitButton:
+//                    StartActivity(Password_Init_Activity.class);
+                case R.id.CommonSignUpButton:
+                    StartActivity(SignUpActivity.class);
             }
         }
     };
@@ -113,10 +112,12 @@ public class EnterpriseSignInActivity extends AppCompatActivity implements SignI
                         if (document != null)
                             if (document.exists()) {
                                 if (tempPath.equals("users")) {
-                                    //StartActivity(NormalMainActivity.class);
-                                    StartToast("로그인 실패 : 일반 회원입니다.");
-                                } else if (tempPath.equals("enterprises"))
+                                    StartActivity(NormalMainActivity.class);
+                                    StartToast("일반 회원으로 로그인합니다.");
+                                } else if (tempPath.equals("enterprises")) {
                                     StartActivity(EnterpriseMainActivity.class);
+                                    StartToast("기업 회원으로 로그인합니다.");
+                                }
                             }
                     }
                 }
