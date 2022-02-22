@@ -32,11 +32,6 @@ public class SettingsFragmentForEnterprise extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        EditTextPreference memberInfo = (EditTextPreference)findPreference("signature");
-        SetMemberInfo(memberInfo, firebaseUser, db);
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse("https://github.com/Owen-Choi/ToyProject_SNS"));
@@ -50,22 +45,5 @@ public class SettingsFragmentForEnterprise extends PreferenceFragmentCompat {
         });
     }
 
-    private void SetMemberInfo(EditTextPreference memberInfo,
-                               FirebaseUser firebaseUser, FirebaseFirestore db) {
-        DocumentReference docrf = db.collection("enterprise").document(firebaseUser.getUid());
-        docrf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if(document.exists()) {
-                        MemberInfoClass memberInfoClass = document.toObject(MemberInfoClass.class);
-                        //memberInfo.setText(memberInfoClass.getName());
-                        memberInfo.setText("hi there");
-                    }
-                }
-            }
-        });
-    }
 
 }

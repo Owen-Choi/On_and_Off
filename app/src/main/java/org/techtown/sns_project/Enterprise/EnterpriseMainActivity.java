@@ -2,8 +2,12 @@ package org.techtown.sns_project.Enterprise;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -11,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.techtown.sns_project.CommonSignInActivity;
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.SettingsFragmentForEnterprise;
 import org.techtown.sns_project.SignUpActivity;
 
 public class EnterpriseMainActivity extends AppCompatActivity {
@@ -20,7 +25,6 @@ public class EnterpriseMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enterprise_main);
         findViewById(R.id.EnterpriseMemberLogoutButton).setOnClickListener(onClickListener);
-        findViewById(R.id.EnterpriseSettings).setOnClickListener(onClickListener);
         findViewById(R.id.EnterpsireQRButton).setOnClickListener(onClickListener);
         // manifest에서 첫 화면은 MainActivity로 설정되어있는데,
         // 로그인이 되지 않은 상태면 로그인창을 띄워야 한다.
@@ -29,6 +33,30 @@ public class EnterpriseMainActivity extends AppCompatActivity {
             StartActivity(SignUpActivity.class);
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.setting_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case  R.id.SettingMenu:
+                StartActivity(EnterpriseSettingActivity.class);
+                break;
+            case R.id.LogoutMenu:
+                FirebaseAuth.getInstance().signOut();
+                StartActivity(CommonSignInActivity.class);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void StartActivity(Class c) {
         Intent intent = new Intent(this, c);
         startActivity(intent);
@@ -38,12 +66,9 @@ public class EnterpriseMainActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch(view.getId()) {
                 // 로그아웃 버튼을 누르면 로그아웃과 동시에 SignUp 페이지로 회귀
-                case R.id.EnterpriseMemberLogoutButton:
-                    FirebaseAuth.getInstance().signOut();
-                    StartActivity(CommonSignInActivity.class);
-                case R.id.EnterpriseSettings:
-                    StartActivity(EnterpriseSettingActivity.class);
-                    break;
+//                case R.id.EnterpriseMemberLogoutButton:
+//                    FirebaseAuth.getInstance().signOut();
+//                    StartActivity(CommonSignInActivity.class);
                 case R.id.EnterpsireQRButton:
                     StartActivity(EnterpriseQRActivity.class);
                     break;
