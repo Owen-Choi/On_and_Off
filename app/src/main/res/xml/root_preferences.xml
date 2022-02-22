@@ -6,7 +6,8 @@
         <EditTextPreference
             app:key="signature"
             app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
+            app:useSimpleSummaryProvider="true"
+            />
 
         <ListPreference
             app:defaultValue="reply"

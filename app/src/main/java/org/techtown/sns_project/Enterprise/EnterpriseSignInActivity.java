@@ -15,6 +15,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.techtown.sns_project.Normal.NormalMainActivity;
 import org.techtown.sns_project.Password_Init_Activity;
@@ -23,6 +28,9 @@ import org.techtown.sns_project.SignInActivity;
 
 public class EnterpriseSignInActivity extends AppCompatActivity implements SignInActivity {
     private FirebaseAuth mAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,34 +43,34 @@ public class EnterpriseSignInActivity extends AppCompatActivity implements SignI
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null) {
+        if (currentUser != null) {
             currentUser.reload();
         }
     }
 
     @Override
     public void SignIn() {
-        String email = ((EditText)findViewById(R.id.EmailEditText)).getText().toString();
-        String password = ((EditText)findViewById(R.id.PasswordEditText)).getText().toString();
-        if(email.length() > 0 && password.length() > 0) {
+        String email = ((EditText) findViewById(R.id.EmailEditText)).getText().toString();
+        String password = ((EditText) findViewById(R.id.PasswordEditText)).getText().toString();
+        if (email.length() > 0 && password.length() > 0) {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this,
                     new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                StartToast("로그인 성공");
-                                // 로그인한 사용자의 정보를 가져오는 메서드로 추정
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                StartActivity(EnterpriseMainActivity.class);
+                                // 여기서 user가 일반회원이라면 로그인 실패를 띄워야 한다.
+                                firebaseUser = mAuth.getCurrentUser();
+                                db = FirebaseFirestore.getInstance();
+                                CheckUser(firebaseUser, db);
                                 // UI 파트
                             } else {
-                                StartToast("로그인 실패");
+                                StartToast("로그인 실패 : 로그인 정보가 일치하지 않습니다.");
                                 // UI 파트
                             }
                         }
                     });
-        }
-        else {
+        } else {
             StartToast("빈칸을 확인해주세요.");
         }
     }
@@ -94,4 +102,29 @@ public class EnterpriseSignInActivity extends AppCompatActivity implements SignI
         startActivity(intent);
     }
 
+    // 일단 내버려두고 사용처가 늘어나면 따로 클래스로 빼버리자
+    private void CheckUser(FirebaseUser firebaseUser, FirebaseFirestore db) {
+        String[] temp = {"users", "enterprises"};
+        FirebaseFirestore fb = FirebaseFirestore.getInstance();
+        for (String tempPath : temp) {
+            DocumentReference documentReference = fb.collection(tempPath).document(firebaseUser.getUid());
+            documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document != null)
+                            if (document.exists()) {
+                                if (tempPath.equals("users")) {
+                                    //StartActivity(NormalMainActivity.class);
+                                    StartToast("로그인 실패 : 일반 회원입니다.");
+                                } else if (tempPath.equals("enterprises"))
+                                    StartActivity(EnterpriseMainActivity.class);
+                            }
+                    }
+                }
+            });
+        }
+
+    }
 }
