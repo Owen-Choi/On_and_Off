@@ -1,13 +1,20 @@
 package org.techtown.sns_project.Enterprise;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+
+import org.techtown.sns_project.R;
 import org.techtown.sns_project.SettingsFragmentForEnterprise;
 
-public class EnterpriseSettingActivity extends AppCompatActivity {
+public class EnterpriseSettingActivity extends AppCompatActivity
+        implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +24,7 @@ public class EnterpriseSettingActivity extends AppCompatActivity {
         ActionBar menu = getSupportActionBar();
         menu.setDisplayShowHomeEnabled(true);
         menu.setDisplayHomeAsUpEnabled(true);
+
 
     }
 
@@ -31,5 +39,24 @@ public class EnterpriseSettingActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+
+    @SuppressLint("ResourceType")
+    @Override
+    public boolean onPreferenceStartFragment(PreferenceFragmentCompat caller, Preference pref) {
+        // Instantiate the new Fragment
+        final Bundle args = pref.getExtras();
+        final Fragment fragment = getSupportFragmentManager().getFragmentFactory().instantiate(
+                getClassLoader(),
+                pref.getFragment());
+        fragment.setArguments(args);
+        fragment.setTargetFragment(caller, 0);
+        // Replace the existing Fragment with the new Fragment
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.layout.member_setting_fragment, fragment)
+                .addToBackStack(null)
+                .commit();
+        return true;
+    }
 
 }

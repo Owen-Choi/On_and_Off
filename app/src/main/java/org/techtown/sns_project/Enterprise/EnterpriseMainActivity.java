@@ -66,9 +66,9 @@ public class EnterpriseMainActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch(view.getId()) {
                 // 로그아웃 버튼을 누르면 로그아웃과 동시에 SignUp 페이지로 회귀
-//                case R.id.EnterpriseMemberLogoutButton:
-//                    FirebaseAuth.getInstance().signOut();
-//                    StartActivity(CommonSignInActivity.class);
+                case R.id.EnterpriseMemberLogoutButton:
+                    FirebaseAuth.getInstance().signOut();
+                   StartActivity(CommonSignInActivity.class);
                 case R.id.EnterpsireQRButton:
                     StartActivity(EnterpriseQRActivity.class);
                     break;
