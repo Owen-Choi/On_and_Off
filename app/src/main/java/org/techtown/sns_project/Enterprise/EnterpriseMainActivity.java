@@ -14,8 +14,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.techtown.sns_project.CommonSignInActivity;
+import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.SettingsFragmentForEnterprise;
 import org.techtown.sns_project.SignUpActivity;
 
 public class EnterpriseMainActivity extends AppCompatActivity {

@@ -17,7 +17,6 @@
 <!--            app:title="@string/reply_title"-->
 <!--            app:useSimpleSummaryProvider="true" />-->
         <Preference
-            app:fragment="org.techtown.sns_project.R.member_setting_fragment"
             app:title="회원 정보"
             app:key="memberInfo"/>
     </PreferenceCategory>

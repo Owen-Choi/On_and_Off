@@ -6,6 +6,8 @@ public class MemberInfoClass {
     private String date;
     private String address;
 
+    public MemberInfoClass() { }
+
     public MemberInfoClass(String name, String phone, String date, String address) {
         this.name = name;
         this.phone = phone;

@@ -38,8 +38,9 @@
         <activity android:name=".Password_Init_Activity"></activity>
         <activity android:name=".Enterprise.EnterpriseMainActivity"></activity>
         <activity android:name=".Normal.NormalMainActivity"></activity>
-        <activity android:name=".Enterprise.EnterpriseSettingActivity"></activity>
+        <activity android:name=".Enterprise.Setting.EnterpriseSettingActivity"></activity>
         <activity android:name=".Enterprise.EnterpriseQRActivity"/>
+        <activity android:name=".Enterprise.Setting.EnterpriseMemberInfo"/>
         <activity android:name=".CommonSignInActivity"/>
         <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"

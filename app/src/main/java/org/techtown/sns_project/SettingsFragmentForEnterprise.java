@@ -4,15 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.SeekBarPreference;
+import androidx.preference.PreferenceManager;
+import androidx.preference.PreferenceScreen;
+
+import org.techtown.sns_project.Enterprise.Setting.EnterpriseMemberInfo;
+import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
 
 
 public class SettingsFragmentForEnterprise extends PreferenceFragmentCompat {
@@ -41,14 +40,16 @@ public class SettingsFragmentForEnterprise extends PreferenceFragmentCompat {
         memberInfo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                LayoutInflater inflater = getLayoutInflater();
-                View v1 = inflater.inflate(R.layout.member_setting_fragment, null);
+                StartActivity(EnterpriseMemberInfo.class);
                 return true;
             }
         });
     }
 
-
+    private void StartActivity(Class c) {
+        Intent intent = new Intent(getActivity(), c);
+        startActivity(intent);
+    }
 
 
 }
