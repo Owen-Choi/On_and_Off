@@ -125,6 +125,7 @@ public class SignUpActivity extends AppCompatActivity {
                     break;
                 case R.id.ToCommonSignInButton:
                     StartActivity(CommonSignInActivity.class);
+//                    finish();
                     break;
             }
         }

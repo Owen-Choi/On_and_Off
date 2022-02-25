@@ -14,6 +14,7 @@ import androidx.preference.PreferenceScreen;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseMemberInfo;
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
@@ -64,6 +65,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                         firebaseAuth.getCurrentUser().delete();
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        db.collection("users").document(firebaseAuth.getCurrentUser().getUid())
+                                .delete();
                         // 추가적으로 db의 정보들도 삭제해야함.
                         builder.setMessage("정상적으로 탈퇴되었습니다.");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

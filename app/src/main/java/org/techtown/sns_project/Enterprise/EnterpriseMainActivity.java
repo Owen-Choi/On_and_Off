@@ -51,6 +51,7 @@ public class EnterpriseMainActivity extends AppCompatActivity {
             case R.id.LogoutMenu:
                 FirebaseAuth.getInstance().signOut();
                 StartActivity(CommonSignInActivity.class);
+                finish();
                 break;
         }
 
@@ -69,6 +70,7 @@ public class EnterpriseMainActivity extends AppCompatActivity {
                 case R.id.EnterpriseMemberLogoutButton:
                     FirebaseAuth.getInstance().signOut();
                    StartActivity(CommonSignInActivity.class);
+                   break;
                 case R.id.EnterpsireQRButton:
                     StartActivity(EnterpriseQRActivity.class);
                     break;
