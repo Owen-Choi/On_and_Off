@@ -12,11 +12,12 @@ import androidx.preference.PreferenceScreen;
 
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseMemberInfo;
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
+import org.techtown.sns_project.Normal.Setting.NormalMemberInfo;
 
 
-public class SettingsFragmentForEnterprise extends PreferenceFragmentCompat {
+public class SettingsFragment extends PreferenceFragmentCompat {
 
-    public SettingsFragmentForEnterprise() {
+    public SettingsFragment() {
     }
 
     @SuppressLint("ResourceType")
@@ -37,10 +38,12 @@ public class SettingsFragmentForEnterprise extends PreferenceFragmentCompat {
             }
         });
 
+        // 두가지 방법이 있다. 일반 회원인지 기업 회원인지 판단한 후 화면을 다르게 띄워주거나
+        // 아예 클래스를 분리해서 기업용 클래스를 하나 더 만들거나.
         memberInfo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                StartActivity(EnterpriseMemberInfo.class);
+                StartActivity(NormalMemberInfo.class);
                 return true;
             }
         });

@@ -40,17 +40,18 @@
         app:icon="@drawable/ic_baseline_notifications_24"
         app:title="notifications">
 
-        <SeekBarPreference
-            android:key="volume_notifications"
-            app:title="volume"
-            app:showSeekBarValue="true"
-            app:defaultValue="50"/>
-
         <SwitchPreferenceCompat
             android:key="notifications"
             app:title="Enable notifications"
             android:summaryOn="알림을 켭니다."
             android:summaryOff="알림을 끕니다."/>
+
+        <SeekBarPreference
+            android:dependency="notifications"
+            android:key="volume_notifications"
+            app:title="volume"
+            app:showSeekBarValue="true"
+            app:defaultValue="50"/>
 
         <ListPreference
             android:dependency="notifications"
@@ -69,6 +70,6 @@
             android:summary="1.0.0"/>
         <Preference
             android:key="contact_preference"
-            android:title="About us"/>
+            android:title="Developer Information"/>
     </PreferenceCategory>
 </PreferenceScreen>

@@ -17,7 +17,7 @@
         android:id="@+id/NameView"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="Name" />
+        android:text="Company name" />
 
     <TextView
         android:id="@+id/NameText"
@@ -32,7 +32,7 @@
         android:id="@+id/AddressView"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="Address" />
+        android:text="Location of company" />
 
     <TextView
         android:id="@+id/AddressText"
@@ -47,7 +47,7 @@
         android:id="@+id/DateView"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="Date" />
+        android:text="Founding date" />
 
     <TextView
         android:id="@+id/DateText"
@@ -62,7 +62,7 @@
         android:id="@+id/PhoneView"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="PhoneNumber" />
+        android:text="Telephone number" />
 
     <TextView
         android:id="@+id/PhoneText"
@@ -78,5 +78,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="회원 정보 변경하기" />
+
 </LinearLayout>
 

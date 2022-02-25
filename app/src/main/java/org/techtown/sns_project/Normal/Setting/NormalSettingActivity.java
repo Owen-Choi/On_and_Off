@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Enterprise.Setting;
+package org.techtown.sns_project.Normal.Setting;
 
 import android.os.Bundle;
 
@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.techtown.sns_project.SettingsFragment;
 
-public class EnterpriseSettingActivity extends AppCompatActivity {
+public class NormalSettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
