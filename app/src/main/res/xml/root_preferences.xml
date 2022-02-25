@@ -19,6 +19,9 @@
         <Preference
             app:title="회원 정보"
             app:key="memberInfo"/>
+        <Preference
+            app:title="비밀번호 변경"
+            app:key="change_pw"/>
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/sync_header">
@@ -72,4 +75,8 @@
             android:key="contact_preference"
             android:title="Developer Information"/>
     </PreferenceCategory>
+
+    <Preference
+        app:title="회원 탈퇴"
+        app:key="withdrawal"/>
 </PreferenceScreen>
