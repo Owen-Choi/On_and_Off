@@ -30,7 +30,7 @@ public class Activity_codi extends AppCompatActivity {
     RecyclerView recyclerView_Codi, recyclerView_Similar;
     CodiAdapter Cadapter;
     SimilarAdapter Sadapter;
-    String Codi_Url ="https://store.musinsa.com/app/goods/1551840";
+    String Codi_Url ="";
     ImageView txt_ProductImg ;
     TextView txt_ProductBrand, txt_ProductTitle,txt_ProductPrice,txt_ProductTag;
     String TAG="DONG";

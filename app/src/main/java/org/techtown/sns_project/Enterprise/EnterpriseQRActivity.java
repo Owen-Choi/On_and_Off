@@ -72,58 +72,54 @@ public class EnterpriseQRActivity extends AppCompatActivity {
         }
     };*/
 
-    findViewById(R.id.generate_barcode).setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            String URL = ((EditText)findViewById(R.id.URLTextBox)).getText().toString();
-            if (inputValue.length() > 0) {
-                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                New_Parser new_parser = new New_Parser(firebaseAuth, firebaseUser, db, URL);
-                WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
-                Display display = manager.getDefaultDisplay();
-                Point point = new Point();
-                display.getSize(point);
-                int width = point.x;
-                int height = point.y;
-                int smallerDimension = width < height ? width : height;
-                smallerDimension = smallerDimension * 3 / 4;
+    findViewById(R.id.generate_barcode).setOnClickListener(view -> {
+        inputValue = edtValue.getText().toString().trim();
+        if (inputValue.length() > 0) {
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            New_Parser new_parser = new New_Parser(firebaseAuth, firebaseUser, db, inputValue);
+            WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
+            Display display = manager.getDefaultDisplay();
+            Point point = new Point();
+            display.getSize(point);
+            int width = point.x;
+            int height = point.y;
+            int smallerDimension = width < height ? width : height;
+            smallerDimension = smallerDimension * 3 / 4;
 
-                qrgEncoder = new QRGEncoder(
-                        inputValue, null,
-                        QRGContents.Type.TEXT,
-                        smallerDimension);
-                qrgEncoder.setColorBlack(Color.BLACK);
-                qrgEncoder.setColorWhite(Color.WHITE);
+            qrgEncoder = new QRGEncoder(
+                    inputValue, null,
+                    QRGContents.Type.TEXT,
+                    smallerDimension);
+            qrgEncoder.setColorBlack(Color.BLACK);
+            qrgEncoder.setColorWhite(Color.WHITE);
+            try {
+                bitmap = qrgEncoder.getBitmap();
+                qrImage.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            edtValue.setError(getResources().getString(R.string.value_required));
+        }
+
+    });
+
+        findViewById(R.id.save_barcode).setOnClickListener(v -> {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 try {
-                    bitmap = qrgEncoder.getBitmap();
-                    qrImage.setImageBitmap(bitmap);
+                    String url =  edtValue.getText().toString().trim().replace("https://store.musinsa.com/app/goods/","");
+
+                    boolean save = new QRGSaver().save(savePath, edtValue.getText().toString().trim(), bitmap, QRGContents.ImageType.IMAGE_JPEG);
+                    String result = save ? "Image Saved" : "Image Not Saved";
+                    Toast.makeText(activity, result, Toast.LENGTH_LONG).show();
+                    edtValue.setText(null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else {
-                edtValue.setError(getResources().getString(R.string.value_required));
-            }
-
-        }
-    });
-
-        findViewById(R.id.save_barcode).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    try {
-                        boolean save = new QRGSaver().save(savePath, edtValue.getText().toString().trim(), bitmap, QRGContents.ImageType.IMAGE_JPEG);
-                        String result = save ? "Image Saved" : "Image Not Saved";
-                        Toast.makeText(activity, result, Toast.LENGTH_LONG).show();
-                        edtValue.setText(null);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-                }
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             }
         });
 
