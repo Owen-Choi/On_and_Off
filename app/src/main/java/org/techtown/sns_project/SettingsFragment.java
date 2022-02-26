@@ -69,15 +69,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         db.collection("users").document(firebaseAuth.getCurrentUser().getUid())
                                 .delete();
                         // 추가적으로 db의 정보들도 삭제해야함.
-                        builder.setMessage("정상적으로 탈퇴되었습니다.");
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // 이 부분은 약간의 수정여지가 있다.
-                                System.exit(0);
-                            }
-                        });
-                        builder.show();
+//                        builder.setMessage("정상적으로 탈퇴되었습니다.");
+//                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                // 이 부분은 약간의 수정여지가 있다.
+//                                System.exit(0);
+//                            }
+//                        });
+//                        builder.show();
                     }
                 });
                 builder.show();

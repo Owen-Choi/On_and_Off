@@ -7,16 +7,10 @@
     tools:context=".Normal.NormalMainActivity">
 
     <Button
-        android:id="@+id/EnterpriseMemberLogoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout" />
-
-    <Button
         android:id="@+id/EnterpsireQRButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="QR"
+        android:text="QR Generation"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="667dp" />
 
