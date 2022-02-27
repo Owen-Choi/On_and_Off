@@ -25,21 +25,21 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <!-- 새로 추가되는 Activity(view?)들은 모두 manifest에 추가를 해주어야 한다. -->
-        <activity android:name=".Normal.NormalSignInActivity"></activity>
-        <activity android:name=".Enterprise.EnterpriseSignInActivity"></activity>
-        <activity android:name=".Enterprise.EnterpriseMemberInfoActivity"></activity>
-        <activity android:name=".Normal.NormalMemberInfoActivity"></activity>
-        <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".Password_Init_Activity"></activity>
-        <activity android:name=".Enterprise.EnterpriseMainActivity"></activity>
-        <activity android:name=".Normal.NormalMainActivity"></activity>
-        <activity android:name=".Enterprise.Setting.EnterpriseSettingActivity"></activity>
-        <activity android:name=".Enterprise.EnterpriseQRListClickEvent"></activity>
+        <activity android:name=".Normal.NormalSignInActivity"/>
+        <activity android:name=".Enterprise.EnterpriseSignInActivity"/>
+        <activity android:name=".Enterprise.EnterpriseMemberInfoActivity"/>
+        <activity android:name=".Normal.NormalMemberInfoActivity"/>
+        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".Password_Init_Activity"/>
+        <activity android:name=".Enterprise.EnterpriseMainActivity"/>
+        <activity android:name=".Normal.NormalMainActivity"/>
+        <activity android:name=".Enterprise.Setting.EnterpriseSettingActivity" />
+        <activity android:name=".Enterprise.EnterpriseQRListClickEvent" />
         <activity android:name=".Enterprise.EnterpriseQRActivity"/>
         <activity android:name=".Enterprise.EnterpriseQRListActivity"/>
         <activity android:name=".Enterprise.Setting.EnterpriseMemberInfo"/>
@@ -52,8 +52,6 @@
 
         <activity android:name=".cameraexample.ScanQR"
             android:exported="true">
-            <!--   <activity android:name=".MainActivity">-->
-
         </activity>
 
         <provider
@@ -66,25 +64,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity
-            android:name=".cameraexample.Activity_codi"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme">
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data
-                    android:host="donghyeok.page.link"
-                    android:scheme="http"/>
-                <data
-                    android:host="donghyeok.page.link"
-                    android:scheme="https"/>
-
-            </intent-filter>
-        </activity>
+        <activity android:name=".cameraexample.Activity_codi"> </activity>
 
 
     </application>
