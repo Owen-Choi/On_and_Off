@@ -3,8 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_codi.xml" value="0.21197916666666666" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_enterprise_main.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_enterprise_qr_generate.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_enterprise_qr_list.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_enterprise_qr_list_click.xml" value="0.21197916666666666" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_enterprise_qr_list_item.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_normal_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/item_codi.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/similar_codi.xml" value="0.21197916666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.2515625" />

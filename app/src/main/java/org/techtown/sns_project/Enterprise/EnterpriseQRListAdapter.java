@@ -20,7 +20,16 @@ import java.util.ArrayList;
 public class EnterpriseQRListAdapter extends RecyclerView.Adapter<EnterpriseQRListAdapter.ItemViewHolder> {
 
     private ArrayList<ProductInfo> listData = new ArrayList<>();
-
+    //아이템 클릭 리스너 인터페이스
+    interface OnItemClickListener{
+        void onItemClick(View v, int position); //뷰와 포지션값
+    }
+    //리스너 객체 참조 변수
+    private OnItemClickListener mListener = null;
+    //리스너 객체 참조를 어댑터에 전달 메서드
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
     @NonNull
     @Override
     public EnterpriseQRListAdapter.ItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -54,6 +63,17 @@ public class EnterpriseQRListAdapter extends RecyclerView.Adapter<EnterpriseQRLi
             txt_ProductTitle = itemView.findViewById(R.id.txt_ProductTitle);
             Img_ProductImg     = itemView.findViewById(R.id.Img_ProductImg);
 
+            itemView.setOnClickListener (new View.OnClickListener () {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition ();
+                    if (position!=RecyclerView.NO_POSITION){
+                        if (mListener!=null){
+                            mListener.onItemClick (view,position);
+                        }
+                    }
+                }
+            });
         }
 
         void onBind(ProductInfo data){

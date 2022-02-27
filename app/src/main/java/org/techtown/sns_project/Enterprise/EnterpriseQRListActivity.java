@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -62,6 +64,18 @@ public class EnterpriseQRListActivity  extends AppCompatActivity {
         recyclerView_QrList.setLayoutManager(QrList);
         adapter = new EnterpriseQRListAdapter();
         recyclerView_QrList.setAdapter(adapter);
+
+        adapter.setOnItemClickListener (new EnterpriseQRListAdapter.OnItemClickListener () {
+
+            //아이템 클릭시 토스트메시지
+            @Override
+            public void onItemClick(View v, int position) {
+                String url = listUrl.get (position);
+                System.out.println("DONG : "+url);
+                StartActivity(EnterpriseQRListClickEvent.class,url);
+            }
+
+        });
         db.collection("enterprises").document(firebaseUser.getUid()).collection("brand").get().
                 addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -102,7 +116,14 @@ public class EnterpriseQRListActivity  extends AppCompatActivity {
 
 
     }
+    private void StartToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 
-
+    private void StartActivity(Class c,String key) {
+        Intent intent = new Intent(this, c);
+        intent.putExtra("key", key);
+        startActivity(intent);
+    }
 }
 

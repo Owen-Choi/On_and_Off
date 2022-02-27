@@ -39,6 +39,7 @@
         <activity android:name=".Enterprise.EnterpriseMainActivity"></activity>
         <activity android:name=".Normal.NormalMainActivity"></activity>
         <activity android:name=".Enterprise.Setting.EnterpriseSettingActivity"></activity>
+        <activity android:name=".Enterprise.EnterpriseQRListClickEvent"></activity>
         <activity android:name=".Enterprise.EnterpriseQRActivity"/>
         <activity android:name=".Enterprise.EnterpriseQRListActivity"/>
         <activity android:name=".Enterprise.Setting.EnterpriseMemberInfo"/>
