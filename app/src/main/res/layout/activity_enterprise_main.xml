@@ -13,5 +13,9 @@
         android:text="QR Generation"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="667dp" />
-
+    <Button
+        android:id="@+id/EnterpriseQRListButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="QR List"/>
 </androidx.appcompat.widget.LinearLayoutCompat>
