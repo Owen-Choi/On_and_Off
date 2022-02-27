@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class EnterpriseQRListAdapter extends RecyclerView.Adapter<EnterpriseQRListAdapter.ItemViewHolder> {
 
-    private ArrayList<ProductInfo> listData = new ArrayList<>();
+    static private ArrayList<ProductInfo> listData = new ArrayList<>();
     //아이템 클릭 리스너 인터페이스
     interface OnItemClickListener{
         void onItemClick(View v, int position); //뷰와 포지션값
@@ -48,9 +48,14 @@ public class EnterpriseQRListAdapter extends RecyclerView.Adapter<EnterpriseQRLi
     public int getItemCount() {
         return listData.size();
     }
+
     void addItem(ProductInfo data) {
         // 외부에서 item을 추가시킬 함수입니다.
         listData.add(data);
+    }
+     void removeItem(int position) {
+        listData.remove(position);
+        notifyItemRemoved(position);
     }
     class ItemViewHolder extends RecyclerView.ViewHolder{
 
@@ -106,4 +111,5 @@ public class EnterpriseQRListAdapter extends RecyclerView.Adapter<EnterpriseQRLi
 
         }
     }
+
 }
