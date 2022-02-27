@@ -54,13 +54,14 @@ public class EnterpriseQRListAdapter extends RecyclerView.Adapter<EnterpriseQRLi
     }
     class ItemViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView txt_ProductInfo, txt_ProductTitle;
+        private TextView txt_ProductInfo, txt_ProductTitle,txt_ProductPrice;
         private ImageView Img_ProductImg;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             txt_ProductInfo = itemView.findViewById(R.id.txt_ProductInfo);
             txt_ProductTitle = itemView.findViewById(R.id.txt_ProductTitle);
+            txt_ProductPrice = itemView.findViewById(R.id.txt_ProductPrice);
             Img_ProductImg     = itemView.findViewById(R.id.Img_ProductImg);
 
             itemView.setOnClickListener (new View.OnClickListener () {
@@ -79,7 +80,7 @@ public class EnterpriseQRListAdapter extends RecyclerView.Adapter<EnterpriseQRLi
         void onBind(ProductInfo data){
             String info=data.getInfo();
             String title=data.getTitle();
-            String Price=data.getTitle();
+            String Price=data.getPrice();
             if(info!=null)
                 txt_ProductInfo.setText(info);
             else
@@ -94,10 +95,10 @@ public class EnterpriseQRListAdapter extends RecyclerView.Adapter<EnterpriseQRLi
                 txt_ProductTitle.setText("null");
             }
             if(Price!=null)
-                txt_ProductTitle.setText(Price);
+                txt_ProductPrice.setText(Price);
             else
             {
-                txt_ProductTitle.setText("null");
+                txt_ProductPrice.setText("null");
             }
 
 
