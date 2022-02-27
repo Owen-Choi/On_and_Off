@@ -34,6 +34,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         i.setData(Uri.parse("https://github.com/Owen-Choi/ToyProject_SNS"));
         Preference mypref = (Preference)findPreference("contact_preference");
         Preference memberInfo = (Preference)findPreference("memberInfo");
+        Preference PWChange = (Preference)findPreference("change_pw");
         Preference withdrawal = (Preference)findPreference("withdrawal");
 //        SeekBarPreference sp = findPreference("volume_notifications");
 //        sp.getValue();
@@ -51,6 +52,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 StartActivity(NormalMemberInfo.class);
+                return true;
+            }
+        });
+
+        PWChange.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                StartActivity(Password_Init_Activity.class);
                 return true;
             }
         });

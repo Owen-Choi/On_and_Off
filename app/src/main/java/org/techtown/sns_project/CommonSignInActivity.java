@@ -34,6 +34,7 @@ public class CommonSignInActivity extends AppCompatActivity implements SignInAct
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.SignInButton).setOnClickListener(onClickListener);
         findViewById(R.id.CommonSignUpButton).setOnClickListener(onClickListener);
+        findViewById(R.id.FindPassWord).setOnClickListener(onClickListener);
         //findViewById(R.id.ToPasswordInitButton).setOnClickListener(onClickListener);
     }
 
@@ -85,6 +86,10 @@ public class CommonSignInActivity extends AppCompatActivity implements SignInAct
 //                    StartActivity(Password_Init_Activity.class);
                 case R.id.CommonSignUpButton:
                     StartActivity(SignUpActivity.class);
+                    break;
+                case R.id.FindPassWord:
+                    StartActivity(Password_Init_Activity.class);
+                    break;
             }
         }
     };

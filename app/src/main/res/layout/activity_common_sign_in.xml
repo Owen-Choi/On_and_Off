@@ -51,6 +51,12 @@
             android:layout_height="wrap_content"
             android:text="회원가입" />
 
+        <Button
+            android:id="@+id/FindPassWord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 찾기" />
+
     </LinearLayout>
 
 </LinearLayout>

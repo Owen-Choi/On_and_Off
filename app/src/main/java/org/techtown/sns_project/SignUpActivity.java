@@ -22,9 +22,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.sns_project.Enterprise.EnterpriseMemberInfoActivity;
-import org.techtown.sns_project.Enterprise.EnterpriseSignInActivity;
 import org.techtown.sns_project.Normal.NormalMemberInfoActivity;
-import org.techtown.sns_project.Normal.NormalSignInActivity;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -163,10 +161,7 @@ public class SignUpActivity extends AppCompatActivity {
                     if(document != null){
                         if(document.exists())
                             // 이미 등록한 회원 정보가 있다면 바로 로그인화면으로 이동하도록 한다.
-                            if(isNormal)
-                                StartActivity(NormalSignInActivity.class);
-                            else
-                                StartActivity(EnterpriseSignInActivity.class);
+                                StartActivity(CommonSignInActivity.class);
                         else
                             // 등록한 회원정보가 없다면 회원 등록 화면으로 이동하도록 한다.
                             if(isNormal)
