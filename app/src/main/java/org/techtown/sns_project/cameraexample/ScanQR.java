@@ -66,7 +66,6 @@ public class ScanQR extends AppCompatActivity {
                 // todo
                 Intent intent = new Intent(getApplicationContext(),Activity_codi.class);
                 String key = result.getContents();
-                key = key.replace("https://donghyeok.page.link/29hQ?key=","");
                 intent.putExtra("key", key);
                 startActivity(intent);
 
