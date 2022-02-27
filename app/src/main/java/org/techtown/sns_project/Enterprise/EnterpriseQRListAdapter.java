@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class EnterpriseQRListAdapter extends RecyclerView.Adapter<EnterpriseQRListAdapter.ItemViewHolder> {
 
-    static private ArrayList<ProductInfo> listData = new ArrayList<>();
+    static  ArrayList<ProductInfo> listData = new ArrayList<>();
     //아이템 클릭 리스너 인터페이스
     interface OnItemClickListener{
         void onItemClick(View v, int position); //뷰와 포지션값

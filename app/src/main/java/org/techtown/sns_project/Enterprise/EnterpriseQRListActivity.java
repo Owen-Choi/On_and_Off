@@ -79,9 +79,16 @@ public class EnterpriseQRListActivity  extends AppCompatActivity {
         db.collection("enterprises").document(firebaseUser.getUid()).collection("brand").get().
                 addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        listUrl.clear();
+                        listPrice.clear();
+                        listTitle.clear();
+                        listUrl.clear();
+                        listInfo.clear();
+                        adapter.listData.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
 
                             List = (HashMap<String, Object>) document.getData();
+
                             listImgUrl.add((String)List.get("imgURL"));
                             System.out.println("test"+List.get("imgURL"));
 

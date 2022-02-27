@@ -105,8 +105,12 @@ public class EnterpriseQRListClickEvent extends AppCompatActivity {
                 @Override
                 public void onSuccess(Void aVoid) {
 
-
                     EnterpriseQRListActivity.adapter.removeItem(position);
+                    EnterpriseQRListActivity.listTitle.remove(position);
+                    EnterpriseQRListActivity.listInfo.remove(position);
+                    EnterpriseQRListActivity.listUrl.remove(position);
+                    EnterpriseQRListActivity.listPrice.remove(position);
+                    EnterpriseQRListActivity.listImgUrl.remove(position);
                     Log.d(TAG, "DocumentSnapshot successfully deleted!");
                     finish();
                 }
