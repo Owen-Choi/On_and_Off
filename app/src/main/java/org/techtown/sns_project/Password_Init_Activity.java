@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,18 +19,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.techtown.sns_project.Normal.NormalMainActivity;
-
 public class Password_Init_Activity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private FirebaseUser fb;
-    static String tempEmail;
+    private FirebaseUser user;
+    static String email = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_init);
         mAuth = FirebaseAuth.getInstance();
-        fb = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
         findViewById(R.id.SendButton).setOnClickListener(onClickListener);
     }
 
@@ -40,8 +39,7 @@ public class Password_Init_Activity extends AppCompatActivity {
         // 그렇지 않다면 다이얼로그로부터 입력을 받는다.
         // 로그인화면에서 비밀번호를 재설정할 경우 로그인이 되어있지 않고,
         // 설정 화면에서 비밀번호를 재설정할 경우 로그인이 되어있기 때문에 분기를 나누는 것.
-        String email;
-        if(fb == null) {
+        if(user == null) {
             // 다이얼로그로 이메일 받기
             final EditText input = new EditText(this);
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -52,21 +50,28 @@ public class Password_Init_Activity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     StartToast("취소하셨습니다.");
+                    dialogInterface.cancel();
                 }
             });
 
             alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    tempEmail = input.getText().toString();
+                    email = input.getText().toString();
+                    createAlert();
                 }
             });
+
             alert.show();
-           email = tempEmail;
         }
         else {
-            email = fb.getEmail();
+            email = user.getEmail();
+            createAlert();
         }
+
+    }
+
+    private void createAlert() {
         if(email.length() > 0) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setCancelable(true);
@@ -97,7 +102,6 @@ public class Password_Init_Activity extends AppCompatActivity {
                     StartToast("이메일이 정상적으로 발송되었습니다.");
                     mAuth.signOut();
                     StartActivity(CommonSignInActivity.class);
-                    // 로그인 화면으로 돌아갔으면 좋겠는데..
                 }
             }
         }).addOnFailureListener(this, new OnFailureListener() {

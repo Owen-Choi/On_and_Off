@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -77,16 +78,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         db.collection("users").document(firebaseAuth.getCurrentUser().getUid())
                                 .delete();
-                        // 추가적으로 db의 정보들도 삭제해야함.
-//                        builder.setMessage("정상적으로 탈퇴되었습니다.");
-//                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                // 이 부분은 약간의 수정여지가 있다.
-//                                System.exit(0);
-//                            }
-//                        });
-//                        builder.show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
                     }
                 });
                 builder.show();
