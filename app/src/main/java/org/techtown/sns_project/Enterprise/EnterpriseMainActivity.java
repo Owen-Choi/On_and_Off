@@ -2,6 +2,7 @@ package org.techtown.sns_project.Enterprise;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.techtown.sns_project.CommonSignInActivity;
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
@@ -20,11 +23,13 @@ import org.techtown.sns_project.SignUpActivity;
 
 public class EnterpriseMainActivity extends AppCompatActivity {
     private final String TAG = "MainActivityDB";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enterprise_main);
         findViewById(R.id.EnterpsireQRButton).setOnClickListener(onClickListener);
+        findViewById(R.id.EnterpriseQRListButton).setOnClickListener(onClickListener);
         // manifest에서 첫 화면은 MainActivity로 설정되어있는데,
         // 로그인이 되지 않은 상태면 로그인창을 띄워야 한다.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -67,6 +72,10 @@ public class EnterpriseMainActivity extends AppCompatActivity {
             switch(view.getId()) {
                 case R.id.EnterpsireQRButton:
                     StartActivity(EnterpriseQRActivity.class);
+                    break;
+                case R.id.EnterpriseQRListButton:
+
+                    StartActivity(EnterpriseQRListActivity.class);
                     break;
             }
         }
