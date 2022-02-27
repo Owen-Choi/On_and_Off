@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:title="홈"
+        android:icon="@drawable/ic_home"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/nav_board"
+        android:title="게시판"
+        android:icon="@drawable/ic_search"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/nav_qr"
+        android:title="QR버튼"
+        android:icon="@drawable/ic_add"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/nav_something"
+        android:title="알파"
+        android:icon="@drawable/ic_heart"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:title="마이페이지"
+        android:icon="@drawable/ic_profile"
+        android:enabled="true"
+        />
+
+</menu>
