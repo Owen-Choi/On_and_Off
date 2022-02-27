@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -74,7 +75,8 @@ public class New_Parser {
 
             ProductInfo pi = new ProductInfo(URL, "https:"+productImg.attr("src"), title
                     , productINFO.text(), product_price);
-            db.collection("InfoFromURL").document(user.getUid()).set(pi);
+            db.collection("enterprises").document(user.getUid()).collection("brand").
+                    document(pi.getURL().replace("https://store.musinsa.com/app/goods/","")).set(pi);
 
 
             return null;

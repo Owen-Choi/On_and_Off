@@ -40,6 +40,7 @@
         <activity android:name=".Normal.NormalMainActivity"></activity>
         <activity android:name=".Enterprise.Setting.EnterpriseSettingActivity"></activity>
         <activity android:name=".Enterprise.EnterpriseQRActivity"/>
+        <activity android:name=".Enterprise.EnterpriseQRListActivity"/>
         <activity android:name=".Enterprise.Setting.EnterpriseMemberInfo"/>
         <activity android:name=".CommonSignInActivity"/>
         <activity android:name=".Normal.Setting.NormalSettingActivity"/>
@@ -51,11 +52,7 @@
         <activity android:name=".cameraexample.ScanQR"
             android:exported="true">
             <!--   <activity android:name=".MainActivity">-->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <provider

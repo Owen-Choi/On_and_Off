@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.os.Environment;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -52,25 +53,7 @@ public class EnterpriseQRActivity extends AppCompatActivity {
         qrImage = findViewById(R.id.qr_image);
         edtValue = findViewById(R.id.URLTextBox);
         activity = this;
-
-
-
-    /*View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if(view.getId() == R.id.generate_barcode){
-                String URL = ((EditText)findViewById(R.id.URLTextBox)).getText().toString();
-                if(URL.equals(""))
-                    StartToast("please fill the blank");
-                else {
-                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    New_Parser new_parser = new New_Parser(firebaseAuth, firebaseUser, db, URL);
-                }
-            }
-        }
-    };*/
+        
 
     findViewById(R.id.generate_barcode).setOnClickListener(view -> {
         inputValue = edtValue.getText().toString().trim();
@@ -103,15 +86,16 @@ public class EnterpriseQRActivity extends AppCompatActivity {
         } else {
             edtValue.setError(getResources().getString(R.string.value_required));
         }
-
     });
+
 
         findViewById(R.id.save_barcode).setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 try {
-                    String url =  edtValue.getText().toString().trim().replace("https://store.musinsa.com/app/goods/","");
+                    String url =  edtValue.getText().toString().trim();
+                    url = url.replace("https://store.musinsa.com/app/goods/","");
 
-                    boolean save = new QRGSaver().save(savePath, edtValue.getText().toString().trim(), bitmap, QRGContents.ImageType.IMAGE_JPEG);
+                    boolean save = new QRGSaver().save(savePath, url, bitmap, QRGContents.ImageType.IMAGE_JPEG);
                     String result = save ? "Image Saved" : "Image Not Saved";
                     Toast.makeText(activity, result, Toast.LENGTH_LONG).show();
                     edtValue.setText(null);
@@ -122,8 +106,8 @@ public class EnterpriseQRActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             }
         });
-
     }
+
     private void StartToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
