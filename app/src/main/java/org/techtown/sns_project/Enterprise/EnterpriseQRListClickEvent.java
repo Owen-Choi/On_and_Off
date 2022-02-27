@@ -1,6 +1,7 @@
 package org.techtown.sns_project.Enterprise;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,11 +38,10 @@ import org.techtown.sns_project.qr.QRGSaver;
 
 import java.io.IOException;
 
-public class EnterpriseQRActivity extends AppCompatActivity {
+public class EnterpriseQRListClickEvent extends AppCompatActivity {
 
-    private EditText edtValue;
     private ImageView qrImage;
-    private String inputValue;
+    private TextView txt_ProductUrl;
     private String savePath = Environment.getExternalStorageDirectory().getPath() + "/QRCode/";
     private Bitmap bitmap;
     private QRGEncoder qrgEncoder;
@@ -49,19 +50,15 @@ public class EnterpriseQRActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_enterprise_qr_generate);
+        setContentView(R.layout.activity_enterprise_qr_list_click);
+        Intent intent = getIntent();
+        final String key = intent.getStringExtra("key").replace("https://store.musinsa.com/app/goods/","");
         qrImage = findViewById(R.id.qr_image);
-        edtValue = findViewById(R.id.URLTextBox);
+        txt_ProductUrl = findViewById(R.id.txt_ProductUrl);
         activity = this;
-        
+        txt_ProductUrl.setText(key);
 
-    findViewById(R.id.generate_barcode).setOnClickListener(view -> {
-        inputValue = edtValue.getText().toString().trim();
-        if (inputValue.length() > 0) {
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            New_Parser new_parser = new New_Parser(firebaseAuth, firebaseUser, db, inputValue);
+        if (key.length() > 0) {
             WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
             Display display = manager.getDefaultDisplay();
             Point point = new Point();
@@ -72,7 +69,7 @@ public class EnterpriseQRActivity extends AppCompatActivity {
             smallerDimension = smallerDimension * 3 / 4;
 
             qrgEncoder = new QRGEncoder(
-                    inputValue, null,
+                    key, null,
                     QRGContents.Type.TEXT,
                     smallerDimension);
             qrgEncoder.setColorBlack(Color.BLACK);
@@ -84,21 +81,18 @@ public class EnterpriseQRActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else {
-            edtValue.setError(getResources().getString(R.string.value_required));
+            StartToast("ERROR!");
         }
-    });
 
 
         findViewById(R.id.save_barcode).setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 try {
-                    String url =  edtValue.getText().toString().trim();
-                    url = url.replace("https://store.musinsa.com/app/goods/","");
 
-                    boolean save = new QRGSaver().save(savePath, url, bitmap, QRGContents.ImageType.IMAGE_JPEG);
+                    boolean save = new QRGSaver().save(savePath, key, bitmap, QRGContents.ImageType.IMAGE_JPEG);
                     String result = save ? "Image Saved" : "Image Not Saved";
                     Toast.makeText(activity, result, Toast.LENGTH_LONG).show();
-                    edtValue.setText(null);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -42,17 +42,6 @@ public class Activity_codi extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-       /* final String DEFAULT_PATH = "https://limdeeptest.page.link";
-        if(intent!=null){
-            Uri uri = getIntent().getData();
-            if(uri!=null)
-            {
-                String param = uri.getQueryParameter("key");
-
-                Codi_Url= DEFAULT_URL+param;
-            }
-        }
-*/
         String key = intent.getStringExtra("key");
         Codi_Url = DEFAULT_URL+key;
 

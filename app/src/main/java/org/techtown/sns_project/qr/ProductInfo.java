@@ -2,14 +2,14 @@ package org.techtown.sns_project.qr;
 
 public class ProductInfo {
     String URL;
-    String SimilarURL;
+    String ImgURL;
     String Title;
     String Info;
     String Price;
 
-    public ProductInfo(String URL, String similarURL, String title, String info, String price) {
+    public ProductInfo(String URL, String imgurl, String title, String info, String price) {
         this.URL = URL;
-        SimilarURL = similarURL;
+        ImgURL = imgurl;
         Title = title;
         Info = info;
         Price = price;
@@ -23,12 +23,12 @@ public class ProductInfo {
         this.URL = URL;
     }
 
-    public String getSimilarURL() {
-        return SimilarURL;
+    public String getImgURL() {
+        return ImgURL;
     }
 
-    public void setSimilarURL(String similarURL) {
-        SimilarURL = similarURL;
+    public void setImgURL(String imgurl) {
+        ImgURL = imgurl;
     }
 
     public String getTitle() {
