@@ -97,6 +97,7 @@ public class NormalMemberInfo extends AppCompatActivity {
 
     private void StartActivity(Class c) {
         Intent intent = new Intent(this, c);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }

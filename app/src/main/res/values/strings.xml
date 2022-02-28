@@ -2,7 +2,8 @@
     <string name="app_name">SNS_project</string>
     <!-- Preference Titles -->
     <string name="messages_header">회원</string>
-    <string name="sync_header">Sync</string>
+    <string name="notice_header">공지사항</string>
+    <string name="alarm_header">알람</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>

@@ -19,6 +19,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import org.techtown.sns_project.CommonSignInActivity;
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.SignInActivity;
 import org.techtown.sns_project.SignUpActivity;
 
 public class EnterpriseMainActivity extends AppCompatActivity {
@@ -34,7 +35,7 @@ public class EnterpriseMainActivity extends AppCompatActivity {
         // 로그인이 되지 않은 상태면 로그인창을 띄워야 한다.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null) {
-            StartActivity(SignUpActivity.class);
+            StartActivity(SignInActivity.class);
         }
     }
 

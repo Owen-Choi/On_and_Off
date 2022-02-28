@@ -19,6 +19,7 @@ import org.techtown.sns_project.CommonSignInActivity;
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
 import org.techtown.sns_project.Normal.Setting.NormalSettingActivity;
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.SignInActivity;
 import org.techtown.sns_project.SignUpActivity;
 import org.techtown.sns_project.cameraexample.ScanQR;
 import org.techtown.sns_project.fragment.BoardFragment;
@@ -41,7 +42,7 @@ public class NormalMainActivity extends AppCompatActivity {
         //findViewById(R.id.NormalQRScanButton).setOnClickListener(onClickListener);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null) {
-            StartActivity(SignUpActivity.class);
+            StartActivity(SignInActivity.class);
         }
 
         Board_Fragment = new BoardFragment();
@@ -59,19 +60,24 @@ public class NormalMainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.nav_home:
-                        getSupportFragmentManager().beginTransaction() .replace(R.id.main_layout,Home_Fragment).commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_layout,Home_Fragment).commitAllowingStateLoss();
                         return true;
                     case R.id.nav_board:
-                        getSupportFragmentManager().beginTransaction() .replace(R.id.main_layout,Board_Fragment).commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_layout,Board_Fragment).commitAllowingStateLoss();
                         return true;
                     case R.id.nav_profile:
-                        getSupportFragmentManager().beginTransaction() .replace(R.id.main_layout,Profile_Fragment).commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_layout,Profile_Fragment).commitAllowingStateLoss();
                         return true;
                     case R.id.nav_qr:
-                        getSupportFragmentManager().beginTransaction() .replace(R.id.main_layout,QR_Fragment).commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_layout,QR_Fragment).commitAllowingStateLoss();
                         return true;
                     case R.id.nav_something:
-                        getSupportFragmentManager().beginTransaction() .replace(R.id.main_layout,Something_Fragment).commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_layout,Something_Fragment).commitAllowingStateLoss();
                         return true;
                 }
                 return true;

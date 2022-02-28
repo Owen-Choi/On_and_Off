@@ -1,7 +1,9 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory
+        app:icon="@drawable/ic_baseline_person_24"
+        app:title="@string/messages_header">
 
 <!--        <EditTextPreference-->
 <!--            app:key="signature"-->
@@ -22,26 +24,35 @@
         <Preference
             app:title="비밀번호 변경"
             app:key="change_pw"/>
+        <Preference
+            app:title="회원 탈퇴"
+            app:key="withdrawal"/>
+
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory
+        app:icon="@drawable/ic_baseline_volume_up_24"
+        app:title="@string/notice_header">
 
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
+<!--        <SwitchPreferenceCompat-->
+<!--            app:key="sync"-->
+<!--            app:title="@string/sync_title" />-->
 
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+<!--        <SwitchPreferenceCompat-->
+<!--            app:dependency="sync"-->
+<!--            app:key="attachment"-->
+<!--            app:summaryOff="@string/attachment_summary_off"-->
+<!--            app:summaryOn="@string/attachment_summary_on"-->
+<!--            app:title="@string/attachment_title" />-->
+        <Preference
+            app:title="공지사항"
+            app:key="notice"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory
         app:icon="@drawable/ic_baseline_notifications_24"
-        app:title="notifications">
+        app:title="@string/alarm_header">
 
         <SwitchPreferenceCompat
             android:key="notifications"
@@ -67,6 +78,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:icon="@drawable/ic_baseline_info_24"
         android:title="About">
         <Preference
             android:title="Version"
@@ -76,7 +88,4 @@
             android:title="Developer Information"/>
     </PreferenceCategory>
 
-    <Preference
-        app:title="회원 탈퇴"
-        app:key="withdrawal"/>
 </PreferenceScreen>
