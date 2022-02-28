@@ -43,15 +43,15 @@ public class EnterpriseQRListActivity  extends AppCompatActivity {
     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView recyclerView_QrList;
-    EnterpriseQRListAdapter adapter;
+    static EnterpriseQRListAdapter adapter;
     HashMap<String,Object> List = new HashMap<String,Object>();
     String TAG="DONG";
     String DEFAULT_URL="https://store.musinsa.com/app/goods/";
-    ArrayList<String> listTitle = new ArrayList<>();
-    ArrayList<String> listInfo = new ArrayList<>();
-    ArrayList<String> listUrl = new ArrayList<>();
-    ArrayList<String> listPrice = new ArrayList<>();
-    ArrayList<String> listImgUrl = new ArrayList<>();
+    static ArrayList<String> listTitle = new ArrayList<>();
+    static ArrayList<String> listInfo = new ArrayList<>();
+    static ArrayList<String> listUrl = new ArrayList<>();
+    static ArrayList<String> listPrice = new ArrayList<>();
+    static ArrayList<String> listImgUrl = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,17 +71,24 @@ public class EnterpriseQRListActivity  extends AppCompatActivity {
             @Override
             public void onItemClick(View v, int position) {
                 String url = listUrl.get (position);
-                System.out.println("DONG : "+url);
-                StartActivity(EnterpriseQRListClickEvent.class,url);
+                System.out.println("DONG : "+url + "position : "+position);
+                StartActivity(EnterpriseQRListClickEvent.class,position);
             }
 
         });
         db.collection("enterprises").document(firebaseUser.getUid()).collection("brand").get().
                 addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        listUrl.clear();
+                        listPrice.clear();
+                        listTitle.clear();
+                        listUrl.clear();
+                        listInfo.clear();
+                        adapter.listData.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
 
                             List = (HashMap<String, Object>) document.getData();
+
                             listImgUrl.add((String)List.get("imgURL"));
                             System.out.println("test"+List.get("imgURL"));
 
@@ -120,10 +127,12 @@ public class EnterpriseQRListActivity  extends AppCompatActivity {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    private void StartActivity(Class c,String key) {
+    private void StartActivity(Class c, int key) {
         Intent intent = new Intent(this, c);
-        intent.putExtra("key", key);
+        intent.putExtra("position", key);
         startActivity(intent);
     }
+
+
 }
 

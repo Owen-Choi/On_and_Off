@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -24,8 +25,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.sns_project.R;
@@ -37,6 +43,8 @@ import org.techtown.sns_project.qr.QRGEncoder;
 import org.techtown.sns_project.qr.QRGSaver;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EnterpriseQRListClickEvent extends AppCompatActivity {
 
@@ -46,13 +54,18 @@ public class EnterpriseQRListClickEvent extends AppCompatActivity {
     private Bitmap bitmap;
     private QRGEncoder qrgEncoder;
     private AppCompatActivity activity;
-
+    private String TAG = "DONG";
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enterprise_qr_list_click);
         Intent intent = getIntent();
-        final String key = intent.getStringExtra("key").replace("https://store.musinsa.com/app/goods/","");
+        int position = intent.getIntExtra("position",0);
+        System.out.println(EnterpriseQRListActivity.listUrl.get (position)+"position : "+position);
+        String key = EnterpriseQRListActivity.listUrl.get (position).replace("https://store.musinsa.com/app/goods/","");
         qrImage = findViewById(R.id.qr_image);
         txt_ProductUrl = findViewById(R.id.txt_ProductUrl);
         activity = this;
@@ -84,6 +97,34 @@ public class EnterpriseQRListClickEvent extends AppCompatActivity {
             StartToast("ERROR!");
         }
 
+
+
+        findViewById(R.id.delete_barcode).setOnClickListener(v -> {
+            db.collection("enterprises").document(firebaseUser.getUid()).collection("brand")
+                    .document(key).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+
+                    EnterpriseQRListActivity.adapter.removeItem(position);
+                    EnterpriseQRListActivity.listTitle.remove(position);
+                    EnterpriseQRListActivity.listInfo.remove(position);
+                    EnterpriseQRListActivity.listUrl.remove(position);
+                    EnterpriseQRListActivity.listPrice.remove(position);
+                    EnterpriseQRListActivity.listImgUrl.remove(position);
+                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    finish();
+                }
+            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error deleting document", e);
+                        }
+                    });
+
+
+
+        });
 
         findViewById(R.id.save_barcode).setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
