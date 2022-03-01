@@ -79,6 +79,7 @@ public class EnterpriseQRListActivity  extends AppCompatActivity {
         db.collection("enterprises").document(firebaseUser.getUid()).collection("brand").get().
                 addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        //데이터 중복 방지
                         listUrl.clear();
                         listPrice.clear();
                         listTitle.clear();
