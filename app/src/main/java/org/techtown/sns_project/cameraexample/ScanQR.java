@@ -2,7 +2,6 @@ package org.techtown.sns_project.cameraexample;
 
 import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +24,7 @@ public class ScanQR extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_qr_scan);
 
         TedPermission.with(getApplicationContext())
                 .setPermissionListener(permissionListener)

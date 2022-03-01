@@ -51,6 +51,10 @@ public class NormalMainActivity extends AppCompatActivity {
         QR_Fragment = new QRFragment();
         Something_Fragment = new SomethingFragment();
 
+        // 시작하면 home fragment를 띄운다.
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_layout,Home_Fragment).commitAllowingStateLoss();
+
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -106,6 +110,17 @@ public class NormalMainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.setting_menu, menu);
         return true;
     }
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.HomeFragQRButton:
+                    StartActivity(ScanQR.class);
+                    break;
+            }
+        }
+    };
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
