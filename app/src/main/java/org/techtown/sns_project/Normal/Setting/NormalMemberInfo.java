@@ -64,25 +64,10 @@ public class NormalMemberInfo extends AppCompatActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            // 액티비티가 굉장히 복잡하게 얽힌다. 플래그를 활용해보자.
-            // 일단 DB에서 값 지워주고 액티비티 들어가서 다시 DB에 값 넣어주자.
-            // 로직상 현재 액티비티를 다시 띄우면 알아서 DB에 가서 값을 가져온다.
-            // 따라서 새로 띄운 액티비티는 그냥 창을 종료하고 다시 이 창을 띄워주면 되겠다.
             db.collection("users").document(firebaseUser.getUid()).delete()
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            // 새로운 액티비티 띄우기
-                            // 기존의 회원정보 activity를 다시 띄워도 될 것 같은데?
-
-                            // document가 지워져도 하위 collection은 지워지지 않는다.
-                            // 따라서 수동으로 지워주어야 한다.
-//                            Map<String,Object> updates = new HashMap<>();
-//                            updates.put("name", FieldValue.delete());
-//                            updates.put("address", FieldValue.delete());
-//                            updates.put("date", FieldValue.delete());
-//                            updates.put("phone", FieldValue.delete());
-
                             StartActivity(NormalMemberInfoActivity.class);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
