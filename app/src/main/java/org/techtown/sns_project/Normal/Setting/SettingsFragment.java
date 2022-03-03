@@ -1,4 +1,4 @@
-package org.techtown.sns_project;
+package org.techtown.sns_project.Normal.Setting;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -20,6 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseMemberInfo;
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
 import org.techtown.sns_project.Normal.Setting.NormalMemberInfo;
+import org.techtown.sns_project.Password_Init_Activity;
+import org.techtown.sns_project.R;
 
 
 public class SettingsFragment extends PreferenceFragmentCompat {

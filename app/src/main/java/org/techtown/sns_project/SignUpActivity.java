@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,11 +22,15 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.techtown.sns_project.Enterprise.EnterpriseMainActivity;
 import org.techtown.sns_project.Enterprise.EnterpriseMemberInfoActivity;
+import org.techtown.sns_project.Normal.NormalMainActivity;
 import org.techtown.sns_project.Normal.NormalMemberInfoActivity;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private FirebaseFirestore db;
     private static final String TAG = "SignUpActivity";
     private RadioGroup radioGroup;
     private static boolean isNormal, isEnter;
@@ -56,9 +61,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null) {
-            currentUser.reload();
+        user = mAuth.getCurrentUser();
+        if(user != null) {
+            user.reload();
         }
     }
 
@@ -67,6 +72,10 @@ public class SignUpActivity extends AppCompatActivity {
         String email = ((EditText)findViewById(R.id.EmailEditText)).getText().toString();
         String password = ((EditText)findViewById(R.id.PasswordEditText)).getText().toString();
         String passwordCheck = ((EditText)findViewById(R.id.PasswordCheckEditText)).getText().toString();
+        String name = ((EditText)findViewById(R.id.MemberInfoName)).getText().toString();
+        String address = ((EditText)findViewById(R.id.MemberInfoAddress)).getText().toString();
+        String date = ((EditText)findViewById(R.id.MemberInfoDate)).getText().toString();
+        String phone = ((EditText)findViewById(R.id.MemberInfoPhone)).getText().toString();
 
         if(email.length() > 0 && password.length() > 0 && passwordCheck.length() > 0 && (isNormal || isEnter)) {
             if (password.equals(passwordCheck)) {
@@ -76,14 +85,11 @@ public class SignUpActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     //Log.d(TAG, "createUserWithEmail:success");
-                                    StartToast("회원가입에 성공하였습니다.");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    MemberInfochecker(user);
-                                    // 성공했을 때 UI 로직
+                                    user = mAuth.getCurrentUser();
+                                    dbInsertion(name, address, date, phone);
+
                                 } else {
-                                    //Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                     StartToast("회원가입에 실패하였습니다.");
-                                    // Toast 일단 생략, 실패했을 때 UI로직
                                 }
                             }
                         });
@@ -146,30 +152,28 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    // 여기서는 회원의 종류와 회원정보의 유무에 따라 다른 화면을 띄워준다.
-    private void MemberInfochecker(FirebaseUser user) {
-        FirebaseFirestore fb = FirebaseFirestore.getInstance();
+    // 회원가입만 하고, (프로그램 오류 등으로)회원정보를 기입하지 못했을 경우
+    // 해당 계정은 사용불가 계정이 돼버린다.
+    // 이런 상황을 방지하기 위해서 회원가입 단계에서
+    private void dbInsertion(String name, String address, String date, String phone) {
         String temp;
         temp = isNormal ? "users" : "enterprises";
-        DocumentReference documentReference = fb.collection(temp)
-                .document(user.getUid());
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        MemberInfoClass memberInfo = new MemberInfoClass(name, address, date, phone);
+        db = FirebaseFirestore.getInstance();
+        db.collection(temp).document(user.getUid()).set(memberInfo)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if(document != null){
-                        if(document.exists())
-                            // 이미 등록한 회원 정보가 있다면 바로 로그인화면으로 이동하도록 한다.
-                                StartActivity(CommonSignInActivity.class);
-                        else
-                            // 등록한 회원정보가 없다면 회원 등록 화면으로 이동하도록 한다.
-                            if(isNormal)
-                                StartActivity(NormalMemberInfoActivity.class);
-                            else
-                                StartActivity(EnterpriseMemberInfoActivity.class);
-                    }
-                }
+            public void onComplete(@NonNull Task<Void> task) {
+                StartToast("회원가입에 성공하였습니다.");
+                if(isNormal)
+                    StartActivity(NormalMainActivity.class);
+                else
+                    StartActivity(EnterpriseMainActivity.class);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                StartToast("회원정보 오류로 회원가입에 실패하였습니다.");
             }
         });
     }

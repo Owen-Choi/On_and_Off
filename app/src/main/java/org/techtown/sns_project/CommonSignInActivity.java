@@ -8,9 +8,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +38,9 @@ public class CommonSignInActivity extends AppCompatActivity implements SignInAct
         findViewById(R.id.CommonSignUpButton).setOnClickListener(onClickListener);
         findViewById(R.id.FindPassWord).setOnClickListener(onClickListener);
         //findViewById(R.id.ToPasswordInitButton).setOnClickListener(onClickListener);
+        ActionBar menu = getSupportActionBar();
+        menu.setDisplayShowHomeEnabled(true);
+        menu.setDisplayHomeAsUpEnabled(true);
     }
 
     public void onStart() {
@@ -108,6 +113,7 @@ public class CommonSignInActivity extends AppCompatActivity implements SignInAct
         String[] temp = {"users", "enterprises"};
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
         for (String tempPath : temp) {
+            // 문제1 : 멤버 정보가 없다면 로그인이 안된다.
             DocumentReference documentReference = fb.collection(tempPath).document(firebaseUser.getUid());
             documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -129,5 +135,18 @@ public class CommonSignInActivity extends AppCompatActivity implements SignInAct
             });
         }
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    // 로그인화면에서 뒤로가기를 누르면 종료된다.
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+//        super.onBackPressed();
     }
 }
