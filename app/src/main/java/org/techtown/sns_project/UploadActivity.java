@@ -112,14 +112,15 @@ public class UploadActivity extends Activity {
                             if (task.isSuccessful()) { //task가 성공하면
                                 Uri downloadUri = task.getResult(); //위의 return값을 받아 downloadUri에 저장
                                 pd.dismiss(); //로딩창 없애기
-
+                                String DownloadUrl = downloadUri.toString();
                                 //해쉬 맵에 저장해서 컬렉션에 넣기
                                 Map<String, Object> data = new HashMap<>();
 
                                 //추가할 정보들 입력, 우선 글에대한 설명과 getUid값
                                 data.put("description", description.getText().toString());
                                 data.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
-
+                                data.put("ImageUrl",DownloadUrl);
+                                
                                 db.collection("board").document(firebaseUser.getUid()).collection("board_Data").add(data)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override
