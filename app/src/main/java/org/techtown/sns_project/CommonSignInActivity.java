@@ -50,7 +50,7 @@ public class CommonSignInActivity extends AppCompatActivity implements SignInAct
             currentUser.reload();
         }
     }
-
+    /*df*/
     @Override
     public void SignIn() {
         String email = ((EditText) findViewById(R.id.EmailEditText)).getText().toString();
