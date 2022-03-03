@@ -25,6 +25,7 @@ public class BoardFragment extends Fragment {
   Log.i(TAG, "onCreateView");
   view = inflater.inflate(R.layout.board_fragment, container, false);
   Button upload_btn = (Button)view.findViewById(R.id.upload);
+
   upload_btn.setOnClickListener(new View.OnClickListener() {
    @Override
    public void onClick(View view) {
