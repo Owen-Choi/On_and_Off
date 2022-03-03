@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -31,7 +32,8 @@
         </activity>
         <!-- 새로 추가되는 Activity(view?)들은 모두 manifest에 추가를 해주어야 한다. -->
 
-
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
         <activity android:name=".Enterprise.EnterpriseMemberInfoActivity"></activity>
         <activity android:name=".Normal.NormalMemberInfoActivity"></activity>
         <activity android:name=".UploadActivity"></activity>
