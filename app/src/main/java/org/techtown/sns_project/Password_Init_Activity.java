@@ -119,9 +119,7 @@ public class Password_Init_Activity extends AppCompatActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            // view에서 id를 받아오는데
             switch (view.getId()) {
-                // id가 RegisterButton에서 받아온 아이디라면 :
                 case R.id.SendButton:
                     Send();
                     break;
