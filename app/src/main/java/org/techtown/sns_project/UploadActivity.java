@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -48,9 +49,9 @@ public class UploadActivity extends Activity {
     TextView upload;
     EditText description;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+    FirebaseFirestore db;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +62,10 @@ public class UploadActivity extends Activity {
         image_added = findViewById(R.id.image_added);
         upload = findViewById(R.id.upload);
         description = findViewById(R.id.description);
+
+        db = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         //close: 게시판 화면으로 돌아가기
         close.setOnClickListener(new View.OnClickListener() {
@@ -90,9 +95,8 @@ public class UploadActivity extends Activity {
                 final ProgressDialog pd = new ProgressDialog(UploadActivity.this);
                 pd.setMessage("Posting");
                 pd.show();
-
                 if (imageUri != null) {
-                    String GetUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    String GetUid = firebaseUser.getUid();
                     StorageReference storageRef = FirebaseStorage.getInstance().getReference("post/" + GetUid); //storgae의 저장경로
                     final StorageReference ref = storageRef.child(System.currentTimeMillis() + ".jpg"); //이미지의 파일이름
                     uploadTask = ref.putFile(imageUri); //storage에 file을 업로드, uri를 통해서
@@ -118,20 +122,20 @@ public class UploadActivity extends Activity {
 
                                 //추가할 정보들 입력, 우선 글에대한 설명과 getUid값
                                 data.put("description", description.getText().toString());
-                                data.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                data.put("publisher", firebaseUser.getUid());
                                 data.put("ImageUrl",DownloadUrl);
                                 
                                 db.collection("board").document(firebaseUser.getUid()).collection("board_Data").add(data)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override
                                             public void onSuccess(DocumentReference documentReference) {
-
+                                                Log.e("temp", "onSuccess: DB Insertion success");
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-
+                                                Log.e("temp", "onFailure: DB Insertion failed");
                                             }
                                         });
 
@@ -157,7 +161,7 @@ public class UploadActivity extends Activity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.e("temp", "onActivityResult: " + requestCode + " " + resultCode +" " + data);
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
 
             CropImage.ActivityResult result = CropImage.getActivityResult(data);

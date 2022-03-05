@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.techtown.sns_project.CommonSignInActivity;
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseMemberInfo;
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
 import org.techtown.sns_project.Normal.Setting.NormalMemberInfo;
@@ -80,6 +81,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         db.collection("users").document(firebaseAuth.getCurrentUser().getUid())
                                 .delete();
+                        StartActivity(CommonSignInActivity.class);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

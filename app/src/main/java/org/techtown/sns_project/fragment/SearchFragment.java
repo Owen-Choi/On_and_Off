@@ -9,11 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import androidx.fragment.app.Fragment;
-
 import org.techtown.sns_project.R;
 
-public class QRFragment extends Fragment {
+public class SearchFragment extends Fragment {
     private View view;
 
     private String TAG = "프래그먼트";
@@ -22,7 +20,7 @@ public class QRFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView");
-        view = inflater.inflate(R.layout.qr_fragment, container, false);
+        view = inflater.inflate(R.layout.search_fragment, container, false);
 
 
         return view;
