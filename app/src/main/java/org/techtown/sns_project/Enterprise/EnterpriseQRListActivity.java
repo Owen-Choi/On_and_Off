@@ -76,6 +76,7 @@ public class EnterpriseQRListActivity  extends AppCompatActivity {
             }
 
         });
+
         db.collection("enterprises").document(firebaseUser.getUid()).collection("brand").get().
                 addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -107,6 +108,7 @@ public class EnterpriseQRListActivity  extends AppCompatActivity {
 
                             ProductInfo data = new ProductInfo((String)List.get("url"),(String)List.get("imgURL"), (String)List.get("title"),
                                     (String) List.get("info"), (String)List.get("price"));
+
                             adapter.addItem(data);
                         }
                         System.out.println("SIZE : "+listTitle.size());
