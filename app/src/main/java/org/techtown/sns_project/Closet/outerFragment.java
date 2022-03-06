@@ -33,8 +33,8 @@ public class outerFragment extends Fragment {
 
         list = new ArrayList<>();
         //파베 연동 못해서 일단 임시방편삼아 수동으로 집어넣음
-        list.add(new Closet_info("아우터 이름1","아우터 브랜드1",null));
-        list.add(new Closet_info("아우터 이름2","아우터 브랜드2",null));
+        list.add(new Closet_info("아우터 이름1","아우터 브랜드1",null,null));
+        list.add(new Closet_info("아우터 이름2","아우터 브랜드2",null,null));
 
 
         adapter = new ClosetAdapter(list);

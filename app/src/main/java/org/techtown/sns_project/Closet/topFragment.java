@@ -32,10 +32,10 @@ public class topFragment extends Fragment {
 
         list = new ArrayList<>();
         //파베 연동 못해서 일단 임시방편삼아 수동으로 집어넣음
-        list.add(new Closet_info("상의 이름1","상의 브랜드1",null));
-        list.add(new Closet_info("상의 이름2","상의 브랜드2",null));
-        list.add(new Closet_info("상의 이름3","상의 브랜드3",null));
-        list.add(new Closet_info("상의 이름4","상의 브랜드4",null));
+        list.add(new Closet_info("상의 이름1","상의 브랜드1",null,null));
+        list.add(new Closet_info("상의 이름2","상의 브랜드2",null,null));
+        list.add(new Closet_info("상의 이름3","상의 브랜드3",null,null));
+        list.add(new Closet_info("상의 이름4","상의 브랜드4",null,null));
 
         adapter = new ClosetAdapter(list);
 
