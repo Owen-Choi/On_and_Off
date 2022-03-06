@@ -12,6 +12,7 @@ public class SE extends PreferenceFragmentCompat {
 
     Preference keyword = null;
     public SE() {
+
     }
 
     @SuppressLint("ResourceType")
