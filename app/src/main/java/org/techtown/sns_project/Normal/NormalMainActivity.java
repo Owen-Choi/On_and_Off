@@ -42,7 +42,7 @@ public class NormalMainActivity extends AppCompatActivity {
         //findViewById(R.id.NormalQRScanButton).setOnClickListener(onClickListener);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null) {
-            StartActivity(SignInActivity.class);
+            StartActivity(CommonSignInActivity.class);
         }
 
         Board_Fragment = new BoardFragment();
