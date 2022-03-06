@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.techtown.sns_project.Normal.NormalMainActivity;
 import org.techtown.sns_project.fragment.BoardFragment;
@@ -38,7 +40,7 @@ import org.techtown.sns_project.fragment.BoardFragment;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UploadActivity extends Activity {
+public class UploadActivity extends AppCompatActivity {
 
     private StorageTask uploadTask;
     StorageReference storageRef;
@@ -90,8 +92,8 @@ public class UploadActivity extends Activity {
                 .start(UploadActivity.this);
 
     }
-            private void uploadImage() { //사진 업로드
-
+            private void uploadImage() {
+                //사진 업로드
                 final ProgressDialog pd = new ProgressDialog(UploadActivity.this);
                 pd.setMessage("Posting");
                 pd.show();
@@ -162,17 +164,21 @@ public class UploadActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("temp", "onActivityResult: " + requestCode + " " + resultCode +" " + data);
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-
+        Log.e("temp", "onActivityResult: " + firebaseUser.getEmail());
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            imageUri = result.getUri();
-
-            image_added.setImageURI(imageUri);
-        } else {
-            Toast.makeText(this, "Something gone wrong!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(UploadActivity.this, NormalMainActivity.class));
-            finish();
+            if(resultCode == RESULT_OK) {
+                imageUri = result.getUri();
+                image_added.setImageURI(imageUri);
+            }
+            else {
+                Toast.makeText(this, "Something gone wrong!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(UploadActivity.this, NormalMainActivity.class));
+                finish();
+            }
         }
+        else
+            Log.e("out", "onActivityResult: 첫 조건문 out");
     }
 }
 

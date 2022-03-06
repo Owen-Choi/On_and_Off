@@ -22,7 +22,6 @@ public class BoardFragment extends Fragment {
  @Nullable
  @Override
  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-  Log.i(TAG, "onCreateView");
   view = inflater.inflate(R.layout.board_fragment, container, false);
   Button upload_btn = (Button)view.findViewById(R.id.upload);
 
