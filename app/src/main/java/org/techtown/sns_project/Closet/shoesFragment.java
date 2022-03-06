@@ -32,10 +32,10 @@ public class shoesFragment extends Fragment {
 
         list = new ArrayList<>();
         //파베 연동 못해서 일단 임시방편삼아 수동으로 집어넣음
-        list.add(new org.techtown.sns_project.Closet.Closet_info("신발 이름1","신발 브랜드1",null));
-        list.add(new org.techtown.sns_project.Closet.Closet_info("신발 이름2","신발 브랜드2",null));
-        list.add(new org.techtown.sns_project.Closet.Closet_info("신발 이름3","신발 브랜드3",null));
-        list.add(new org.techtown.sns_project.Closet.Closet_info("신발 이름4","신발 브랜드4",null));
+        list.add(new org.techtown.sns_project.Closet.Closet_info("신발 이름1","신발 브랜드1",null,null));
+        list.add(new org.techtown.sns_project.Closet.Closet_info("신발 이름2","신발 브랜드2",null,null));
+        list.add(new org.techtown.sns_project.Closet.Closet_info("신발 이름3","신발 브랜드3",null,null));
+        list.add(new org.techtown.sns_project.Closet.Closet_info("신발 이름4","신발 브랜드4",null,null));
 
         adapter = new org.techtown.sns_project.Closet.ClosetAdapter(list);
 
