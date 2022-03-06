@@ -49,6 +49,7 @@
         <activity android:name=".CommonSignInActivity"/>
         <activity android:name=".Normal.Setting.NormalSettingActivity"/>
         <activity android:name=".Normal.Setting.NormalMemberInfo"/>
+        <activity android:name=".Closet.ClosetMainActivity"/>
         <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation"/>
