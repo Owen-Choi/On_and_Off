@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +26,7 @@ public class ClosetMainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     String DEFAULT_URL="https://store.musinsa.com/app/goods/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
