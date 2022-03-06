@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -23,7 +24,7 @@ import org.techtown.sns_project.qr.New_Parser;
 public class ClosetMainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
-
+    String DEFAULT_URL="https://store.musinsa.com/app/goods/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,32 +39,51 @@ public class ClosetMainActivity extends AppCompatActivity {
                 ad.setIcon(R.mipmap.ic_launcher);
                 ad.setMessage("옷의 url을 입력하세요");
 
+
+
                 final EditText et = new EditText(ClosetMainActivity.this);
                 ad.setView(et);
-
+                ad.setCancelable(false);
                 ad.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String inputValue = et.getText().toString();
-                        if (inputValue.length() > 0) {
-                            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                            FirebaseFirestore db = FirebaseFirestore.getInstance();
-                            Closet_Parser closet_Parser = new Closet_Parser(firebaseAuth, firebaseUser, db, inputValue);
-                            //url 입력시 파싱하여 값 출력
-                            dialog.dismiss();
-                        }
+
                     }
                 });
-
-
                 ad.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
-                ad.show();
+                final AlertDialog dialog = ad.create();
+                dialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                        .setOnClickListener(v -> {
+                            Boolean wantToCloseDialog = true;
+
+                            String inputValue = et.getText().toString();
+                            if (inputValue.length() > 0) {
+                                if (inputValue.startsWith(DEFAULT_URL)) {
+                                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                    Closet_Parser closet_Parser = new Closet_Parser(firebaseAuth, firebaseUser, db, inputValue);
+                                    StartToast(closet_Parser.URL + " is add on closet ! ");
+                                    dialog.dismiss();
+                                    //url 입력시 파싱하여 값 출력
+                                } else {
+                                    StartToast("Please type right URL");
+                                }
+
+                            } else {
+                                StartToast("Please type URL");
+                            }
+                        });
+
+
+
+
 
 
             }
@@ -98,5 +118,8 @@ public class ClosetMainActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void StartToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }
