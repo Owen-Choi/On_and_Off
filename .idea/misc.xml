@@ -60,6 +60,11 @@
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/home_fragment.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/notice_fragment.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/post_item.xml" value="0.36614583333333334" />
+        <!-- 바로 위 3줄과 동일한 코드지만 conflict resolve공부도 할겸 일단 복붙해봄 -->
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/home_fragment.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/notice_fragment.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/post_item.xml" value="0.36614583333333334" />
+
       </map>
     </option>
   </component>
