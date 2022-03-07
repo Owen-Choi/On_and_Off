@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.techtown.sns_project.Board.BoardAdapter;
 import org.techtown.sns_project.Enterprise.EnterpriseQRListAdapter;
@@ -33,7 +34,7 @@ public class BoardFragment extends Fragment {
  FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
  FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
  FirebaseFirestore db = FirebaseFirestore.getInstance();
-//d
+ FirebaseFirestore db2 = FirebaseFirestore.getInstance();
  private View view;
  private String TAG = "프래그먼트";
  RecyclerView recyclerView_BoardItem;
@@ -43,6 +44,7 @@ public class BoardFragment extends Fragment {
 
  static ArrayList<String> listImgUrl = new ArrayList<>();
  static ArrayList<String> listDescription = new ArrayList<>();
+ static ArrayList<QuerySnapshot> future = new ArrayList<>();
 
  @Nullable
  @Override
@@ -57,12 +59,13 @@ public class BoardFragment extends Fragment {
   adapter = new BoardAdapter();
   recyclerView_BoardItem.setAdapter(adapter);
 
- db.collection("board").document(firebaseUser.getUid()).collection("board_Data").get().
+  db.collectionGroup("board_Data").get().
          addOnCompleteListener(task -> {
           if(task.isSuccessful()) {
            listImgUrl.clear();
            listDescription.clear();
            adapter.listData.clear();
+
            for(QueryDocumentSnapshot document : task.getResult()) {
 
             List = (HashMap<String, Object>) document.getData();
@@ -70,6 +73,7 @@ public class BoardFragment extends Fragment {
             PostInfo data = new PostInfo((String)List.get("publisher"),(String)List.get("ImageUrl"),(String)List.get("description"));
             adapter.addItem(data);
            }
+
            adapter.notifyDataSetChanged();
           }
 
@@ -90,3 +94,6 @@ public class BoardFragment extends Fragment {
  }
 
 }
+
+
+
