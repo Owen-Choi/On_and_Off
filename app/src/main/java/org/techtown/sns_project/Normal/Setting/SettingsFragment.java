@@ -34,9 +34,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse("https://github.com/Owen-Choi/ToyProject_SNS"));
+        Intent git = new Intent(Intent.ACTION_VIEW);
+        git.setData(Uri.parse("https://github.com/Owen-Choi/ToyProject_SNS"));
+        Intent notion = new Intent(Intent.ACTION_VIEW);
+        notion.setData(Uri.parse("https://www.notion.so/896c29e9803945ef839d00831843d615"));
         Preference mypref = (Preference)findPreference("contact_preference");
+        Preference notice = (Preference)findPreference("notice");
         Preference memberInfo = (Preference)findPreference("memberInfo");
         Preference PWChange = (Preference)findPreference("change_pw");
         Preference withdrawal = (Preference)findPreference("withdrawal");
@@ -45,7 +48,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mypref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                startActivity(i);
+                startActivity(git);
+                return true;
+            }
+        });
+
+        notice.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                startActivity(notion);
                 return true;
             }
         });

@@ -3,25 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/drawable-v24/ic_baseline_add_24.xml" value="0.22083333333333333" />
-        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/drawable-v24/ic_noun_jacket_1788764.xml" value="0.22083333333333333" />
-        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_closet.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_closet_additem.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_closet_bottom.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_closet_item.xml" value="0.12222222222222222" />
-        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_closet_shoes.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_common_sign_in.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_enterprise_main.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_enterprise_qr_generate.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_initial.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/activity_upload.xml" value="0.21197916666666666" />
-        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/home_fragment.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/layout/profile_fragment.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/menu/closet.xml" value="0.2046875" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2515625" />
-        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_dashboard_24.xml" value="0.2515625" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_assignment_ind_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.2515625" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_qr_code_scanner_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_table_rows_24.xml" value="0.2515625" />
@@ -45,44 +33,36 @@
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_normal_setting.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_normal_sign_in.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_password_init.xml" value="0.23541666666666666" />
-        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_qr_scan.xml" value="0.21557971014492755" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_sign_in.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_sign_up.xml" value="0.264" />
-        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_upload.xml" value="0.21557971014492755" />
-        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/board_fragment.xml" value="0.22056159420289856" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_upload.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/board_fragment.xml" value="0.19021739130434784" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/board_fragment_item.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/fragment_first.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/home_fragment.xml" value="0.264" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/item_codi.xml" value="0.223731884057971" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/member_setting_activity.xml" value="0.264" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/member_setting_fragment.xml" value="0.16893115942028986" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/notice_fragment.xml" value="0.1598731884057971" />
-        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/post_item.xml" value="0.22056159420289856" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/post_item.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/profile_fragment.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/qr_fragment.xml" value="0.14583333333333334" />
-        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/search_fragment.xml" value="0.21014492753623187" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/search_fragment.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/setting_fragment.xml" value="0.2" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/similar_codi.xml" value="0.22871376811594202" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/menu/actionbar_menu.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/menu/bottom_menu.xml" value="0.23541666666666666" />
-        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/menu/search_menu.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/menu/closet.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/menu/setting_menu.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/xml/root_preferences.xml" value="0.264" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/xml/temp.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/xml/volume_setting_preferences.xml" value="0.2028985507246377" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/activity_enterprise_qr_list.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/activity_enterprise_qr_list_click.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/activity_enterprise_qr_list_item.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/activity_qr_scan.xml" value="0.1703125" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/activity_upload.xml" value="0.264" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/board_fragment.xml" value="0.264" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/board_fragment_item.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/home_fragment.xml" value="0.264" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/item_codi.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/home_fragment.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/notice_fragment.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/post_item.xml" value="0.2" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/profile_fragment.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/qr_fragment.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/similar_codi.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/post_item.xml" value="0.36614583333333334" />
       </map>
     </option>
   </component>
@@ -95,7 +75,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.23541666666666666" />
+        <option name="scale" value="0.264" />
       </ProjectState>
     </option>
   </component>
