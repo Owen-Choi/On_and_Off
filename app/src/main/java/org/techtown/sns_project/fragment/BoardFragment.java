@@ -21,6 +21,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.techtown.sns_project.Board.BoardAdapter;
+import org.techtown.sns_project.Board.BoardPostClickEvent;
 import org.techtown.sns_project.Enterprise.EnterpriseQRListAdapter;
 import org.techtown.sns_project.Enterprise.EnterpriseQRListClickEvent;
 import org.techtown.sns_project.Model.PostInfo;
@@ -35,7 +36,7 @@ public class BoardFragment extends Fragment {
  FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
  FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
  FirebaseFirestore db = FirebaseFirestore.getInstance();
- FirebaseFirestore db2 = FirebaseFirestore.getInstance();
+
  private View view;
  private String TAG = "프래그먼트";
  RecyclerView recyclerView_BoardItem;
@@ -43,9 +44,9 @@ public class BoardFragment extends Fragment {
 
  HashMap<String,Object> List = new HashMap<String,Object>();
 
- static ArrayList<String> listImgUrl = new ArrayList<>();
+ public static ArrayList<String> listImgUrl = new ArrayList<>();
  static ArrayList<String> listDescription = new ArrayList<>();
- static ArrayList<QuerySnapshot> future = new ArrayList<>();
+ static ArrayList<String> listPublisher = new ArrayList<>();
 
  @Nullable
  @Override
@@ -64,16 +65,42 @@ public class BoardFragment extends Fragment {
   adapter = new BoardAdapter();
   recyclerView_BoardItem.setAdapter(adapter);
 
+  adapter.setOnItemClickListener (new BoardAdapter.OnItemClickListener () {
+
+   //아이템 클릭시 토스트메시지
+   @Override
+   public void onItemClick(View v, int position) {
+
+    StartActivity(BoardPostClickEvent.class,position);
+   }
+
+   private void StartActivity(Class<BoardPostClickEvent> boardPostClickEventClass, int position) {
+    Intent intent = new Intent(getContext(),boardPostClickEventClass);
+    intent.putExtra("position",position);
+/*    intent.putExtra("listImgUrl",listImgUrl);
+    intent.putExtra("listDescription",listDescription);
+    intent.putExtra("listPublisher",listPublisher);*/
+
+    startActivity(intent);
+   }
+
+  });
+
   db.collectionGroup("board_Data").get().
          addOnCompleteListener(task -> {
           if(task.isSuccessful()) {
            listImgUrl.clear();
            listDescription.clear();
+           listPublisher.clear();
            adapter.listData.clear();
 
            for(QueryDocumentSnapshot document : task.getResult()) {
 
             List = (HashMap<String, Object>) document.getData();
+
+            listImgUrl.add((String)List.get("imgURL"));
+            listPublisher.add((String)List.get("publisher"));
+            listDescription.add((String)List.get("description"));
 
             PostInfo data = new PostInfo((String)List.get("publisher"),(String)List.get("ImageUrl"),(String)List.get("description"));
             adapter.addItem(data);

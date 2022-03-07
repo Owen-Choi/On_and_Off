@@ -117,12 +117,6 @@ public class EnterpriseQRListActivity  extends AppCompatActivity {
                     }
                 });
 
-
-
-
-
-
-
     }
     private void StartToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

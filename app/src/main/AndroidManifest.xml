@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <!-- 새로 추가되는 Activity(view?)들은 모두 manifest에 추가를 해주어야 한다. -->
-
+        <activity android:name=".Board.BoardPostClickEvent"></activity>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
         <activity android:name=".Enterprise.EnterpriseMemberInfoActivity"></activity>
