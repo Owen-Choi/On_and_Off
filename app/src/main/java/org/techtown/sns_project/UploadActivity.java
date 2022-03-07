@@ -81,7 +81,7 @@ public class UploadActivity extends Activity {
 
         //1대1로 잘라주고 imageuri 값 설정
         CropImage.activity()
-                .setAspectRatio(1, 1)
+                .setAspectRatio(4, 5)
                 .start(UploadActivity.this);
 
     }
@@ -120,7 +120,7 @@ public class UploadActivity extends Activity {
                                 data.put("description", description.getText().toString());
                                 data.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                 data.put("ImageUrl",DownloadUrl);
-                                
+
                                 db.collection("board").document(firebaseUser.getUid()).collection("board_Data").add(data)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override

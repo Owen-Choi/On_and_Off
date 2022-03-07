@@ -87,14 +87,14 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ItemViewHold
 
 
         void onBind(PostInfo data) {
-            String post_descrpition = data.getDescrpition();
+           /* String post_descrpition = data.getDescrpition();
 
             if (post_description != null)
                 post_description.setText(post_descrpition);
             else
             {
                 post_description.setText("NULL");
-            }
+            }*/
 
 
 

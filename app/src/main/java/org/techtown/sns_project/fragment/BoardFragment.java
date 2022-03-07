@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,8 +55,12 @@ public class BoardFragment extends Fragment {
   Button upload_btn = (Button)view.findViewById(R.id.upload);
   recyclerView_BoardItem = view.findViewById(R.id.recyclerView_BoardItem);
 
-  LinearLayoutManager BoardItem = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
-  recyclerView_BoardItem.setLayoutManager(BoardItem); //Linear로 recyclerview layout 만들기
+
+  GridLayoutManager BoardItem = new GridLayoutManager(getContext(),2);
+  recyclerView_BoardItem.setLayoutManager(BoardItem);
+
+/*  LinearLayoutManager BoardItem = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
+  recyclerView_BoardItem.setLayoutManager(BoardItem); //Linear로 recyclerview layout 만들기*/
   adapter = new BoardAdapter();
   recyclerView_BoardItem.setAdapter(adapter);
 
