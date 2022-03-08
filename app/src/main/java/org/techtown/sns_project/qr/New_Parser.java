@@ -76,7 +76,7 @@ public class New_Parser {
             ProductInfo pi = new ProductInfo(URL, "https:"+productImg.attr("src"), title
                     , productINFO.text(), product_price);
             db.collection("enterprises").document(user.getUid()).collection("brand").
-                    document(pi.getURL().replace("https://store.musinsa.com/app/goods/","")).set(pi);
+                    document(pi.getURL().replaceAll("[^0-9]", "")).set(pi);
 
 
             return null;
