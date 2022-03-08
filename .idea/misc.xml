@@ -30,6 +30,7 @@
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_member_info.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_normal_main.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_normal_member_info.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_normal_search.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_normal_setting.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_normal_sign_in.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_password_init.xml" value="0.23541666666666666" />
@@ -50,11 +51,11 @@
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/qr_fragment.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/search_fragment.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/setting_fragment.xml" value="0.2" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/settings_activity.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/similar_codi.xml" value="0.22871376811594202" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/menu/actionbar_menu.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/menu/bottom_menu.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/menu/closet.xml" value="0.23541666666666666" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/board_fragment_item_new.xml" value="0.175" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/menu/setting_menu.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/xml/root_preferences.xml" value="0.264" />

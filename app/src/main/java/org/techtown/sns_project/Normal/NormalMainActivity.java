@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,7 +21,6 @@ import com.google.firebase.auth.FirebaseUser;
 import org.techtown.sns_project.CommonSignInActivity;
 import org.techtown.sns_project.Normal.Setting.NormalSettingActivity;
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.SignInActivity;
 import org.techtown.sns_project.cameraexample.ScanQR;
 import org.techtown.sns_project.fragment.BoardFragment;
 import org.techtown.sns_project.fragment.HomeFragment;
@@ -37,11 +35,6 @@ public class NormalMainActivity extends AppCompatActivity {
     Fragment Search_Fragment;
     Fragment Something_Fragment;
     BottomNavigationView bottomNavigationView;
-    SearchView searchView;
-    ListView listView;
-    String[] name = {"Hong ui sung", "Lim dong hyeok", "Lim im bum", "Shin jun young", "choi cheol woong"};
-
-    ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +89,6 @@ public class NormalMainActivity extends AppCompatActivity {
             }
         });
 
-        //여기서부터는 검색어 리스트 띄우는 화면
-        listView = findViewById(R.id.keyword_listView);
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, name);
-        listView.setAdapter(arrayAdapter);
     }
     private void StartActivity(Class c) {
         Intent intent = new Intent(this, c);
@@ -119,39 +108,6 @@ public class NormalMainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.actionbar_menu, menu);
-        // 여기서부터는 검색관련 메뉴 코드
-        MenuItem search = menu.findItem(R.id.SearchMenu);
-        searchView = (SearchView) search.getActionView();
-        searchView.setQueryHint("상품명을 검색해주세요");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                arrayAdapter.getFilter().filter(s);
-                return false;
-            }
-        });
-
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("temp", "onClick: click");
-                // 여기서 리스트뷰가 담긴 프래그먼트를 띄워주자.
-            }
-        });
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                Log.e("close", "onClose: 닫음");
-                return true;
-                // 닫을 경우 리스트뷰가 담긴 프래그먼트를 다른 프래그먼트로 전환해주자.
-                // 큐인가? 이용해서 전에 보던 화면으로 전환하기
-            }
-        });
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -177,6 +133,9 @@ public class NormalMainActivity extends AppCompatActivity {
             case R.id.LogoutMenu:
                 FirebaseAuth.getInstance().signOut();
                 StartActivity(CommonSignInActivity.class);
+                break;
+            case R.id.SearchMenu:
+                StartActivity(NormalSearchActivity.class);
                 break;
         }
 

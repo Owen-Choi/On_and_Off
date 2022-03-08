@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.techtown.sns_project">
+    package="org.techtown.sns_project" >
     <!-- internet 사용을 위한 permission을 여기서 추가해준다. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -19,52 +23,54 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SNS_project">
+        android:theme="@style/Theme.SNS_project" >
         <!-- activity에서 SignUpActivity를 넣으면 첫 실행시 해당 화면이 실행된다. -->
         <activity
             android:name=".InitialActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- 새로 추가되는 Activity(view?)들은 모두 manifest에 추가를 해주어야 한다. -->
-
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
-        <activity android:name=".Enterprise.EnterpriseMemberInfoActivity"></activity>
-        <activity android:name=".Normal.NormalMemberInfoActivity"></activity>
-        <activity android:name=".UploadActivity"></activity>
-        <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".Password_Init_Activity"></activity>
-        <activity android:name=".Enterprise.EnterpriseMainActivity"></activity>
-        <activity android:name=".Normal.NormalMainActivity"></activity>
-        <activity android:name=".Enterprise.Setting.EnterpriseSettingActivity"></activity>
-        <activity android:name=".Enterprise.EnterpriseQRListClickEvent"></activity>
-        <activity android:name=".Enterprise.EnterpriseQRActivity"/>
-        <activity android:name=".Enterprise.EnterpriseQRListActivity"/>
-        <activity android:name=".Enterprise.Setting.EnterpriseMemberInfo"/>
-        <activity android:name=".CommonSignInActivity"/>
-        <activity android:name=".Normal.Setting.NormalSettingActivity"/>
-        <activity android:name=".Normal.Setting.NormalMemberInfo"/>
-        <activity android:name=".Closet.ClosetMainActivity"/>
-        <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
+        </activity> <!-- 새로 추가되는 Activity(view?)들은 모두 manifest에 추가를 해주어야 한다. -->
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".Enterprise.EnterpriseMemberInfoActivity" />
+        <activity android:name=".Normal.NormalMemberInfoActivity" />
+        <activity android:name=".UploadActivity" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".Password_Init_Activity" />
+        <activity android:name=".Enterprise.EnterpriseMainActivity" />
+        <activity android:name=".Normal.NormalMainActivity" />
+        <activity android:name=".Enterprise.Setting.EnterpriseSettingActivity" />
+        <activity android:name=".Enterprise.QR.EnterpriseQRListClickEvent" />
+        <activity android:name=".Enterprise.QR.EnterpriseQRActivity" />
+        <activity android:name=".Enterprise.QR.EnterpriseQRListActivity" />
+        <activity android:name=".Enterprise.Setting.EnterpriseMemberInfo" />
+        <activity android:name=".CommonSignInActivity" />
+        <activity android:name=".Normal.Setting.NormalSettingActivity" />
+        <activity android:name=".Normal.Setting.NormalMemberInfo" />
+        <activity android:name=".Normal.NormalSearchActivity" />
+        <activity android:name=".Closet.ClosetMainActivity" />
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
-            tools:replace="screenOrientation"/>
+            tools:replace="screenOrientation" />
+        <activity
+            android:name=".cameraexample.ScanQR"
+            android:exported="true" >
 
-        <activity android:name=".cameraexample.ScanQR"
-            android:exported="true">
-            <!--   <activity android:name=".MainActivity">-->
+            <!-- <activity android:name=".MainActivity"> -->
 
         </activity>
 
         <provider
-            android:authorities="com.example.cameraexample"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.cameraexample"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
@@ -74,23 +80,21 @@
             android:name=".cameraexample.Activity_codi"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
-
+            android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data
-                    android:host="donghyeok.page.link"
-                    android:scheme="http"/>
-                <data
-                    android:host="donghyeok.page.link"
-                    android:scheme="https"/>
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="donghyeok.page.link"
+                    android:scheme="http" />
+                <data
+                    android:host="donghyeok.page.link"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>

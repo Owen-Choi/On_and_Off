@@ -24,4 +24,6 @@
     <string name="generate">Generate</string>
     <string name="enter_text">Enter Text</string>
     <string name="value_required">Value Required</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="sync_header">Sync</string>
 </resources>

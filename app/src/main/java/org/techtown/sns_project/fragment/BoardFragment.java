@@ -1,7 +1,6 @@
 package org.techtown.sns_project.fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.techtown.sns_project.Board.BoardAdapter;
-import org.techtown.sns_project.Enterprise.EnterpriseQRListAdapter;
-import org.techtown.sns_project.Enterprise.EnterpriseQRListClickEvent;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.UploadActivity;

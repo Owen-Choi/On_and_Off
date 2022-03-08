@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Enterprise;
+package org.techtown.sns_project.Enterprise.QR;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -57,6 +57,8 @@ public class EnterpriseQRActivity extends AppCompatActivity {
 
     findViewById(R.id.generate_barcode).setOnClickListener(view -> {
         inputValue = edtValue.getText().toString().trim();
+        inputValue = inputValue.replaceFirst("www", "store");
+        inputValue = inputValue.replaceFirst("[?]loc=goods_rank", "");
         if (inputValue.length() > 0) {
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -93,6 +95,10 @@ public class EnterpriseQRActivity extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 try {
                     String url =  edtValue.getText().toString().trim();
+                    // url에 www가 있으면 store로 변경하기.
+                    url = url.replaceFirst("www", "store");
+                    url = url.replaceFirst("[?]loc=goods_rank", "");
+                    Log.e("parsing", "onCreate: " + url);
                     url = url.replace("https://store.musinsa.com/app/goods/","");
 
                     boolean save = new QRGSaver().save(savePath, url, bitmap, QRGContents.ImageType.IMAGE_JPEG);

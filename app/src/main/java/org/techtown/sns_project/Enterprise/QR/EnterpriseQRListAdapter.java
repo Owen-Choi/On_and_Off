@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Enterprise;
+package org.techtown.sns_project.Enterprise.QR;
 
 import android.view.LayoutInflater;
 import android.view.View;
