@@ -4,7 +4,10 @@
     <item android:id="@+id/SearchMenu"
         android:icon="@drawable/ic_search"
         android:title="검색"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        app:actionViewClass="android.widget.SearchView"
+        />
+
 
     <item android:id="@+id/SettingMenu"
         android:title="설정"
