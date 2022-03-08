@@ -82,12 +82,6 @@ public class ClosetMainActivity extends AppCompatActivity {
                                 StartToast("Please type URL");
                             }
                         });
-
-
-
-
-
-
             }
         });
 
@@ -114,6 +108,9 @@ public class ClosetMainActivity extends AppCompatActivity {
                         break;
                     case R.id.item_fragment4:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new shoesFragment()).commit();
+                        break;
+                    case R.id.item_fragment5:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new AllFragment()).commit();
                         break;
                 }
                 return true;
