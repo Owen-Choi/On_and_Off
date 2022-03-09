@@ -1,6 +1,7 @@
 package org.techtown.sns_project.Normal;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +23,14 @@ public class ListViewAdapter extends BaseAdapter {
     private List<SearchTitleClass> titlesList = null;
     private ArrayList<SearchTitleClass> arraylist;
 
-    public ListViewAdapter(Context context, List<SearchTitleClass> animalNamesList) {
+    public ListViewAdapter(Context context, List<SearchTitleClass> titlesList) {
         mContext = context;
-        this.titlesList = animalNamesList;
+        this.titlesList = titlesList;
         // 이건 무슨 역할이지?
         inflater = LayoutInflater.from(mContext);
         this.arraylist = new ArrayList<SearchTitleClass>();
-        this.arraylist.addAll(animalNamesList);
+        this.arraylist.addAll(titlesList);
+        Log.e("adapter", "ListViewAdapter: " + arraylist.size());
     }
 
     public class ViewHolder {
@@ -69,8 +71,12 @@ public class ListViewAdapter extends BaseAdapter {
     // Filter Class
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
+        // 새 텍스트가 추가됐으니 일단 기존의 리스트를 비우고 일치하는 단어로 이루어진 리스트를 새로 만든다.
         titlesList.clear();
+        Log.e("array", "filter: " + arraylist.size());
+        // 입력된 텍스트의 길이가 0이면(입력이 안됐으면) 다시 이전의 리스트들을 띄운다.
         if (charText.length() == 0) {
+            Log.e("temp", "filter: 길이 0");
             titlesList.addAll(arraylist);
         } else {
             for (SearchTitleClass wp : arraylist) {

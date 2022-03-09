@@ -25,44 +25,44 @@ public class NormalSearchActivity extends AppCompatActivity {
     SearchView editsearch;
     ArrayList<SearchTitleClass> arraylist = new ArrayList<SearchTitleClass>();
     HashMap<String,Object> HashMap = new HashMap<String,Object>();
-    ArrayList<String> titles = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal_search);
         ArrayList<String> james = new ArrayList<>();
         // Generate sample data
-        GetTitlesFromDB();
 
-        // Locate the ListView in listview_main.xml
-        list = (ListView) findViewById(R.id.listview);
-        /*
-        for (String temp : titles) {
-            Log.e("temp", "onCreate: " + temp);
-            SearchTitleClass stc = new SearchTitleClass(temp);
-            arraylist.add(stc);
-        }*/
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collectionGroup("brand").get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                for(QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                    HashMap = (HashMap<String, Object>) documentSnapshot.getData();
+                    String temp = (String) HashMap.get("info");
+                    SearchTitleClass stc = new SearchTitleClass(temp);
+                    arraylist.add(stc);
+                }
+                list = (ListView) findViewById(R.id.listview);
+                adapter = new ListViewAdapter(this, arraylist);
+                list.setAdapter(adapter);
 
-        // Pass results to ListViewAdapter Class
-        adapter = new ListViewAdapter(this, arraylist);
+                // Locate the EditText in listview_main.xml
+                editsearch = (SearchView) findViewById(R.id.search);
+                editsearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String s) {
+                        return false;
+                    }
 
-        // Binds the Adapter to the ListView
-        list.setAdapter(adapter);
-
-        // Locate the EditText in listview_main.xml
-        editsearch = (SearchView) findViewById(R.id.search);
-        editsearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                adapter.filter(s);
-                return false;
+                    @Override
+                    public boolean onQueryTextChange(String s) {
+                        adapter.filter(s);
+                        return false;
+                    }
+                });
             }
         });
+        // Locate the ListView in listview_main.xml
+
     }
 
     private void GetTitlesFromDB() {
@@ -72,11 +72,8 @@ public class NormalSearchActivity extends AppCompatActivity {
                 for(QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                     HashMap = (HashMap<String, Object>) documentSnapshot.getData();
                     String temp = (String) HashMap.get("info");
-                    StringTokenizer st = new StringTokenizer(temp, "\n");
-                    for(int i=0; i<st.countTokens(); i++) {
-                        SearchTitleClass stc = new SearchTitleClass(st.nextToken());
-                        arraylist.add(stc);
-                    }
+                    SearchTitleClass stc = new SearchTitleClass(temp);
+                    arraylist.add(stc);
                 }
             }
         });
