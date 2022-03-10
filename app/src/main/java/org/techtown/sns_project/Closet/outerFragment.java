@@ -48,16 +48,17 @@ public class outerFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setAdapter(Closet_adapter);
-
+        listUrl.clear();
+        listTitle.clear();
+        listUrl.clear();
+        listInfo.clear();
+        Closet_adapter.list.clear();
+        Closet_adapter.notifyDataSetChanged();
         db.collection("users").document(firebaseUser.getUid()).collection("아우터").get().
                 addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         //데이터 중복 방지
-                        listUrl.clear();
-                        listTitle.clear();
-                        listUrl.clear();
-                        listInfo.clear();
-                        Closet_adapter.list.clear();
+
                         for (QueryDocumentSnapshot document : task.getResult()) {
 
                             List = (HashMap<String, Object>) document.getData();
