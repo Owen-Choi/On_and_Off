@@ -52,6 +52,7 @@ public class EnterpriseQRListAdapter extends RecyclerView.Adapter<EnterpriseQRLi
     void addItem(ProductInfo data) {
         // 외부에서 item을 추가시킬 함수입니다.
         listData.add(data);
+        this.notifyDataSetChanged();
     }
 
      void removeItem(int position) {
