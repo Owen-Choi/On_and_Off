@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-// 임인범 멍청이
 public class AllFragment extends Fragment {
 
     private RecyclerView recyclerView;

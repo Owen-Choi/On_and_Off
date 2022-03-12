@@ -27,7 +27,6 @@ public class ClosetMainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     String DEFAULT_URL="https://store.musinsa.com/app/goods/";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
