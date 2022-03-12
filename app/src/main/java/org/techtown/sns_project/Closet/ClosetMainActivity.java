@@ -89,7 +89,7 @@ public class ClosetMainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavi);
 
         //처음화면
-        getSupportFragmentManager().beginTransaction().add(R.id.main_frame, new outerFragment()).commit(); //FrameLayout에 fragment.xml 띄우기
+        getSupportFragmentManager().beginTransaction().add(R.id.main_frame, new AllFragment()).commit(); //FrameLayout에 fragment.xml 띄우기
 
         //바텀 네비게이션뷰 안의 아이템 설정
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -97,6 +97,9 @@ public class ClosetMainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     //item을 클릭시 id값을 가져와 FrameLayout에 fragment.xml띄우기
+                    case R.id.item_fragment5:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new AllFragment()).commit();
+                        break;
                     case R.id.item_fragment1:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new outerFragment()).commit();
                         break;
@@ -109,9 +112,7 @@ public class ClosetMainActivity extends AppCompatActivity {
                     case R.id.item_fragment4:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new shoesFragment()).commit();
                         break;
-                    case R.id.item_fragment5:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new AllFragment()).commit();
-                        break;
+
                 }
                 return true;
             }

@@ -74,6 +74,7 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ItemViewHo
     void addItem(Closet_info data) {
         // 외부에서 item을 추가시킬 함수입니다.
         list.add(data);
+        this.notifyDataSetChanged();
     }
     @Override
     public int getItemCount() {
