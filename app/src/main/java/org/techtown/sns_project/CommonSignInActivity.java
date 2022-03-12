@@ -27,7 +27,7 @@ public class CommonSignInActivity extends AppCompatActivity implements SignInAct
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private FirebaseFirestore db;
-
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
