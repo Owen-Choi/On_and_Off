@@ -28,6 +28,7 @@
         <activity
             android:name=".InitialActivity"
             android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -81,19 +82,7 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="donghyeok.page.link"
-                    android:scheme="http" />
-                <data
-                    android:host="donghyeok.page.link"
-                    android:scheme="https" />
-            </intent-filter>
         </activity>
     </application>
 

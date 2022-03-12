@@ -70,4 +70,10 @@ public class InitialActivity extends AppCompatActivity {
         Intent intent = new Intent(this, c);
         startActivity(intent);
     }
+
+
+
+
+
+
 }
