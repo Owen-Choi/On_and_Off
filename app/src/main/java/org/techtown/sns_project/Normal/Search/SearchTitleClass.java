@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Normal;
+package org.techtown.sns_project.Normal.Search;
 
 public class SearchTitleClass {
     private String title;
