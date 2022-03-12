@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AllFragment extends Fragment {
-    // 인범 가지 테스트
+    // 박초롱
     private RecyclerView recyclerView;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
