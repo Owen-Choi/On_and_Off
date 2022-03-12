@@ -48,7 +48,8 @@ public class AllFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setAdapter(Closet_adapter);
-
+        Closet_adapter.list.clear();
+        Closet_adapter.notifyDataSetChanged();
         db.collection("users").document(firebaseUser.getUid()).collection("아우터").get().
                 addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
