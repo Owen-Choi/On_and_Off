@@ -53,7 +53,7 @@ public class EnterpriseQRListClickEvent extends AppCompatActivity {
         Intent intent = getIntent();
         int position = intent.getIntExtra("position",0);
         System.out.println(EnterpriseQRListActivity.listUrl.get (position)+"position : "+position);
-        String key = EnterpriseQRListActivity.listUrl.get (position).replace("https://store.musinsa.com/app/goods/","");
+        String key = EnterpriseQRListActivity.listUrl.get (position).replaceAll("[^0-9]", "");
         qrImage = findViewById(R.id.qr_image);
         txt_ProductUrl = findViewById(R.id.txt_ProductUrl);
         activity = this;
