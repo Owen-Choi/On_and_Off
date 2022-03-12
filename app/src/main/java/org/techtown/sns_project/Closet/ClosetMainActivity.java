@@ -65,8 +65,8 @@ public class ClosetMainActivity extends AppCompatActivity {
                             Boolean wantToCloseDialog = true;
 
                             String inputValue = et.getText().toString();
-                            inputValue = inputValue.replaceAll("[^0-9]", "");
-                            if (inputValue.length() > 0) {
+                            String url = inputValue.replaceAll("[^0-9]", "");
+                            if (url.length() > 0) {
 
                                     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                                     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
