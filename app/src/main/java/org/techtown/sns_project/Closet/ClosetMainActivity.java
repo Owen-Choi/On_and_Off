@@ -65,8 +65,9 @@ public class ClosetMainActivity extends AppCompatActivity {
                             Boolean wantToCloseDialog = true;
 
                             String inputValue = et.getText().toString();
-                            if (inputValue.length() > 0) {
-                                if (inputValue.startsWith(DEFAULT_URL)) {
+                            String url = inputValue.replaceAll("[^0-9]", "");
+                            if (url.length() > 0) {
+
                                     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                                     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                                     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -74,10 +75,6 @@ public class ClosetMainActivity extends AppCompatActivity {
                                     StartToast(closet_Parser.URL + " is add on closet ! ");
                                     dialog.dismiss();
                                     //url 입력시 파싱하여 값 출력
-                                } else {
-                                    StartToast("Please type right URL");
-                                }
-
                             } else {
                                 StartToast("Please type URL");
                             }

@@ -48,10 +48,7 @@ public class topFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setAdapter(Closet_adapter);
-        listUrl.clear();
-        listTitle.clear();
-        listUrl.clear();
-        listInfo.clear();
+
         Closet_adapter.list.clear();
         Closet_adapter.notifyDataSetChanged();
         db.collection("users").document(firebaseUser.getUid()).collection("상의").get().

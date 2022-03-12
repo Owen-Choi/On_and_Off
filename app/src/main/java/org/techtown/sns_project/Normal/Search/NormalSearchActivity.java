@@ -1,7 +1,6 @@
-package org.techtown.sns_project.Normal;
+package org.techtown.sns_project.Normal.Search;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -14,8 +13,6 @@ import org.techtown.sns_project.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.StringTokenizer;
 
 public class NormalSearchActivity extends AppCompatActivity {
 
@@ -65,19 +62,6 @@ public class NormalSearchActivity extends AppCompatActivity {
 
     }
 
-    private void GetTitlesFromDB() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collectionGroup("brand").get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()) {
-                for(QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                    HashMap = (HashMap<String, Object>) documentSnapshot.getData();
-                    String temp = (String) HashMap.get("info");
-                    SearchTitleClass stc = new SearchTitleClass(temp);
-                    arraylist.add(stc);
-                }
-            }
-        });
-    }
 
 }
 

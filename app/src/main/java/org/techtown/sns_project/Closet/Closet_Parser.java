@@ -80,7 +80,7 @@ public class Closet_Parser {
 
             Closet_info CI = new Closet_info(productINFO.text(), title,"https:"+productImg.attr("src"),URL);
             db.collection("users").document(user.getUid()).collection(sp[0]).
-                    document(CI.getUrl().replace("https://store.musinsa.com/app/goods/","")).set(CI);
+                    document(CI.getUrl().replaceAll("[^0-9]", "")).set(CI);
 
 
             return null;
