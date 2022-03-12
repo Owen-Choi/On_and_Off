@@ -23,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.sns_project.Enterprise.EnterpriseMainActivity;
 import org.techtown.sns_project.Normal.NormalMainActivity;
-//ㅅㄷ
+
 public class CommonSignInActivity extends AppCompatActivity implements SignInActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
