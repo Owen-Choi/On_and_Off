@@ -72,6 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
         String email = ((EditText)findViewById(R.id.EmailEditText)).getText().toString();
         String password = ((EditText)findViewById(R.id.PasswordEditText)).getText().toString();
         String passwordCheck = ((EditText)findViewById(R.id.PasswordCheckEditText)).getText().toString();
+
         String name = ((EditText)findViewById(R.id.MemberInfoName)).getText().toString();
         String address = ((EditText)findViewById(R.id.MemberInfoAddress)).getText().toString();
         String date = ((EditText)findViewById(R.id.MemberInfoDate)).getText().toString();
@@ -99,7 +100,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         }
         else {
-            StartToast("빈칸이 있는지 확인해주세요.");
+            CheckSignUpCondition(email, password, passwordCheck);
         }
     }
 
@@ -158,24 +159,78 @@ public class SignUpActivity extends AppCompatActivity {
     private void dbInsertion(String name, String address, String date, String phone) {
         String temp;
         temp = isNormal ? "users" : "enterprises";
-        MemberInfoClass memberInfo = new MemberInfoClass(name, address, date, phone);
-        db = FirebaseFirestore.getInstance();
-        db.collection(temp).document(user.getUid()).set(memberInfo)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                StartToast("회원가입에 성공하였습니다.");
-                if(isNormal)
-                    StartActivity(NormalMainActivity.class);
-                else
-                    StartActivity(EnterpriseMainActivity.class);
+        if(name.length() > 0 && address.length() > 0 && date.length() >= 6 && phone.length() >= 8) {
+            MemberInfoClass memberInfo = new MemberInfoClass(name, address, date, phone);
+            db = FirebaseFirestore.getInstance();
+            db.collection(temp).document(user.getUid()).set(memberInfo)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            StartToast("회원가입에 성공하였습니다.");
+                            if (isNormal)
+                                StartActivity(NormalMainActivity.class);
+                            else
+                                StartActivity(EnterpriseMainActivity.class);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    StartToast("모든 조건이 만족되었지만 회원가입에 실패하였습니다.");
+                    user.delete();
+                }
+            });
+        } else {
+            CheckSignUpMemberInfoCondition(name, address, date, phone);
+        }
+    }
+
+    private void CheckSignUpMemberInfoCondition(String name, String address, String date, String phone) {
+        // 메서드가 호출되는 시점에는 회원가입이 이루어진 상태이다.
+        // 따라서 중간에 문제가 생겼다면 해당 계정을 삭제해주어야 한다.
+        Log.e("temp", "CheckSignUpMemberInfoCondition: " + user.getEmail());
+        user.delete();
+        if(isNormal) {
+            if(name.length() <= 0) {
+                StartToast("회원 이름의 길이를 확인해주세요 : 1자 이상");
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                StartToast("회원정보 오류로 회원가입에 실패하였습니다.");
+            else if(address.length() <= 0) {
+                StartToast("회원 주소지의 길이를 확인해주세요 : 1자 이상");
             }
-        });
+            else if(date.length() < 6) {
+                StartToast("생년월일의 길이를 확인해주세요 : 6자 이상");
+            }
+            else if(phone.length() < 8) {
+                StartToast("전화번호의 길이를 확인해주세요 : 8자 이상");
+            }
+        }
+        else {
+            if(name.length() <= 0) {
+                StartToast("기업 이름의 길이를 확인해주세요 : 1자 이상");
+            }
+            else if(address.length() <= 0) {
+                StartToast("기업 주소지의 길이를 확인해주세요 : 1자 이상");
+            }
+            else if(date.length() < 6) {
+                StartToast("설립일의 길이를 확인해주세요 : 6자 이상");
+            }
+            else if(phone.length() < 8) {
+                StartToast("기업 전화번호의 길이를 확인해주세요 : 8자 이상");
+            }
+        }
+    }
+
+    private void CheckSignUpCondition(String email, String password, String passwordCheck) {
+        if(email.length() <= 0) {
+            StartToast("이메일 길이를 확인해주세요 : 1자 이상");
+        }
+        else if(password.length() <= 0) {
+            StartToast("비밀번호 길이를 확인해주세요 : 1자 이상");
+        }
+        else if(passwordCheck.length() <= 0) {
+            StartToast("비밀번호 확인 문자를 확인해주세요 : 1자 이상");
+        }
+        else if(!isNormal && !isEnter)
+            StartToast("회원 유형을 선택해주세요.");
     }
 
 }

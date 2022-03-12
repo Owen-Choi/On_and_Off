@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Enterprise;
+package org.techtown.sns_project.Enterprise.QR;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -93,7 +93,9 @@ public class EnterpriseQRActivity extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 try {
                     String url =  edtValue.getText().toString().trim();
-                    url = url.replace("https://store.musinsa.com/app/goods/","");
+
+                    Log.e("parsing", "onCreate: " + url);
+                    url = url.replaceAll("[^0-9]", "");;
 
                     boolean save = new QRGSaver().save(savePath, url, bitmap, QRGContents.ImageType.IMAGE_JPEG);
                     String result = save ? "Image Saved" : "Image Not Saved";

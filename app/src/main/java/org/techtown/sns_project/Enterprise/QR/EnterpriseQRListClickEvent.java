@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Enterprise;
+package org.techtown.sns_project.Enterprise.QR;
 
 import android.Manifest;
 import android.content.Intent;
@@ -18,33 +18,21 @@ import androidx.core.content.ContextCompat;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.SignUpActivity;
-import org.techtown.sns_project.qr.New_Parser;
-import org.techtown.sns_project.qr.Parser;
 import org.techtown.sns_project.qr.QRGContents;
 import org.techtown.sns_project.qr.QRGEncoder;
 import org.techtown.sns_project.qr.QRGSaver;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class EnterpriseQRListClickEvent extends AppCompatActivity {
 

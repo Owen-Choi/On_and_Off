@@ -2,7 +2,6 @@ package org.techtown.sns_project.Enterprise;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,14 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.techtown.sns_project.CommonSignInActivity;
+import org.techtown.sns_project.Enterprise.QR.EnterpriseQRActivity;
+import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListActivity;
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.SignInActivity;
-import org.techtown.sns_project.SignUpActivity;
 
 public class EnterpriseMainActivity extends AppCompatActivity {
     private final String TAG = "MainActivityDB";
@@ -35,7 +33,7 @@ public class EnterpriseMainActivity extends AppCompatActivity {
         // 로그인이 되지 않은 상태면 로그인창을 띄워야 한다.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null) {
-            StartActivity(SignInActivity.class);
+            StartActivity(CommonSignInActivity.class);
         }
     }
 

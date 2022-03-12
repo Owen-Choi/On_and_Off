@@ -31,6 +31,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:key="notification"
         app:icon="@drawable/ic_baseline_volume_up_24"
         app:title="@string/notice_header">
 

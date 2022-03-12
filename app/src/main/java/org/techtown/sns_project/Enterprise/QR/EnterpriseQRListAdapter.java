@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Enterprise;
+package org.techtown.sns_project.Enterprise.QR;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,11 +52,14 @@ public class EnterpriseQRListAdapter extends RecyclerView.Adapter<EnterpriseQRLi
     void addItem(ProductInfo data) {
         // 외부에서 item을 추가시킬 함수입니다.
         listData.add(data);
+        this.notifyDataSetChanged();
     }
+
      void removeItem(int position) {
         listData.remove(position);
         notifyItemRemoved(position);
     }
+
     class ItemViewHolder extends RecyclerView.ViewHolder{
 
         private TextView txt_ProductInfo, txt_ProductTitle,txt_ProductPrice;
