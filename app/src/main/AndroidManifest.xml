@@ -41,7 +41,7 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".Enterprise.EnterpriseMemberInfoActivity" />
         <activity android:name=".Normal.NormalMemberInfoActivity" />
-        <activity android:name=".UploadActivity" />
+        <activity android:name=".Board.Upload.UploadActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".Password_Init_Activity" />
         <activity android:name=".Enterprise.EnterpriseMainActivity" />
