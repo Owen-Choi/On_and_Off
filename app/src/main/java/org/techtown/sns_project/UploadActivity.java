@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -53,7 +54,7 @@ public class UploadActivity extends AppCompatActivity {
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +88,7 @@ public class UploadActivity extends AppCompatActivity {
 
         //1대1로 잘라주고 imageuri 값 설정
         CropImage.activity()
-                .setAspectRatio(1, 1)
+                .setAspectRatio(4, 5)
                 .start(UploadActivity.this);
 
     }
@@ -119,12 +120,19 @@ public class UploadActivity extends AppCompatActivity {
                                 pd.dismiss(); //로딩창 없애기
                                 String DownloadUrl = downloadUri.toString();
                                 //해쉬 맵에 저장해서 컬렉션에 넣기
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+                                mDatabase = FirebaseDatabase.getInstance().getReference();
+
+                                String postid = reference.push().getKey();
                                 Map<String, Object> data = new HashMap<>();
 
                                 //추가할 정보들 입력, 우선 글에대한 설명과 getUid값
+                                data.put("postid",postid);
                                 data.put("description", description.getText().toString());
-                                data.put("publisher", firebaseUser.getUid());
+                                data.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                 data.put("ImageUrl",DownloadUrl);
+
+
                                 
                                 db.collection("board").document(firebaseUser.getUid()).collection("board_Data").add(data)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

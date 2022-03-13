@@ -64,7 +64,7 @@
             android:name=".cameraexample.ScanQR"
             android:exported="true" >
 
-            <!-- <activity android:name=".MainActivity"> -->
+         <!--    <activity android:name=".MainActivity"> -->
 
         </activity>
 

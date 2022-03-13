@@ -43,8 +43,9 @@ public class BoardFragment extends Fragment {
  HashMap<String,Object> List = new HashMap<String,Object>();
 
  public static ArrayList<String> listImgUrl = new ArrayList<>();
- static ArrayList<String> listDescription = new ArrayList<>();
- static ArrayList<String> listPublisher = new ArrayList<>();
+ public static ArrayList<String> listDescription = new ArrayList<>();
+ public static ArrayList<String> listPublisher = new ArrayList<>();
+ public static ArrayList<String> listPostid = new ArrayList<>();
 
  @Nullable
  @Override
@@ -58,8 +59,6 @@ public class BoardFragment extends Fragment {
   GridLayoutManager BoardItem = new GridLayoutManager(getContext(),2);
   recyclerView_BoardItem.setLayoutManager(BoardItem);
 
-/*  LinearLayoutManager BoardItem = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
-  recyclerView_BoardItem.setLayoutManager(BoardItem); //Linear로 recyclerview layout 만들기*/
   adapter = new BoardAdapter();
   recyclerView_BoardItem.setAdapter(adapter);
 
@@ -78,9 +77,8 @@ public class BoardFragment extends Fragment {
     intent.putExtra("listImgUrl",listImgUrl);
     intent.putExtra("listPublisher",listPublisher);
     intent.putExtra("listDescription",listDescription);
+    intent.putExtra("listPostid",listPostid);
 
-
-    System.out.println("Start activity :" + listImgUrl);
 
     startActivity(intent);
    }
@@ -90,10 +88,11 @@ public class BoardFragment extends Fragment {
   db.collectionGroup("board_Data").get().
           addOnCompleteListener(task -> {
            if(task.isSuccessful()) {
-        /*   listImgUrl.clear();
+           listImgUrl.clear();
            listDescription.clear();
            listPublisher.clear();
-           adapter.listData.clear();*/
+           listPostid.clear();
+           adapter.listData.clear();
 
             for(QueryDocumentSnapshot document : task.getResult()) {
 
@@ -102,8 +101,9 @@ public class BoardFragment extends Fragment {
              listImgUrl.add((String)List.get("ImageUrl"));
              listPublisher.add((String)List.get("publisher"));
              listDescription.add((String)List.get("description"));
+             listPostid.add((String)List.get("postid"));
 
-             PostInfo data = new PostInfo((String)List.get("publisher"),(String)List.get("ImageUrl"),(String)List.get("description"));
+             PostInfo data = new PostInfo((String)List.get("publisher"),(String)List.get("ImageUrl"),(String)List.get("description"),(String)List.get("postid"));
              adapter.addItem(data);
              System.out.println(listImgUrl);
             }
