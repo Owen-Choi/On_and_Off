@@ -100,6 +100,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ItemViewHold
 
             Glide.with(itemView.getContext()).load(data.getImgURL()).error(R.drawable.ic_launcher_background).into(post_image);
 
+
         }
 
     }

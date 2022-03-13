@@ -41,6 +41,7 @@ public class BoardFragment extends Fragment {
  private String TAG = "프래그먼트";
  RecyclerView recyclerView_BoardItem;
  static BoardAdapter adapter;
+ static String url;
 
  HashMap<String,Object> List = new HashMap<String,Object>();
 
@@ -77,8 +78,10 @@ public class BoardFragment extends Fragment {
    private void StartActivity(Class<BoardPostClickEvent> boardPostClickEventClass, int position) {
     Intent intent = new Intent(getContext(),boardPostClickEventClass);
     intent.putExtra("position",position);
-/*    intent.putExtra("listImgUrl",listImgUrl);
-    intent.putExtra("listDescription",listDescription);
+    intent.putExtra("listImgUrl",listImgUrl);
+
+    System.out.println("Start activity :" + listImgUrl);
+   /* intent.putExtra("listDescription",listDescription);
     intent.putExtra("listPublisher",listPublisher);*/
 
     startActivity(intent);
@@ -89,21 +92,22 @@ public class BoardFragment extends Fragment {
   db.collectionGroup("board_Data").get().
          addOnCompleteListener(task -> {
           if(task.isSuccessful()) {
-           listImgUrl.clear();
+        /*   listImgUrl.clear();
            listDescription.clear();
            listPublisher.clear();
-           adapter.listData.clear();
+           adapter.listData.clear();*/
 
            for(QueryDocumentSnapshot document : task.getResult()) {
 
             List = (HashMap<String, Object>) document.getData();
 
-            listImgUrl.add((String)List.get("imgURL"));
+            listImgUrl.add((String)List.get("ImageUrl"));
             listPublisher.add((String)List.get("publisher"));
             listDescription.add((String)List.get("description"));
 
             PostInfo data = new PostInfo((String)List.get("publisher"),(String)List.get("ImageUrl"),(String)List.get("description"));
             adapter.addItem(data);
+            System.out.println(listImgUrl);
            }
 
            adapter.notifyDataSetChanged();
