@@ -33,8 +33,8 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
     HashMap<String,Object> List = new HashMap<String,Object>();
 
-    static ArrayList<String> listDescription = new ArrayList<>();
     static String listImgURL2;
+    static ArrayList<String> listDescription = new ArrayList<>();
     static ArrayList<String> listPulbisher = new ArrayList<>();
     static ArrayList<String> listImgUrl = new ArrayList<>();
 
@@ -46,16 +46,20 @@ public class BoardPostClickEvent extends AppCompatActivity {
         setContentView(R.layout.activity_board_item);
         Intent intent = getIntent();
         listImgUrl = (ArrayList<String>)getIntent().getSerializableExtra("listImgUrl");
+        listDescription = (ArrayList<String>)getIntent().getSerializableExtra("listDescription");
+        listPulbisher = (ArrayList<String>)getIntent().getSerializableExtra("listPulbisher");
 
         int position = getIntent().getIntExtra("position",1);
         listImgURL2 = listImgUrl.get(position);
-   /*     listImgURL2 = BoardFragment.listImgUrl.get(position);*/
+
+
 
         System.out.println(listImgUrl);
 
         post_image = findViewById(R.id.post_image);
         description = findViewById(R.id.description);
         Glide.with(this).load(listImgURL2).error(R.drawable.ic_launcher_background).into(post_image);
+
 
        /* db.collection("enterprises").document(firebaseUser.getUid()).collection("brand").get().*/
        /* db.collection("board").document(firebaseUser.getUid()).collection("board_Data").get().

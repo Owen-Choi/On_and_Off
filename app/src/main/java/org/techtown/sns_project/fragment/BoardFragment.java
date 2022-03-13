@@ -79,10 +79,11 @@ public class BoardFragment extends Fragment {
     Intent intent = new Intent(getContext(),boardPostClickEventClass);
     intent.putExtra("position",position);
     intent.putExtra("listImgUrl",listImgUrl);
+    intent.putExtra("listPublisher",listPublisher);
+    intent.putExtra("listDescription",listDescription);
+
 
     System.out.println("Start activity :" + listImgUrl);
-   /* intent.putExtra("listDescription",listDescription);
-    intent.putExtra("listPublisher",listPublisher);*/
 
     startActivity(intent);
    }
