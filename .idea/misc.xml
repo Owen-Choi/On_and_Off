@@ -17,9 +17,11 @@
         <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/menu/bottom_menu.xml" value="0.11041666666666666" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/menu/closet.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/menu/setting_menu.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable-v24/ic_baseline_add_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_assignment_ind_24.xml" value="0.2515625" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_dashboard_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.2515625" />
@@ -75,8 +77,6 @@
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/xml/root_preferences.xml" value="0.264" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/xml/temp.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/xml/volume_setting_preferences.xml" value="0.2028985507246377" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/Codi_Code/app/src/main/res/layout/activity_board_item.xml" value="0.12604166666666666" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/Codi_Code/app/src/main/res/layout/board_fragment_item.xml" value="0.1296875" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/activity_upload.xml" value="0.264" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/board_fragment.xml" value="0.264" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/board_fragment_item_new.xml" value="0.175" />
