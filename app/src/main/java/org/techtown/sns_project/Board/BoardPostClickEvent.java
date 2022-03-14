@@ -51,11 +51,14 @@ public class BoardPostClickEvent extends AppCompatActivity {
         listImgUrl = (ArrayList<String>)getIntent().getSerializableExtra("listImgUrl");
         listDescription = (ArrayList<String>)getIntent().getSerializableExtra("listDescription");
         listPublisher = (ArrayList<String>)getIntent().getSerializableExtra("listPublisher");
-//
+
+
         int position = getIntent().getIntExtra("position",1);
         listImgURL2 = listImgUrl.get(position);
         post_description = listDescription.get(position);
         post_publisher = listPublisher.get(position);
+
+
 
         System.out.println(listImgUrl);
 
@@ -63,9 +66,11 @@ public class BoardPostClickEvent extends AppCompatActivity {
         description = findViewById(R.id.description);
         publisher = findViewById(R.id.publisher);
 
+
+
         Glide.with(this).load(listImgURL2).error(R.drawable.ic_launcher_background).into(post_image);
 
-
+        //글 설명
         if (post_description != null)
             description.setText(post_description);
         else
@@ -85,6 +90,8 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
 
     }
+
+
 
 
 }
