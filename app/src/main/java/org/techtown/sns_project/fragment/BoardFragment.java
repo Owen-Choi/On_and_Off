@@ -21,9 +21,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.techtown.sns_project.Board.BoardAdapter;
 import org.techtown.sns_project.Board.BoardPostClickEvent;
+import org.techtown.sns_project.UploadActivity;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.Board.Upload.UploadActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
