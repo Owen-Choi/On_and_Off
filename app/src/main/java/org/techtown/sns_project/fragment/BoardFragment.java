@@ -110,7 +110,7 @@ public class BoardFragment extends Fragment {
 
             adapter.notifyDataSetChanged();
            }
-
+//ㅇ
 
           });
 
