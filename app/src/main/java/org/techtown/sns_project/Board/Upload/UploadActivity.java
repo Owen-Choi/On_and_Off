@@ -59,14 +59,10 @@ public class UploadActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
 
-    // parsing과 recycler view에 관련된 변수들
-    RecyclerView recyclerView;
-    LinearLayoutManager linearLayoutManager;
     ImageButton urlImageButton, closetImageButton;
     AlertDialog.Builder builder;
     EditText input;
     String defaultString = "";
-    static upload_items_adapter UIA;
     ArrayList<ProductInfo> list = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,13 +77,6 @@ public class UploadActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-        // recycler view part
-        recyclerView = findViewById(R.id.AlreadyAddedView);
-        UIA = new upload_items_adapter(this);
-        linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(UIA);
         // image button part
         urlImageButton = findViewById(R.id.URLImageButton);
         urlImageButton.setOnClickListener(onClickListener);
@@ -247,15 +236,15 @@ public class UploadActivity extends AppCompatActivity {
     // 따로 메서드로 뺀 이유는 OnClickListener 안에서는 Context 문제가 발생했기 때문이다.
     private void call_parser() {
         upload_parser_class parser = new upload_parser_class(defaultString, this);
+
     }
 
     // upload parser class에서 pi를 받아와서 어뎁터애 넣는다.
     public void parsing_injection(ProductInfo pi) {
-        // 업로드 시점에 리사이클러뷰에 추가하는 코드는 쓰레드 문제로 불가능하지만
+        // 업로드 시점에 리사이클러뷰에 추가하는 코드는 쓰레드 / 비동기 백그라운드 문제로 불가능하지만
         // pi의 리스트를 가지고 있을 수는 있다. 이 리스트만 게시글에 전달하면
         // 게시글에서는 옷 정보를 띄울 수 있다.
         list.add(pi);
-        UIA.addItem(pi);
     }
 
 }

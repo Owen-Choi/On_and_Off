@@ -36,7 +36,6 @@ public class upload_parser_class {
                 e.printStackTrace();
             }
 
-
             final Elements productImg = doc.select("div[class=product-img] img");
             //상품 사진
 
@@ -70,8 +69,11 @@ public class upload_parser_class {
             make_injection(pi);
             return null;
         }
+
     }
 
+
+    // 여기서 문제가 많이 생긴다. 외부에서 수정을 못하는 쓰레드 오류가 주로 발생함.
     private void make_injection(ProductInfo pi) {
         uploadActivity.parsing_injection(pi);
     }
