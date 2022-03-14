@@ -28,6 +28,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -112,7 +114,7 @@ public class UploadActivity extends AppCompatActivity {
 
         //1대1로 잘라주고 imageuri 값 설정
         CropImage.activity()
-                .setAspectRatio(1, 1)
+                .setAspectRatio(4, 5)
                 .start(UploadActivity.this);
 
     }
@@ -148,8 +150,9 @@ public class UploadActivity extends AppCompatActivity {
 
                                 //추가할 정보들 입력, 우선 글에대한 설명과 getUid값
                                 data.put("description", description.getText().toString());
-                                data.put("publisher", firebaseUser.getUid());
+                                data.put("publisher",FirebaseAuth.getInstance().getCurrentUser().getUid());
                                 data.put("ImageUrl",DownloadUrl);
+
 
 
                                 

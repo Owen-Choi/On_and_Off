@@ -5,13 +5,11 @@ public class PostInfo {
     String publisher;
     String ImgURL;
     String descrpition;
-    String postid;
 
-    public PostInfo(String publisher,  String ImgURL,String descrpition,String postid) {
+    public PostInfo(String publisher,  String ImgURL,String descrpition) {
         this.publisher = publisher;
         this.ImgURL = ImgURL;
         this.descrpition = descrpition;
-        this.postid = postid;
     }
 
     public PostInfo(){

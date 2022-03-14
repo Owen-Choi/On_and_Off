@@ -101,9 +101,8 @@ public class BoardFragment extends Fragment {
              listImgUrl.add((String)List.get("ImageUrl"));
              listPublisher.add((String)List.get("publisher"));
              listDescription.add((String)List.get("description"));
-             listPostid.add((String)List.get("postid"));
 
-             PostInfo data = new PostInfo((String)List.get("publisher"),(String)List.get("ImageUrl"),(String)List.get("description"),(String)List.get("postid"));
+             PostInfo data = new PostInfo((String)List.get("publisher"),(String)List.get("ImageUrl"),(String)List.get("description"));
              adapter.addItem(data);
              System.out.println(listImgUrl);
             }
