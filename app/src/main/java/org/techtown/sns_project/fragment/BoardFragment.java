@@ -21,7 +21,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.techtown.sns_project.Board.BoardAdapter;
 import org.techtown.sns_project.Board.BoardPostClickEvent;
-import org.techtown.sns_project.UploadActivity;
+import org.techtown.sns_project.Board.Upload.UploadActivity;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
 
@@ -46,6 +46,7 @@ public class BoardFragment extends Fragment {
  public static ArrayList<String> listDescription = new ArrayList<>();
  public static ArrayList<String> listPublisher = new ArrayList<>();
  public static ArrayList<String> listPostid = new ArrayList<>();
+ public static ArrayList<String> listDocument = new ArrayList<>();
 
  @Nullable
  @Override
@@ -77,7 +78,7 @@ public class BoardFragment extends Fragment {
     intent.putExtra("listImgUrl",listImgUrl);
     intent.putExtra("listPublisher",listPublisher);
     intent.putExtra("listDescription",listDescription);
-    intent.putExtra("listPostid",listPostid);
+    intent.putExtra("listDocument",listDocument);
 
 
     startActivity(intent);
@@ -85,7 +86,7 @@ public class BoardFragment extends Fragment {
 
   });
 
-  db.collectionGroup("board_Data").get().
+  db.collection("board").get().
           addOnCompleteListener(task -> {
            if(task.isSuccessful()) {
            listImgUrl.clear();
@@ -101,10 +102,12 @@ public class BoardFragment extends Fragment {
              listImgUrl.add((String)List.get("ImageUrl"));
              listPublisher.add((String)List.get("publisher"));
              listDescription.add((String)List.get("description"));
+             listDocument.add(document.getId());
 
              PostInfo data = new PostInfo((String)List.get("publisher"),(String)List.get("ImageUrl"),(String)List.get("description"));
              adapter.addItem(data);
              System.out.println(listImgUrl);
+             System.out.println(listDocument);
             }
 
             adapter.notifyDataSetChanged();

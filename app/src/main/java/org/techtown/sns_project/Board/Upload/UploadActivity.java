@@ -1,6 +1,5 @@
-package org.techtown.sns_project;
+package org.techtown.sns_project.Board.Upload;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +22,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -32,10 +29,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.techtown.sns_project.Normal.NormalMainActivity;
-import org.techtown.sns_project.fragment.BoardFragment;
+import org.techtown.sns_project.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -126,7 +122,7 @@ public class UploadActivity extends AppCompatActivity {
                                 data.put("publisher", firebaseUser.getUid());
                                 data.put("ImageUrl",DownloadUrl);
                                 
-                                db.collection("board").document(firebaseUser.getUid()).collection("board_Data").add(data)
+                                db.collection("board").add(data)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override
                                             public void onSuccess(DocumentReference documentReference) {
