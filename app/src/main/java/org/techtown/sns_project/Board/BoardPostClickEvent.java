@@ -68,7 +68,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
         Glide.with(this).load(listImgURL2).error(R.drawable.ic_launcher_background).into(post_image);
 
-        //글 설명
+        //글 설명ㄴㅅㅁ
         if (post_description != null)
             description.setText(post_description);
         else
@@ -88,4 +88,14 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
 
     }
+
+    private void isLiked(String postid, ImageView imageView){
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
+    }
+
+
 }
