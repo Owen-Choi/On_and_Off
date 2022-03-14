@@ -51,7 +51,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         listImgUrl = (ArrayList<String>)getIntent().getSerializableExtra("listImgUrl");
         listDescription = (ArrayList<String>)getIntent().getSerializableExtra("listDescription");
         listPublisher = (ArrayList<String>)getIntent().getSerializableExtra("listPublisher");
-        listPostid = (ArrayList<String>)getIntent().getSerializableExtra("listPostid");
+
 
         int position = getIntent().getIntExtra("position",1);
         listImgURL2 = listImgUrl.get(position);
@@ -59,11 +59,14 @@ public class BoardPostClickEvent extends AppCompatActivity {
         post_publisher = listPublisher.get(position);
 
 
+
         System.out.println(listImgUrl);
 
         post_image = findViewById(R.id.post_image);
         description = findViewById(R.id.description);
         publisher = findViewById(R.id.publisher);
+
+
 
         Glide.with(this).load(listImgURL2).error(R.drawable.ic_launcher_background).into(post_image);
 
@@ -88,13 +91,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
     }
 
-    /*private void isLiked(String postid, ImageView imageView){
 
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-
-
-    }*/
 
 
 }
