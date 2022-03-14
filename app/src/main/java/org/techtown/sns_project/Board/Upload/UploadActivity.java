@@ -41,6 +41,7 @@ import org.techtown.sns_project.R;
 import org.techtown.sns_project.cameraexample.ScanQR;
 import org.techtown.sns_project.qr.ProductInfo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,8 +66,8 @@ public class UploadActivity extends AppCompatActivity {
     AlertDialog.Builder builder;
     EditText input;
     String defaultString = "";
-    ProductInfo pi;
     static upload_items_adapter UIA;
+    ArrayList<ProductInfo> list = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +83,7 @@ public class UploadActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         // recycler view part
         recyclerView = findViewById(R.id.AlreadyAddedView);
+        UIA = new upload_items_adapter(this);
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -91,8 +93,6 @@ public class UploadActivity extends AppCompatActivity {
         urlImageButton.setOnClickListener(onClickListener);
         closetImageButton = findViewById(R.id.ClosetImageButton);
         closetImageButton.setOnClickListener(onClickListener);
-        builder = new AlertDialog.Builder(this);
-        input = new EditText(this);
         //close: 게시판 화면으로 돌아가기
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,6 +212,7 @@ public class UploadActivity extends AppCompatActivity {
                 case R.id.URLImageButton:
                     // dialog input
                     DialogManager();
+
                     break;
                 case R.id.ClosetImageButton:
 
@@ -221,14 +222,16 @@ public class UploadActivity extends AppCompatActivity {
     };
 
     private void DialogManager() {
+        builder = new AlertDialog.Builder(this);
         builder.setTitle("URL Input");
+        input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 defaultString = input.getText().toString();
-                parsing();
+                call_parser();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -240,11 +243,19 @@ public class UploadActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void parsing() {
-        upload_parser_class parser = new upload_parser_class(defaultString);
-        // 이 코드가 동작해야 한다.
-        pi = parser.getProductInfo();
-        Log.e("woong", "parsing: " + pi.getInfo());
+    // 여기서 parser를 만들면 아래의 parsing 메서드를 parser에서 호출한다.
+    // 따로 메서드로 뺀 이유는 OnClickListener 안에서는 Context 문제가 발생했기 때문이다.
+    private void call_parser() {
+        upload_parser_class parser = new upload_parser_class(defaultString, this);
+    }
+
+    // upload parser class에서 pi를 받아와서 어뎁터애 넣는다.
+    public void parsing_injection(ProductInfo pi) {
+        // 업로드 시점에 리사이클러뷰에 추가하는 코드는 쓰레드 문제로 불가능하지만
+        // pi의 리스트를 가지고 있을 수는 있다. 이 리스트만 게시글에 전달하면
+        // 게시글에서는 옷 정보를 띄울 수 있다.
+        list.add(pi);
+        UIA.addItem(pi);
     }
 
 }

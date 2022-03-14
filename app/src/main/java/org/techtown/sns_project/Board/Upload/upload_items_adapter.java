@@ -1,6 +1,8 @@
 package org.techtown.sns_project.Board.Upload;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +12,28 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.qr.ProductInfo;
+
+import java.util.ArrayList;
 
 public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adapter.AddedItemViewHolder> {
 
-    String url;
-    String title, category, brand;
+    static ArrayList<ProductInfo> listData = new ArrayList<>();
     Context context;
-    public upload_items_adapter(Context context, String url) {
+    public upload_items_adapter(Context context) {
         this.context = context;
-        this.url = url;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    void addItem(ProductInfo data) {
+        // 동혁코드에서 따옴. 외부에서 아이템 추가해주는 코드.
+        listData.add(data);
+        Log.e("woong", "addItem: " + listData.size());
+        // 왜 쓰레드 문제가 발생하지? 애초에 외부에서 값을 넣어주는 구조인데?
+//        this.notifyDataSetChanged();
     }
 
     public class AddedItemViewHolder extends RecyclerView.ViewHolder {
@@ -34,6 +48,17 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
             brand = itemView.findViewById(R.id.itemBrand);
             image = itemView.findViewById(R.id.itemImage);
         }
+        void OnBind(ProductInfo data) {
+            String titleTXT = data.getInfo();
+            // 일단 임시로 price를 넣겠다.
+            String categoryTXT = data.getPrice();
+            String brandTXT = data.getTitle();
+
+            title.setText(titleTXT);
+            category.setText(categoryTXT);
+            brand.setText(brandTXT);
+            Glide.with(itemView.getContext()).load(data.getImgURL()).error(R.drawable.ic_launcher_background).into(image);
+        }
     }
 
     @NonNull
@@ -46,13 +71,13 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
 
     @Override
     public void onBindViewHolder(@NonNull AddedItemViewHolder holder, int position) {
-        holder.title.setText(title);
-        holder.category.setText(category);
-        holder.brand.setText(brand);
+        holder.OnBind(listData.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return listData.size();
     }
+
+
 }
