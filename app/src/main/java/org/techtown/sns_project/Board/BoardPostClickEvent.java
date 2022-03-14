@@ -51,7 +51,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         listImgUrl = (ArrayList<String>)getIntent().getSerializableExtra("listImgUrl");
         listDescription = (ArrayList<String>)getIntent().getSerializableExtra("listDescription");
         listPublisher = (ArrayList<String>)getIntent().getSerializableExtra("listPublisher");
-
+//
         int position = getIntent().getIntExtra("position",1);
         listImgURL2 = listImgUrl.get(position);
         post_description = listDescription.get(position);

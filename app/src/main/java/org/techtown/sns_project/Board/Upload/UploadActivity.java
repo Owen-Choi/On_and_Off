@@ -1,25 +1,21 @@
-package org.techtown.sns_project.Board.Upload;
+package org.techtown.sns_project;
 
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,7 +25,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -37,11 +32,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.techtown.sns_project.Normal.NormalMainActivity;
-import org.techtown.sns_project.R;
-import org.techtown.sns_project.cameraexample.ScanQR;
-import org.techtown.sns_project.qr.ProductInfo;
+import org.techtown.sns_project.fragment.BoardFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,15 +54,6 @@ public class UploadActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
 
-    // parsing과 recycler view에 관련된 변수들
-    RecyclerView recyclerView;
-    LinearLayoutManager linearLayoutManager;
-    ImageButton urlImageButton, closetImageButton;
-    AlertDialog.Builder builder;
-    EditText input;
-    String defaultString = "";
-    ProductInfo pi;
-    static upload_items_adapter UIA;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,19 +67,7 @@ public class UploadActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-        // recycler view part
-        recyclerView = findViewById(R.id.AlreadyAddedView);
-        linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(UIA);
-        // image button part
-        urlImageButton = findViewById(R.id.URLImageButton);
-        urlImageButton.setOnClickListener(onClickListener);
-        closetImageButton = findViewById(R.id.ClosetImageButton);
-        closetImageButton.setOnClickListener(onClickListener);
-        builder = new AlertDialog.Builder(this);
-        input = new EditText(this);
+
         //close: 게시판 화면으로 돌아가기
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +87,7 @@ public class UploadActivity extends AppCompatActivity {
 
         //1대1로 잘라주고 imageuri 값 설정
         CropImage.activity()
-                .setAspectRatio(4, 5)
+                .setAspectRatio(1, 1)
                 .start(UploadActivity.this);
 
     }
@@ -150,11 +123,8 @@ public class UploadActivity extends AppCompatActivity {
 
                                 //추가할 정보들 입력, 우선 글에대한 설명과 getUid값
                                 data.put("description", description.getText().toString());
-                                data.put("publisher",FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                data.put("publisher", firebaseUser.getUid());
                                 data.put("ImageUrl",DownloadUrl);
-
-
-
                                 
                                 db.collection("board").document(firebaseUser.getUid()).collection("board_Data").add(data)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -209,49 +179,6 @@ public class UploadActivity extends AppCompatActivity {
         else
             Log.e("out", "onActivityResult: 첫 조건문 out");
     }
-
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.URLImageButton:
-                    // dialog input
-                    DialogManager();
-                    break;
-                case R.id.ClosetImageButton:
-
-                    break;
-            }
-        }
-    };
-
-    private void DialogManager() {
-        builder.setTitle("URL Input");
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(input);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                defaultString = input.getText().toString();
-                parsing();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
-        builder.show();
-    }
-
-    private void parsing() {
-        upload_parser_class parser = new upload_parser_class(defaultString);
-        // 이 코드가 동작해야 한다.
-        pi = parser.getProductInfo();
-        Log.e("woong", "parsing: " + pi.getInfo());
-    }
-
 }
 
 
