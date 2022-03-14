@@ -1,12 +1,16 @@
 package org.techtown.sns_project.Board.Upload;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +38,8 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.techtown.sns_project.Normal.NormalMainActivity;
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.cameraexample.ScanQR;
+import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,8 +58,14 @@ public class UploadActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
 
+    // parsing과 recycler view에 관련된 변수들
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
+    ImageButton urlImageButton, closetImageButton;
+    AlertDialog.Builder builder;
+    EditText input;
+    String defaultString = "";
+    ProductInfo pi;
     static upload_items_adapter UIA;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +86,13 @@ public class UploadActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(UIA);
+        // image button part
+        urlImageButton = findViewById(R.id.URLImageButton);
+        urlImageButton.setOnClickListener(onClickListener);
+        closetImageButton = findViewById(R.id.ClosetImageButton);
+        closetImageButton.setOnClickListener(onClickListener);
+        builder = new AlertDialog.Builder(this);
+        input = new EditText(this);
         //close: 게시판 화면으로 돌아가기
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +206,49 @@ public class UploadActivity extends AppCompatActivity {
         else
             Log.e("out", "onActivityResult: 첫 조건문 out");
     }
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.URLImageButton:
+                    // dialog input
+                    DialogManager();
+                    break;
+                case R.id.ClosetImageButton:
+
+                    break;
+            }
+        }
+    };
+
+    private void DialogManager() {
+        builder.setTitle("URL Input");
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                defaultString = input.getText().toString();
+                parsing();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    private void parsing() {
+        upload_parser_class parser = new upload_parser_class(defaultString);
+        // 이 코드가 동작해야 한다.
+        pi = parser.getProductInfo();
+        Log.e("woong", "parsing: " + pi.getInfo());
+    }
+
 }
 
 

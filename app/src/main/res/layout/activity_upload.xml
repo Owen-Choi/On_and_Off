@@ -74,7 +74,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/imageButton10"
+                android:id="@+id/URLImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -97,7 +97,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/imageButton11"
+                android:id="@+id/ClosetImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
