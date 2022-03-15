@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".UploadActivity">
+    tools:context=".Board.Upload.UploadActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/bar"
         android:layout_width="match_parent"
@@ -53,12 +53,12 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/image_added"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="centerInside"
             android:layout_gravity="center"
-            android:src="@mipmap/ic_launcher"
-            android:id="@+id/image_added"/>
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_launcher" />
 
         <EditText
             android:layout_width="match_parent"
@@ -68,6 +68,56 @@
             android:id="@+id/description"
             android:maxLines="5"/>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/URLImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/clothes" />
+
+            <TextView
+                android:id="@+id/AddFromURL"
+                android:layout_width="200dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="URL로 추가"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/ClosetImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/closet" />
+
+            <TextView
+                android:id="@+id/AddFromCloset"
+                android:layout_width="200dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="옷장에서 추가"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/AlreadyAddedView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
     </LinearLayout>

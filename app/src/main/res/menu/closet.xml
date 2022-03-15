@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_fragment5"
+        android:enabled="true"
+        android:icon="@drawable/ic_all"
+        android:title="All" />
+    <item
+        android:id="@+id/item_fragment1"
+        android:enabled="true"
+        android:icon="@drawable/ic_noun_jacket_1788764"
+        android:title="아우터" />
+    <item
+        android:id="@+id/item_fragment2"
+        android:enabled="true"
+        android:icon="@drawable/ic_noun_clothes_1694117"
+        android:title="상의" />
+    <item
+        android:id="@+id/item_fragment3"
+        android:enabled="true"
+        android:icon="@drawable/ic_noun_pants_1077541"
+        android:title="하의" />
+    <item
+        android:id="@+id/item_fragment4"
+        android:enabled="true"
+        android:icon="@drawable/ic_noun_shoes_1202978"
+        android:title="신발" />
+
+
+</menu>
