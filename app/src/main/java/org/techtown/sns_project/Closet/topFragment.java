@@ -31,11 +31,7 @@ public class topFragment extends Fragment {
     private ClosetAdapter Closet_adapter;
     HashMap<String,Object> List = new HashMap<String,Object>();
     String TAG="DONG";
-    String DEFAULT_URL="https://store.musinsa.com/app/goods/";
-    static ArrayList<String> listTitle = new ArrayList<>();
-    static ArrayList<String> listInfo = new ArrayList<>();
-    static ArrayList<String> listUrl = new ArrayList<>();
-    static ArrayList<String> listImgUrl = new ArrayList<>();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
