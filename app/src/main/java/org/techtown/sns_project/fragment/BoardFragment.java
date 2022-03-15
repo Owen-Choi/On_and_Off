@@ -24,6 +24,7 @@ import org.techtown.sns_project.Board.BoardPostClickEvent;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.Board.Upload.UploadActivity;
+import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +46,7 @@ public class BoardFragment extends Fragment {
  public static ArrayList<String> listImgUrl = new ArrayList<>();
  static ArrayList<String> listDescription = new ArrayList<>();
  static ArrayList<String> listPublisher = new ArrayList<>();
-
+ static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
  @Nullable
  @Override
  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class BoardFragment extends Fragment {
     intent.putExtra("listImgUrl",listImgUrl);
     intent.putExtra("listPublisher",listPublisher);
     intent.putExtra("listDescription",listDescription);
-
+    intent.putExtra("listOfList", listOfList);
 
     System.out.println("Start activity :" + listImgUrl);
 
@@ -102,6 +103,7 @@ public class BoardFragment extends Fragment {
              listImgUrl.add((String)List.get("ImageUrl"));
              listPublisher.add((String)List.get("publisher"));
              listDescription.add((String)List.get("description"));
+             listOfList.add((ArrayList<ProductInfo>) List.get("clothes_info"));
 
              PostInfo data = new PostInfo((String)List.get("publisher"),(String)List.get("ImageUrl"),(String)List.get("description"));
              adapter.addItem(data);

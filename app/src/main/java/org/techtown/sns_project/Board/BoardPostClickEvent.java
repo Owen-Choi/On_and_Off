@@ -8,16 +8,18 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import org.techtown.sns_project.Board.Upload.upload_items_adapter;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.fragment.BoardFragment;
+import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,10 +37,14 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
     static String listImgURL2;
     static ArrayList<String> listDescription = new ArrayList<>();
-    static ArrayList<String> listPulbisher = new ArrayList<>();
+    static ArrayList<String> listPublisher = new ArrayList<>();
     static ArrayList<String> listImgUrl = new ArrayList<>();
+    ArrayList<ArrayList<ProductInfo>>listOfList = new ArrayList<>();
+    RecyclerView recyclerView;
+    LinearLayoutManager linearLayoutManager;
+    upload_items_adapter UIA;
 
-    public ArrayList<PostInfo> listData = new ArrayList<>();
+    ArrayList<ProductInfo>list = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,14 +53,24 @@ public class BoardPostClickEvent extends AppCompatActivity {
         Intent intent = getIntent();
         listImgUrl = (ArrayList<String>)getIntent().getSerializableExtra("listImgUrl");
         listDescription = (ArrayList<String>)getIntent().getSerializableExtra("listDescription");
-        listPulbisher = (ArrayList<String>)getIntent().getSerializableExtra("listPulbisher");
+        listPublisher = (ArrayList<String>)getIntent().getSerializableExtra("listPulbisher");
+        listOfList = (ArrayList<ArrayList<ProductInfo>>)getIntent().getSerializableExtra("listOfList");
 
         int position = getIntent().getIntExtra("position",1);
         listImgURL2 = listImgUrl.get(position);
+        list = listOfList.get(position);
+
+        // 최신화가 안된 게시글을 누르면 null이라 앱이 종료된다. 디비를 한번 날려야 할 필요가 있다.
+        Log.e("woong", "onCreate: " + list.size());
+        //recycler view part
+        recyclerView = findViewById(R.id.AddedItemList);
+        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        UIA = new upload_items_adapter(this);
+        recyclerView.setAdapter(UIA);
 
 
-
-        System.out.println(listImgUrl);
 
         post_image = findViewById(R.id.post_image);
         description = findViewById(R.id.description);

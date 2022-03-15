@@ -63,7 +63,7 @@ public class UploadActivity extends AppCompatActivity {
     AlertDialog.Builder builder;
     EditText input;
     String defaultString = "";
-    ArrayList<ProductInfo> list = new ArrayList<>();
+    static ArrayList<ProductInfo> list = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,7 +139,8 @@ public class UploadActivity extends AppCompatActivity {
                                 data.put("description", description.getText().toString());
                                 data.put("publisher", firebaseUser.getUid());
                                 data.put("ImageUrl",DownloadUrl);
-                                
+                                data.put("clothes_info", list);
+
                                 db.collection("board").document(firebaseUser.getUid()).collection("board_Data").add(data)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override
@@ -245,6 +246,10 @@ public class UploadActivity extends AppCompatActivity {
         // pi의 리스트를 가지고 있을 수는 있다. 이 리스트만 게시글에 전달하면
         // 게시글에서는 옷 정보를 띄울 수 있다.
         list.add(pi);
+    }
+
+    public ArrayList<ProductInfo> getList() {
+        return list;
     }
 
 }

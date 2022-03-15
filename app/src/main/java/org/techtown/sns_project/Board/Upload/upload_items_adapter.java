@@ -31,7 +31,7 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
     void addItem(ProductInfo data) {
         // 동혁코드에서 따옴. 외부에서 아이템 추가해주는 코드.
         listData.add(data);
-        
+        this.notifyDataSetChanged();
     }
 
     public class AddedItemViewHolder extends RecyclerView.ViewHolder {
