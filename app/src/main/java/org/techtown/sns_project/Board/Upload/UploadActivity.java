@@ -39,6 +39,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import org.techtown.sns_project.Normal.NormalMainActivity;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.cameraexample.ScanQR;
+import org.techtown.sns_project.fragment.DataFormat;
 import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
@@ -133,15 +134,17 @@ public class UploadActivity extends AppCompatActivity {
                                 pd.dismiss(); //로딩창 없애기
                                 String DownloadUrl = downloadUri.toString();
                                 //해쉬 맵에 저장해서 컬렉션에 넣기
-                                Map<String, Object> data = new HashMap<>();
+//                                Map<String, Object> data = new HashMap<>();
+                                DataFormat dataFormat = new DataFormat(DownloadUrl, firebaseUser.getUid(),
+                                        description.getText().toString(), list);
 
                                 //추가할 정보들 입력, 우선 글에대한 설명과 getUid값
-                                data.put("description", description.getText().toString());
-                                data.put("publisher", firebaseUser.getUid());
-                                data.put("ImageUrl",DownloadUrl);
-                                data.put("clothes_info", list);
+//                                data.put("description", description.getText().toString());
+//                                data.put("publisher", firebaseUser.getUid());
+//                                data.put("ImageUrl",DownloadUrl);
+//                                data.put("clothes_info", list);
 
-                                db.collection("board").document(firebaseUser.getUid()).collection("board_Data").add(data)
+                                db.collection("board").document(firebaseUser.getUid()).collection("board_Data").add(dataFormat)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override
                                             public void onSuccess(DocumentReference documentReference) {

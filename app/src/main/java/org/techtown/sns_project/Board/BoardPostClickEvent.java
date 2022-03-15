@@ -59,17 +59,17 @@ public class BoardPostClickEvent extends AppCompatActivity {
         int position = getIntent().getIntExtra("position",1);
         listImgURL2 = listImgUrl.get(position);
         list = listOfList.get(position);
-
-        // 최신화가 안된 게시글을 누르면 null이라 앱이 종료된다. 디비를 한번 날려야 할 필요가 있다.
-        Log.e("woong", "onCreate: " + list.size());
+        Log.e("temp", "onCreate: " + list.get(0).toString());
+        // 최신화가 안된 게시글을 누르면 nullPointerException 앱이 종료된다. 디비를 한번 날려야 할 필요가 있다.
         //recycler view part
         recyclerView = findViewById(R.id.AddedItemList);
         linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         UIA = new upload_items_adapter(this);
         recyclerView.setAdapter(UIA);
-
+        UIA.addItem(list);
+        UIA.notifyDataSetChanged();
 
 
         post_image = findViewById(R.id.post_image);

@@ -41,7 +41,8 @@ public class BoardFragment extends Fragment {
  static BoardAdapter adapter;
  static String url;
 
- HashMap<String,Object> List = new HashMap<String,Object>();
+// HashMap<String,Object> List = new HashMap<String,Object>();
+ DataFormat df;
 
  public static ArrayList<String> listImgUrl = new ArrayList<>();
  static ArrayList<String> listDescription = new ArrayList<>();
@@ -98,16 +99,21 @@ public class BoardFragment extends Fragment {
 
             for(QueryDocumentSnapshot document : task.getResult()) {
 
-             List = (HashMap<String, Object>) document.getData();
-
-             listImgUrl.add((String)List.get("ImageUrl"));
-             listPublisher.add((String)List.get("publisher"));
-             listDescription.add((String)List.get("description"));
-             listOfList.add((ArrayList<ProductInfo>) List.get("clothes_info"));
-
-             PostInfo data = new PostInfo((String)List.get("publisher"),(String)List.get("ImageUrl"),(String)List.get("description"));
-             adapter.addItem(data);
-             System.out.println(listImgUrl);
+//             List = (HashMap<String, Object>) document.getData();
+               df = document.toObject(DataFormat.class);
+               listImgUrl.add(df.getImageUrl());
+               listPublisher.add(df.getPublisher());
+               listDescription.add(df.getDescription());
+               listOfList.add(df.getList());
+               PostInfo data = new PostInfo(df.getPublisher(),df.getImageUrl(),df.getDescription());
+               adapter.addItem(data);
+//             listImgUrl.add((String)list.get
+//             listPublisher.add((String)List.get("publisher"));
+//             listDescription.add((String)List.get("description"));
+//             listOfList.add((ArrayList<ProductInfo>) List.get("clothes_info"));
+//             PostInfo data = new PostInfo((String)List.get("publisher"),(String)List.get("ImageUrl"),(String)List.get("description"));
+//             adapter.addItem(data);
+//             System.out.println(listImgUrl);
             }
 
             adapter.notifyDataSetChanged();

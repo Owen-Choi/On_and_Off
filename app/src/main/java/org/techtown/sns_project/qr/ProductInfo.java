@@ -1,6 +1,8 @@
 package org.techtown.sns_project.qr;
 
-public class ProductInfo {
+import java.io.Serializable;
+
+public class ProductInfo implements Serializable {
     String URL;
     String ImgURL;
     String Title;
@@ -13,6 +15,9 @@ public class ProductInfo {
         Title = title;
         Info = info;
         Price = price;
+    }
+
+    public ProductInfo() {
     }
 
     public String getURL() {

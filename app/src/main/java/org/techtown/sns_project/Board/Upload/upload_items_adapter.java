@@ -28,9 +28,9 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    void addItem(ProductInfo data) {
+    public void addItem(ArrayList<ProductInfo> list) {
         // 동혁코드에서 따옴. 외부에서 아이템 추가해주는 코드.
-        listData.add(data);
+        listData = list;
         this.notifyDataSetChanged();
     }
 
@@ -51,7 +51,6 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
             // 일단 임시로 price를 넣겠다.
             String categoryTXT = data.getPrice();
             String brandTXT = data.getTitle();
-
             title.setText(titleTXT);
             category.setText(categoryTXT);
             brand.setText(brandTXT);
