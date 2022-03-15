@@ -87,7 +87,7 @@ public class NormalMainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
+//test
 
     }
     private void StartActivity(Class c) {
