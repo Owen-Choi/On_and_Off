@@ -60,6 +60,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
     static ArrayList<String> listImgUrl = new ArrayList<>();
     static ArrayList<String> listPostid = new ArrayList<>();
     static ArrayList<String> listDocument = new ArrayList<>();
+    static ArrayList<Integer> listNrlikeds = new ArrayList<Integer>();
     public ArrayList<PostInfo> listData = new ArrayList<>();
 
     @Override
@@ -71,6 +72,8 @@ public class BoardPostClickEvent extends AppCompatActivity {
         listDescription = (ArrayList<String>)getIntent().getSerializableExtra("listDescription");
         listPublisher = (ArrayList<String>)getIntent().getSerializableExtra("listPublisher");
         listDocument = (ArrayList<String>)getIntent().getSerializableExtra("listDocument");
+
+
 
         int position = getIntent().getIntExtra("position",1);
         listImgURL2 = listImgUrl.get(position);
