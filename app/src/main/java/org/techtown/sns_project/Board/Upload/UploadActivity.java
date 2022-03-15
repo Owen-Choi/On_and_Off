@@ -52,6 +52,7 @@ public class UploadActivity extends AppCompatActivity {
     StorageReference storageRef;
 
 
+
     private Uri imageUri;
     ImageView close, image_added;
     TextView upload;
