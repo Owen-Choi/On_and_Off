@@ -32,6 +32,7 @@ public class ListViewAdapter extends BaseAdapter {
         inflater = LayoutInflater.from(mContext);
         this.arraylist = new ArrayList<SearchTitleClass>();
         this.arraylist.addAll(titlesList);
+        Log.e("adapter",arraylist.get(0).getTitle());
         Log.e("adapter", "ListViewAdapter: " + arraylist.size());
     }
 

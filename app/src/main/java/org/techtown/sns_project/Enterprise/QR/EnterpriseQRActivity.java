@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.SignUpActivity;
@@ -35,6 +36,7 @@ import org.techtown.sns_project.qr.QRGEncoder;
 import org.techtown.sns_project.qr.QRGSaver;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class EnterpriseQRActivity extends AppCompatActivity {
 
@@ -45,7 +47,7 @@ public class EnterpriseQRActivity extends AppCompatActivity {
     private Bitmap bitmap;
     private QRGEncoder qrgEncoder;
     private AppCompatActivity activity;
-
+    private boolean Dup = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,40 +59,66 @@ public class EnterpriseQRActivity extends AppCompatActivity {
 
     findViewById(R.id.generate_barcode).setOnClickListener(view -> {
         inputValue = edtValue.getText().toString().trim();
-        if (inputValue.length() > 0) {
+        String url = inputValue.replaceAll("[^0-9]", "");
+        //문자열의 주소의 이상유무를 판단하는데 조금 애매함
+        if (url.length() > 0&&inputValue.contains("musinsa.com/app/goods")) 
+        {
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            New_Parser new_parser = new New_Parser(firebaseAuth, firebaseUser, db, inputValue);
-            WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
-            Display display = manager.getDefaultDisplay();
-            Point point = new Point();
-            display.getSize(point);
-            int width = point.x;
-            int height = point.y;
-            int smallerDimension = width < height ? width : height;
-            smallerDimension = smallerDimension * 3 / 4;
 
-            qrgEncoder = new QRGEncoder(
-                    inputValue, null,
-                    QRGContents.Type.TEXT,
-                    smallerDimension);
-            qrgEncoder.setColorBlack(Color.BLACK);
-            qrgEncoder.setColorWhite(Color.WHITE);
-            try {
-                bitmap = qrgEncoder.getBitmap();
-                qrImage.setImageBitmap(bitmap);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+            db.collectionGroup("brand").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+
+                    HashMap<String,Object> HashMap = new HashMap<String,Object>();
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        HashMap = (HashMap<String, Object>) documentSnapshot.getData();
+
+                        if (((String)HashMap.get("url")).replaceAll("[^0-9]", "").equals(url))
+                        {
+                            Dup=true;
+                            StartToast("Duplicated URL !!");
+                        }
+                    }
+                    if(!Dup)
+                    {
+                        New_Parser new_parser = new New_Parser(firebaseAuth, firebaseUser, db, inputValue);
+                        WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
+                        Display display = manager.getDefaultDisplay();
+                        Point point = new Point();
+                        display.getSize(point);
+                        int width = point.x;
+                        int height = point.y;
+                        int smallerDimension = width < height ? width : height;
+                        smallerDimension = smallerDimension * 3 / 4;
+
+                        qrgEncoder = new QRGEncoder(
+                                inputValue, null,
+                                QRGContents.Type.TEXT,
+                                smallerDimension);
+                        qrgEncoder.setColorBlack(Color.BLACK);
+                        qrgEncoder.setColorWhite(Color.WHITE);
+                        try {
+                            bitmap = qrgEncoder.getBitmap();
+                            qrImage.setImageBitmap(bitmap);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
         } else {
-            edtValue.setError(getResources().getString(R.string.value_required));
+            StartToast("Invalid Url");
         }
     });
 
 
         findViewById(R.id.save_barcode).setOnClickListener(v -> {
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+            &&!Dup)
+            {
                 try {
                     String url =  edtValue.getText().toString().trim();
 
@@ -106,6 +134,7 @@ public class EnterpriseQRActivity extends AppCompatActivity {
                 }
             } else {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                StartToast("NO QRCODE");
             }
         });
     }
