@@ -76,7 +76,7 @@ public class Activity_codi extends AppCompatActivity {
         Sadapter = new SimilarAdapter();
         recyclerView_Codi.setAdapter(Cadapter);
         recyclerView_Similar.setAdapter(Sadapter);
-
+//
         getData();
 
         Sadapter.setOnItemClickListener (new SimilarAdapter.OnItemClickListener() {
