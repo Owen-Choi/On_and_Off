@@ -25,7 +25,6 @@ import org.techtown.sns_project.qr.New_Parser;
 public class ClosetMainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
-    String DEFAULT_URL="https://store.musinsa.com/app/goods/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
