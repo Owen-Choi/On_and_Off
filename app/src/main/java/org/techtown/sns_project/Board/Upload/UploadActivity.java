@@ -51,6 +51,8 @@ public class UploadActivity extends AppCompatActivity {
     private StorageTask uploadTask;
     StorageReference storageRef;
 
+
+
     private Uri imageUri;
     ImageView close, image_added;
     TextView upload;
@@ -144,7 +146,7 @@ public class UploadActivity extends AppCompatActivity {
 //                                data.put("ImageUrl",DownloadUrl);
 //                                data.put("clothes_info", list);
 
-                                db.collection("board").document(firebaseUser.getUid()).collection("board_Data").add(dataFormat)
+                                db.collection("board").add(dataFormat)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override
                                             public void onSuccess(DocumentReference documentReference) {
