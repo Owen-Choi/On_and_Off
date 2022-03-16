@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/CommonSignInText"
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:gravity="center"
-        android:text="회원 로그인"
-        android:textColor="#000000"
-        android:textSize="24sp" />
+        android:layout_height="212dp"
+        android:rotationX="10"
+        android:rotationY="5"
+        app:srcCompat="@drawable/onandofflogo" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,15 +20,23 @@
         android:orientation="vertical"
         android:paddingBottom="5dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이메일 주소"/>
+
         <EditText
             android:id="@+id/EmailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:ems="10"
-            android:hint="이메일"
-            android:drawableLeft="@drawable/ic_baseline_assignment_ind_24"
+            android:hint="예) onoff@onoff.co.kr"
             android:inputType="textEmailAddress" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호"/>
 
         <EditText
             android:id="@+id/PasswordEditText"
@@ -37,27 +44,41 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:ems="10"
-            android:hint="비밀번호"
-            android:drawableLeft="@drawable/ic_baseline_lock_24"
+
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/SignInButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
             android:text="로그인" />
 
-        <Button
-            android:id="@+id/CommonSignUpButton"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="회원가입" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp">
 
-        <Button
-            android:id="@+id/FindPassWord"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="비밀번호 찾기" />
+            <Button
+                android:id="@+id/CommonSignUpButton"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="회원가입"
+                android:textColor="@color/black"
+                android:background="#00ff0000"/>
+
+            <Button
+                android:id="@+id/FindPassWord"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="비밀번호 찾기"
+                android:textColor="@color/black"
+                android:background="#00ff0000"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
