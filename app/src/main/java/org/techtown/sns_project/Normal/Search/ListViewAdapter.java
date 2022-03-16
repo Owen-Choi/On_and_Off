@@ -1,6 +1,7 @@
 package org.techtown.sns_project.Normal.Search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.zxing.integration.android.IntentResult;
+
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.cameraexample.Activity_codi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +36,12 @@ public class ListViewAdapter extends BaseAdapter {
         inflater = LayoutInflater.from(mContext);
         this.arraylist = new ArrayList<SearchTitleClass>();
         this.arraylist.addAll(titlesList);
-        Log.e("adapter",arraylist.get(0).getTitle());
         Log.e("adapter", "ListViewAdapter: " + arraylist.size());
     }
 
     public class ViewHolder {
-        TextView name;
+        TextView Brand;
+        TextView Title;
     }
 
     @Override
@@ -61,18 +65,26 @@ public class ListViewAdapter extends BaseAdapter {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.list_view_items, null);
             // Locate the TextViews in listview_item.xml
-            holder.name = (TextView) view.findViewById(R.id.name);
+            holder.Brand = (TextView) view.findViewById(R.id.Brand_name);
+            holder.Title = (TextView) view.findViewById(R.id.Title_name);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
         // Set the results into TextViews
-        holder.name.setText(titlesList.get(position).getTitle());
+        holder.Brand.setText(titlesList.get(position).getBrand());
+        holder.Title.setText(titlesList.get(position).getTitle());
         itemList = (RelativeLayout) view.findViewById(R.id.search_item);
         itemList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.e("clicked", " : " + arraylist.get(position).getTitle());
+                Log.e("clicked", " : " + arraylist.get(position).getUrl());
+
+                Intent intent = new Intent(mContext.getApplicationContext(), Activity_codi.class);
+                String key =  arraylist.get(position).getUrl().replaceAll("[^0-9]", "");
+                intent.putExtra("key", key);
+                mContext.startActivity(intent);
             }
         });
         return view;
@@ -88,7 +100,8 @@ public class ListViewAdapter extends BaseAdapter {
             titlesList.addAll(arraylist);
         } else {
             for (SearchTitleClass wp : arraylist) {
-                if (wp.getTitle().toLowerCase(Locale.getDefault()).contains(charText)) {
+                if (wp.getTitle().toLowerCase(Locale.getDefault()).contains(charText)||
+                        wp.getBrand().toLowerCase(Locale.getDefault()).contains(charText)) {
                     titlesList.add(wp);
                 }
             }

@@ -38,8 +38,10 @@ public class NormalSearchActivity extends AppCompatActivity {
             if(task.isSuccessful()) {
                 for(QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                     HashMap = (HashMap<String, Object>) documentSnapshot.getData();
-                    String temp = (String) HashMap.get("info");
-                    SearchTitleClass stc = new SearchTitleClass(temp);
+                    String info = (String) HashMap.get("info");
+                    String title = (String) HashMap.get("title");
+                    String url = (String) HashMap.get("url");
+                    SearchTitleClass stc = new SearchTitleClass(title,info,url);
                     arraylist.add(stc);
                 }
                 list = (ListView) findViewById(R.id.listview);
