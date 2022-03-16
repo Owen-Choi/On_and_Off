@@ -23,8 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AllFragment extends Fragment {
-    // 박초롱
-    // 박초롱2222
+
     private RecyclerView recyclerView;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
