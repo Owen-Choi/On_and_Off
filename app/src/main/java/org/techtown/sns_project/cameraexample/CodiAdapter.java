@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListAdapter;
 import org.techtown.sns_project.R;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class CodiAdapter extends RecyclerView.Adapter<CodiAdapter.ItemViewHolder
         return new
                 ItemViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder itemViewHolder, int i) {
@@ -51,6 +53,7 @@ public class CodiAdapter extends RecyclerView.Adapter<CodiAdapter.ItemViewHolder
             txt_ProductBrand = itemView.findViewById(R.id.txt_ProductBrand);
             txt_ProductTitle = itemView.findViewById(R.id.txt_ProductTitle);
             Img_ProductImg     = itemView.findViewById(R.id.Img_ProductImg);
+
 
         }
 
