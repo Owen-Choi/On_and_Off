@@ -91,6 +91,7 @@ public class BoardFragment extends Fragment {
            if(task.isSuccessful()) {
            listImgUrl.clear();
            listDescription.clear();
+
            listPublisher.clear();
 
            adapter.listData.clear();
