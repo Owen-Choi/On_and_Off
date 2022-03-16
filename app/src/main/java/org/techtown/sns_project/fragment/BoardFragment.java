@@ -47,6 +47,7 @@ public class BoardFragment extends Fragment {
  public static ArrayList<String> listImgUrl = new ArrayList<>();
  static ArrayList<String> listDescription = new ArrayList<>();
  static ArrayList<String> listPublisher = new ArrayList<>();
+ public static ArrayList<String> listDocument = new ArrayList<>();
  static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
  @Nullable
  @Override
@@ -81,6 +82,7 @@ public class BoardFragment extends Fragment {
     intent.putExtra("listPublisher",listPublisher);
     intent.putExtra("listDescription",listDescription);
     intent.putExtra("listOfList", listOfList);
+    intent.putExtra("listDocument",listDocument);
 
     System.out.println("Start activity :" + listImgUrl);
 
@@ -89,7 +91,7 @@ public class BoardFragment extends Fragment {
 
   });
 
-  db.collectionGroup("board_Data").get().
+  db.collectionGroup("board").get().
           addOnCompleteListener(task -> {
            if(task.isSuccessful()) {
         /*   listImgUrl.clear();
@@ -101,9 +103,11 @@ public class BoardFragment extends Fragment {
 
 //             List = (HashMap<String, Object>) document.getData();
                df = document.toObject(DataFormat.class);
+             Log.e(TAG, "onCreateView: " + df.getList().get(0).getInfo());
                listImgUrl.add(df.getImageUrl());
                listPublisher.add(df.getPublisher());
                listDescription.add(df.getDescription());
+               listDocument.add(document.getId());
                listOfList.add(df.getList());
                PostInfo data = new PostInfo(df.getPublisher(),df.getImageUrl(),df.getDescription());
                adapter.addItem(data);

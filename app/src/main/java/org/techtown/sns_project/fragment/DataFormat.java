@@ -48,5 +48,6 @@ public class DataFormat {
         this.publisher = publisher;
         this.description = description;
         this.list = list;
+
     }
 }
