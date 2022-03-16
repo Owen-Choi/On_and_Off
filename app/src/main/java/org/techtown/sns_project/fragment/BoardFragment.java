@@ -21,9 +21,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.techtown.sns_project.Board.BoardAdapter;
 import org.techtown.sns_project.Board.BoardPostClickEvent;
-import org.techtown.sns_project.Board.Upload.UploadActivity;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.Board.Upload.UploadActivity;
+import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,14 +41,14 @@ public class BoardFragment extends Fragment {
  static BoardAdapter adapter;
  static String url;
 
- HashMap<String,Object> List = new HashMap<String,Object>();
+// HashMap<String,Object> List = new HashMap<String,Object>();
+ DataFormat df;
 
  public static ArrayList<String> listImgUrl = new ArrayList<>();
- public static ArrayList<String> listDescription = new ArrayList<>();
- public static ArrayList<String> listPublisher = new ArrayList<>();
- public static ArrayList<String> listPostid = new ArrayList<>();
+ static ArrayList<String> listDescription = new ArrayList<>();
+ static ArrayList<String> listPublisher = new ArrayList<>();
  public static ArrayList<String> listDocument = new ArrayList<>();
-
+ static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
  @Nullable
  @Override
  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,6 +61,8 @@ public class BoardFragment extends Fragment {
   GridLayoutManager BoardItem = new GridLayoutManager(getContext(),2);
   recyclerView_BoardItem.setLayoutManager(BoardItem);
 
+/*  LinearLayoutManager BoardItem = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
+  recyclerView_BoardItem.setLayoutManager(BoardItem); //Linear로 recyclerview layout 만들기*/
   adapter = new BoardAdapter();
   recyclerView_BoardItem.setAdapter(adapter);
 
@@ -78,42 +81,49 @@ public class BoardFragment extends Fragment {
     intent.putExtra("listImgUrl",listImgUrl);
     intent.putExtra("listPublisher",listPublisher);
     intent.putExtra("listDescription",listDescription);
+    intent.putExtra("listOfList", listOfList);
     intent.putExtra("listDocument",listDocument);
 
+    System.out.println("Start activity :" + listImgUrl);
 
     startActivity(intent);
    }
 
   });
 
-  db.collection("board").get().
+  db.collectionGroup("board").get().
           addOnCompleteListener(task -> {
            if(task.isSuccessful()) {
-           listImgUrl.clear();
+        /*   listImgUrl.clear();
            listDescription.clear();
 
            listPublisher.clear();
-
-           adapter.listData.clear();
+           adapter.listData.clear();*/
 
             for(QueryDocumentSnapshot document : task.getResult()) {
 
-             List = (HashMap<String, Object>) document.getData();
-
-             listImgUrl.add((String)List.get("ImageUrl"));
-             listPublisher.add((String)List.get("publisher"));
-             listDescription.add((String)List.get("description"));
-             listDocument.add(document.getId());
-
-             PostInfo data = new PostInfo((String)List.get("publisher"),(String)List.get("ImageUrl"),(String)List.get("description"));
-             adapter.addItem(data);
-             System.out.println(listImgUrl);
-             System.out.println(listDocument);
+//             List = (HashMap<String, Object>) document.getData();
+               df = document.toObject(DataFormat.class);
+             Log.e(TAG, "onCreateView: " + df.getList().get(0).getInfo());
+               listImgUrl.add(df.getImageUrl());
+               listPublisher.add(df.getPublisher());
+               listDescription.add(df.getDescription());
+               listDocument.add(document.getId());
+               listOfList.add(df.getList());
+               PostInfo data = new PostInfo(df.getPublisher(),df.getImageUrl(),df.getDescription());
+               adapter.addItem(data);
+//             listImgUrl.add((String)list.get
+//             listPublisher.add((String)List.get("publisher"));
+//             listDescription.add((String)List.get("description"));
+//             listOfList.add((ArrayList<ProductInfo>) List.get("clothes_info"));
+//             PostInfo data = new PostInfo((String)List.get("publisher"),(String)List.get("ImageUrl"),(String)List.get("description"));
+//             adapter.addItem(data);
+//             System.out.println(listImgUrl);
             }
 
             adapter.notifyDataSetChanged();
            }
-//ㅇ
+
 
           });
 

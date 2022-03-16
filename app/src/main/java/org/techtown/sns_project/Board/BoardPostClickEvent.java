@@ -3,14 +3,15 @@ package org.techtown.sns_project.Board;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import android.view.View;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -19,49 +20,52 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.techtown.sns_project.Board.Upload.upload_items_adapter;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.qr.ProductInfo;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 
 public class BoardPostClickEvent extends AppCompatActivity {
+
 
     public ImageView image_profile, post_image, like, comment, save, more;
     public TextView username, likes, publisher, description, comments;
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser user = firebaseAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference likesRef;
 
     HashMap<String,Object> List = new HashMap<String,Object>();
+
+    static String listImgURL2;
+    static ArrayList<String> listDescription = new ArrayList<>();
+    static ArrayList<String> listPublisher = new ArrayList<>();
+    static ArrayList<String> listImgUrl = new ArrayList<>();
+    ArrayList<ArrayList<ProductInfo>>listOfList = new ArrayList<>();
+    static ArrayList<String> listPostid = new ArrayList<>();
+    static ArrayList<String> listDocument = new ArrayList<>();
+    static ArrayList<Integer> listNrlikeds = new ArrayList<Integer>();
+    public ArrayList<PostInfo> listData = new ArrayList<>();
     HashMap<String, Object> Map_like = new HashMap<>();
     static boolean liked = true;
-    static String listImgURL2;
     static String post_description;
     static String post_publisher;
     static String post_postid,post_document;
     static int nrlikes;
 
-    static ArrayList<String> listDescription = new ArrayList<>();
-    static ArrayList<String> listPublisher = new ArrayList<>();
-    static ArrayList<String> listImgUrl = new ArrayList<>();
-    static ArrayList<String> listPostid = new ArrayList<>();
-    static ArrayList<String> listDocument = new ArrayList<>();
-    static ArrayList<Integer> listNrlikeds = new ArrayList<Integer>();
-    public ArrayList<PostInfo> listData = new ArrayList<>();
+
+    RecyclerView recyclerView;
+    LinearLayoutManager linearLayoutManager;
+    upload_items_adapter UIA;
+
+    ArrayList<ProductInfo>list = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,18 +75,32 @@ public class BoardPostClickEvent extends AppCompatActivity {
         listImgUrl = (ArrayList<String>)getIntent().getSerializableExtra("listImgUrl");
         listDescription = (ArrayList<String>)getIntent().getSerializableExtra("listDescription");
         listPublisher = (ArrayList<String>)getIntent().getSerializableExtra("listPublisher");
+        listOfList = (ArrayList<ArrayList<ProductInfo>>)getIntent().getSerializableExtra("listOfList");
         listDocument = (ArrayList<String>)getIntent().getSerializableExtra("listDocument");
 
-
-
         int position = getIntent().getIntExtra("position",1);
+        Log.e("temp", "onCreate: " + listOfList.get(0).get(0).getInfo());
+        Log.e("temp", "onCreate: " + listImgUrl.toString());
+        Log.e("temp", "onCreate: " + listDescription.toString());
+        Log.e("temp", "onCreate: " + listPublisher.toString());
+        Log.e("temp", "onCreate: " + listDocument.toString());
         listImgURL2 = listImgUrl.get(position);
+        list = listOfList.get(position);
         post_description = listDescription.get(position);
         post_publisher = listPublisher.get(position);
         post_document = listDocument.get(position);
 
+        // 최신화가 안된 게시글을 누르면 nullPointerException 앱이 종료된다. 디비를 한번 날려야 할 필요가 있다.
+        //recycler view part
+        recyclerView = findViewById(R.id.AddedItemList);
+        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        UIA = new upload_items_adapter(this);
+        recyclerView.setAdapter(UIA);
+        UIA.addItem(list);
+        UIA.notifyDataSetChanged();
 
-        System.out.println(listImgUrl);
 
         post_image = findViewById(R.id.post_image);
         description = findViewById(R.id.description);
@@ -97,6 +115,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
 
         Glide.with(this).load(listImgURL2).error(R.drawable.ic_launcher_background).into(post_image);
+
 
         //글 설명
         if (post_description != null)
@@ -185,7 +204,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                                nrlikes = 0;
+                            nrlikes = 0;
                             for (DocumentSnapshot document : task.getResult()) {
                                 nrlikes++;
                             }
@@ -223,11 +242,5 @@ public class BoardPostClickEvent extends AppCompatActivity {
         });
 
 
-
-
     }
-
-
-
-
 }

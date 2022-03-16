@@ -13,10 +13,11 @@ import java.io.IOException;
 
 public class upload_parser_class {
     String URL;
-    static ProductInfo productInfo;
-    public upload_parser_class( String URL) {
+    UploadActivity uploadActivity;
+    public upload_parser_class( String URL, UploadActivity uploadActivity) {
         this.URL = URL;
         this.getData();
+        this.uploadActivity = uploadActivity;
     }
 
     private void getData() {
@@ -34,7 +35,6 @@ public class upload_parser_class {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
 
             final Elements productImg = doc.select("div[class=product-img] img");
             //상품 사진
@@ -66,14 +66,16 @@ public class upload_parser_class {
             // pi에 parsing한 정보가 모두 들어가있다. 이 정보를 adapter로 넘기자.
             ProductInfo pi = new ProductInfo(URL, "https:"+productImg.attr("src"), title
                     , productINFO.text(), product_price);
-            productInfo = pi;
+            make_injection(pi);
             return null;
         }
+
     }
 
-    // 가능한 로직인지는 모르겠다. 외부에서 pi를 가져가는 구조.
-    // 불가능한 로직. null이 반환된다.
-    public ProductInfo getProductInfo() {
-        return productInfo;
+
+    // 여기서 문제가 많이 생긴다. 외부에서 수정을 못하는 쓰레드 오류가 주로 발생함.
+    private void make_injection(ProductInfo pi) {
+        uploadActivity.parsing_injection(pi);
     }
+
 }
