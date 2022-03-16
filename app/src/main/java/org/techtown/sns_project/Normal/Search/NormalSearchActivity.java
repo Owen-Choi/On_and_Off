@@ -1,9 +1,11 @@
 package org.techtown.sns_project.Normal.Search;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -12,6 +14,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import org.techtown.sns_project.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class NormalSearchActivity extends AppCompatActivity {
@@ -22,6 +25,7 @@ public class NormalSearchActivity extends AppCompatActivity {
     SearchView editsearch;
     ArrayList<SearchTitleClass> arraylist = new ArrayList<SearchTitleClass>();
     HashMap<String,Object> HashMap = new HashMap<String,Object>();
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +38,10 @@ public class NormalSearchActivity extends AppCompatActivity {
             if(task.isSuccessful()) {
                 for(QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                     HashMap = (HashMap<String, Object>) documentSnapshot.getData();
-                    String temp = (String) HashMap.get("info");
-                    SearchTitleClass stc = new SearchTitleClass(temp);
+                    String info = (String) HashMap.get("info");
+                    String title = (String) HashMap.get("title");
+                    String url = (String) HashMap.get("url");
+                    SearchTitleClass stc = new SearchTitleClass(title,info,url);
                     arraylist.add(stc);
                 }
                 list = (ListView) findViewById(R.id.listview);

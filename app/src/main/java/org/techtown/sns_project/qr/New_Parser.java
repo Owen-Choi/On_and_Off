@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,6 +13,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class New_Parser {
     FirebaseAuth firebaseAuth;
@@ -75,11 +76,30 @@ public class New_Parser {
 
             ProductInfo pi = new ProductInfo(URL, "https:"+productImg.attr("src"), title
                     , productINFO.text(), product_price);
-            db.collection("enterprises").document(user.getUid()).collection("brand").
-                    document(pi.getURL().replaceAll("[^0-9]", "")).set(pi);
+
+            db.collectionGroup("brand").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    HashMap<String,Object> HashMap = new HashMap<String,Object>();
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        HashMap = (HashMap<String, Object>) documentSnapshot.getData();
+                        String info = (String) HashMap.get("info");
+                        System.out.println("URLTEST: "+((String)HashMap.get("url")).replaceAll("[^0-9]", ""));
+                            if (!info.equals(pi.Info))
+                            {
+                                db.collection("enterprises").document(user.getUid()).collection("brand").
+                                        document(pi.getURL().replaceAll("[^0-9]", "")).set(pi);
+                            }
+                    }
+                }
+            });
+
 
 
             return null;
         }
+    }
+    public String getUrl()
+    {
+        return this.URL;
     }
 }
