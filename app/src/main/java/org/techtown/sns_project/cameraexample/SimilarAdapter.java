@@ -19,6 +19,22 @@ public class SimilarAdapter extends RecyclerView.Adapter<SimilarAdapter.ItemView
 
     private ArrayList<CodiDTO> listData = new ArrayList<>();
 
+
+    //아이템 클릭 리스너 인터페이스
+    interface OnItemClickListener{
+        void onItemClick(View v, int position); //뷰와 포지션값
+    }
+    //리스너 객체 참조 변수
+    private SimilarAdapter.OnItemClickListener mListener = null;
+    //리스너 객체 참조를 어댑터에 전달 메서드
+    public void setOnItemClickListener(SimilarAdapter.OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ItemViewHolder itemViewHolder, int i) {
+        itemViewHolder.onBind(listData.get(i));
+    }
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -27,12 +43,6 @@ public class SimilarAdapter extends RecyclerView.Adapter<SimilarAdapter.ItemView
         return new
                 ItemViewHolder(view);
     }
-
-    @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder itemViewHolder, int i) {
-        itemViewHolder.onBind(listData.get(i));
-    }
-
     @Override
     public int getItemCount() {
         return listData.size();
@@ -52,6 +62,18 @@ public class SimilarAdapter extends RecyclerView.Adapter<SimilarAdapter.ItemView
             txt_ProductTitle = itemView.findViewById(R.id.txt_ProductTitle);
             Img_ProductImg     = itemView.findViewById(R.id.Img_ProductImg);
             txt_ProductPrice= itemView.findViewById(R.id.txt_ProductPrice);
+
+            itemView.setOnClickListener (new View.OnClickListener () {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition ();
+                    if (position!=RecyclerView.NO_POSITION){
+                        if (mListener!=null){
+                            mListener.onItemClick (view,position);
+                        }
+                    }
+                }
+            });
         }
 
         void onBind(CodiDTO data){
