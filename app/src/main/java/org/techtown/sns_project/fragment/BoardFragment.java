@@ -104,7 +104,7 @@ public class BoardFragment extends Fragment {
 
 //             List = (HashMap<String, Object>) document.getData();
                df = document.toObject(DataFormat.class);
-             Log.e(TAG, "onCreateView: " + df.getList().get(0).getInfo());
+/*             Log.e(TAG, "onCreateView: " + df.getList().get(0).getInfo());*/
                listImgUrl.add(df.getImageUrl());
                listPublisher.add(df.getPublisher());
                listDescription.add(df.getDescription());
