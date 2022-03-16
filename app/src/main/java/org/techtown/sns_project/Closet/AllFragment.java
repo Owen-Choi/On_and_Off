@@ -32,7 +32,7 @@ public class AllFragment extends Fragment {
     HashMap<String,Object> List = new HashMap<String,Object>();
     String TAG="DONG";
 
-//
+//test
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
