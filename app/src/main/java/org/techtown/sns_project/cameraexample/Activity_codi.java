@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListAdapter;
+import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListClickEvent;
 import org.techtown.sns_project.R;
 
 import java.io.IOException;
@@ -35,6 +38,18 @@ public class Activity_codi extends AppCompatActivity {
     TextView txt_ProductBrand, txt_ProductTitle,txt_ProductPrice,txt_ProductTag;
     String TAG="DONG";
     String DEFAULT_URL="https://store.musinsa.com/app/goods/";
+    ArrayList<String> listTitle = new ArrayList<>();
+    ArrayList<String> listBrand = new ArrayList<>();
+    ArrayList<String> listUrl = new ArrayList<>();
+    ArrayList<String> listTag = new ArrayList<>();
+    ArrayList<String> listImgLink = new ArrayList<>();
+
+    ArrayList<String> listSTitle = new ArrayList<>();
+    ArrayList<String> listSBrand = new ArrayList<>();
+    ArrayList<String> listSUrl = new ArrayList<>();
+    ArrayList<String> listSPrice = new ArrayList<>();
+    ArrayList<String> listSImgLink = new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +76,20 @@ public class Activity_codi extends AppCompatActivity {
         Sadapter = new SimilarAdapter();
         recyclerView_Codi.setAdapter(Cadapter);
         recyclerView_Similar.setAdapter(Sadapter);
-
+//
         getData();
 
+        Sadapter.setOnItemClickListener (new SimilarAdapter.OnItemClickListener() {
+            //아이템 클릭시 토스트메시지
+            @Override
+            public void onItemClick(View v, int position) {
+                System.out.println("position"+position);
+                System.out.println(listSImgLink.size());
+                System.out.println(listImgLink.size());
+               StartActivity(listSImgLink.get(position));
+            }
+
+        });
     }
 
     private void getData(){
@@ -72,15 +98,7 @@ public class Activity_codi extends AppCompatActivity {
     }
 
     private class CodiJsoup extends AsyncTask<Void, Void, Void> {
-        ArrayList<String> listTitle = new ArrayList<>();
-        ArrayList<String> listBrand = new ArrayList<>();
-        ArrayList<String> listUrl = new ArrayList<>();
-        ArrayList<String> listTag = new ArrayList<>();
 
-        ArrayList<String> listSTitle = new ArrayList<>();
-        ArrayList<String> listSBrand = new ArrayList<>();
-        ArrayList<String> listSUrl = new ArrayList<>();
-        ArrayList<String> listSPrice = new ArrayList<>();
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -91,6 +109,7 @@ public class Activity_codi extends AppCompatActivity {
                 final Elements Codi_Img = doc.select("div[class=right_contents related-styling]  ul[class=style_list] li[class=list_item] img");
                 final Elements Codi_title = doc.select("div[class=right_contents related-styling]  ul[class=style_list] li[class=list_item] h5");
                 final Elements Codi_Spec = doc.select("div[class=right_contents related-styling]  ul[class=style_list] li[class=list_item] p");
+                final Elements Codi_Url = doc.select("div[class=right_contents related-styling]  ul[class=style_list] li[class=list_item] a");
 
                 final Elements product_INFO= doc.select("span[class=product_title]");//제품명
                 final Elements product_Brand= doc.select("div[class=explan_product product_info_section] ul p[class=product_article_contents] a");
@@ -141,7 +160,33 @@ public class Activity_codi extends AppCompatActivity {
                         for (Element element : Codi_Img){
                             listUrl.add("https:"+element.attr("src"));
                         }
-
+                        for (Element element : Codi_Url){
+                            System.out.println("CODI IMG URL:"+element.attr("href"));
+                            if(element.attr("href").contains("https://www.musinsa.com"))
+                            {
+                                System.out.println("CONTAIN : "+ element.attr("href"));
+                                listImgLink.add(element.attr("href"));
+                            }
+                            else
+                            {
+                                System.out.println("NONCONTAIN : "+ element.attr("href"));
+                                listImgLink.add("https://www.musinsa.com"+element.attr("href"));
+                            }
+                        }
+                        for (Element element : Similar_Url){
+                            System.out.println("S IMG URL:"+element.attr("href"));
+                            if(element.attr("href").contains("https://www.musinsa.com"))
+                            {
+                                System.out.println("CONTAIN : "+ element.attr("href"));
+                                listSImgLink.add(element.attr("href"));
+                            }
+                            else
+                            {
+                                listSImgLink.add("https://www.musinsa.com"+element.attr("href"));
+                                System.out.println("NONCONTAIN : "+ "https://www.musinsa.com"+element.attr("href"));
+                            }
+                        }
+                        System.out.println("SIZE : "+ listSImgLink);
                         for (int i = 0; i < listTitle.size() ; i++) {
                             CodiDTO data = new CodiDTO();
 
@@ -195,4 +240,9 @@ public class Activity_codi extends AppCompatActivity {
             return null;
         }
     }
+    private void StartActivity(String key) {
+        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(key));
+        startActivity(intent);
+    }
+
 }
