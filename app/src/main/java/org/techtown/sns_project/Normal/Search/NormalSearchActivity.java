@@ -30,8 +30,6 @@ public class NormalSearchActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal_search);
-        ArrayList<String> james = new ArrayList<>();
-        // Generate sample data
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collectionGroup("brand").get().addOnCompleteListener(task -> {
