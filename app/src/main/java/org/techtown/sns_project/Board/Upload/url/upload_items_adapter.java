@@ -1,8 +1,7 @@
-package org.techtown.sns_project.Board.Upload;
+package org.techtown.sns_project.Board.Upload.url;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

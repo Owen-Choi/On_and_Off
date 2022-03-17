@@ -35,18 +35,26 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import org.techtown.sns_project.Board.Upload.closet.closet_outer_adapter;
+import org.techtown.sns_project.Board.Upload.closet.closet_pants_adapter;
+import org.techtown.sns_project.Board.Upload.closet.closet_shoes_adapter;
+import org.techtown.sns_project.Board.Upload.closet.closet_top_adapter;
+import org.techtown.sns_project.Closet.Closet_info;
 import org.techtown.sns_project.Normal.NormalMainActivity;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.fragment.DataFormat;
 import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UploadActivity extends AppCompatActivity {
 
@@ -69,13 +77,26 @@ public class UploadActivity extends AppCompatActivity {
     EditText input;
     String defaultString = "";
     static ArrayList<ProductInfo> list = new ArrayList<>();
-
+    static ArrayList<Closet_info> ClosetList = new ArrayList<>();
     //옷장 리스트 리사이클러 뷰 파트
-    RecyclerView ClosetRecyclerView;
-    LinearLayoutManager linearLayoutManager;
-    closet_items_adapter CIA;
+    // DB의 컬렉션이 깔끔하지 않아 리사이클러 뷰의 수가 많아졌지만 항목별로 분류할 수 있다는 장점이 있다.
+    RecyclerView ClosetOuterRecyclerView;
+    RecyclerView ClosetTopRecyclerView;
+    RecyclerView ClosetPantsRecyclerView;
+    RecyclerView ClosetShoesRecyclerView;
+    LinearLayoutManager OuterlinearLayoutManager;
+    LinearLayoutManager ToplinearLayoutManager;
+    LinearLayoutManager PantslinearLayoutManager;
+    LinearLayoutManager ShoeslinearLayoutManager;
+    closet_outer_adapter outer_adapter;
+    closet_top_adapter top_adapter;
+    closet_pants_adapter pants_adapter;
+    closet_shoes_adapter shoes_adapter;
     Dialog dialog;
-
+    Closet_info CI;
+    HashMap<String,Object> Hash = new HashMap<String,Object>();
+    View dialogView;
+    LayoutInflater inf;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +137,26 @@ public class UploadActivity extends AppCompatActivity {
                 .setAspectRatio(1, 1)
                 .start(UploadActivity.this);
 
+        // Recycler View part
+        inf = getLayoutInflater();
+        dialogView = inf.inflate(R.layout.dialog_closet_item_list, null);
+        // 아우터 레이아웃 매니저
+        OuterlinearLayoutManager = new LinearLayoutManager(this);
+        OuterlinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        // 상의 레이아웃 매니저
+        ToplinearLayoutManager = new LinearLayoutManager(this);
+        ToplinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        // 하의 레이아웃 매니저
+        PantslinearLayoutManager = new LinearLayoutManager(this);
+        PantslinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        // 신발 레이아웃 매니저
+        ShoeslinearLayoutManager = new LinearLayoutManager(this);
+        ShoeslinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        // 어댑터들 초기화
+        outer_adapter = new closet_outer_adapter(this);
+        top_adapter = new closet_top_adapter(this);
+        pants_adapter = new closet_pants_adapter(this);
+        shoes_adapter = new closet_shoes_adapter(this);
 
     }
             private void uploadImage() {
@@ -220,6 +261,7 @@ public class UploadActivity extends AppCompatActivity {
 
                     break;
                 case R.id.ClosetImageButton:
+                    // dialog recycler view
                     showAlertDialogTopic();
                     break;
             }
@@ -274,23 +316,86 @@ public class UploadActivity extends AppCompatActivity {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private void showAlertDialogTopic() {
         // recyclerview 및 dialog 정의
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
         dialog = new Dialog(this);
-
-        display.getRealSize(size);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 
-        LayoutInflater inf = getLayoutInflater();
-        View dialogView = inf.inflate(R.layout.recycler_view_board_added_closet_list, null);
-
-        lp.copyFrom(dialog.getWindow().getAttributes());
-        int width = size.x;
-        lp.width = width * 80 / 100; // 사용자 화면의 80%
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT; // 높이는 내용 전체 높이만큼
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT; // 높이는 내용 전체 높이만큼
         dialog.setContentView(dialogView); // Dialog에 선언했던 layout 적용
         dialog.setCanceledOnTouchOutside(true); // 외부 touch 시 Dialog 종료
         dialog.getWindow().setAttributes(lp); // 지정한 너비, 높이 값 Dialog에 적용
+
+
+//        dialogRecyclerView = (RecyclerView) dialogView.findViewById(R.id.dialogRecyclerView);
+//        dialogRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        DialogRecyclerAdapter adapter = new DialogRecyclerAdapter(arrayList);
+//        dialogRecyclerView.setAdapter(adapter);
+
+        //아우터
+        ClosetOuterRecyclerView = dialogView.findViewById(R.id.closetOuterRecyclerView);
+        ClosetOuterRecyclerView.setLayoutManager(OuterlinearLayoutManager);
+        ClosetOuterRecyclerView.setAdapter(outer_adapter);
+        //상의
+        ClosetTopRecyclerView = dialogView.findViewById(R.id.closetTopRecyclerView);
+        ClosetTopRecyclerView.setLayoutManager(ToplinearLayoutManager);
+        ClosetTopRecyclerView.setAdapter(top_adapter);
+        //하의
+        ClosetPantsRecyclerView = dialogView.findViewById(R.id.closetPantsRecyclerView);
+        ClosetPantsRecyclerView.setLayoutManager(PantslinearLayoutManager);
+        ClosetPantsRecyclerView.setAdapter(pants_adapter);
+        //신발
+        ClosetShoesRecyclerView = dialogView.findViewById(R.id.closetShoesRecyclerView);
+        ClosetShoesRecyclerView.setLayoutManager(ShoeslinearLayoutManager);
+        ClosetShoesRecyclerView.setAdapter(shoes_adapter);
+
+        String[] categotyList = {"아우터", "상의", "하의", "신발"};
+        for (String element : categotyList) {
+            RecyclerViewInsertion(element);
+        }
+
+        dialog.show(); // Dialog 출력
+    }
+
+    protected void RecyclerViewInsertion(String category) {
+        db.collection("users").document(firebaseUser.getUid())
+                .collection(category).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    for(QueryDocumentSnapshot document : task.getResult()) {
+                        Hash = (HashMap<String, Object>) document.getData();
+                        CI = new Closet_info((String)Hash.get("name"),(String)Hash.get("brand"), (String)Hash.get("img_url"),
+                                (String) Hash.get("url"));
+                        switch (category) {
+                            case "아우터" :
+                                outer_adapter.ItemChange(CI);
+                                break;
+                            case "상의" :
+                                top_adapter.ItemChange(CI);
+                                break;
+                            case "하의" :
+                                pants_adapter.ItemChange(CI);
+                                break;
+                            case "신발" :
+                                shoes_adapter.ItemChange(CI);
+                                break;
+                            default:
+                                Log.e("woong", "RecyclerViewInsertion: switch-case default log");
+                                break;
+                        }
+                    }
+                }
+                else
+                    Log.e("upload", "onComplete: failed");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("upload", "onFailure: fail to access DB");
+            }
+        });
+
+        ClosetList.clear();
     }
 
 }

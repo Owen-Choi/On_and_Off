@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Board.Upload;
+package org.techtown.sns_project.Board.Upload.closet;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,55 +13,55 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import org.techtown.sns_project.Closet.Closet_info;
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 
-public class closet_items_adapter extends RecyclerView.Adapter<closet_items_adapter.ClosetItemViewHolder> {
+public class closet_pants_adapter extends RecyclerView.Adapter<closet_pants_adapter.ClosetPantsItemViewHolder>{
     Context context;
-    static ArrayList<closet_info> listData = new ArrayList<>();
-    public closet_items_adapter(Context context) {
+    static ArrayList<Closet_info> listData = new ArrayList<>();
+    public closet_pants_adapter(Context context) {
         this.context = context;
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void ItemChange(ArrayList<closet_info> list) {
-        listData = list;
+    public void ItemChange(Closet_info ci) {
+        listData.add(ci);
         this.notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public ClosetItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ClosetPantsItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.recycler_view_board_added_list, parent, false);
-        return new ClosetItemViewHolder(view);
+        View view = layoutInflater.inflate(R.layout.recycler_view_board_added_closet_list, parent, false);
+        return new ClosetPantsItemViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ClosetItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ClosetPantsItemViewHolder holder, int position) {
         holder.OnBind(listData.get(position));
     }
 
+
     @Override
     public int getItemCount() {
-        return 0;
+        return listData.size();
     }
 
-    public class ClosetItemViewHolder extends RecyclerView.ViewHolder {
+    public class ClosetPantsItemViewHolder extends RecyclerView.ViewHolder {
         TextView Brand, Name;
         ImageView image;
 
-        public ClosetItemViewHolder(@NonNull View itemView) {
+        public ClosetPantsItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            Name = itemView.findViewById(R.id.itemTitle);
-            Brand = itemView.findViewById(R.id.itemCategory);
-            image = itemView.findViewById(R.id.itemImage);
+            Name = itemView.findViewById(R.id.ClosetitemTitle);
+            Brand = itemView.findViewById(R.id.ClosetItemCategory);
+            image = itemView.findViewById(R.id.ClosetItemImage);
         }
-        void OnBind(closet_info data) {
+        void OnBind(Closet_info data) {
             String NameTXT = data.getName();
-            // 일단 임시로 price를 넣겠다.
             String BrandTXT = data.getBrand();
             Brand.setText(BrandTXT);
             Name.setText(NameTXT);
