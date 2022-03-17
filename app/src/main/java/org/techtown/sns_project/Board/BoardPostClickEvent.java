@@ -79,18 +79,12 @@ public class BoardPostClickEvent extends AppCompatActivity {
         listDocument = (ArrayList<String>)getIntent().getSerializableExtra("listDocument");
 
         int position = getIntent().getIntExtra("position",1);
-        Log.e("temp", "onCreate: " + listOfList.get(0).get(0).getInfo());
-        Log.e("temp", "onCreate: " + listImgUrl.toString());
-        Log.e("temp", "onCreate: " + listDescription.toString());
-        Log.e("temp", "onCreate: " + listPublisher.toString());
-        Log.e("temp", "onCreate: " + listDocument.toString());
         listImgURL2 = listImgUrl.get(position);
         list = listOfList.get(position);
         post_description = listDescription.get(position);
         post_publisher = listPublisher.get(position);
         post_document = listDocument.get(position);
 
-        // 최신화가 안된 게시글을 누르면 nullPointerException 앱이 종료된다. 디비를 한번 날려야 할 필요가 있다.
         //recycler view part
         recyclerView = findViewById(R.id.AddedItemList);
         linearLayoutManager = new LinearLayoutManager(this);
