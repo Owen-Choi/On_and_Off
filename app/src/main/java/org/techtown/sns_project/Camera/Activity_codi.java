@@ -1,4 +1,4 @@
-package org.techtown.sns_project.cameraexample;
+package org.techtown.sns_project.Camera;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -21,8 +21,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListAdapter;
-import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListClickEvent;
 import org.techtown.sns_project.R;
 
 import java.io.IOException;

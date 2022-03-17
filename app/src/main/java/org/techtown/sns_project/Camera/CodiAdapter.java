@@ -1,4 +1,4 @@
-package org.techtown.sns_project.cameraexample;
+package org.techtown.sns_project.Camera;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListAdapter;
 import org.techtown.sns_project.R;
 
 import java.util.ArrayList;

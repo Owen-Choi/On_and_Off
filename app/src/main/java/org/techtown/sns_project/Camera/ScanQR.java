@@ -1,4 +1,4 @@
-package org.techtown.sns_project.cameraexample;
+package org.techtown.sns_project.Camera;
 
 import android.Manifest;
 import android.content.Intent;
