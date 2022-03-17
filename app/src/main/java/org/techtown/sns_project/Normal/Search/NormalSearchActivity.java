@@ -43,6 +43,7 @@ public class NormalSearchActivity extends AppCompatActivity {
                     String url = (String) HashMap.get("url");
                     SearchTitleClass stc = new SearchTitleClass(title,info,url);
                     arraylist.add(stc);
+                    System.out.println("TEST STC : "+stc);
                 }
                 list = (ListView) findViewById(R.id.listview);
                 adapter = new ListViewAdapter(this, arraylist);

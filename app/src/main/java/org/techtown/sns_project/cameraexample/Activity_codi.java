@@ -58,6 +58,7 @@ public class Activity_codi extends AppCompatActivity {
         Intent intent = getIntent();
 
         String key = intent.getStringExtra("key");
+        System.out.println("CODI KEY"+key);
         Codi_Url = DEFAULT_URL+key;
 
         txt_ProductBrand=findViewById(R.id.txt_ProductBrand);

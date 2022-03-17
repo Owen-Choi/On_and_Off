@@ -10,14 +10,20 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.zxing.integration.android.IntentResult;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.cameraexample.Activity_codi;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
+
+import io.grpc.internal.JsonUtil;
 
 public class ListViewAdapter extends BaseAdapter {
 
@@ -25,14 +31,15 @@ public class ListViewAdapter extends BaseAdapter {
 
     Context mContext;
     LayoutInflater inflater;
-    private List<SearchTitleClass> titlesList = null;
+    private ArrayList<SearchTitleClass> titlesList ;
+
     private ArrayList<SearchTitleClass> arraylist;
     RelativeLayout itemList;
 
     public ListViewAdapter(Context context, List<SearchTitleClass> titlesList) {
         mContext = context;
-        this.titlesList = titlesList;
         // 이건 무슨 역할이지?
+        this.titlesList = new ArrayList<SearchTitleClass>();
         inflater = LayoutInflater.from(mContext);
         this.arraylist = new ArrayList<SearchTitleClass>();
         this.arraylist.addAll(titlesList);
@@ -46,6 +53,7 @@ public class ListViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+
         return titlesList.size();
     }
 
@@ -72,17 +80,23 @@ public class ListViewAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
         // Set the results into TextViews
+        if(!titlesList.isEmpty())
+        {
+
         holder.Brand.setText(titlesList.get(position).getBrand());
         holder.Title.setText(titlesList.get(position).getTitle());
+        }
+
         itemList = (RelativeLayout) view.findViewById(R.id.search_item);
         itemList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("clicked", " : " + arraylist.get(position).getTitle());
-                Log.e("clicked", " : " + arraylist.get(position).getUrl());
+                Log.e("clicked", " : " + titlesList.get(position).getTitle());
+                Log.e("clicked", " : " + titlesList.get(position).getUrl());
 
                 Intent intent = new Intent(mContext.getApplicationContext(), Activity_codi.class);
-                String key =  arraylist.get(position).getUrl().replaceAll("[^0-9]", "");
+                String key =  titlesList.get(position).getUrl().replaceAll("[^0-9]", "");
+                System.out.println("KEY : "+key);
                 intent.putExtra("key", key);
                 mContext.startActivity(intent);
             }
@@ -94,19 +108,22 @@ public class ListViewAdapter extends BaseAdapter {
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
         // 새 텍스트가 추가됐으니 일단 기존의 리스트를 비우고 일치하는 단어로 이루어진 리스트를 새로 만든다.
-        titlesList.clear();
-        // 입력된 텍스트의 길이가 0이면(입력이 안됐으면) 다시 이전의 리스트들을 띄운다.
+       // 입력된 텍스트의 길이가 0이면(입력이 안됐으면) 다시 이전의 리스트들을 띄운다.
         if (charText.length() == 0) {
-            titlesList.addAll(arraylist);
+            titlesList.clear();
+            notifyDataSetChanged();
+            //titlesList.addAll(arraylist);
         } else {
+            titlesList.clear();
             for (SearchTitleClass wp : arraylist) {
                 if (wp.getTitle().toLowerCase(Locale.getDefault()).contains(charText)||
                         wp.getBrand().toLowerCase(Locale.getDefault()).contains(charText)) {
                     titlesList.add(wp);
                 }
             }
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
+
     }
 
 }
