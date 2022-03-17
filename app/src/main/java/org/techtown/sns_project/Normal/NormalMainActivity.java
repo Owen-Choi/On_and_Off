@@ -26,7 +26,7 @@ import org.techtown.sns_project.fragment.ProfileFragment;
 import org.techtown.sns_project.fragment.SearchFragment;
 import org.techtown.sns_project.fragment.SomethingFragment;
 
-// 철웅
+// 인범
 public class NormalMainActivity extends AppCompatActivity {
     Fragment Board_Fragment;
     Fragment Home_Fragment;
