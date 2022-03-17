@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.zxing.integration.android.IntentResult;
+
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.Camera.Activity_codi;
 
