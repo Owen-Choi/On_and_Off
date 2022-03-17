@@ -6,16 +6,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import androidx.fragment.app.Fragment;
-
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.cameraexample.ScanQR;
+import org.techtown.sns_project.Camera.ScanQR;
 
 public class HomeFragment extends Fragment {
     private View view;
