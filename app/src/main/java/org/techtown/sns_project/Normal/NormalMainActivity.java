@@ -19,7 +19,7 @@ import org.techtown.sns_project.CommonSignInActivity;
 import org.techtown.sns_project.Normal.Search.NormalSearchActivity;
 import org.techtown.sns_project.Normal.Setting.NormalSettingActivity;
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.cameraexample.ScanQR;
+import org.techtown.sns_project.Camera.ScanQR;
 import org.techtown.sns_project.fragment.BoardFragment;
 import org.techtown.sns_project.fragment.HomeFragment;
 import org.techtown.sns_project.fragment.ProfileFragment;

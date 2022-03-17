@@ -30,8 +30,6 @@ public class NormalSearchActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal_search);
-        ArrayList<String> james = new ArrayList<>();
-        // Generate sample data
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collectionGroup("brand").get().addOnCompleteListener(task -> {
@@ -43,6 +41,7 @@ public class NormalSearchActivity extends AppCompatActivity {
                     String url = (String) HashMap.get("url");
                     SearchTitleClass stc = new SearchTitleClass(title,info,url);
                     arraylist.add(stc);
+                    System.out.println("TEST STC : "+stc);
                 }
                 list = (ListView) findViewById(R.id.listview);
                 adapter = new ListViewAdapter(this, arraylist);

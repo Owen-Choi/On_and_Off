@@ -1,4 +1,4 @@
-package org.techtown.sns_project.cameraexample;
+package org.techtown.sns_project.Camera;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -21,8 +21,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListAdapter;
-import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListClickEvent;
 import org.techtown.sns_project.R;
 
 import java.io.IOException;
@@ -58,6 +56,9 @@ public class Activity_codi extends AppCompatActivity {
         Intent intent = getIntent();
 
         String key = intent.getStringExtra("key");
+        key = key.replace("/0","");
+        key=key.replaceAll("[^0-9]", "");
+        System.out.println("CODI KEY"+key);
         Codi_Url = DEFAULT_URL+key;
 
         txt_ProductBrand=findViewById(R.id.txt_ProductBrand);
@@ -76,9 +77,20 @@ public class Activity_codi extends AppCompatActivity {
         Sadapter = new SimilarAdapter();
         recyclerView_Codi.setAdapter(Cadapter);
         recyclerView_Similar.setAdapter(Sadapter);
-//
+
         getData();
 
+        Cadapter.setOnItemClickListener (new CodiAdapter.OnItemClickListener() {
+            //아이템 클릭시 토스트메시지
+            @Override
+            public void onItemClick(View v, int position) {
+                System.out.println("position"+position);
+                System.out.println(listSImgLink.size());
+                System.out.println(listImgLink.size());
+                StartActivity(listImgLink.get(position));
+            }
+
+        });
         Sadapter.setOnItemClickListener (new SimilarAdapter.OnItemClickListener() {
             //아이템 클릭시 토스트메시지
             @Override
@@ -86,10 +98,12 @@ public class Activity_codi extends AppCompatActivity {
                 System.out.println("position"+position);
                 System.out.println(listSImgLink.size());
                 System.out.println(listImgLink.size());
-               StartActivity(listSImgLink.get(position));
+                StartCodiActivity(listSImgLink.get(position));
             }
 
         });
+
+
     }
 
     private void getData(){
@@ -242,6 +256,13 @@ public class Activity_codi extends AppCompatActivity {
     }
     private void StartActivity(String key) {
         Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(key));
+        startActivity(intent);
+    }
+
+    private void StartCodiActivity(String Key) {
+        Intent intent = new Intent(getApplicationContext(),Activity_codi.class);
+        String key = Key;
+        intent.putExtra("key", key);
         startActivity(intent);
     }
 

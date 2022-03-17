@@ -1,8 +1,7 @@
-package org.techtown.sns_project.Board.Upload;
+package org.techtown.sns_project.Board.Upload.url;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
     @SuppressLint("NotifyDataSetChanged")
     public void addItem(ArrayList<ProductInfo> list) {
         // 동혁코드에서 따옴. 외부에서 아이템 추가해주는 코드.
-        listData = list;
+        listData.addAll(list);
         this.notifyDataSetChanged();
     }
 
