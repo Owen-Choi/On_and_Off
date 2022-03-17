@@ -10,11 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import androidx.fragment.app.Fragment;
-
 import org.techtown.sns_project.Closet.ClosetMainActivity;
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.cameraexample.ScanQR;
 
 public class ProfileFragment extends Fragment {
     private View view;

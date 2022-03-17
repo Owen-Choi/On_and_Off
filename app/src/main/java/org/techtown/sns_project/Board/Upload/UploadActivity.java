@@ -1,14 +1,19 @@
 package org.techtown.sns_project.Board.Upload;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -38,13 +43,10 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.techtown.sns_project.Normal.NormalMainActivity;
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.cameraexample.ScanQR;
 import org.techtown.sns_project.fragment.DataFormat;
 import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class UploadActivity extends AppCompatActivity {
 
@@ -67,6 +69,13 @@ public class UploadActivity extends AppCompatActivity {
     EditText input;
     String defaultString = "";
     static ArrayList<ProductInfo> list = new ArrayList<>();
+
+    //옷장 리스트 리사이클러 뷰 파트
+    RecyclerView ClosetRecyclerView;
+    LinearLayoutManager linearLayoutManager;
+    closet_items_adapter CIA;
+    Dialog dialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +115,7 @@ public class UploadActivity extends AppCompatActivity {
         CropImage.activity()
                 .setAspectRatio(1, 1)
                 .start(UploadActivity.this);
+
 
     }
             private void uploadImage() {
@@ -210,7 +220,7 @@ public class UploadActivity extends AppCompatActivity {
 
                     break;
                 case R.id.ClosetImageButton:
-
+                    showAlertDialogTopic();
                     break;
             }
         }
@@ -238,6 +248,8 @@ public class UploadActivity extends AppCompatActivity {
         builder.show();
     }
 
+    // 아래는 URL로 추가 버튼 관련 코드이다.
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     // 여기서 parser를 만들면 아래의 parsing 메서드를 parser에서 호출한다.
     // 따로 메서드로 뺀 이유는 OnClickListener 안에서는 Context 문제가 발생했기 때문이다.
     private void call_parser() {
@@ -255,6 +267,30 @@ public class UploadActivity extends AppCompatActivity {
 
     public ArrayList<ProductInfo> getList() {
         return list;
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // 아래는 옷장에서 가져오기 버튼 관련 코드이다.
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private void showAlertDialogTopic() {
+        // recyclerview 및 dialog 정의
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        dialog = new Dialog(this);
+
+        display.getRealSize(size);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+
+        LayoutInflater inf = getLayoutInflater();
+        View dialogView = inf.inflate(R.layout.recycler_view_board_added_closet_list, null);
+
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        int width = size.x;
+        lp.width = width * 80 / 100; // 사용자 화면의 80%
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT; // 높이는 내용 전체 높이만큼
+        dialog.setContentView(dialogView); // Dialog에 선언했던 layout 적용
+        dialog.setCanceledOnTouchOutside(true); // 외부 touch 시 Dialog 종료
+        dialog.getWindow().setAttributes(lp); // 지정한 너비, 높이 값 Dialog에 적용
     }
 
 }
