@@ -92,6 +92,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         UIA = new upload_items_adapter(this);
         recyclerView.setAdapter(UIA);
+        UIA.clearList();
         UIA.addItem(list);
         UIA.notifyDataSetChanged();
 

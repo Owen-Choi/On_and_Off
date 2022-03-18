@@ -33,6 +33,11 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
         this.notifyDataSetChanged();
     }
 
+    public void clearList() {
+        listData.clear();
+    }
+
+
     public class AddedItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, category, brand;

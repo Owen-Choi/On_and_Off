@@ -30,7 +30,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:text="옷이름"
                 android:textAlignment="center"
                 android:textSize="20sp" />
@@ -41,10 +41,10 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:text="옷 종류"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/itemBrand"
@@ -52,10 +52,10 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:text="브랜드"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
