@@ -25,10 +25,22 @@ public class closet_pants_adapter extends RecyclerView.Adapter<closet_pants_adap
         this.context = context;
     }
 
+    public interface OnItemClickListener{
+        void onItemClick(View v, int position, ArrayList<Closet_info> listData);
+    }
+    private OnItemClickListener mListener = null;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     public void ItemChange(Closet_info ci) {
         listData.add(ci);
         this.notifyDataSetChanged();
+    }
+
+    public void ClearList() {
+        listData.clear();
     }
 
     @NonNull
@@ -59,6 +71,19 @@ public class closet_pants_adapter extends RecyclerView.Adapter<closet_pants_adap
             Name = itemView.findViewById(R.id.ClosetitemTitle);
             Brand = itemView.findViewById(R.id.ClosetItemCategory);
             image = itemView.findViewById(R.id.ClosetItemImage);
+
+            itemView.setOnClickListener (new View.OnClickListener () {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition ();
+                    if (position!=RecyclerView.NO_POSITION){
+                        if (mListener!=null){
+                            mListener.onItemClick (view,position, listData);
+                        }
+                    }
+                }
+            });
+
         }
         void OnBind(Closet_info data) {
             String NameTXT = data.getName();

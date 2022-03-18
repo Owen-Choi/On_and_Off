@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/ClosetItemImage"
             android:layout_width="wrap_content"
-            android:layout_height="140dp"
+            android:layout_height="200dp"
             android:layout_weight="1"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -27,9 +27,10 @@
             <TextView
                 android:id="@+id/ClosetitemTitle"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:text="옷이름"
                 android:textAlignment="center"
                 android:textSize="10sp" />
@@ -37,9 +38,10 @@
             <TextView
                 android:id="@+id/ClosetItemCategory"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:text="옷 종류"
                 android:textAlignment="center"
                 android:textSize="10sp" />
@@ -47,9 +49,10 @@
             <TextView
                 android:id="@+id/ClosetItemBrand"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:text="브랜드"
                 android:textAlignment="center"
                 android:textSize="10sp" />
