@@ -14,10 +14,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/id1"
+                android:id="@+id/OuterTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ID1입니다." />
+                android:text="아우터" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/closetOuterRecyclerView"
@@ -25,10 +25,10 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/id2"
+                android:id="@+id/TopTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ID2입니다" />
+                android:text="상의" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/closetTopRecyclerView"
@@ -36,10 +36,10 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/id3"
+                android:id="@+id/PantsTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ID3입니다" />
+                android:text="하의" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/closetPantsRecyclerView"
@@ -47,10 +47,10 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/id4"
+                android:id="@+id/ShoesTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ID4입니다" />
+                android:text="신발" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/closetShoesRecyclerView"
