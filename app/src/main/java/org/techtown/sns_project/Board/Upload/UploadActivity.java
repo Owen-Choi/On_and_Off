@@ -365,7 +365,7 @@ public class UploadActivity extends AppCompatActivity {
                 if(task.isSuccessful()) {
                     for(QueryDocumentSnapshot document : task.getResult()) {
                         Hash = (HashMap<String, Object>) document.getData();
-                        CI = new Closet_info((String)Hash.get("name"),(String)Hash.get("brand"), (String)Hash.get("img_url"),
+                        CI = new Closet_info((String)Hash.get("name"),(String)Hash.get("brand"),(String)Hash.get("clothes_type"), (String)Hash.get("img_url"),
                                 (String) Hash.get("url"));
                         switch (category) {
                             case "아우터" :
