@@ -31,6 +31,11 @@ public class ClosetMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_closet);
 
+        //뒤로가기
+        getSupportActionBar().setTitle("Closet");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         //옷장 옷 추가 버튼
         findViewById(R.id.main_write_button).setOnClickListener(new Button.OnClickListener() {
             @Override

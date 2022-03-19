@@ -2,6 +2,8 @@ package org.techtown.sns_project.Closet;
 
 import android.os.AsyncTask;
 
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -78,9 +80,10 @@ public class Closet_Parser {
             System.out.println(sp[0]);
             //sp[0]이 카테고리 분류되는 단어임
 
-            Closet_info CI = new Closet_info(productINFO.text(), title,"https:"+productImg.attr("src"),URL);
+            Closet_info CI = new Closet_info(productINFO.text(), title, sp[0], "https:"+productImg.attr("src"),URL);
             db.collection("users").document(user.getUid()).collection(sp[0]).
                     document(CI.getUrl().replaceAll("[^0-9]", "")).set(CI);
+
 
 
             return null;
