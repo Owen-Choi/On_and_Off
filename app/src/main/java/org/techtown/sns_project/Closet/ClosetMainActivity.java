@@ -45,7 +45,6 @@ public class ClosetMainActivity extends AppCompatActivity {
                 ad.setMessage("옷의 url을 입력하세요");
 
 
-
                 final EditText et = new EditText(ClosetMainActivity.this);
                 ad.setView(et);
                 ad.setCancelable(false);
@@ -71,13 +70,20 @@ public class ClosetMainActivity extends AppCompatActivity {
                             String url = inputValue.replaceAll("[^0-9]", "");
                             if (url.length() > 0) {
 
-                                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                    Closet_Parser closet_Parser = new Closet_Parser(firebaseAuth, firebaseUser, db, inputValue);
+                                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                Closet_Parser closet_Parser = new Closet_Parser(firebaseAuth, firebaseUser, db, inputValue);
+
+                                if(closet_Parser.result==1){
                                     StartToast(closet_Parser.URL + " is add on closet ! ");
                                     dialog.dismiss();
-                                    //url 입력시 파싱하여 값 출력
+
+                                }else{
+                                    StartToast(closet_Parser.URL + " is invalid clothes type ");
+                                    dialog.dismiss();
+                                }
+
                             } else {
                                 StartToast("Please type URL");
                             }
@@ -119,7 +125,8 @@ public class ClosetMainActivity extends AppCompatActivity {
         });
 
     }
+
     private void StartToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }
