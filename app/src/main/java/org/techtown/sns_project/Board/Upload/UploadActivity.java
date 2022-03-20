@@ -56,7 +56,7 @@ import org.techtown.sns_project.qr.ProductInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// pull request & merge 교육용
+
 public class UploadActivity extends AppCompatActivity {
 
     private StorageTask uploadTask;
