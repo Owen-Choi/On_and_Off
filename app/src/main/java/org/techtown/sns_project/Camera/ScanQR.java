@@ -24,7 +24,6 @@ public class ScanQR extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qr_scan);
 
         TedPermission.with(getApplicationContext())
                 .setPermissionListener(permissionListener)
@@ -34,17 +33,14 @@ public class ScanQR extends AppCompatActivity {
                 .check();
 
 
-        findViewById(R.id.btn_capture).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+
                 Log.v("h","h");
                /* new IntentIntegrator(ScanQR.this).initiateScan();*/
                 qrScan = new IntentIntegrator(ScanQR.this);
                 qrScan.setOrientationLocked(false); // default가 세로모드인데 휴대폰 방향에 따라 가로, 세로로 자동 변경됩니다.
                 qrScan.setPrompt("상표에 붙어있는 QR 인식하세용 ㄹㅇㅋㅋ ");
                 qrScan.initiateScan();
-            }
-        });
+
         /* new IntentIntegrator(this).initiateScan();*/
 /*        qrScan = new IntentIntegrator(this);
         qrScan.setOrientationLocked(false); // default가 세로모드인데 휴대폰 방향에 따라 가로, 세로로 자동 변경됩니다.
@@ -59,6 +55,7 @@ public class ScanQR extends AppCompatActivity {
         if (result != null) {
             if (result.getContents() == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+                finish();
                 // todo
             } else {
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
@@ -67,8 +64,6 @@ public class ScanQR extends AppCompatActivity {
                 String key = result.getContents();
                 intent.putExtra("key", key);
                 startActivity(intent);
-
-
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -78,7 +73,7 @@ public class ScanQR extends AppCompatActivity {
     PermissionListener permissionListener = new PermissionListener() {
         @Override
         public void onPermissionGranted() {
-            Toast.makeText(getApplicationContext(), "권한이 허용됨", Toast.LENGTH_SHORT).show();
+
         }
 
         @Override
