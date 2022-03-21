@@ -21,6 +21,15 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ItemViewHo
 
     static ArrayList<Closet_info> list = new ArrayList<>();
 
+    public interface OnItemClickListener{
+        void onItemClick(View v, int pos, String delItem, String clothes_type);
+    }
+
+    private OnItemClickListener mListener = null;
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.mListener = listener;
+    }
 
     @NonNull
     @Override
@@ -48,6 +57,22 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ItemViewHo
             BrandTextView = itemView.findViewById(R.id.item_brand_text);
             img_url = itemView.findViewById(R.id.imageView);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    String clothes_type = list.get(pos).getClothes_type();
+                    String delItem = list.get(pos).getUrl().replaceAll("[^0-9]", "");
+                    if (pos != RecyclerView.NO_POSITION) {
+                        // 리스너 객체의 매서드 호출.
+
+                        if(mListener != null){
+                            mListener.onItemClick(v, pos, delItem, clothes_type);
+                        }
+                    }
+                }
+            });
+
 
         }
 
@@ -71,14 +96,21 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ItemViewHo
 
         }
     }
+
     void addItem(Closet_info data) {
         // 외부에서 item을 추가시킬 함수입니다.
         list.add(data);
         this.notifyDataSetChanged();
     }
+
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    void removeItem(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);
     }
 }
 

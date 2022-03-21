@@ -54,7 +54,9 @@ public class BoardPostClickEvent extends AppCompatActivity {
     static ArrayList<Integer> listNrlikeds = new ArrayList<Integer>();
     public ArrayList<PostInfo> listData = new ArrayList<>();
     HashMap<String, Object> Map_like = new HashMap<>();
+    HashMap<String, Object> Map_save = new HashMap<>();
     static boolean liked = true;
+    static boolean saved = true;
     static String post_description;
     static String post_publisher;
     static String post_postid,post_document;
@@ -79,12 +81,18 @@ public class BoardPostClickEvent extends AppCompatActivity {
         listDocument = (ArrayList<String>)getIntent().getSerializableExtra("listDocument");
 
         int position = getIntent().getIntExtra("position",1);
+  /*      Log.e("temp", "onCreate: " + listOfList.get(0).get(0).getInfo());*/
+        Log.e("temp", "onCreate: " + listImgUrl.toString());
+        Log.e("temp", "onCreate: " + listDescription.toString());
+        Log.e("temp", "onCreate: " + listPublisher.toString());
+        Log.e("temp", "onCreate: " + listDocument.toString());
         listImgURL2 = listImgUrl.get(position);
         list = listOfList.get(position);
         post_description = listDescription.get(position);
         post_publisher = listPublisher.get(position);
         post_document = listDocument.get(position);
 
+        // 최신화가 안된 게시글을 누르면 nullPointerException 앱이 종료된다. 디비를 한번 날려야 할 필요가 있다.
         //recycler view part
         recyclerView = findViewById(R.id.AddedItemList);
         linearLayoutManager = new LinearLayoutManager(this);
@@ -94,6 +102,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         recyclerView.setAdapter(UIA);
         UIA.addItem(list);
         UIA.notifyDataSetChanged();
+        UIA.clearList();
 
 
         post_image = findViewById(R.id.post_image);
@@ -130,9 +139,9 @@ public class BoardPostClickEvent extends AppCompatActivity {
         //publisherInfo(holder.image_profile, holder.username, holder.publisher, post.getPublisher());
         isLiked(user.getUid(),like);
         nrLikes(likes);
+        isSaved(user.getUid(),save);
 
-      /* isSaved(post.getPostid(), holder.save);
-        getCommetns(post.getPostid(), holder.comments);*/
+        /*getCommetns(post.getPostid(), holder.comments);*/
 
 
         //Like
@@ -185,6 +194,76 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
             }
         });
+
+        CollectionReference savesRef = db.collection("board").document(post_document).collection("Saves");
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(saved){
+                    save.setImageResource(R.drawable.ic_save_black);
+                    Map_save.put("user",user.getUid());
+
+                    savesRef.document(user.getUid())
+                            .set(Map_save)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d("save","Document written success");
+                                }})
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("save","Fail",e);
+                                }
+                            });
+                    saved = false;
+                }
+                else{
+                    save.setImageResource(R.drawable.ic_save);
+                    savesRef.document(user.getUid())
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("Save cancel", "DocumentSnapshot successfully deleted!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("save cancel", "Error deleting document", e);
+                                }
+                            });
+                    saved = true;
+                }
+
+            }
+        });
+
+
+    }
+
+    private void isSaved(String uid, ImageView save) {
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        CollectionReference savesRef = db.collection("board").document(post_document).collection("Saves");
+        savesRef.document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        save.setImageResource(R.drawable.ic_save_black);
+                        saved = false;
+                    } else {
+                        save.setImageResource(R.drawable.ic_save);
+                        saved = true;
+                    }
+                } else {
+                    Log.d("isSaved", "Failed with: ", task.getException());
+                }
+            }
+        });
+
 
 
     }

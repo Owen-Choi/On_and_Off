@@ -27,35 +27,35 @@
             <TextView
                 android:id="@+id/ClosetitemTitle"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:text="옷이름"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/ClosetItemCategory"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal|center_vertical"
                 android:text="옷 종류"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/ClosetItemBrand"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal|center_vertical"
                 android:text="브랜드"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 

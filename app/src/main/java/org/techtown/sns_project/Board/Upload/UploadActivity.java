@@ -56,6 +56,7 @@ import org.techtown.sns_project.qr.ProductInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 public class UploadActivity extends AppCompatActivity {
 
     private StorageTask uploadTask;
@@ -134,7 +135,7 @@ public class UploadActivity extends AppCompatActivity {
 
         //1대1로 잘라주고 imageuri 값 설정
         CropImage.activity()
-                .setAspectRatio(1, 1)
+                .setAspectRatio(4, 5)
                 .start(UploadActivity.this);
 
         // Recycler View part
@@ -157,6 +158,16 @@ public class UploadActivity extends AppCompatActivity {
         top_adapter = new closet_top_adapter(this);
         pants_adapter = new closet_pants_adapter(this);
         shoes_adapter = new closet_shoes_adapter(this);
+
+        // dialog 정의
+        dialog = new Dialog(this);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT; // 높이는 내용 전체 높이만큼
+        dialog.setContentView(dialogView); // Dialog에 선언했던 layout 적용
+        dialog.setCanceledOnTouchOutside(true); // 외부 touch 시 Dialog 종료
+        dialog.getWindow().setAttributes(lp); // 지정한 너비, 높이 값 Dialog에 적용
 
     }
             private void uploadImage() {
@@ -315,44 +326,34 @@ public class UploadActivity extends AppCompatActivity {
     // 아래는 옷장에서 가져오기 버튼 관련 코드이다.
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private void showAlertDialogTopic() {
-        // recyclerview 및 dialog 정의
-        dialog = new Dialog(this);
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT; // 높이는 내용 전체 높이만큼
-        dialog.setContentView(dialogView); // Dialog에 선언했던 layout 적용
-        dialog.setCanceledOnTouchOutside(true); // 외부 touch 시 Dialog 종료
-        dialog.getWindow().setAttributes(lp); // 지정한 너비, 높이 값 Dialog에 적용
-
-
-//        dialogRecyclerView = (RecyclerView) dialogView.findViewById(R.id.dialogRecyclerView);
-//        dialogRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        DialogRecyclerAdapter adapter = new DialogRecyclerAdapter(arrayList);
-//        dialogRecyclerView.setAdapter(adapter);
 
         //아우터
         ClosetOuterRecyclerView = dialogView.findViewById(R.id.closetOuterRecyclerView);
         ClosetOuterRecyclerView.setLayoutManager(OuterlinearLayoutManager);
         ClosetOuterRecyclerView.setAdapter(outer_adapter);
+        outer_adapter.ClearList();
         //상의
         ClosetTopRecyclerView = dialogView.findViewById(R.id.closetTopRecyclerView);
         ClosetTopRecyclerView.setLayoutManager(ToplinearLayoutManager);
         ClosetTopRecyclerView.setAdapter(top_adapter);
+        top_adapter.ClearList();
         //하의
         ClosetPantsRecyclerView = dialogView.findViewById(R.id.closetPantsRecyclerView);
         ClosetPantsRecyclerView.setLayoutManager(PantslinearLayoutManager);
         ClosetPantsRecyclerView.setAdapter(pants_adapter);
+        pants_adapter.ClearList();
         //신발
         ClosetShoesRecyclerView = dialogView.findViewById(R.id.closetShoesRecyclerView);
         ClosetShoesRecyclerView.setLayoutManager(ShoeslinearLayoutManager);
         ClosetShoesRecyclerView.setAdapter(shoes_adapter);
+        shoes_adapter.ClearList();
 
         String[] categotyList = {"아우터", "상의", "하의", "신발"};
         for (String element : categotyList) {
             RecyclerViewInsertion(element);
         }
-
+        click_setter();
+        dialog.setCancelable(true);
         dialog.show(); // Dialog 출력
     }
 
@@ -364,7 +365,7 @@ public class UploadActivity extends AppCompatActivity {
                 if(task.isSuccessful()) {
                     for(QueryDocumentSnapshot document : task.getResult()) {
                         Hash = (HashMap<String, Object>) document.getData();
-                        CI = new Closet_info((String)Hash.get("name"),(String)Hash.get("brand"), (String)Hash.get("img_url"),
+                        CI = new Closet_info((String)Hash.get("name"),(String)Hash.get("brand"),(String)Hash.get("clothes_type"), (String)Hash.get("img_url"),
                                 (String) Hash.get("url"));
                         switch (category) {
                             case "아우터" :
@@ -397,7 +398,41 @@ public class UploadActivity extends AppCompatActivity {
 
         ClosetList.clear();
     }
-
+    protected void click_setter() {
+        // parser 객체가 통일이 돼야할지 모르겠네...
+        outer_adapter.setOnItemClickListener(new closet_outer_adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position, ArrayList<Closet_info> listData) {
+                String url = listData.get(position).getUrl();
+                upload_parser_class parser = new upload_parser_class(url, UploadActivity.this);
+                dialog.dismiss();
+            }
+        });
+        top_adapter.setOnItemClickListener(new closet_top_adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position, ArrayList<Closet_info> listData) {
+                String url = listData.get(position).getUrl();
+                upload_parser_class parser = new upload_parser_class(url, UploadActivity.this);
+                dialog.dismiss();
+            }
+        });
+        pants_adapter.setOnItemClickListener(new closet_pants_adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position, ArrayList<Closet_info> listData) {
+                String url = listData.get(position).getUrl();
+                upload_parser_class parser = new upload_parser_class(url, UploadActivity.this);
+                dialog.dismiss();
+            }
+        });
+        shoes_adapter.setOnItemClickListener(new closet_shoes_adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position, ArrayList<Closet_info> listData) {
+                String url = listData.get(position).getUrl();
+                upload_parser_class parser = new upload_parser_class(url, UploadActivity.this);
+                dialog.dismiss();
+            }
+        });
+    }
 }
 
 
