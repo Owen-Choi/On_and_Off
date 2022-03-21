@@ -60,6 +60,8 @@ dependencies {
     //의성 프로젝트 gradle
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'de.hdodenhof:circleimageview:3.1.0' //Circle ImageView
+
 }
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'

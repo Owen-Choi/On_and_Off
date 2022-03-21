@@ -1,5 +1,6 @@
 package org.techtown.sns_project.Board;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.techtown.sns_project.Board.CommentsActivity;
 import org.techtown.sns_project.Board.Upload.url.upload_items_adapter;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
@@ -240,6 +242,22 @@ public class BoardPostClickEvent extends AppCompatActivity {
             }
         });
 
+
+        comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),CommentsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),CommentsActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
