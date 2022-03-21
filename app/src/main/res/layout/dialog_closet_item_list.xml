@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/OuterTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="아우터" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/closetOuterRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/TopTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="상의" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/closetTopRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/PantsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="하의" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/closetPantsRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/ShoesTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="신발" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/closetShoesRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
