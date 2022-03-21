@@ -55,13 +55,14 @@
         <activity android:name=".Normal.Setting.NormalSettingActivity" />
         <activity android:name=".Normal.Setting.NormalMemberInfo" />
         <activity android:name=".Normal.Search.NormalSearchActivity" />
-        <activity android:name=".Closet.ClosetMainActivity" />
+        <activity android:name=".Closet.ClosetMainActivity"
+            android:parentActivityName=".Normal.NormalMainActivity"/>
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
         <activity
-            android:name=".cameraexample.ScanQR"
+            android:name=".Camera.ScanQR"
             android:exported="true" >
 
          <!--    <activity android:name=".MainActivity"> -->
@@ -79,7 +80,7 @@
         </provider>
 
         <activity
-            android:name=".cameraexample.Activity_codi"
+            android:name=".Camera.Activity_codi"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" >
