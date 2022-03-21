@@ -24,7 +24,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.techtown.sns_project.Board.Upload.upload_items_adapter;
+import org.techtown.sns_project.Board.Upload.url.upload_items_adapter;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.qr.ProductInfo;
@@ -102,6 +102,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         recyclerView.setAdapter(UIA);
         UIA.addItem(list);
         UIA.notifyDataSetChanged();
+        UIA.clearList();
 
 
         post_image = findViewById(R.id.post_image);
