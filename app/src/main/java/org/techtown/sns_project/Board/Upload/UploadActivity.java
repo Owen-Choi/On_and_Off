@@ -56,7 +56,7 @@ import org.techtown.sns_project.qr.ProductInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// pull request & merge 교육용
+
 public class UploadActivity extends AppCompatActivity {
 
     private StorageTask uploadTask;
@@ -135,7 +135,7 @@ public class UploadActivity extends AppCompatActivity {
 
         //1대1로 잘라주고 imageuri 값 설정
         CropImage.activity()
-                .setAspectRatio(1, 1)
+                .setAspectRatio(4, 5)
                 .start(UploadActivity.this);
 
         // Recycler View part
