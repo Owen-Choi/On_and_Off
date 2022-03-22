@@ -86,6 +86,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         post_document = listDocument.get(position);
 
         //recycler view part
+        //패키지 구성을 조금 잘못했는데, UIA는 옷장과 url로 등록된 정보를 공통적으로 관리하는 recycler view이다.
         recyclerView = findViewById(R.id.AddedItemList);
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -94,6 +95,12 @@ public class BoardPostClickEvent extends AppCompatActivity {
         recyclerView.setAdapter(UIA);
         UIA.clearList();
         UIA.addItem(list);
+        UIA.setOnItemClickListener(new upload_items_adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position, ArrayList<ProductInfo> listData) {
+                Log.e("temp", "onItemClick: " + listData.get(position).getTitle());
+            }
+        });
         UIA.notifyDataSetChanged();
 
 
