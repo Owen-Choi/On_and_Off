@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.Nullable;
@@ -17,12 +18,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.techtown.sns_project.Model.Comment;
 import org.techtown.sns_project.R;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CommentsActivity extends AppCompatActivity {
@@ -60,5 +64,36 @@ public class CommentsActivity extends AppCompatActivity {
         image_profile = findViewById(R.id.image_profile);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (addcomment.getText().toString().equals("")){
+                    Toast.makeText(CommentsActivity.this, "You can't send empty message", Toast.LENGTH_SHORT).show();
+                } else {
+                    addComment();
+                }
+            }
+        });
+
+//        getImage();
+//        readComments();
+
+    }
+
+    private void addComment(){
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Comments").child(postid);
+
+        String commentid = reference.push().getKey();
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("comment", addcomment.getText().toString());
+        hashMap.put("publisher", firebaseUser.getUid());
+        hashMap.put("commentid", commentid);
+
+        reference.child(commentid).setValue(hashMap);
+//        addNotification();
+        addcomment.setText("");
+
     }
 }
