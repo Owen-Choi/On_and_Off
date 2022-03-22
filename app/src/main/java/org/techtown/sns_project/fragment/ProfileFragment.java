@@ -66,6 +66,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView");
         view = inflater.inflate(R.layout.profile_fragment, container, false);
+
+        //클릭시 옷장 main activity로 이동
         view.findViewById(R.id.ClosetButton).setOnClickListener(onClickListener);
 
         //파베 연동
@@ -97,6 +99,8 @@ public class ProfileFragment extends Fragment {
                         setImage();
 
                         System.out.println(userNick);
+                    }else {
+                        //기본이미지로 저장하기.. 근데 어차피 storage 써야함
                     }
                 });
 
@@ -117,6 +121,8 @@ public class ProfileFragment extends Fragment {
     //프사
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        //갤러리에서 사진 가져오는 거 취소했을 때 오류 안나게 해주는 코드
         if (resultCode != Activity.RESULT_OK) {
             Toast.makeText(getActivity(), "취소 되었습니다.", Toast.LENGTH_SHORT).show();
 
@@ -132,6 +138,7 @@ public class ProfileFragment extends Fragment {
             return;
         }
 
+        //갤러리에서 사진을 잘 가져왔을 때
         if (requestCode == PICK_FROM_ALBUM) {
 
             Uri photoUri = data.getData();
@@ -155,7 +162,7 @@ public class ProfileFragment extends Fragment {
 
                 cursor.moveToFirst();
 
-                //여기서 파베에 담으면 되려나?
+                //갤러리에서 가져온 사진의 절대 경로를 파베 users 필드안에 값을 넣는다
                 this.profile=cursor.getString(column_index);
                 pro.put("myprofile", cursor.getString(column_index));
                 db.collection("users").document(firebaseUser.getUid())
