@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import org.techtown.sns_project.Board.Upload.closet.closet_outer_adapter;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.qr.ProductInfo;
 
@@ -24,6 +25,15 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
     Context context;
     public upload_items_adapter(Context context) {
         this.context = context;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(View v, int position, ArrayList<ProductInfo> listData);
+    }
+
+    private OnItemClickListener mListener = null;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -49,6 +59,19 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
             category = itemView.findViewById(R.id.itemCategory);
             brand = itemView.findViewById(R.id.itemBrand);
             image = itemView.findViewById(R.id.itemImage);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition ();
+                    if (position!=RecyclerView.NO_POSITION){
+                        if (mListener!=null){
+                            mListener.onItemClick (view,position, listData);
+                        }
+                    }
+                }
+            });
+
         }
         void OnBind(ProductInfo data) {
             String titleTXT = data.getInfo();
