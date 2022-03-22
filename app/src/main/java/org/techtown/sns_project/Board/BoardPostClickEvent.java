@@ -247,6 +247,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),CommentsActivity.class);
+                intent.putExtra("postid",user.getUid());
                 startActivity(intent);
             }
         });
