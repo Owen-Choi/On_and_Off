@@ -247,7 +247,8 @@ public class BoardPostClickEvent extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),CommentsActivity.class);
-                intent.putExtra("postid",user.getUid());
+                intent.putExtra("postid",user.getUid()); //postid를 userid로 바꿔야함 db이용할 예정
+                intent.putExtra("post_document",post_document);
                 startActivity(intent);
             }
         });
@@ -256,6 +257,8 @@ public class BoardPostClickEvent extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),CommentsActivity.class);
+                intent.putExtra("postid",user.getUid());
+                intent.putExtra("post_document",post_document);
                 startActivity(intent);
             }
         });
