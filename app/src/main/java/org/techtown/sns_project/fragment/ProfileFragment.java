@@ -88,8 +88,10 @@ public class ProfileFragment extends Fragment {
                         System.out.println(userNick);
                     }
                 });
+/*
 
-        //기존 프사 정보가 있다면(필드 값 가져오기)
+        //기존 프사 정보가 파베 필드에 있다면 자동 설정해주기(=users 필드에 저장되어있는 uri 절대값 가져오기).
+        //근데 파베이 프사 정보가 없으면(신규 가입자 처럼) 마페 들어갈 때 프사 정보를 못 불러와서 오류나서 전체 주석해놓음. 일단 프사 정보를 필드에서 storage로 바꾸는 작업 해야할듯
         db.collection("users").document(firebaseUser.getUid()).get().addOnCompleteListener(
                 task -> {
                     if (task.isSuccessful()) {
@@ -100,9 +102,10 @@ public class ProfileFragment extends Fragment {
 
                         System.out.println(userNick);
                     }else {
-                        //기본이미지로 저장하기.. 근데 어차피 storage 써야함
+                        //파베에 정보 없으면 기본이미지로 프사 설정하도록 짜봤는데도 오류남..
                     }
                 });
+*/
 
         //프사 클릭시 설정
         view.findViewById(R.id.circle_img).setOnClickListener(new View.OnClickListener() {
