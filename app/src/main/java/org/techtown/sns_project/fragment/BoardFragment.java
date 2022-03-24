@@ -61,8 +61,6 @@ public class BoardFragment extends Fragment {
   GridLayoutManager BoardItem = new GridLayoutManager(getContext(),2);
   recyclerView_BoardItem.setLayoutManager(BoardItem);
 
-/*  LinearLayoutManager BoardItem = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
-  recyclerView_BoardItem.setLayoutManager(BoardItem); //Linear로 recyclerview layout 만들기*/
   adapter = new BoardAdapter();
   recyclerView_BoardItem.setAdapter(adapter);
 
@@ -94,10 +92,10 @@ public class BoardFragment extends Fragment {
   db.collectionGroup("board").get().
           addOnCompleteListener(task -> {
            if(task.isSuccessful()) {
-        /*   listImgUrl.clear();
-           listDescription.clear();
-           listPublisher.clear();
-           adapter.listData.clear();*/
+//           listImgUrl.clear();
+//           listDescription.clear();
+//           listPublisher.clear();
+//           adapter.listData.clear();
 
             for(QueryDocumentSnapshot document : task.getResult()) {
 
