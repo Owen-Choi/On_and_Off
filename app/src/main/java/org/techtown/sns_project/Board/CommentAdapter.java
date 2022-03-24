@@ -54,7 +54,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ItemView
 
     public void addItem(Comment data)
     {
+
         listData.add(data);
+        this.notifyDataSetChanged();
     }
 
     void removeItem(int position) {
