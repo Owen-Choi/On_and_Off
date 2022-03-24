@@ -54,6 +54,7 @@ public class NormalMainActivity extends AppCompatActivity {
         // 시작하면 home fragment를 띄운다.
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_layout,Home_Fragment).commitAllowingStateLoss();
+        setTitle("QR");
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
@@ -66,22 +67,27 @@ public class NormalMainActivity extends AppCompatActivity {
                     case R.id.nav_home:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.main_layout,Home_Fragment).commitAllowingStateLoss();
+                        setTitle("QR");
                         return true;
                     case R.id.nav_board:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.main_layout,Board_Fragment).commitAllowingStateLoss();
+                        setTitle("BOARD");
                         return true;
                     case R.id.nav_profile:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.main_layout,Profile_Fragment).commitAllowingStateLoss();
+                        setTitle("MY");
                         return true;
                     case R.id.nav_qr:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.main_layout, Search_Fragment).commitAllowingStateLoss();
+                        setTitle("SEARCH");
                         return true;
                     case R.id.nav_something:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.main_layout,Something_Fragment).commitAllowingStateLoss();
+                        setTitle("SOMETHING");
                         return true;
                 }
                 return true;
