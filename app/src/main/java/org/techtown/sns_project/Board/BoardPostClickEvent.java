@@ -138,6 +138,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
             publisher.setText("NULL");
         }
 
+        nrlikes = 0;
         //publisherInfo(holder.image_profile, holder.username, holder.publisher, post.getPublisher());
         isLiked(user.getUid(),like);
         nrLikes(likes);
