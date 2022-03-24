@@ -4,9 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -28,12 +26,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
+
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
+
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.SetOptions;
+
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -42,14 +39,11 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import org.techtown.sns_project.Closet.ClosetMainActivity;
-import org.techtown.sns_project.Closet.Closet_Parser;
+
 import org.techtown.sns_project.R;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,8 +67,6 @@ public class ProfileFragment extends Fragment {
     private Uri photoUri;
     private Boolean isPermission = true;
     private static final int PICK_FROM_ALBUM = 1;
-
-    Map<String, Object> pro = new HashMap<>();
 
     @Nullable
     @Override
@@ -145,22 +137,6 @@ public class ProfileFragment extends Fragment {
 
             photoUri=data.getData();
             uploadFile();
-/*
-
-            try {
-                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
-
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(view.getContext().getContentResolver(), photoUri);
-                imageView.setImageBitmap(bitmap);
-
-                // 업로드 실행
-                uploadFile();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-*/
-
         }
     }
 
