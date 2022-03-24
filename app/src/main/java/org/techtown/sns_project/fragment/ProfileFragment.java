@@ -3,6 +3,7 @@ package org.techtown.sns_project.fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.net.Uri;
@@ -14,11 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -40,6 +44,7 @@ import com.gun0912.tedpermission.TedPermission;
 
 import org.techtown.sns_project.Closet.ClosetMainActivity;
 
+import org.techtown.sns_project.Closet.Closet_Parser;
 import org.techtown.sns_project.R;
 
 import java.io.File;
@@ -54,19 +59,21 @@ public class ProfileFragment extends Fragment {
     private View view;
     private String TAG = "프래그먼트";
 
+    //파이어베이스
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    //닉넴
+    //닉네임 관련 변수
     TextView textView;
     String userNick;
 
-    //프사
+    //프사 관련 변수
     CircleImageView imageView;
     private Uri photoUri;
     private Boolean isPermission = true;
     private static final int PICK_FROM_ALBUM = 1;
+    final CharSequence[] selectOption = {"앨범에서 사진 선택", "기본 이미지로 변경"};
 
     @Nullable
     @Override
@@ -76,6 +83,7 @@ public class ProfileFragment extends Fragment {
 
         //클릭시 옷장 main activity로 이동
         view.findViewById(R.id.ClosetButton).setOnClickListener(onClickListener);
+        imageView = view.findViewById(R.id.circle_img);
 
         //파베 연동
         firebaseAuth = FirebaseAuth.getInstance();
@@ -97,23 +105,43 @@ public class ProfileFragment extends Fragment {
                 });
 
         //storage에서 프사 가져오기
-        getFireBaseProfileImage(firebaseUser.getUid());
+        setFireBaseProfileImage(firebaseUser.getUid());
 
         //프사 클릭시 설정
         view.findViewById(R.id.circle_img).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //프사 클릭시 권한 받기
                 tedPermission();
-                //갤러리 ㄱㄱ
-                if(isPermission) goToAlbum();
-                else Toast.makeText(view.getContext(), getResources().getString(R.string.permission_2), Toast.LENGTH_LONG).show();
+
+                AlertDialog.Builder ad = new AlertDialog.Builder(view.getContext());
+                ad.setTitle("프로필 사진 설정")
+                        .setIcon(R.drawable.ic_noun_selecting_1833829)
+                        .setItems(selectOption, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which){
+                                    case 0:
+                                        //갤러리 ㄱㄱ
+                                        if(isPermission) goToAlbum();
+                                        break;
+                                    case 1:
+                                        imageView.setImageResource(R.drawable.ic_baseline_android_24);
+                                        //storage에 프사 정보 삭제
+                                        delProfile(firebaseUser.getUid());
+                                        break;
+                                }
+                            }
+                        })
+                        .setCancelable(true)
+                        .show();
             }
         });
         return view;
     }
     /**
-     *  앨범에서 이미지 가져오기
+     *  갤러리 접근
      */
     private void goToAlbum() {
 
@@ -122,7 +150,7 @@ public class ProfileFragment extends Fragment {
         startActivityForResult(intent, PICK_FROM_ALBUM);
     }
 
-    //프사
+    //갤러리에서 가져온 사진 처리
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -145,7 +173,7 @@ public class ProfileFragment extends Fragment {
         if (photoUri != null) {
             //업로드 진행 Dialog 보이기
             final ProgressDialog progressDialog = new ProgressDialog(view.getContext());
-            progressDialog.setTitle("파베 업로드중...");
+            progressDialog.setTitle("프로필 업로드 중...");
             progressDialog.show();
 
             //storage
@@ -162,7 +190,7 @@ public class ProfileFragment extends Fragment {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             //이미지 설정
-                            getFireBaseProfileImage(firebaseUser.getUid());
+                            setFireBaseProfileImage(firebaseUser.getUid());
                             progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
                             Toast.makeText(view.getContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
                         }
@@ -190,19 +218,8 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void getFireBaseProfileImage(String filename_GetUid){
-        //우선 디렉토리 파일 하나 만든다.
-        File file = view.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES + "/profile_img");//이미지를 저장할 수 있는 디렉토리
-        //구분할 수 있게 /toolbar_image 폴더에 넣어준다.
-        //이 파일안에 저 디렉토리가 있는지 확인
-        if(!file.isDirectory()){ //디렉토리가 없으면,
-            file.mkdir(); //디렉토리를 만든다.
-        }
-        downloadImg(filename_GetUid); //이미지 다운로드해서 가져오기 메서드
-    }
-
-    /**이미지 다운로드해서 가져오기 메서드 */
-    private void downloadImg(String filename_GetUid){
+    //
+    private void setFireBaseProfileImage(String filename_GetUid){
         FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
         //다운로드는 주소를 넣는다.
         StorageReference storageRef = storage.getReference(); //스토리지를 참조한다
@@ -210,14 +227,26 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onSuccess(Uri uri) {
                 //성공시
-                imageView = view.findViewById(R.id.circle_img);
                 Glide.with(view.getContext()).load(uri).into(imageView);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 //실패시
-                imageView = view.findViewById(R.id.circle_img);
+                imageView.setImageResource(R.drawable.ic_baseline_android_24);
+            }
+        });
+    }
+
+    //storage 프사 정보 삭제
+    private void delProfile(String filename_GetUid){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageFef = storage.getReference();
+
+        StorageReference desertRef = storageFef.child("profile_images/"+filename_GetUid);
+        desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
                 imageView.setImageResource(R.drawable.ic_baseline_android_24);
             }
         });
@@ -235,7 +264,6 @@ public class ProfileFragment extends Fragment {
                 isPermission = true;
 
             }
-
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
                 // 권한 요청 실패
@@ -250,7 +278,6 @@ public class ProfileFragment extends Fragment {
                 .setDeniedMessage(getResources().getString(R.string.permission_1))
                 .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                 .check();
-
     }
 
     /**
