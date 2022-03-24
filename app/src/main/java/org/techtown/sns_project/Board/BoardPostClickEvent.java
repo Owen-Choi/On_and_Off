@@ -96,6 +96,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
         // 최신화가 안된 게시글을 누르면 nullPointerException 앱이 종료된다. 디비를 한번 날려야 할 필요가 있다.
         //recycler view part
+        //패키지 구성을 조금 잘못했는데, UIA는 옷장과 url로 등록된 정보를 공통적으로 관리하는 recycler view이다.
         recyclerView = findViewById(R.id.AddedItemList);
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -103,6 +104,12 @@ public class BoardPostClickEvent extends AppCompatActivity {
         UIA = new upload_items_adapter(this);
         recyclerView.setAdapter(UIA);
         UIA.addItem(list);
+        UIA.setOnItemClickListener(new upload_items_adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position, ArrayList<ProductInfo> listData) {
+                Log.e("temp", "onItemClick: " + listData.get(position).getTitle());
+            }
+        });
         UIA.notifyDataSetChanged();
         UIA.clearList();
 
