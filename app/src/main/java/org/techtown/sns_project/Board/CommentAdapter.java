@@ -32,7 +32,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ItemView
 
     @NonNull
     @Override
-    public CommentAdapter.ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CommentAdapter.ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { //아이템 뷰를 위한 객체 성공
         //View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_item, parent, false);
         Context context = parent.getContext() ;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
@@ -62,7 +62,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ItemView
         notifyItemRemoved(position);
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+    public class ItemViewHolder extends RecyclerView.ViewHolder { //아이템 저장함, 성공
 
         public ImageView image_profile;
         public TextView username, comment;

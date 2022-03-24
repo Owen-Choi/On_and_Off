@@ -68,7 +68,6 @@ public class CommentsActivity extends AppCompatActivity {
         postid = intent.getStringExtra("postid");
         post_document = intent.getStringExtra("post_document");
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
 
@@ -90,6 +89,7 @@ public class CommentsActivity extends AppCompatActivity {
                     Toast.makeText(CommentsActivity.this, "You can't send empty message", Toast.LENGTH_SHORT).show();
                 } else {
                     addComment();
+
                 }
             }
         });
@@ -123,11 +123,12 @@ public class CommentsActivity extends AppCompatActivity {
                     }
                 });
         addcomment.setText("");
+
         }
 
 
     private void readComments(){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Comments").child(postid);
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Comments").child(postid);
         CollectionReference CommentsRef = db.collection("board").document(post_document).collection("Comments");
         CommentsRef.get().
                 addOnCompleteListener(task -> {
