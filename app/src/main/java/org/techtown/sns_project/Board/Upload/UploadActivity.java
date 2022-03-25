@@ -136,7 +136,7 @@ public class UploadActivity extends AppCompatActivity {
 
         //1대1로 잘라주고 imageuri 값 설정
         CropImage.activity()
-                .setAspectRatio(1, 1)
+                .setAspectRatio(4, 5)
                 .start(UploadActivity.this);
 
         // Recycler View part

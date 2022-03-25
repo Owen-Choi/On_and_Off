@@ -32,7 +32,7 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ItemViewHo
     }
 
     @NonNull
-    @Override
+    @Override //inflater는 xml파일에 정의된 정보를 실제 메모리에 할당하는 용도
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_closet_item, parent, false));
     }
@@ -40,8 +40,6 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ItemViewHo
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.onBind(list.get(position));
-
-        //이미지 처리 해야..... grid...?
     }
 
 

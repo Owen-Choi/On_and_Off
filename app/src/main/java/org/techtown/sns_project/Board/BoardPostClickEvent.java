@@ -1,5 +1,6 @@
 package org.techtown.sns_project.Board;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.techtown.sns_project.Board.CommentsActivity;
 import org.techtown.sns_project.Board.Upload.url.upload_items_adapter;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
@@ -31,8 +33,6 @@ import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 public class BoardPostClickEvent extends AppCompatActivity {
 
@@ -56,7 +56,9 @@ public class BoardPostClickEvent extends AppCompatActivity {
     static ArrayList<Integer> listNrlikeds = new ArrayList<Integer>();
     public ArrayList<PostInfo> listData = new ArrayList<>();
     HashMap<String, Object> Map_like = new HashMap<>();
+    HashMap<String, Object> Map_save = new HashMap<>();
     static boolean liked = true;
+    static boolean saved = true;
     static String post_description;
     static String post_publisher;
     static String post_postid,post_document;
@@ -81,12 +83,18 @@ public class BoardPostClickEvent extends AppCompatActivity {
         listDocument = (ArrayList<String>)getIntent().getSerializableExtra("listDocument");
 
         int position = getIntent().getIntExtra("position",1);
+  /*      Log.e("temp", "onCreate: " + listOfList.get(0).get(0).getInfo());*/
+        Log.e("temp", "onCreate: " + listImgUrl.toString());
+        Log.e("temp", "onCreate: " + listDescription.toString());
+        Log.e("temp", "onCreate: " + listPublisher.toString());
+        Log.e("temp", "onCreate: " + listDocument.toString());
         listImgURL2 = listImgUrl.get(position);
         list = listOfList.get(position);
         post_description = listDescription.get(position);
         post_publisher = listPublisher.get(position);
         post_document = listDocument.get(position);
 
+        // 최신화가 안된 게시글을 누르면 nullPointerException 앱이 종료된다. 디비를 한번 날려야 할 필요가 있다.
         //recycler view part
         //패키지 구성을 조금 잘못했는데, UIA는 옷장과 url로 등록된 정보를 공통적으로 관리하는 recycler view이다.
         recyclerView = findViewById(R.id.AddedItemList);
@@ -95,8 +103,6 @@ public class BoardPostClickEvent extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         UIA = new upload_items_adapter(this);
         recyclerView.setAdapter(UIA);
-        UIA.clearList();
-        Duplicate_Removal();
         UIA.addItem(list);
         UIA.setOnItemClickListener(new upload_items_adapter.OnItemClickListener() {
             @Override
@@ -105,6 +111,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
             }
         });
         UIA.notifyDataSetChanged();
+        UIA.clearList();
 
 
         post_image = findViewById(R.id.post_image);
@@ -138,12 +145,13 @@ public class BoardPostClickEvent extends AppCompatActivity {
             publisher.setText("NULL");
         }
 
+        nrlikes = 0;
         //publisherInfo(holder.image_profile, holder.username, holder.publisher, post.getPublisher());
         isLiked(user.getUid(),like);
         nrLikes(likes);
+        isSaved(user.getUid(),save);
 
-      /* isSaved(post.getPostid(), holder.save);
-        getCommetns(post.getPostid(), holder.comments);*/
+        /*getCommetns(post.getPostid(), holder.comments);*/
 
 
         //Like
@@ -197,6 +205,96 @@ public class BoardPostClickEvent extends AppCompatActivity {
             }
         });
 
+        CollectionReference savesRef = db.collection("board").document(post_document).collection("Saves");
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(saved){
+                    save.setImageResource(R.drawable.ic_save_black);
+                    Map_save.put("user",user.getUid());
+
+                    savesRef.document(user.getUid())
+                            .set(Map_save)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d("save","Document written success");
+                                }})
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("save","Fail",e);
+                                }
+                            });
+                    saved = false;
+                }
+                else{
+                    save.setImageResource(R.drawable.ic_save);
+                    savesRef.document(user.getUid())
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("Save cancel", "DocumentSnapshot successfully deleted!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("save cancel", "Error deleting document", e);
+                                }
+                            });
+                    saved = true;
+                }
+
+            }
+        });
+
+
+        comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),CommentsActivity.class);
+                intent.putExtra("postid",user.getUid()); //postid를 userid로 바꿔야함 db이용할 예정
+                intent.putExtra("post_document",post_document);
+                startActivity(intent);
+            }
+        });
+
+        comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),CommentsActivity.class);
+                intent.putExtra("postid",user.getUid());
+                intent.putExtra("post_document",post_document);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void isSaved(String uid, ImageView save) {
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        CollectionReference savesRef = db.collection("board").document(post_document).collection("Saves");
+        savesRef.document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        save.setImageResource(R.drawable.ic_save_black);
+                        saved = false;
+                    } else {
+                        save.setImageResource(R.drawable.ic_save);
+                        saved = true;
+                    }
+                } else {
+                    Log.d("isSaved", "Failed with: ", task.getException());
+                }
+            }
+        });
+
+
 
     }
 
@@ -246,15 +344,6 @@ public class BoardPostClickEvent extends AppCompatActivity {
             }
         });
 
-    }
-    // 중복제거
-    // 데이터의 양이 많지 않기에 2중 for문을 돌리겠다.
-    private void Duplicate_Removal() {
-        for(int i=0; i<list.size(); i++) {
-            for(int k=i+1; k<list.size(); k++) {
-                if(list.get(i).getTitle().equals(list.get(k).getTitle()))
-                    list.remove(i);
-            }
-        }
+
     }
 }
