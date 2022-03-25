@@ -31,6 +31,8 @@ import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BoardPostClickEvent extends AppCompatActivity {
 
@@ -94,6 +96,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         UIA = new upload_items_adapter(this);
         recyclerView.setAdapter(UIA);
         UIA.clearList();
+        Duplicate_Removal();
         UIA.addItem(list);
         UIA.setOnItemClickListener(new upload_items_adapter.OnItemClickListener() {
             @Override
@@ -243,6 +246,15 @@ public class BoardPostClickEvent extends AppCompatActivity {
             }
         });
 
-
+    }
+    // 중복제거
+    // 데이터의 양이 많지 않기에 2중 for문을 돌리겠다.
+    private void Duplicate_Removal() {
+        for(int i=0; i<list.size(); i++) {
+            for(int k=i+1; k<list.size(); k++) {
+                if(list.get(i).getTitle().equals(list.get(k).getTitle()))
+                    list.remove(i);
+            }
+        }
     }
 }

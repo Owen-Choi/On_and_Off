@@ -21,6 +21,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.techtown.sns_project.Board.BoardAdapter;
 import org.techtown.sns_project.Board.BoardPostClickEvent;
+import org.techtown.sns_project.Closet.Closet_info;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.Board.Upload.UploadActivity;
@@ -107,6 +108,7 @@ public class BoardFragment extends Fragment {
                listPublisher.add(df.getPublisher());
                listDescription.add(df.getDescription());
                listDocument.add(document.getId());
+               // 여기서 중복성 검사가 이루어져야 한다.
                listOfList.add(df.getList());
                PostInfo data = new PostInfo(df.getPublisher(),df.getImageUrl(),df.getDescription());
                adapter.addItem(data);
@@ -137,6 +139,7 @@ public class BoardFragment extends Fragment {
 
   return view;
  }
+
 
 }
 
