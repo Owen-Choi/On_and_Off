@@ -106,7 +106,6 @@ public class BoardFragment extends Fragment {
                listPublisher.add(df.getPublisher());
                listDescription.add(df.getDescription());
                listDocument.add(document.getId());
-               // 여기서 중복성 검사가 이루어져야 한다.
                listOfList.add(df.getList());
                PostInfo data = new PostInfo(df.getPublisher(),df.getImageUrl(),df.getDescription());
                adapter.addItem(data);
