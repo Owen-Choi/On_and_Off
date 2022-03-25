@@ -41,7 +41,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.soundcloud.android.crop.Crop;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageActivity;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
+import org.techtown.sns_project.Board.Upload.UploadActivity;
 import org.techtown.sns_project.Closet.ClosetMainActivity;
 
 import org.techtown.sns_project.Closet.Closet_Parser;
@@ -141,35 +146,30 @@ public class ProfileFragment extends Fragment {
         return view;
     }
     /**
-     *  갤러리 접근
+     *  갤러리 접근해서 crop하기
      */
     private void goToAlbum() {
-
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(intent, PICK_FROM_ALBUM);
+        CropImage.activity()
+                .start(getContext(),this);
     }
 
     //갤러리에서 가져온 사진 처리
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
 
-        //갤러리에서 사진 가져오는 거 취소했을 때 오류 안나게 해주는 코드
-        if (resultCode != Activity.RESULT_OK) {
-            Toast.makeText(getActivity(), "취소 되었습니다.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        //갤러리에서 사진을 잘 가져왔을 때
-        if (requestCode == PICK_FROM_ALBUM) {
-
-            photoUri=data.getData();
-            uploadFile();
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == Activity.RESULT_OK) {
+                photoUri = result.getUri();
+                uploadFile();
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
         }
     }
 
+    //업로드할 uri가 있으면 수행
     private void uploadFile() {
-        //업로드할 uri가 있으면 수행
         if (photoUri != null) {
             //업로드 진행 Dialog 보이기
             final ProgressDialog progressDialog = new ProgressDialog(view.getContext());
@@ -218,7 +218,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    //
+    //storage에서 저장된 프사 정보를 가져와서 img view에 뿌리기
     private void setFireBaseProfileImage(String filename_GetUid){
         FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
         //다운로드는 주소를 넣는다.
