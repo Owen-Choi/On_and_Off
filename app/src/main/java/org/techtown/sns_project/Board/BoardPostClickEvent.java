@@ -83,11 +83,6 @@ public class BoardPostClickEvent extends AppCompatActivity {
         listDocument = (ArrayList<String>)getIntent().getSerializableExtra("listDocument");
 
         int position = getIntent().getIntExtra("position",1);
-  /*      Log.e("temp", "onCreate: " + listOfList.get(0).get(0).getInfo());*/
-        Log.e("temp", "onCreate: " + listImgUrl.toString());
-        Log.e("temp", "onCreate: " + listDescription.toString());
-        Log.e("temp", "onCreate: " + listPublisher.toString());
-        Log.e("temp", "onCreate: " + listDocument.toString());
         listImgURL2 = listImgUrl.get(position);
         list = listOfList.get(position);
         post_description = listDescription.get(position);
@@ -103,6 +98,8 @@ public class BoardPostClickEvent extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         UIA = new upload_items_adapter(this);
         recyclerView.setAdapter(UIA);
+        UIA.clearList();
+        Duplicate_Removal();
         UIA.addItem(list);
         UIA.setOnItemClickListener(new upload_items_adapter.OnItemClickListener() {
             @Override
@@ -111,7 +108,6 @@ public class BoardPostClickEvent extends AppCompatActivity {
             }
         });
         UIA.notifyDataSetChanged();
-        UIA.clearList();
 
 
         post_image = findViewById(R.id.post_image);
@@ -343,7 +339,14 @@ public class BoardPostClickEvent extends AppCompatActivity {
                 }
             }
         });
-
-
+    }
+    // 중복제거
+    private void Duplicate_Removal() {
+        for(int i=0; i<list.size(); i++) {
+            for(int k=i+1; k<list.size(); k++) {
+                if(list.get(i).getTitle().equals(list.get(k).getTitle()))
+                    list.remove(i);
+            }
+        }
     }
 }
