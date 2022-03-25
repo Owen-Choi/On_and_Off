@@ -55,6 +55,7 @@ import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class UploadActivity extends AppCompatActivity {
@@ -168,7 +169,6 @@ public class UploadActivity extends AppCompatActivity {
         dialog.setContentView(dialogView); // Dialog에 선언했던 layout 적용
         dialog.setCanceledOnTouchOutside(true); // 외부 touch 시 Dialog 종료
         dialog.getWindow().setAttributes(lp); // 지정한 너비, 높이 값 Dialog에 적용
-
     }
             private void uploadImage() {
                 //사진 업로드
@@ -367,22 +367,22 @@ public class UploadActivity extends AppCompatActivity {
                         Hash = (HashMap<String, Object>) document.getData();
                         CI = new Closet_info((String)Hash.get("name"),(String)Hash.get("brand"),(String)Hash.get("clothes_type"), (String)Hash.get("img_url"),
                                 (String) Hash.get("url"));
-                        switch (category) {
-                            case "아우터" :
-                                outer_adapter.ItemChange(CI);
-                                break;
-                            case "상의" :
-                                top_adapter.ItemChange(CI);
-                                break;
-                            case "하의" :
-                                pants_adapter.ItemChange(CI);
-                                break;
-                            case "신발" :
-                                shoes_adapter.ItemChange(CI);
-                                break;
-                            default:
-                                Log.e("woong", "RecyclerViewInsertion: switch-case default log");
-                                break;
+                            switch (category) {
+                                case "아우터":
+                                    outer_adapter.ItemChange(CI);
+                                    break;
+                                case "상의":
+                                    top_adapter.ItemChange(CI);
+                                    break;
+                                case "하의":
+                                    pants_adapter.ItemChange(CI);
+                                    break;
+                                case "신발":
+                                    shoes_adapter.ItemChange(CI);
+                                    break;
+                                default:
+                                    Log.e("woong", "RecyclerViewInsertion: switch-case default log");
+                                    break;
                         }
                     }
                 }
@@ -399,7 +399,6 @@ public class UploadActivity extends AppCompatActivity {
         ClosetList.clear();
     }
     protected void click_setter() {
-        // parser 객체가 통일이 돼야할지 모르겠네...
         outer_adapter.setOnItemClickListener(new closet_outer_adapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position, ArrayList<Closet_info> listData) {
@@ -433,6 +432,7 @@ public class UploadActivity extends AppCompatActivity {
             }
         });
     }
+
 }
 
 
