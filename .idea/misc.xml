@@ -116,20 +116,33 @@
         <entry key="app/src/main/res/layout/activity_closet_outer.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/activity_closet_shoes.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/activity_closet_top.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/activity_enterprise_main.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/activity_enterprise_member_info.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/activity_enterprise_qr_generate.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/activity_enterprise_qr_list.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/activity_enterprise_qr_list_click.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/activity_enterprise_qr_list_item.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/activity_enterprise_setting.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/activity_initial.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_normal_main.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_normal_member_info.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_normal_search.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_password_init.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_profile_adapter.xml" value="0.253125" />
+        <entry key="app/src/main/res/layout/activity_profile_item.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/activity_qr_scan.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_upload.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/board_fragment.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/board_fragment_item.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/closet_all.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/layout/comment_item.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/dialog_closet_item_list.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/home_fragment.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/item_codi.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/list_view_items.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/member_setting_activity.xml" value="0.3453125" />
+        <entry key="app/src/main/res/layout/notice_fragment.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/post_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/profile_fragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recycler_view_board_added_closet_list.xml" value="0.3885416666666667" />

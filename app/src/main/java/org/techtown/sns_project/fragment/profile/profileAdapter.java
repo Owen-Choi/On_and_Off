@@ -60,9 +60,8 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ItemView
     }
 
     void addItem(String mypostimgUrl) {
-        // 외부에서 item을 추가시킬 함수입니다.
-        mypostimgUrl_list.add(mypostimgUrl);
 
+        mypostimgUrl_list.add(mypostimgUrl);
         this.notifyDataSetChanged();
     }
 
