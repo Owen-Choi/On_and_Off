@@ -114,6 +114,7 @@ public class ProfileFragment extends Fragment {
 
         //파베에서 내가 포스트한 게시글 가져와서 뿌려주기
         //데이터 정복 방지
+
         profileAdapter.clearList();
         db.collection("board").get().
                 addOnCompleteListener(task -> {
