@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.techtown.sns_project" >
+    package="org.techtown.sns_project">
     <!-- internet 사용을 위한 permission을 여기서 추가해준다. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,31 +16,31 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SNS_project"
-        android:requestLegacyExternalStorage="true">
-
+        android:theme="@style/Theme.SNS_project">
+        <activity
+            android:name=".fragment.profile.profileAdapter"
+            android:exported="false" />
         <!-- activity에서 SignUpActivity를 넣으면 첫 실행시 해당 화면이 실행된다. -->
         <activity
             android:name=".InitialActivity"
-            android:exported="true" >
-
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- 새로 추가되는 Activity(view?)들은 모두 manifest에 추가를 해주어야 한다. -->
-        <activity android:name=".Board.CommentsActivity"
-            ></activity>
-        <activity android:name=".Board.BoardPostClickEvent"></activity>
+        <activity android:name=".Board.CommentsActivity" />
+        <activity android:name=".Board.BoardPostClickEvent" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
@@ -60,17 +60,18 @@
         <activity android:name=".Normal.Setting.NormalSettingActivity" />
         <activity android:name=".Normal.Setting.NormalMemberInfo" />
         <activity android:name=".Normal.Search.NormalSearchActivity" />
-        <activity android:name=".Closet.ClosetMainActivity"
-            android:parentActivityName=".Normal.NormalMainActivity"/>
+        <activity
+            android:name=".Closet.ClosetMainActivity"
+            android:parentActivityName=".Normal.NormalMainActivity" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
         <activity
             android:name=".Camera.ScanQR"
-            android:exported="true" >
+            android:exported="true">
 
-         <!--    <activity android:name=".MainActivity"> -->
+            <!-- <activity android:name=".MainActivity"> -->
 
         </activity>
 
@@ -78,7 +79,7 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.cameraexample"
             android:exported="false"
-            android:grantUriPermissions="true" >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
@@ -88,9 +89,7 @@
             android:name=".Camera.Activity_codi"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme" >
-
-        </activity>
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -121,6 +121,7 @@
         <entry key="app/src/main/res/layout/activity_normal_member_info.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_normal_search.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_password_init.xml" value="0.3453125" />
+        <entry key="app/src/main/res/layout/activity_profile_adapter.xml" value="0.253125" />
         <entry key="app/src/main/res/layout/activity_qr_scan.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_upload.xml" value="0.3453125" />
