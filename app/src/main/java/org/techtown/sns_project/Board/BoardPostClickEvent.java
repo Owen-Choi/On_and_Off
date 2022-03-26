@@ -1,6 +1,7 @@
 package org.techtown.sns_project.Board;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.techtown.sns_project.Board.CommentsActivity;
 import org.techtown.sns_project.Board.Upload.url.upload_items_adapter;
+import org.techtown.sns_project.Camera.Activity_codi;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.qr.ProductInfo;
@@ -68,7 +70,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     upload_items_adapter UIA;
-
+    Context mContext;
     ArrayList<ProductInfo>list = new ArrayList<>();
 
     @Override
@@ -104,7 +106,12 @@ public class BoardPostClickEvent extends AppCompatActivity {
         UIA.setOnItemClickListener(new upload_items_adapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position, ArrayList<ProductInfo> listData) {
-                Log.e("temp", "onItemClick: " + listData.get(position).getTitle());
+                // listData에서 URL 가져와서 파싱된 화면 띄워주자.
+                Intent intent = new Intent(getApplicationContext(), Activity_codi.class);
+                String key =  listData.get(position).getURL().replaceAll("[^0-9]", "");
+                intent.putExtra("key", key);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
             }
         });
         UIA.notifyDataSetChanged();
