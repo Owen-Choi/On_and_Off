@@ -32,7 +32,6 @@ public class ListViewAdapter extends BaseAdapter {
     public ListViewAdapter(Context context, ArrayList<SearchTitleClass> titlesList) {
         mContext = context;
         this.titlesList = new ArrayList<SearchTitleClass>();
-        // 이건 무슨 역할이지?
         inflater = LayoutInflater.from(mContext);
         this.arraylist = new ArrayList<SearchTitleClass>();
         this.arraylist.addAll(titlesList);
@@ -86,7 +85,7 @@ public class ListViewAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Log.e("clicked", " : " + titlesList.get(position).getTitle());
                 Log.e("clicked", " : " + titlesList.get(position).getUrl());
-
+                // url로 화면을 띄우는 클래스를 활용해서 화면 띄워주는 부분.
                 Intent intent = new Intent(mContext.getApplicationContext(), Activity_codi.class);
                 String key =  titlesList.get(position).getUrl().replaceAll("[^0-9]", "");
                 intent.putExtra("key", key);
