@@ -136,7 +136,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
         username.setText(userNick_publisher);
        // private void setFireBaseProfileImage(String filename_GetUid) {
-
+        intent.putExtra("post_publisher", post_publisher);
             FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
             //다운로드는 주소를 넣는다.
             StorageReference storageRef = storage.getReference(); //스토리지를 참조한다

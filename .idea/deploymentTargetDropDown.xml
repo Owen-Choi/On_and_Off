@@ -6,23 +6,12 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\twoon\.android\avd\Pixel_XL_API_23.avd" />
+            <type value="SERIAL_NUMBER" />
+            <value value="b0859a0a" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <targetSelectedWithDropDown>
-      <Target>
-        <type value="QUICK_BOOT_TARGET" />
-        <deviceKey>
-          <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\twoon\.android\avd\Pixel_XL_API_23.avd" />
-          </Key>
-        </deviceKey>
-      </Target>
-    </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-03-28T18:19:45.950378200Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-03-28T19:25:15.598969500Z" />
   </component>
 </project>

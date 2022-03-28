@@ -1,6 +1,7 @@
 package org.techtown.sns_project.Board;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import org.techtown.sns_project.Model.Comment;
 import org.techtown.sns_project.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ItemViewHolder> {
 
@@ -66,13 +77,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ItemView
 
     public class ItemViewHolder extends RecyclerView.ViewHolder { //아이템 저장함, 성공
 
-        public ImageView image_profile;
         public TextView username, comment;
-
+        public CircleImageView image_profile;
         public ItemViewHolder(View itemView) {
 
             super(itemView);
-            image_profile = itemView.findViewById(R.id.post_image);
+            image_profile = itemView.findViewById(R.id.image_profile);
             username = itemView.findViewById(R.id.username);
             comment = itemView.findViewById(R.id.comment);
 
@@ -83,7 +93,24 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ItemView
         void onBind(Comment data) {
             String post_comment = data.getComment();
             String commentid = data.getCommentid();
-
+            FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
+            //다운로드는 주소를 넣는다.
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            StorageReference storageRef = storage.getReference(); //스토리지를 참조한다
+            storageRef.child("profile_images/" + user.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    //성공시
+                    Glide.with(itemView.getContext()).load(uri).into(image_profile);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    //실패시
+                    image_profile.setImageResource(R.drawable.ic_baseline_android_24);
+                }
+            });
             if(post_comment != null) {
                 Log.e("post_comments", "success");
                 comment.setText(post_comment);
