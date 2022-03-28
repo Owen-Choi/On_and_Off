@@ -134,6 +134,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         more = findViewById(R.id.more);
         image_profile = findViewById(R.id.image_profile);
 
+        username.setText(userNick_publisher);
        // private void setFireBaseProfileImage(String filename_GetUid) {
 
             FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,

@@ -5,14 +5,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_more"
-        android:id="@+id/more"
-        android:layout_margin="16dp"/>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -27,8 +19,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <!--<de.hdodenhof.circleimageview.CircleImageView-->
-                <TextView
+
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_profile"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
