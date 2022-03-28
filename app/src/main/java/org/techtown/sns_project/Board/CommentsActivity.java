@@ -1,7 +1,6 @@
 package org.techtown.sns_project.Board;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,12 +21,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -50,8 +44,7 @@ public class CommentsActivity extends AppCompatActivity {
     ImageView image_profile;
     TextView post;
 
-    String postid; //getuid : 사용자의 키값
-    String publisherid; //사용자 이름 : 앱에서 띄우게 할 이름
+    String commentid; //getuid : 사용자의 키값
 
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -65,7 +58,7 @@ public class CommentsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_comments);
 
         Intent intent = getIntent();
-        postid = intent.getStringExtra("postid");
+
         post_document = intent.getStringExtra("post_document");
         recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -80,6 +73,16 @@ public class CommentsActivity extends AppCompatActivity {
         post = findViewById(R.id.post);
         addcomment = findViewById(R.id.add_comment);
         image_profile = findViewById(R.id.image_profile);
+
+
+        db.collection("users").document(user.getUid()).get().addOnCompleteListener(
+                task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        commentid = document.getData().get("name").toString();
+
+                    }
+                });
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         post.setOnClickListener(new View.OnClickListener() {
@@ -107,8 +110,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("comment", addcomment.getText().toString());
-        hashMap.put("publisher", firebaseUser.getUid());
-        hashMap.put("commentid", "hi");
+        hashMap.put("commentid", commentid);
 
         CommentsRef.document(user.getUid())
                 .set(hashMap)
@@ -138,7 +140,8 @@ public class CommentsActivity extends AppCompatActivity {
 
                         for(QueryDocumentSnapshot document : task.getResult()) {
                             List = (HashMap<String, Object>) document.getData();
-                            Comment data = new Comment((String)List.get("comment"),(String)List.get("publisher"),(String)List.get("commentid"));
+                            //Comment data = new Comment((String)List.get("comment"),(String)List.get("publisher"),(String)List.get("commentid"));
+                            Comment data = new Comment((String)List.get("comment"),(String)List.get("commentid"));
                             commentAdapter.addItem(data);
                         }
                         commentAdapter.notifyDataSetChanged();

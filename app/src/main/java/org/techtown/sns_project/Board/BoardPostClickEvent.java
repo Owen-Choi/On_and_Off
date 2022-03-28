@@ -62,7 +62,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
     static boolean liked = true;
     static boolean saved = true;
     static String post_description;
-    static String post_publisher;
+    static String post_publisher, userNick_publisher;
     static String post_postid,post_document;
     static int nrlikes;
 
@@ -142,7 +142,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
         //Publisher
         if (post_publisher != null)
-            publisher.setText(post_publisher);
+            publisher.setText(userNick_publisher);
         else
         {
             publisher.setText("NULL");
@@ -156,7 +156,14 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
         /*getCommetns(post.getPostid(), holder.comments);*/
 
+        db.collection("users").document(post_publisher).get().addOnCompleteListener(
+                task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        userNick_publisher = document.getData().get("name").toString();
 
+                    }
+                });
         //Like
         CollectionReference likesRef = db.collection("board").document(post_document).collection("Likes");
         //If click like button
@@ -258,7 +265,6 @@ public class BoardPostClickEvent extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),CommentsActivity.class);
-                intent.putExtra("postid",user.getUid()); //postid를 userid로 바꿔야함 db이용할 예정
                 intent.putExtra("post_document",post_document);
                 startActivity(intent);
             }

@@ -73,7 +73,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ItemView
 
             super(itemView);
             image_profile = itemView.findViewById(R.id.post_image);
-            username = itemView.findViewById(R.id.description);
+            username = itemView.findViewById(R.id.username);
             comment = itemView.findViewById(R.id.comment);
 
 
@@ -82,11 +82,17 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ItemView
 
         void onBind(Comment data) {
             String post_comment = data.getComment();
+            String commentid = data.getCommentid();
 
             if(post_comment != null) {
                 Log.e("post_comments", "success");
                 comment.setText(post_comment);
             }
+            if(commentid != null) {
+                Log.e("commentid", "success");
+                username.setText(commentid);
+            }
+
             Log.e("onbind","success");
         }
     }
