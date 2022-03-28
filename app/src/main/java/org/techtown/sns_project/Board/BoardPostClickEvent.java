@@ -164,8 +164,10 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
                     }
                 });
+
         //Like
         CollectionReference likesRef = db.collection("board").document(post_document).collection("Likes");
+        CollectionReference likesRef_user = db.collection("users").document(user.getUid()).collection("board_likes");
         //If click like button
         like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,6 +192,20 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                 }
                             });
                     liked = false;
+
+                    likesRef_user.document(post_document)
+                            .set(Map_like)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d("like_userlike","Document written success");
+                                }})
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("Like","Fail",e);
+                                }
+                            });
                 }
                 else{
                     nrlikes--;
@@ -209,6 +225,22 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                     Log.w("Unlike", "Error deleting document", e);
                                 }
                             });
+
+                    likesRef_user.document(post_document)
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("Unlike", "DocumentSnapshot successfully deleted!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("Unlike", "Error deleting document", e);
+                                }
+                            });
+
                     liked = true;
                 }
 
@@ -216,6 +248,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         });
 
         CollectionReference savesRef = db.collection("board").document(post_document).collection("Saves");
+        CollectionReference savesRef_user = db.collection("users").document(user.getUid()).collection("board_saves");
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -236,11 +269,40 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                     Log.w("save","Fail",e);
                                 }
                             });
+
+                    savesRef_user.document(post_document)
+                            .set(Map_like)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d("Save_userSave","Document written success");
+                                }})
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("Like","Fail",e);
+                                }
+                            });
                     saved = false;
                 }
                 else{
                     save.setImageResource(R.drawable.ic_save);
                     savesRef.document(user.getUid())
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("Save cancel", "DocumentSnapshot successfully deleted!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("save cancel", "Error deleting document", e);
+                                }
+                            });
+
+                    savesRef_user.document(post_document)
                             .delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
