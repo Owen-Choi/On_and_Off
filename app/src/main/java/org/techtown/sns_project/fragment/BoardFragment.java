@@ -96,6 +96,8 @@ public class BoardFragment extends Fragment {
            listImgUrl.clear();
            listDescription.clear();
            listPublisher.clear();
+           listOfList.clear();
+           listDocument.clear();
            adapter.listData.clear();
 
             for(QueryDocumentSnapshot document : task.getResult()) {
