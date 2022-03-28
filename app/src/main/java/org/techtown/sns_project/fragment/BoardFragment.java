@@ -93,10 +93,12 @@ public class BoardFragment extends Fragment {
   db.collectionGroup("board").get().
           addOnCompleteListener(task -> {
            if(task.isSuccessful()) {
-//           listImgUrl.clear();
-//           listDescription.clear();
-//           listPublisher.clear();
-//           adapter.listData.clear();
+           listImgUrl.clear();
+           listDescription.clear();
+           listPublisher.clear();
+           listOfList.clear();
+           listDocument.clear();
+           adapter.listData.clear();
 
             for(QueryDocumentSnapshot document : task.getResult()) {
 
