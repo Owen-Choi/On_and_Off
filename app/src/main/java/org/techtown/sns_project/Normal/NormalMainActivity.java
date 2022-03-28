@@ -1,6 +1,7 @@
 package org.techtown.sns_project.Normal;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -40,6 +41,10 @@ public class NormalMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal_main);
         //findViewById(R.id.NormalQRScanButton).setOnClickListener(onClickListener);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null) {
             StartActivity(CommonSignInActivity.class);
