@@ -38,7 +38,6 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
 
     @SuppressLint("NotifyDataSetChanged")
     public void addItem(ArrayList<ProductInfo> list) {
-        // 동혁코드에서 따옴. 외부에서 아이템 추가해주는 코드.
         listData.addAll(list);
         this.notifyDataSetChanged();
     }

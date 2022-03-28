@@ -22,7 +22,7 @@ import org.techtown.sns_project.R;
 import org.techtown.sns_project.Camera.ScanQR;
 import org.techtown.sns_project.fragment.BoardFragment;
 import org.techtown.sns_project.fragment.HomeFragment;
-import org.techtown.sns_project.fragment.ProfileFragment;
+import org.techtown.sns_project.fragment.profile.ProfileFragment;
 import org.techtown.sns_project.fragment.SearchFragment;
 import org.techtown.sns_project.fragment.SomethingFragment;
 

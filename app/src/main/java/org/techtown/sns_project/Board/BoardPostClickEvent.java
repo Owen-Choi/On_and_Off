@@ -1,6 +1,7 @@
 package org.techtown.sns_project.Board;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.techtown.sns_project.Board.CommentsActivity;
 import org.techtown.sns_project.Board.Upload.url.upload_items_adapter;
+import org.techtown.sns_project.Camera.Activity_codi;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.qr.ProductInfo;
@@ -68,7 +70,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     upload_items_adapter UIA;
-
+    Context mContext;
     ArrayList<ProductInfo>list = new ArrayList<>();
 
     @Override
@@ -83,11 +85,6 @@ public class BoardPostClickEvent extends AppCompatActivity {
         listDocument = (ArrayList<String>)getIntent().getSerializableExtra("listDocument");
 
         int position = getIntent().getIntExtra("position",1);
-  /*      Log.e("temp", "onCreate: " + listOfList.get(0).get(0).getInfo());*/
-        Log.e("temp", "onCreate: " + listImgUrl.toString());
-        Log.e("temp", "onCreate: " + listDescription.toString());
-        Log.e("temp", "onCreate: " + listPublisher.toString());
-        Log.e("temp", "onCreate: " + listDocument.toString());
         listImgURL2 = listImgUrl.get(position);
         list = listOfList.get(position);
         post_description = listDescription.get(position);
@@ -103,15 +100,21 @@ public class BoardPostClickEvent extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         UIA = new upload_items_adapter(this);
         recyclerView.setAdapter(UIA);
+        UIA.clearList();
+        Duplicate_Removal();
         UIA.addItem(list);
         UIA.setOnItemClickListener(new upload_items_adapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position, ArrayList<ProductInfo> listData) {
-                Log.e("temp", "onItemClick: " + listData.get(position).getTitle());
+                // listData에서 URL 가져와서 파싱된 화면 띄워주자.
+                Intent intent = new Intent(getApplicationContext(), Activity_codi.class);
+                String key =  listData.get(position).getURL().replaceAll("[^0-9]", "");
+                intent.putExtra("key", key);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
             }
         });
         UIA.notifyDataSetChanged();
-        UIA.clearList();
 
 
         post_image = findViewById(R.id.post_image);
@@ -343,7 +346,14 @@ public class BoardPostClickEvent extends AppCompatActivity {
                 }
             }
         });
-
-
+    }
+    // 중복제거
+    private void Duplicate_Removal() {
+        for(int i=0; i<list.size(); i++) {
+            for(int k=i+1; k<list.size(); k++) {
+                if(list.get(i).getTitle().equals(list.get(k).getTitle()))
+                    list.remove(i);
+            }
+        }
     }
 }
