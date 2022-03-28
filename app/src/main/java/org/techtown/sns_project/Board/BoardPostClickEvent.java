@@ -3,6 +3,7 @@ package org.techtown.sns_project.Board;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -25,6 +26,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.techtown.sns_project.Board.CommentsActivity;
 import org.techtown.sns_project.Board.Upload.url.upload_items_adapter;
@@ -36,12 +39,14 @@ import org.techtown.sns_project.qr.ProductInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class BoardPostClickEvent extends AppCompatActivity {
 
 
-    public ImageView image_profile, post_image, like, comment, save, more;
+    public ImageView post_image, like, comment, save, more;
     public TextView username, likes, publisher, description, comments;
-
+    CircleImageView image_profile;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -127,7 +132,26 @@ public class BoardPostClickEvent extends AppCompatActivity {
         likes = findViewById(R.id.likes);
         comments = findViewById(R.id.comments);
         more = findViewById(R.id.more);
+        image_profile = findViewById(R.id.image_profile);
 
+       // private void setFireBaseProfileImage(String filename_GetUid) {
+
+            FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
+            //다운로드는 주소를 넣는다.
+            StorageReference storageRef = storage.getReference(); //스토리지를 참조한다
+            storageRef.child("profile_images/" + post_publisher).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    //성공시
+                    Glide.with(getApplicationContext()).load(uri).into(image_profile);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    //실패시
+                    image_profile.setImageResource(R.drawable.ic_baseline_android_24);
+                }
+            });
 
         Glide.with(this).load(listImgURL2).error(R.drawable.ic_launcher_background).into(post_image);
 
