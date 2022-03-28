@@ -32,6 +32,10 @@ public class CommonSignInActivity extends AppCompatActivity implements SignInAct
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_sign_in);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.SignInButton).setOnClickListener(onClickListener);
         findViewById(R.id.CommonSignUpButton).setOnClickListener(onClickListener);

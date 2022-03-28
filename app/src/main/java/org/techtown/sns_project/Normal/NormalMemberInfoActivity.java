@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,6 +30,10 @@ public class NormalMemberInfoActivity extends AppCompatActivity implements Membe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal_member_info);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.NormalMemberInfoCheckButton).setOnClickListener(onClickListener);
     }
