@@ -71,8 +71,9 @@ public class UploadActivity extends AppCompatActivity {
     EditText description;
 
     FirebaseFirestore db;
-    FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = firebaseAuth.getCurrentUser();
 
     ImageButton urlImageButton, closetImageButton;
     AlertDialog.Builder builder;
@@ -209,6 +210,20 @@ public class UploadActivity extends AppCompatActivity {
 //                                data.put("clothes_info", list);
 
                                 db.collection("board").add(dataFormat)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.e("temp", "onSuccess: DB Insertion success");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("temp", "onFailure: DB Insertion failed");
+                                            }
+                                        });
+
+                                db.collection("users").document(user.getUid()).collection("Myboard").add(dataFormat)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override
                                             public void onSuccess(DocumentReference documentReference) {
