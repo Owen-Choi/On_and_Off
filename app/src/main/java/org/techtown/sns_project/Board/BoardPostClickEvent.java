@@ -1,6 +1,9 @@
 package org.techtown.sns_project.Board;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -23,8 +26,12 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import org.techtown.sns_project.Board.CommentsActivity;
 import org.techtown.sns_project.Board.Upload.url.upload_items_adapter;
+import org.techtown.sns_project.Camera.Activity_codi;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.qr.ProductInfo;
@@ -32,12 +39,14 @@ import org.techtown.sns_project.qr.ProductInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class BoardPostClickEvent extends AppCompatActivity {
 
 
-    public ImageView image_profile, post_image, like, comment, save, more;
+    public ImageView post_image, like, comment, save, more;
     public TextView username, likes, publisher, description, comments;
-
+    CircleImageView image_profile;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -58,7 +67,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
     static boolean liked = true;
     static boolean saved = true;
     static String post_description;
-    static String post_publisher;
+    static String post_publisher, userNick_publisher;
     static String post_postid,post_document;
     static int nrlikes;
 
@@ -66,7 +75,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     upload_items_adapter UIA;
-
+    Context mContext;
     ArrayList<ProductInfo>list = new ArrayList<>();
 
     @Override
@@ -81,11 +90,6 @@ public class BoardPostClickEvent extends AppCompatActivity {
         listDocument = (ArrayList<String>)getIntent().getSerializableExtra("listDocument");
 
         int position = getIntent().getIntExtra("position",1);
-  /*      Log.e("temp", "onCreate: " + listOfList.get(0).get(0).getInfo());*/
-        Log.e("temp", "onCreate: " + listImgUrl.toString());
-        Log.e("temp", "onCreate: " + listDescription.toString());
-        Log.e("temp", "onCreate: " + listPublisher.toString());
-        Log.e("temp", "onCreate: " + listDocument.toString());
         listImgURL2 = listImgUrl.get(position);
         list = listOfList.get(position);
         post_description = listDescription.get(position);
@@ -101,15 +105,21 @@ public class BoardPostClickEvent extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         UIA = new upload_items_adapter(this);
         recyclerView.setAdapter(UIA);
+        UIA.clearList();
+        Duplicate_Removal();
         UIA.addItem(list);
         UIA.setOnItemClickListener(new upload_items_adapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position, ArrayList<ProductInfo> listData) {
-                Log.e("temp", "onItemClick: " + listData.get(position).getTitle());
+                // listData에서 URL 가져와서 파싱된 화면 띄워주자.
+                Intent intent = new Intent(getApplicationContext(), Activity_codi.class);
+                String key =  listData.get(position).getURL().replaceAll("[^0-9]", "");
+                intent.putExtra("key", key);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
             }
         });
         UIA.notifyDataSetChanged();
-        UIA.clearList();
 
 
         post_image = findViewById(R.id.post_image);
@@ -122,7 +132,27 @@ public class BoardPostClickEvent extends AppCompatActivity {
         likes = findViewById(R.id.likes);
         comments = findViewById(R.id.comments);
         more = findViewById(R.id.more);
+        image_profile = findViewById(R.id.image_profile);
 
+        username.setText(userNick_publisher);
+       // private void setFireBaseProfileImage(String filename_GetUid) {
+        intent.putExtra("post_publisher", post_publisher);
+            FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
+            //다운로드는 주소를 넣는다.
+            StorageReference storageRef = storage.getReference(); //스토리지를 참조한다
+            storageRef.child("profile_images/" + post_publisher).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    //성공시
+                    Glide.with(getApplicationContext()).load(uri).into(image_profile);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    //실패시
+                    image_profile.setImageResource(R.drawable.ic_baseline_android_24);
+                }
+            });
 
         Glide.with(this).load(listImgURL2).error(R.drawable.ic_launcher_background).into(post_image);
 
@@ -137,12 +167,13 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
         //Publisher
         if (post_publisher != null)
-            publisher.setText(post_publisher);
+            publisher.setText(userNick_publisher);
         else
         {
             publisher.setText("NULL");
         }
 
+        nrlikes = 0;
         //publisherInfo(holder.image_profile, holder.username, holder.publisher, post.getPublisher());
         isLiked(user.getUid(),like);
         nrLikes(likes);
@@ -150,9 +181,18 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
         /*getCommetns(post.getPostid(), holder.comments);*/
 
+        db.collection("users").document(post_publisher).get().addOnCompleteListener(
+                task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        userNick_publisher = document.getData().get("name").toString();
+
+                    }
+                });
 
         //Like
         CollectionReference likesRef = db.collection("board").document(post_document).collection("Likes");
+        CollectionReference likesRef_user = db.collection("users").document(user.getUid()).collection("board_likes");
         //If click like button
         like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +217,20 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                 }
                             });
                     liked = false;
+
+                    likesRef_user.document(post_document)
+                            .set(Map_like)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d("like_userlike","Document written success");
+                                }})
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("Like","Fail",e);
+                                }
+                            });
                 }
                 else{
                     nrlikes--;
@@ -196,6 +250,22 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                     Log.w("Unlike", "Error deleting document", e);
                                 }
                             });
+
+                    likesRef_user.document(post_document)
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("Unlike", "DocumentSnapshot successfully deleted!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("Unlike", "Error deleting document", e);
+                                }
+                            });
+
                     liked = true;
                 }
 
@@ -203,6 +273,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         });
 
         CollectionReference savesRef = db.collection("board").document(post_document).collection("Saves");
+        CollectionReference savesRef_user = db.collection("users").document(user.getUid()).collection("board_saves");
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -223,11 +294,40 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                     Log.w("save","Fail",e);
                                 }
                             });
+
+                    savesRef_user.document(post_document)
+                            .set(Map_like)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d("Save_userSave","Document written success");
+                                }})
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("Like","Fail",e);
+                                }
+                            });
                     saved = false;
                 }
                 else{
                     save.setImageResource(R.drawable.ic_save);
                     savesRef.document(user.getUid())
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("Save cancel", "DocumentSnapshot successfully deleted!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("save cancel", "Error deleting document", e);
+                                }
+                            });
+
+                    savesRef_user.document(post_document)
                             .delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -247,6 +347,25 @@ public class BoardPostClickEvent extends AppCompatActivity {
             }
         });
 
+
+        comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),CommentsActivity.class);
+                intent.putExtra("post_document",post_document);
+                startActivity(intent);
+            }
+        });
+
+        comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),CommentsActivity.class);
+                intent.putExtra("postid",user.getUid());
+                intent.putExtra("post_document",post_document);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -320,7 +439,14 @@ public class BoardPostClickEvent extends AppCompatActivity {
                 }
             }
         });
-
-
+    }
+    // 중복제거
+    private void Duplicate_Removal() {
+        for(int i=0; i<list.size(); i++) {
+            for(int k=i+1; k<list.size(); k++) {
+                if(list.get(i).getTitle().equals(list.get(k).getTitle()))
+                    list.remove(i);
+            }
+        }
     }
 }

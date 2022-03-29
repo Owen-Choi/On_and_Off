@@ -1,6 +1,7 @@
 package org.techtown.sns_project.Normal;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -22,7 +23,7 @@ import org.techtown.sns_project.R;
 import org.techtown.sns_project.Camera.ScanQR;
 import org.techtown.sns_project.fragment.BoardFragment;
 import org.techtown.sns_project.fragment.HomeFragment;
-import org.techtown.sns_project.fragment.ProfileFragment;
+import org.techtown.sns_project.fragment.profile.ProfileFragment;
 import org.techtown.sns_project.fragment.SearchFragment;
 import org.techtown.sns_project.fragment.SomethingFragment;
 
@@ -40,6 +41,10 @@ public class NormalMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal_main);
         //findViewById(R.id.NormalQRScanButton).setOnClickListener(onClickListener);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null) {
             StartActivity(CommonSignInActivity.class);
@@ -54,6 +59,7 @@ public class NormalMainActivity extends AppCompatActivity {
         // 시작하면 home fragment를 띄운다.
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_layout,Home_Fragment).commitAllowingStateLoss();
+        setTitle("QR");
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
@@ -66,22 +72,27 @@ public class NormalMainActivity extends AppCompatActivity {
                     case R.id.nav_home:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.main_layout,Home_Fragment).commitAllowingStateLoss();
+                        setTitle("QR");
                         return true;
                     case R.id.nav_board:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.main_layout,Board_Fragment).commitAllowingStateLoss();
+                        setTitle("BOARD");
                         return true;
                     case R.id.nav_profile:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.main_layout,Profile_Fragment).commitAllowingStateLoss();
+                        setTitle("MY");
                         return true;
                     case R.id.nav_qr:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.main_layout, Search_Fragment).commitAllowingStateLoss();
+                        setTitle("SEARCH");
                         return true;
                     case R.id.nav_something:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.main_layout,Something_Fragment).commitAllowingStateLoss();
+                        setTitle("SOMETHING");
                         return true;
                 }
                 return true;

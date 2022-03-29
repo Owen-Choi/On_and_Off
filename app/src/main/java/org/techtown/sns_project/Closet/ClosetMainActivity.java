@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,8 +32,12 @@ public class ClosetMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_closet);
 
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         //뒤로가기
-        getSupportActionBar().setTitle("Closet");
+        //getSupportActionBar().setTitle("Closet");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -96,6 +101,7 @@ public class ClosetMainActivity extends AppCompatActivity {
 
         //처음화면
         getSupportFragmentManager().beginTransaction().add(R.id.main_frame, new AllFragment()).commit(); //FrameLayout에 fragment.xml 띄우기
+        setTitle("ALL");
 
         //바텀 네비게이션뷰 안의 아이템 설정
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -105,18 +111,23 @@ public class ClosetMainActivity extends AppCompatActivity {
                     //item을 클릭시 id값을 가져와 FrameLayout에 fragment.xml띄우기
                     case R.id.item_fragment5:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new AllFragment()).commit();
+                        setTitle("ALL");
                         break;
                     case R.id.item_fragment1:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new outerFragment()).commit();
+                        setTitle("OUTER");
                         break;
                     case R.id.item_fragment2:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new topFragment()).commit();
+                        setTitle("TOP");
                         break;
                     case R.id.item_fragment3:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new bottomFragment()).commit();
+                        setTitle("BOTTOM");
                         break;
                     case R.id.item_fragment4:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new shoesFragment()).commit();
+                        setTitle("SHOES");
                         break;
 
                 }
