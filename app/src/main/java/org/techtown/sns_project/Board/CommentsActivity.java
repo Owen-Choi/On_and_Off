@@ -1,9 +1,9 @@
 package org.techtown.sns_project.Board;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,23 +14,22 @@ import android.widget.Toast;
 
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.techtown.sns_project.Model.Comment;
 import org.techtown.sns_project.R;
@@ -40,6 +39,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CommentsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -47,17 +48,17 @@ public class CommentsActivity extends AppCompatActivity {
     private List<Comment> commentList;
 
     EditText addcomment;
-    ImageView image_profile;
     TextView post;
+    CircleImageView image_profile;
 
-    String postid; //getuid : 사용자의 키값
-    String publisherid; //사용자 이름 : 앱에서 띄우게 할 이름
+    String commentid; //getuid : 사용자의 키값
+
 
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    static String post_document;
+    static String post_document,post_publisher;
     static HashMap<String,Object> List;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +66,8 @@ public class CommentsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_comments);
 
         Intent intent = getIntent();
-        postid = intent.getStringExtra("postid");
+
+        post_publisher = intent.getStringExtra("post_publisher");
         post_document = intent.getStringExtra("post_document");
         recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -80,6 +82,32 @@ public class CommentsActivity extends AppCompatActivity {
         post = findViewById(R.id.post);
         addcomment = findViewById(R.id.add_comment);
         image_profile = findViewById(R.id.image_profile);
+
+        FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
+        //다운로드는 주소를 넣는다.
+        StorageReference storageRef = storage.getReference(); //스토리지를 참조한다
+        storageRef.child("profile_images/" + user.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                //성공시
+                Glide.with(getApplicationContext()).load(uri).into(image_profile);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //실패시
+                image_profile.setImageResource(R.drawable.ic_baseline_android_24);
+            }
+        });
+
+        db.collection("users").document(user.getUid()).get().addOnCompleteListener(
+                task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        commentid = document.getData().get("name").toString();
+
+                    }
+                });
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         post.setOnClickListener(new View.OnClickListener() {
@@ -103,12 +131,12 @@ public class CommentsActivity extends AppCompatActivity {
 
 
         CollectionReference CommentsRef = db.collection("board").document(post_document).collection("Comments");
+        CollectionReference CommentsRef_user = db.collection("users").document(user.getUid()).collection("board").document(post_document).collection("Comments");
 
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("comment", addcomment.getText().toString());
-        hashMap.put("publisher", firebaseUser.getUid());
-        hashMap.put("commentid", "hi");
+        hashMap.put("commentid", commentid);
 
         CommentsRef.document(user.getUid())
                 .set(hashMap)
@@ -122,6 +150,8 @@ public class CommentsActivity extends AppCompatActivity {
                         Log.w("Comments","Fail",e);
                     }
                 });
+
+
         addcomment.setText("");
 
         }
@@ -138,7 +168,8 @@ public class CommentsActivity extends AppCompatActivity {
 
                         for(QueryDocumentSnapshot document : task.getResult()) {
                             List = (HashMap<String, Object>) document.getData();
-                            Comment data = new Comment((String)List.get("comment"),(String)List.get("publisher"),(String)List.get("commentid"));
+                            //Comment data = new Comment((String)List.get("comment"),(String)List.get("publisher"),(String)List.get("commentid"));
+                            Comment data = new Comment((String)List.get("comment"),(String)List.get("commentid"));
                             commentAdapter.addItem(data);
                         }
                         commentAdapter.notifyDataSetChanged();

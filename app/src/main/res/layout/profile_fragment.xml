@@ -20,11 +20,14 @@
                 android:id="@+id/circle_img"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_margin="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
                 android:src="@drawable/ic_baseline_android_24"
                 app:civ_border_color="#FF000000"
-                app:civ_border_width="2dp"
-                app:civ_border_overlay="true" />
+                app:civ_border_overlay="true"
+                app:civ_border_width="2dp" />
 
 
             <LinearLayout
