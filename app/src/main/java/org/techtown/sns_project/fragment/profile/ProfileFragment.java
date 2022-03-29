@@ -114,7 +114,6 @@ public class ProfileFragment extends Fragment {
 
         //파베에서 내가 포스트한 게시글 가져와서 뿌려주기
         //데이터 정복 방지
-
         profileAdapter.clearList();
         db.collection("board").get().
                 addOnCompleteListener(task -> {
@@ -125,11 +124,10 @@ public class ProfileFragment extends Fragment {
                             List = (HashMap<String, Object>) document.getData();
                             String ismypost = (String) List.get("publisher");
 
-                            if (ismypost.equals((String)firebaseUser.getUid())) {
+                            if (ismypost.equals(firebaseUser.getUid())) {
                                 String mypostUrl = (String) List.get("imageUrl");
                                 profileAdapter.addItem(mypostUrl);
                             }
-
                         }
                         profileAdapter.notifyDataSetChanged();
 
@@ -137,8 +135,6 @@ public class ProfileFragment extends Fragment {
                         Log.d(TAG, "Error getting documents: ", task.getException());
                     }
                 });
-
-        //나의 포스트 불러오는 코드
 
         //필드 값 가져와서 프로필 닉네임 설정
         textView = (TextView) view.findViewById(R.id.userNickname);
