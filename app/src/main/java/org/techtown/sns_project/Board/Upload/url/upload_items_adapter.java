@@ -15,8 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.sns_project.Board.Upload.closet.closet_outer_adapter;
+import org.techtown.sns_project.Closet.Closet_Parser;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.qr.ProductInfo;
 
@@ -26,8 +30,15 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
 
     static ArrayList<ProductInfo> listData = new ArrayList<>();
     Context context;
-    public upload_items_adapter(Context context) {
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    FirebaseFirestore db;
+    public upload_items_adapter(Context context, FirebaseAuth firebaseAuth, FirebaseUser firebaseUser,
+                                FirebaseFirestore db) {
         this.context = context;
+        this.firebaseAuth = firebaseAuth;
+        this.firebaseUser = firebaseUser;
+        this.db = db;
     }
 
     public interface OnItemClickListener{
@@ -69,11 +80,14 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
                     String str[] = {"옷장에 추가하기", "상세정보 보기"};
 
                     AlertDialog.Builder builder  = new AlertDialog.Builder(context);
-                    builder.setTitle("선택하십시오");
+                    builder.setTitle("선택");
                     builder.setItems(str, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             if(i == 0) {
+                                int position = getAdapterPosition();
+                                String url = listData.get(position).getURL();
+                                Closet_Parser closet_Parser = new Closet_Parser(firebaseAuth, firebaseUser, db, url);
                                 Log.e("woong", "onClick: 옷장에 추가");
                             }
                             else if(i == 1) {
@@ -81,7 +95,6 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
                                 if (position!=RecyclerView.NO_POSITION){
                                     if (mListener!=null){
                                         mListener.onItemClick (view,position, listData);
-                                        Log.e("woong", "onClick: 옷장x");
                                     }
                                 }
                             }
