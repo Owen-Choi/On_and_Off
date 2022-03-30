@@ -103,7 +103,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        UIA = new upload_items_adapter(this);
+        UIA = new upload_items_adapter(this, firebaseAuth, user, db);
         recyclerView.setAdapter(UIA);
         UIA.clearList();
         Duplicate_Removal();
