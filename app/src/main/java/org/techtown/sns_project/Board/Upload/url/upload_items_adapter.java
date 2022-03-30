@@ -1,7 +1,10 @@
 package org.techtown.sns_project.Board.Upload.url;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,12 +65,30 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int position = getAdapterPosition ();
-                    if (position!=RecyclerView.NO_POSITION){
-                        if (mListener!=null){
-                            mListener.onItemClick (view,position, listData);
+
+                    String str[] = {"옷장에 추가하기", "상세정보 보기"};
+
+                    AlertDialog.Builder builder  = new AlertDialog.Builder(context);
+                    builder.setTitle("선택하십시오");
+                    builder.setItems(str, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if(i == 0) {
+                                Log.e("woong", "onClick: 옷장에 추가");
+                            }
+                            else if(i == 1) {
+                                int position = getAdapterPosition ();
+                                if (position!=RecyclerView.NO_POSITION){
+                                    if (mListener!=null){
+                                        mListener.onItemClick (view,position, listData);
+                                        Log.e("woong", "onClick: 옷장x");
+                                    }
+                                }
+                            }
                         }
-                    }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             });
 
