@@ -17,11 +17,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.techtown.sns_project.Model.Comment;
+import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.fragment.DataFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +35,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ItemViewHolder> {
 
     public ArrayList<Comment> listData = new ArrayList<>();
-
+    public ArrayList<String> listComments = new ArrayList<>();
     public interface OnItemClickListener {
         void onItemClick(View v, int position); //뷰와 포지션값
     }
@@ -93,12 +97,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ItemView
         void onBind(Comment data) {
             String post_comment = data.getComment();
             String commentid = data.getCommentid();
+            String getuid = data.getGetuid();
+
             FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
             //다운로드는 주소를 넣는다.
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             FirebaseUser user = firebaseAuth.getCurrentUser();
             StorageReference storageRef = storage.getReference(); //스토리지를 참조한다
-            storageRef.child("profile_images/" + user.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            storageRef.child("profile_images/" + getuid).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     //성공시
