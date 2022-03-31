@@ -83,6 +83,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board_item);
         Intent intent = getIntent();
+
         listImgUrl = (ArrayList<String>)getIntent().getSerializableExtra("listImgUrl");
         listDescription = (ArrayList<String>)getIntent().getSerializableExtra("listDescription");
         listPublisher = (ArrayList<String>)getIntent().getSerializableExtra("listPublisher");
@@ -103,7 +104,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        UIA = new upload_items_adapter(this);
+        UIA = new upload_items_adapter(this, firebaseAuth, user, db);
         recyclerView.setAdapter(UIA);
         UIA.clearList();
         Duplicate_Removal();
