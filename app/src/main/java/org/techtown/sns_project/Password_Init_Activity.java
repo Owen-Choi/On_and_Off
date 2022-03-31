@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,10 @@ public class Password_Init_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_init);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         findViewById(R.id.SendButton).setOnClickListener(onClickListener);
