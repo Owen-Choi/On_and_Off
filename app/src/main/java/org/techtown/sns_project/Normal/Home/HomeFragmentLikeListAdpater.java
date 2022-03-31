@@ -57,11 +57,6 @@ public class HomeFragmentLikeListAdpater extends RecyclerView.Adapter<HomeFragme
         this.notifyDataSetChanged();
     }
 
-    void removeItem(int position) {
-        listData.remove(position);
-        notifyItemRemoved(position);
-    }
-
     class ItemViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView Like_Image;
