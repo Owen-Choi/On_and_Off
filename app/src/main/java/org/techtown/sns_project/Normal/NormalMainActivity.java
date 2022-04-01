@@ -17,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.techtown.sns_project.CommonSignInActivity;
-import org.techtown.sns_project.Normal.Search.NormalSearchActivity;
 import org.techtown.sns_project.Normal.Setting.NormalSettingActivity;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.Camera.ScanQR;
@@ -144,9 +143,7 @@ public class NormalMainActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 StartActivity(CommonSignInActivity.class);
                 break;
-            case R.id.SearchMenu:
-                StartActivity(NormalSearchActivity.class);
-                break;
+
         }
 
         return super.onOptionsItemSelected(item);
