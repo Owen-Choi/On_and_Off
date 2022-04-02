@@ -61,7 +61,11 @@ public class AllFragment extends Fragment {
 
                             List = (HashMap<String, Object>) document.getData();
 
-                            Closet_info data = new Closet_info((String)List.get("name"),(String)List.get("brand"), (String)List.get("clothes_type"), (String)List.get("img_url"),
+                            Closet_info data = new Closet_info(
+                                    (String)List.get("name"),
+                                    (String)List.get("brand"),
+                                    (String)List.get("clothes_type"),
+                                    (String)List.get("img_url"),
                                     (String) List.get("url"));
 
                             Closet_adapter.addItem(data);
@@ -79,7 +83,11 @@ public class AllFragment extends Fragment {
 
                             List = (HashMap<String, Object>) document.getData();
 
-                            Closet_info data = new Closet_info((String)List.get("name"),(String)List.get("brand"), (String)List.get("clothes_type"), (String)List.get("img_url"),
+                            Closet_info data = new Closet_info(
+                                    (String)List.get("name"),
+                                    (String)List.get("brand"),
+                                    (String)List.get("clothes_type"),
+                                    (String)List.get("img_url"),
                                     (String) List.get("url"));
 
                             Closet_adapter.addItem(data);
@@ -97,7 +105,11 @@ public class AllFragment extends Fragment {
 
                             List = (HashMap<String, Object>) document.getData();
 
-                            Closet_info data = new Closet_info((String)List.get("name"),(String)List.get("brand"), (String)List.get("clothes_type"), (String)List.get("img_url"),
+                            Closet_info data = new Closet_info(
+                                    (String)List.get("name"),
+                                    (String)List.get("brand"),
+                                    (String)List.get("clothes_type"),
+                                    (String)List.get("img_url"),
                                     (String) List.get("url"));
 
                             Closet_adapter.addItem(data);
@@ -115,7 +127,11 @@ public class AllFragment extends Fragment {
 
                             List = (HashMap<String, Object>) document.getData();
 
-                            Closet_info data = new Closet_info((String)List.get("name"),(String)List.get("brand"),(String)List.get("clothes_type"), (String)List.get("img_url"),
+                            Closet_info data = new Closet_info(
+                                    (String)List.get("name"),
+                                    (String)List.get("brand"),
+                                    (String)List.get("clothes_type"),
+                                    (String)List.get("img_url"),
                                     (String) List.get("url"));
 
                             Closet_adapter.addItem(data);
