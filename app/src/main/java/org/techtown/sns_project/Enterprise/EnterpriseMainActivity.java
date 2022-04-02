@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +23,8 @@ import org.techtown.sns_project.SignInActivity;
 
 public class EnterpriseMainActivity extends AppCompatActivity {
     private final String TAG = "MainActivityDB";
-
+    private long backKeyPressedTime = 0;
+    private Toast terminate_guide_msg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,4 +81,23 @@ public class EnterpriseMainActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onBackPressed() {
+
+        if (System.currentTimeMillis() > backKeyPressedTime + 1000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            terminate_guide_msg = Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+            terminate_guide_msg.show();
+            return;
+        }
+
+        if (System.currentTimeMillis() <= backKeyPressedTime + 1000) {
+            terminate_guide_msg.cancel();
+            moveTaskToBack(true);
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
+        }
+
+    }
 }
