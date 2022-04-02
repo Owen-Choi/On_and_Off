@@ -37,8 +37,12 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import org.techtown.sns_project.Board.BoardPostClickEvent;
 import org.techtown.sns_project.Closet.ClosetMainActivity;
+import org.techtown.sns_project.Closet.Closet_info;
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.fragment.DataFormat;
+import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,6 +74,14 @@ public class ProfileFragment extends Fragment {
     final CharSequence[] selectOption = {"앨범에서 사진 선택", "기본 이미지로 변경"};
     private HashMap<String, Object> List;
 
+    //나의 포스트 관련 변수
+    public static ArrayList<String> listImgUrl = new ArrayList<>();
+    static ArrayList<String> listDescription = new ArrayList<>();
+    static ArrayList<String> listPublisher = new ArrayList<>();
+    public static ArrayList<String> listDocument = new ArrayList<>();
+    static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
+    DataFormat df;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -92,23 +104,37 @@ public class ProfileFragment extends Fragment {
         recyclerView.setAdapter(profileAdapter);
 
         //파베에서 내가 포스트한 게시글 가져와서 뿌려주기
-        //데이터 정복 방지
-
-        profileAdapter.clearList();
         db.collection("board").get().
                 addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         //데이터 중복 방지
+                        listImgUrl.clear();
+                        listDescription.clear();
+                        listPublisher.clear();
+                        listOfList.clear();
+                        listDocument.clear();
+                        profileAdapter.clearList();
+
                         for (QueryDocumentSnapshot document : task.getResult()) {
 
                             List = (HashMap<String, Object>) document.getData();
                             String ismypost = (String) List.get("publisher");
 
-                            if (ismypost.equals((String)firebaseUser.getUid())) {
-                                String mypostUrl = (String) List.get("imageUrl");
-                                profileAdapter.addItem(mypostUrl);
-                            }
+                            if (ismypost.equals(firebaseUser.getUid())) {
 
+                                df = document.toObject(DataFormat.class);
+                                listImgUrl.add(df.getImageUrl());
+                                listPublisher.add(df.getPublisher());
+                                listDescription.add(df.getDescription());
+                                listDocument.add(document.getId());
+                                listOfList.add(df.getList());
+
+                                MyProfile_info data = new MyProfile_info(
+                                        (String) List.get("publisher"),
+                                        (String) List.get("imageUrl"),
+                                        (String) List.get("description"));
+                                profileAdapter.addItem(data);
+                            }
                         }
                         profileAdapter.notifyDataSetChanged();
 
@@ -117,7 +143,25 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
-        //나의 포스트 불러오는 코드
+        //나의 포스트 클릭 이벤트
+        profileAdapter.setOnItemClickListener(new profileAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+
+                Intent intent = new Intent(getContext(), BoardPostClickEvent.class);
+                intent.putExtra("position", position);
+                intent.putExtra("listImgUrl", listImgUrl);
+                intent.putExtra("listPublisher", listPublisher);
+                intent.putExtra("listDescription", listDescription);
+                intent.putExtra("listOfList", listOfList);
+                intent.putExtra("listDocument", listDocument);
+
+                System.out.println("Start activity :" + listImgUrl);
+
+                startActivity(intent);
+            }
+        });
+
 
         //필드 값 가져와서 프로필 닉네임 설정
         textView = (TextView) view.findViewById(R.id.userNickname);

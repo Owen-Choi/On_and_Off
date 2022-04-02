@@ -81,11 +81,11 @@ public class ClosetMainActivity extends AppCompatActivity {
                                 Closet_Parser closet_Parser = new Closet_Parser(firebaseAuth, firebaseUser, db, inputValue);
 
                                 if(closet_Parser.result==1){
-                                    StartToast(closet_Parser.URL + " is add on closet ! ");
+                                    StartToast(" add on closet success! ");
                                     dialog.dismiss();
 
                                 }else{
-                                    StartToast(closet_Parser.URL + " is invalid clothes type ");
+                                    StartToast(" invalid clothes type ");
                                     dialog.dismiss();
                                 }
 

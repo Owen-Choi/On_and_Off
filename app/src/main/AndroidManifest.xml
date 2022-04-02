@@ -28,7 +28,8 @@
         android:theme="@style/Theme.SNS_project">
         <activity
             android:name=".fragment.profile.profileAdapter"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <!-- activity에서 SignUpActivity를 넣으면 첫 실행시 해당 화면이 실행된다. -->
         <activity
             android:name=".InitialActivity"

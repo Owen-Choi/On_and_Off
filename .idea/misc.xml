@@ -128,13 +128,16 @@
         <entry key="app/src/main/res/layout/activity_normal_member_info.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_normal_search.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_password_init.xml" value="0.3453125" />
+        <entry key="app/src/main/res/layout/activity_profile_item.xml" value="0.2572463768115942" />
         <entry key="app/src/main/res/layout/activity_qr_scan.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_upload.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/board_fragment.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/closet_all.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/layout/dialog_closet_item_list.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/home_fragment.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/item_codi.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/list_view_items.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/member_setting_activity.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/post_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/profile_fragment.xml" value="0.25" />
