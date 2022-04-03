@@ -33,27 +33,27 @@ public class bottomFragment extends Fragment {
     static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     static FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     private RecyclerView recyclerView;
     private static ClosetAdapter Closet_adapter;
+
     static HashMap<String,Object> List = new HashMap<String,Object>();
-    static String TAG="DONG";
-
     final CharSequence[] selectOption = {"코디 보기", "항목 삭제하기"};
-    //프래그먼트 새로고침을 위한 변수
-    static FragmentTransaction ft;
 
+    static String TAG="DONG";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.activity_closet_bottom, container, false);
-        Closet_adapter = new ClosetAdapter();
+
         //recyclerview
         recyclerView = v.findViewById(R.id.bottom_Recyclerview);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        Closet_adapter = new ClosetAdapter();
         recyclerView.setAdapter(Closet_adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        recyclerView.setHasFixedSize(true);
 
         //파베에서 옷 정보 가져와서 어뎁터에 전달
         scatter();
