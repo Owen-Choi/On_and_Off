@@ -170,7 +170,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     // 회원가입만 하고, (프로그램 오류 등으로)회원정보를 기입하지 못했을 경우
     // 해당 계정은 사용불가 계정이 돼버린다.
-    // 이런 상황을 방지하기 위해서 회원가입 단계에서
+    // 이런 상황을 방지하기 위해서 회원가입 단계에서 회원정보를 입력받도록 하겠다.
     private void dbInsertion(String name, String address, String date, String phone) {
         String temp;
         temp = isNormal ? "users" : "enterprises";

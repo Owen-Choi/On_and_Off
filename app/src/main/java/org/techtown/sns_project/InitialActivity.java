@@ -59,6 +59,9 @@ public class InitialActivity extends AppCompatActivity {
                                         StartActivity(CommonSignInActivity.class);
                                     }
                                 }
+                                else{
+                                    StartActivity(CommonSignInActivity.class);
+                                }
                             }
                         }
                     }
