@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.ActionBar;
@@ -32,7 +33,11 @@ public class bookmark extends AppCompatActivity {
     FirebaseUser firebaseUser;
     FirebaseFirestore db ;
 
-    //리스트 뷰 클릭 이벤트를 위한 intent에 담을 정보 변수
+    //Listview
+    ListView listview;
+    bookmark_ListViewAdapter adapter;
+
+    //리스트 뷰 클릭 이벤트를 위한 intent에 담을 변수
     public static ArrayList<String> listImgUrl = new ArrayList<>();
     static ArrayList<String> listDescription = new ArrayList<>();
     static ArrayList<String> listPublisher = new ArrayList<>();
@@ -44,11 +49,13 @@ public class bookmark extends AppCompatActivity {
     static ArrayList<String> MysavepostID = new ArrayList<>();
     HashMap<String, Object> List;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark);
+
         //타이틀 숨기기
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -58,14 +65,9 @@ public class bookmark extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
 
-        ListView listview;
-        CustomChoiceListViewAdapter adapter;
-
-        // Adapter 생성
-        adapter = new CustomChoiceListViewAdapter();
-
-        // 리스트뷰 참조 및 Adapter달기
+        //Listview
         listview = (ListView) findViewById(R.id.listview1);
+        adapter = new bookmark_ListViewAdapter();
         listview.setAdapter(adapter);
 
         //파베에서 내가 save한 게시물id 가져오기
@@ -98,32 +100,27 @@ public class bookmark extends AppCompatActivity {
                                         List = (HashMap<String, Object>) document.getData();
 
                                         df = document.toObject(DataFormat.class);
-                                        listImgUrl.add(df.getImageUrl());
-                                        listPublisher.add(df.getPublisher());
-                                        listDescription.add(df.getDescription());
-                                        listDocument.add(document.getId());
-                                        listOfList.add(df.getList());
 
                                         MyProfile_info data = new MyProfile_info(
                                                 (String) List.get("publisher"),
                                                 (String) List.get("imageUrl"),
                                                 (String) List.get("description"));
 
-
-                                        adapter.addItem(data);
+                                        //밑에 클릭 이벤트에서 position변수가 매치가 3개 다 넘김
+                                        adapter.addItem(data, df, document);
 
                                     }
                                     adapter.notifyDataSetChanged();
 
                                 });
                     }
-        });
+                });
 
-/*
+
         //북마크 아이템 뷰 클릭 이벤트
-        adapter.setOnItemClickListener(new profileAdapter.OnItemClickListener() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(View v, int position) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent(getApplicationContext(), BoardPostClickEvent.class);
                 intent.putExtra("position", position);
@@ -132,14 +129,16 @@ public class bookmark extends AppCompatActivity {
                 intent.putExtra("listDescription", listDescription);
                 intent.putExtra("listOfList", listOfList);
                 intent.putExtra("listDocument", listDocument);
-
                 System.out.println("Start activity :" + listImgUrl);
-
                 startActivity(intent);
+
             }
         });
-*/
 
     }
 
+    private void StartActivity(Class c) {
+        Intent intent = new Intent(this, c);
+        startActivity(intent);
+    }
 }
