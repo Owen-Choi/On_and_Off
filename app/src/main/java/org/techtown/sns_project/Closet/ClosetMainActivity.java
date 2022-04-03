@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,6 +28,9 @@ import org.techtown.sns_project.qr.New_Parser;
 public class ClosetMainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+
+    //옷 추가시 프래그먼트 새로그침을 위한 변수
+    static String WhatFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +87,27 @@ public class ClosetMainActivity extends AppCompatActivity {
 
                                 if(closet_Parser.result==1){
                                     StartToast(" add on closet success! ");
+
+                                    //옷 추가시 새로고침
+                                    switch (WhatFragment){
+                                        case "all" :
+                                            AllFragment.scatter();
+                                            break;
+                                        case "outer" :
+                                            outerFragment.scatter();
+                                            break;
+                                        case "top" :
+                                            topFragment.scatter();
+                                            break;
+                                        case "bottom" :
+                                            bottomFragment.scatter();
+                                            break;
+                                        case "shoes" :
+                                            shoesFragment.scatter();
+                                            break;
+
+                                    }
+
                                     dialog.dismiss();
 
                                 }else{
@@ -136,6 +162,11 @@ public class ClosetMainActivity extends AppCompatActivity {
         });
 
     }
+    //옷 추가했을 때 새로고침을 위해,,
+    public static void whatFragment(String v){
+        WhatFragment = v;
+    }
+
 
     private void StartToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -46,9 +47,11 @@ public class bookmark extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // 코드 계속 ...
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark);
+        //타이틀 숨기기
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         //파베 연동
         firebaseAuth = FirebaseAuth.getInstance();

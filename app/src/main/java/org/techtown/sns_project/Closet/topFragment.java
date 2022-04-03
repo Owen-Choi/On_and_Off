@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,15 +32,17 @@ import java.util.List;
 
 public class topFragment extends Fragment {
 
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    static FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+    static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
-    private ClosetAdapter Closet_adapter;
-    HashMap<String,Object> List = new HashMap<String,Object>();
-    String TAG="DONG";
+    private static ClosetAdapter Closet_adapter;
+    static HashMap<String,Object> List = new HashMap<String,Object>();
+    static String TAG="DONG";
 
     final CharSequence[] selectOption = {"코디 보기", "항목 삭제하기"};
+    //프래그먼트 새로고침을 위한 변수
+    static FragmentTransaction ft;
 
 
     @Override
@@ -55,32 +58,8 @@ public class topFragment extends Fragment {
         recyclerView.setAdapter(Closet_adapter);
 
         //파베에서 옷 정보 가져와서 어뎁터에 전달
-        Closet_adapter.list.clear();
-        Closet_adapter.notifyDataSetChanged();
-        db.collection("users").document(firebaseUser.getUid()).collection("상의").get().
-                addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        //데이터 중복 방지
-
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-
-                            List = (HashMap<String, Object>) document.getData();
-
-                            Closet_info data = new Closet_info(
-                                    (String)List.get("name"),
-                                    (String)List.get("brand"),
-                                    (String)List.get("clothes_type"),
-                                    (String)List.get("img_url"),
-                                    (String) List.get("url"));
-
-                            Closet_adapter.addItem(data);
-                        }
-
-                        Closet_adapter.notifyDataSetChanged();
-                    } else {
-                        Log.d(TAG, "Error getting documents: ", task.getException());
-                    }
-                });
+        scatter();
+        ClosetMainActivity.whatFragment("top");
 
         //클릭시 삭제 or 코디
         Closet_adapter.setOnItemClickListener(new ClosetAdapter.OnItemClickListener() {
@@ -134,5 +113,35 @@ public class topFragment extends Fragment {
         });
 
         return v;
+    }
+
+    //파베에서 옷 정보 가져와서 어뎁터에 전달
+    public static void scatter(){
+
+        Closet_adapter.list.clear();
+        Closet_adapter.notifyDataSetChanged();
+        db.collection("users").document(firebaseUser.getUid()).collection("상의").get().
+                addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        //데이터 중복 방지
+
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+
+                            List = (HashMap<String, Object>) document.getData();
+                            Closet_info data = new Closet_info(
+                                    (String)List.get("name"),
+                                    (String)List.get("brand"),
+                                    (String)List.get("clothes_type"),
+                                    (String)List.get("img_url"),
+                                    (String) List.get("url"));
+
+                            Closet_adapter.addItem(data);
+                        }
+
+                        Closet_adapter.notifyDataSetChanged();
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                });
     }
 }
