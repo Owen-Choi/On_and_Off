@@ -26,11 +26,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SNS_project">
-        <activity android:name=".fragment.profile.bookmark"/>
-        <activity
-            android:name=".fragment.profile.CheckableLinearLayout"
-            android:exported="false"
-            tools:ignore="Instantiatable" />
+        <activity android:name=".fragment.profile.Bookmark.bookmark"/>
         <activity
             android:name=".fragment.profile.profileAdapter"
             android:exported="false"
@@ -65,7 +61,7 @@
         <activity android:name=".Normal.Setting.NormalSettingActivity" />
         <activity android:name=".Normal.Setting.NormalMemberInfo" />
         <activity
-            android:name=".Closet.ClosetMainActivity"
+            android:name=".fragment.profile.Closet.ClosetMainActivity"
             android:parentActivityName=".Normal.NormalMainActivity" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"

@@ -1,7 +1,6 @@
-package org.techtown.sns_project.fragment.profile;
+package org.techtown.sns_project.fragment.profile.Bookmark;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.fragment.DataFormat;
+import org.techtown.sns_project.fragment.profile.Bookmark.bookmark;
+import org.techtown.sns_project.fragment.profile.MyProfile_info;
 
 import java.util.ArrayList;
 

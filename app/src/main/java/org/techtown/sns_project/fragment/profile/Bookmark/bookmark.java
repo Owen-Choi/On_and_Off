@@ -1,15 +1,13 @@
-package org.techtown.sns_project.fragment.profile;
+package org.techtown.sns_project.fragment.profile.Bookmark;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,11 +18,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import org.techtown.sns_project.Board.BoardPostClickEvent;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.fragment.DataFormat;
+import org.techtown.sns_project.fragment.profile.MyProfile_info;
 import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class bookmark extends AppCompatActivity {
 

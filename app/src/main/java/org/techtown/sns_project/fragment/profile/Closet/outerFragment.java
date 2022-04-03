@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Closet;
+package org.techtown.sns_project.fragment.profile.Closet;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,13 +24,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.techtown.sns_project.Camera.Activity_codi;
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class AllFragment extends Fragment {
+public class outerFragment extends Fragment {
 
     static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     static FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -44,22 +42,21 @@ public class AllFragment extends Fragment {
     //프래그먼트 새로고침을 위한 변수
     static FragmentTransaction ft;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.activity_closet_all, container, false);
+        View v = inflater.inflate(R.layout.activity_closet_outer, container, false);
         Closet_adapter = new ClosetAdapter();
         //recyclerview
-        recyclerView = v.findViewById(R.id.all_Recyclerview);
+        recyclerView = v.findViewById(R.id.outer_Recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setAdapter(Closet_adapter);
 
         //파베에서 옷 정보 가져와서 어뎁터에 전달
         scatter();
-        ClosetMainActivity.whatFragment("all");
+        ClosetMainActivity.whatFragment("outer");
 
         //클릭시 삭제 or 코디
         Closet_adapter.setOnItemClickListener(new ClosetAdapter.OnItemClickListener() {
@@ -108,13 +105,10 @@ public class AllFragment extends Fragment {
                         .setCancelable(true)
                         .show();
 
-
             }
         });
 
-
         return v;
-
     }
 
     //파베에서 옷 정보 가져와서 어뎁터에 전달
@@ -125,11 +119,11 @@ public class AllFragment extends Fragment {
         db.collection("users").document(firebaseUser.getUid()).collection("아우터").get().
                 addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        //데이터 중복 방지
 
                         for (QueryDocumentSnapshot document : task.getResult()) {
 
                             List = (HashMap<String, Object>) document.getData();
-
                             Closet_info data = new Closet_info(
                                     (String)List.get("name"),
                                     (String)List.get("brand"),
@@ -140,77 +134,10 @@ public class AllFragment extends Fragment {
                             Closet_adapter.addItem(data);
                         }
 
-                    } else {
-                        Log.d(TAG, "Error getting documents: ", task.getException());
-                    }
-                });
-        db.collection("users").document(firebaseUser.getUid()).collection("상의").get().
-                addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-
-                            List = (HashMap<String, Object>) document.getData();
-
-                            Closet_info data = new Closet_info(
-                                    (String)List.get("name"),
-                                    (String)List.get("brand"),
-                                    (String)List.get("clothes_type"),
-                                    (String)List.get("img_url"),
-                                    (String) List.get("url"));
-
-                            Closet_adapter.addItem(data);
-                        }
-
-                    } else {
-                        Log.d(TAG, "Error getting documents: ", task.getException());
-                    }
-                });
-        db.collection("users").document(firebaseUser.getUid()).collection("바지").get().
-                addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-
-                            List = (HashMap<String, Object>) document.getData();
-
-                            Closet_info data = new Closet_info(
-                                    (String)List.get("name"),
-                                    (String)List.get("brand"),
-                                    (String)List.get("clothes_type"),
-                                    (String)List.get("img_url"),
-                                    (String) List.get("url"));
-
-                            Closet_adapter.addItem(data);
-                        }
-
-                    } else {
-                        Log.d(TAG, "Error getting documents: ", task.getException());
-                    }
-                });
-        db.collection("users").document(firebaseUser.getUid()).collection("신발").get().
-                addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-
-                            List = (HashMap<String, Object>) document.getData();
-
-                            Closet_info data = new Closet_info(
-                                    (String)List.get("name"),
-                                    (String)List.get("brand"),
-                                    (String)List.get("clothes_type"),
-                                    (String)List.get("img_url"),
-                                    (String) List.get("url"));
-
-                            Closet_adapter.addItem(data);
-                        }
-
+                        Closet_adapter.notifyDataSetChanged();
                     } else {
                         Log.d(TAG, "Error getting documents: ", task.getException());
                     }
                 });
     }
-
-
 }

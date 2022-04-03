@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Closet;
+package org.techtown.sns_project.fragment.profile.Closet;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,13 +24,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.techtown.sns_project.Camera.Activity_codi;
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class outerFragment extends Fragment {
+public class bottomFragment extends Fragment {
 
     static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     static FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -44,21 +42,22 @@ public class outerFragment extends Fragment {
     //프래그먼트 새로고침을 위한 변수
     static FragmentTransaction ft;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.activity_closet_outer, container, false);
+        View v = inflater.inflate(R.layout.activity_closet_bottom, container, false);
         Closet_adapter = new ClosetAdapter();
         //recyclerview
-        recyclerView = v.findViewById(R.id.outer_Recyclerview);
+        recyclerView = v.findViewById(R.id.bottom_Recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setAdapter(Closet_adapter);
 
         //파베에서 옷 정보 가져와서 어뎁터에 전달
         scatter();
-        ClosetMainActivity.whatFragment("outer");
+        ClosetMainActivity.whatFragment("bottom");
 
         //클릭시 삭제 or 코디
         Closet_adapter.setOnItemClickListener(new ClosetAdapter.OnItemClickListener() {
@@ -107,6 +106,7 @@ public class outerFragment extends Fragment {
                         .setCancelable(true)
                         .show();
 
+
             }
         });
 
@@ -118,7 +118,7 @@ public class outerFragment extends Fragment {
 
         Closet_adapter.list.clear();
         Closet_adapter.notifyDataSetChanged();
-        db.collection("users").document(firebaseUser.getUid()).collection("아우터").get().
+        db.collection("users").document(firebaseUser.getUid()).collection("바지").get().
                 addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         //데이터 중복 방지

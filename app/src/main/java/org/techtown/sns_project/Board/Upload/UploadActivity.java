@@ -5,12 +5,10 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -47,7 +45,7 @@ import org.techtown.sns_project.Board.Upload.closet.closet_outer_adapter;
 import org.techtown.sns_project.Board.Upload.closet.closet_pants_adapter;
 import org.techtown.sns_project.Board.Upload.closet.closet_shoes_adapter;
 import org.techtown.sns_project.Board.Upload.closet.closet_top_adapter;
-import org.techtown.sns_project.Closet.Closet_info;
+import org.techtown.sns_project.fragment.profile.Closet.Closet_info;
 import org.techtown.sns_project.Normal.NormalMainActivity;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.fragment.DataFormat;
@@ -55,7 +53,6 @@ import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class UploadActivity extends AppCompatActivity {
