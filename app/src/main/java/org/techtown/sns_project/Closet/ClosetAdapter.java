@@ -22,7 +22,7 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ItemViewHo
     static ArrayList<Closet_info> list = new ArrayList<>();
 
     public interface OnItemClickListener{
-        void onItemClick(View v, int pos, String delItem, String clothes_type);
+        void onItemClick(View v, int pos, String delItem, String clothes_type, ArrayList<Closet_info> list);
     }
 
     private OnItemClickListener mListener = null;
@@ -65,7 +65,7 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ItemViewHo
                         // 리스너 객체의 매서드 호출.
 
                         if(mListener != null){
-                            mListener.onItemClick(v, pos, delItem, clothes_type);
+                            mListener.onItemClick(v, pos, delItem, clothes_type, list);
                         }
                     }
                 }

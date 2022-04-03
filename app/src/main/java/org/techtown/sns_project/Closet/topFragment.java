@@ -1,6 +1,7 @@
 package org.techtown.sns_project.Closet;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import org.techtown.sns_project.Camera.Activity_codi;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.qr.ProductInfo;
 
@@ -29,13 +31,15 @@ import java.util.List;
 
 public class topFragment extends Fragment {
 
-    private RecyclerView recyclerView;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private RecyclerView recyclerView;
     private ClosetAdapter Closet_adapter;
     HashMap<String,Object> List = new HashMap<String,Object>();
     String TAG="DONG";
+
+    final CharSequence[] selectOption = {"코디 보기", "항목 삭제하기"};
 
 
     @Override
@@ -78,54 +82,52 @@ public class topFragment extends Fragment {
                     }
                 });
 
-        //클릭시 삭제
+        //클릭시 삭제 or 코디
         Closet_adapter.setOnItemClickListener(new ClosetAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View v, int pos, String delItem, String clothes_type) {
+            public void onItemClick(View v, int pos, String delItem, String clothes_type, ArrayList<Closet_info> list) {
 
-                AlertDialog.Builder ad = new AlertDialog.Builder(getContext());
-                ad.setIcon(android.R.drawable.ic_menu_delete);
-                ad.setTitle("삭제");
-                ad.setMessage("해당 항목을 삭제하시겠습니까?");
+                AlertDialog.Builder ad = new AlertDialog.Builder(v.getContext());
+                ad.setTitle("Menu")
+                        .setIcon(R.drawable.ic_noun_menu_4719158)
+                        .setItems(selectOption, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case 0:
+                                        //코디 보여주기
+                                        // listData에서 URL 가져와서 파싱된 화면 띄워주자.
+                                        Intent intent = new Intent(v.getContext(), Activity_codi.class);
+                                        String key =  list.get(pos).getUrl().replaceAll("[^0-9]", "");
+                                        intent.putExtra("key", key);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        v.getContext().startActivity(intent);
+                                        break;
+                                    case 1:
+                                        //항목 삭제
+                                        db.collection("users").document(firebaseUser.getUid()).collection(clothes_type)
+                                                .document(delItem).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
 
-                ad.setCancelable(false);
-                ad.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                                                Closet_adapter.removeItem(pos);
+                                                dialog.dismiss();
+                                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                            }
+                                        })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error deleting document", e);
+                                                    }
+                                                });
 
-                    }
-                });
-                ad.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                final AlertDialog dialog = ad.create();
-                dialog.show();
-
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                        .setOnClickListener(m -> {
-
-                            db.collection("users").document(firebaseUser.getUid()).collection(clothes_type)
-                                    .document(delItem).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-
-                                    Closet_adapter.removeItem(pos);
-                                    dialog.dismiss();
-                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                        break;
                                 }
-                            })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.w(TAG, "Error deleting document", e);
-                                        }
-                                    });
-
-
-                        });
+                            }
+                        })
+                        .setCancelable(true)
+                        .show();
 
 
             }
