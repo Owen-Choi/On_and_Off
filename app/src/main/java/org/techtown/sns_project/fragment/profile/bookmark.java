@@ -106,7 +106,7 @@ public class bookmark extends AppCompatActivity {
                                                 (String) List.get("imageUrl"),
                                                 (String) List.get("description"));
 
-                                        //밑에 클릭 이벤트에서 position변수가 매치가 3개 다 넘김
+                                        //밑에 클릭 이벤트에서 position 변수 매치가 안되서 3개 다 넘김
                                         adapter.addItem(data, df, document);
 
                                     }
