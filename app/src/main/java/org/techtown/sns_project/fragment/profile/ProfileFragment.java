@@ -55,9 +55,9 @@ public class ProfileFragment extends Fragment {
     private String TAG = "프래그먼트";
 
     //파이어베이스
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    FirebaseFirestore db;
 
     //recyclerview
     private RecyclerView recyclerView;
@@ -90,6 +90,11 @@ public class ProfileFragment extends Fragment {
 
         //클릭시 옷장 main activity로 이동
         view.findViewById(R.id.ClosetButton).setOnClickListener(onClickListener);
+
+        //클릭시 북마크 main activity로 이동
+        view.findViewById(R.id.bookmarkButton).setOnClickListener(onClickListener);
+
+        //프사
         imageView = view.findViewById(R.id.circle_img);
 
         //파베 연동
@@ -356,7 +361,7 @@ public class ProfileFragment extends Fragment {
     }
 
     /**
-     * 옷장 이동 이벤트
+     * 옷장, 북마크 이동 이벤트
      */
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -364,6 +369,11 @@ public class ProfileFragment extends Fragment {
             switch (view.getId()) {
                 case R.id.ClosetButton:
                     StartActivity(ClosetMainActivity.class);
+                    break;
+
+                case R.id.bookmarkButton:
+                    StartActivity(bookmark.class);
+                    break;
             }
         }
     };

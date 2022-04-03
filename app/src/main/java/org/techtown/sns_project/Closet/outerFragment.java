@@ -81,7 +81,7 @@ public class outerFragment extends Fragment {
                     }
                 });
 
-        //클릭시 삭제
+        //클릭시 삭제 or 코디
         Closet_adapter.setOnItemClickListener(new ClosetAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos, String delItem, String clothes_type, ArrayList<Closet_info> list) {
@@ -94,7 +94,7 @@ public class outerFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
                                     case 0:
-                                        //코디
+                                        //코디 보여주기
                                         // listData에서 URL 가져와서 파싱된 화면 띄워주자.
                                         Intent intent = new Intent(v.getContext(), Activity_codi.class);
                                         String key =  list.get(pos).getUrl().replaceAll("[^0-9]", "");
@@ -103,7 +103,7 @@ public class outerFragment extends Fragment {
                                         v.getContext().startActivity(intent);
                                         break;
                                     case 1:
-                                        //삭제
+                                        //항목 삭제
                                         db.collection("users").document(firebaseUser.getUid()).collection(clothes_type)
                                                 .document(delItem).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override

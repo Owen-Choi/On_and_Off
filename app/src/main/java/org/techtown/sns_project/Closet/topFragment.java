@@ -82,7 +82,7 @@ public class topFragment extends Fragment {
                     }
                 });
 
-        //클릭시 삭제
+        //클릭시 삭제 or 코디
         Closet_adapter.setOnItemClickListener(new ClosetAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos, String delItem, String clothes_type, ArrayList<Closet_info> list) {
