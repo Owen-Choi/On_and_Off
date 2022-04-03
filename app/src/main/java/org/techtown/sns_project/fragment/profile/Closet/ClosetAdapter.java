@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Closet;
+package org.techtown.sns_project.fragment.profile.Closet;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ItemViewHolder> {
 

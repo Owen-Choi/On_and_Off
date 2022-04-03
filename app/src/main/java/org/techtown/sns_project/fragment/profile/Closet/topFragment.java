@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Closet;
+package org.techtown.sns_project.fragment.profile.Closet;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,11 +24,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.techtown.sns_project.Camera.Activity_codi;
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class topFragment extends Fragment {
 
