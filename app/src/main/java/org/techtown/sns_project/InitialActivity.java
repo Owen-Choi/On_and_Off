@@ -21,6 +21,8 @@ import org.techtown.sns_project.Enterprise.EnterpriseMainActivity;
 import org.techtown.sns_project.Normal.NormalMainActivity;
 
 public class InitialActivity extends AppCompatActivity {
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +30,8 @@ public class InitialActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
         if(user != null){
             // 로그인이 되어있다면 회원 정보가 등록됐는지 본다.
             String[] temp = {"users", "enterprises"};
@@ -42,17 +44,20 @@ public class InitialActivity extends AppCompatActivity {
                         if(task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if(document != null) {
+                                if(document.exists()) {
                                     if (tempPath.equals("users"))
                                         StartActivity(NormalMainActivity.class);
-                                    else if (tempPath.equals("enterprises"))
+                                    else if (tempPath.equals("enterprises")) {
+                                        Log.e("woong", "onComplete: " + user.getEmail());
                                         StartActivity(EnterpriseMainActivity.class);
-                                else {
-                                    // 유저는 있는데 db가 없는 상황이 있다.
-                                    // 회원탈퇴 기능이 추가되면서 간간히 발생한다.
-                                    // 그런 상황을 위한 디펜시브 코드이다.
-                                    Log.e("Unknown Error", "onComplete: login error");
-                                    FirebaseAuth.getInstance().signOut();
-                                    StartActivity(CommonSignInActivity.class);
+                                    } else {
+                                        // 유저는 있는데 db가 없는 상황이 있다.
+                                        // 회원탈퇴 기능이 추가되면서 간간히 발생한다.
+                                        // 그런 상황을 위한 디펜시브 코드이다.
+                                        Log.e("Unknown Error", "onComplete: login error");
+                                        FirebaseAuth.getInstance().signOut();
+                                        StartActivity(CommonSignInActivity.class);
+                                    }
                                 }
                             }
                         }
