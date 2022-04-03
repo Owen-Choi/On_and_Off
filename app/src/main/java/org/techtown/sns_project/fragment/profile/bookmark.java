@@ -77,47 +77,46 @@ public class bookmark extends AppCompatActivity {
                             MysavepostID.add(document.getId());
                         }
                     }
+
+                    //파베에서 내가 저장한 게시글 정보를 가져와서 어뎁터에 data 전달
+                    for(int i = 0; i < MysavepostID.size(); i++){
+
+                        db.collection("board").document(MysavepostID.get(i)).get().
+                                addOnCompleteListener(task2 -> {
+                                    if (task.isSuccessful()) {
+                                        //데이터 중복 방지
+                                        listImgUrl.clear();
+                                        listDescription.clear();
+                                        listPublisher.clear();
+                                        listOfList.clear();
+                                        listDocument.clear();
+
+                                        DocumentSnapshot document = task2.getResult();
+                                        List = (HashMap<String, Object>) document.getData();
+
+                                        df = document.toObject(DataFormat.class);
+                                        listImgUrl.add(df.getImageUrl());
+                                        listPublisher.add(df.getPublisher());
+                                        listDescription.add(df.getDescription());
+                                        listDocument.add(document.getId());
+                                        listOfList.add(df.getList());
+
+                                        MyProfile_info data = new MyProfile_info(
+                                                (String) List.get("publisher"),
+                                                (String) List.get("imageUrl"),
+                                                (String) List.get("description"));
+
+
+                                        adapter.addItem(data);
+
+                                    }
+                                    adapter.notifyDataSetChanged();
+
+                                });
+                    }
         });
 
-        //파베에서 내가 저장한 게시글 정보를 가져와서 어뎁터에 data 전달
-        for(int i = 0; i < MysavepostID.size(); i++){
-
-            db.collection("board").document(MysavepostID.get(i)).get().
-                    addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            //데이터 중복 방지
-                            listImgUrl.clear();
-                            listDescription.clear();
-                            listPublisher.clear();
-                            listOfList.clear();
-                            listDocument.clear();
-
-                            DocumentSnapshot document = task.getResult();
-                            List = (HashMap<String, Object>) document.getData();
-
-                            df = document.toObject(DataFormat.class);
-                                    listImgUrl.add(df.getImageUrl());
-                                    listPublisher.add(df.getPublisher());
-                                    listDescription.add(df.getDescription());
-                                    listDocument.add(document.getId());
-                                    listOfList.add(df.getList());
-
-                                    MyProfile_info data = new MyProfile_info(
-                                            (String) List.get("publisher"),
-                                            (String) List.get("imageUrl"),
-                                            (String) List.get("description"));
-
-
-                                    adapter.addItem(data);
-
-                        }
-                        adapter.notifyDataSetChanged();
-
-                    });
-        }
-
 /*
-
         //북마크 아이템 뷰 클릭 이벤트
         adapter.setOnItemClickListener(new profileAdapter.OnItemClickListener() {
             @Override
@@ -138,14 +137,6 @@ public class bookmark extends AppCompatActivity {
         });
 */
 
-
-
-
-
-
-
-
     }
-
 
 }
