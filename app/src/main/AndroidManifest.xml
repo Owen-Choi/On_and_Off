@@ -26,11 +26,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SNS_project">
+        <activity android:name=".fragment.profile.bookmark"/>
+        <activity
+            android:name=".fragment.profile.CheckableLinearLayout"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".fragment.profile.profileAdapter"
             android:exported="false"
-            tools:ignore="Instantiatable" />
-        <!-- activity에서 SignUpActivity를 넣으면 첫 실행시 해당 화면이 실행된다. -->
+            tools:ignore="Instantiatable" /> <!-- activity에서 SignUpActivity를 넣으면 첫 실행시 해당 화면이 실행된다. -->
         <activity
             android:name=".InitialActivity"
             android:exported="true">
@@ -60,7 +64,6 @@
         <activity android:name=".CommonSignInActivity" />
         <activity android:name=".Normal.Setting.NormalSettingActivity" />
         <activity android:name=".Normal.Setting.NormalMemberInfo" />
-
         <activity
             android:name=".Closet.ClosetMainActivity"
             android:parentActivityName=".Normal.NormalMainActivity" />
@@ -90,7 +93,7 @@
             android:name=".Camera.Activity_codi"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

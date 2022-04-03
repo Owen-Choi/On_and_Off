@@ -43,23 +43,43 @@
                     android:text="유저 닉네임"
                     android:textSize="20dp"
                     android:textStyle="bold"
+                    android:padding="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Button
-                    android:id="@+id/ClosetButton"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="closet"
-                    tools:layout_editor_absoluteX="158dp"
-                    tools:layout_editor_absoluteY="190dp" />
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.784">
 
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/ClosetButton"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/left_btn_background"
+                        android:drawableLeft="@drawable/closet_button"
+                        android:paddingLeft="20dp"
+                        android:text="옷장" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/bookmarkButton"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/right_btn_background"
+                        android:drawableLeft="@drawable/bookmark_button"
+                        android:paddingLeft="20dp"
+                        android:text="북마크" />
+
+                </LinearLayout>
             </LinearLayout>
-
         </RelativeLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -70,9 +90,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:layout_margin="5dp"
-            android:text="나의 포스트" />
+            android:text="나의 포스트"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_mypost"
