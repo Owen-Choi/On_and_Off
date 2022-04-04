@@ -38,6 +38,10 @@ import com.gun0912.tedpermission.TedPermission;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.techtown.sns_project.Board.BoardPostClickEvent;
+import org.techtown.sns_project.Closet.ClosetMainActivity;
+import org.techtown.sns_project.Closet.Closet_info;
+import org.techtown.sns_project.Normal.NormalMainActivity;
+import org.techtown.sns_project.Normal.Setting.NormalSettingActivity;
 import org.techtown.sns_project.fragment.profile.Closet.ClosetMainActivity;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.fragment.DataFormat;
@@ -93,6 +97,9 @@ public class ProfileFragment extends Fragment {
 
         //클릭시 북마크 main activity로 이동
         view.findViewById(R.id.bookmarkButton).setOnClickListener(onClickListener);
+
+        //클릭시 설정 화면으로 이동
+        view.findViewById(R.id.Temp_Setting_Button).setOnClickListener(onClickListener);
 
         //프사
         imageView = view.findViewById(R.id.circle_img);
@@ -374,6 +381,8 @@ public class ProfileFragment extends Fragment {
                 case R.id.bookmarkButton:
                     StartActivity(bookmark.class);
                     break;
+                case R.id.Temp_Setting_Button:
+                    StartActivity(NormalSettingActivity.class);
             }
         }
     };
