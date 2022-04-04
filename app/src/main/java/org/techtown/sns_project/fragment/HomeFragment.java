@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
         Log.i(TAG, "onCreateView");
         view = inflater.inflate(R.layout.home_fragment, container, false);
         recyclerView_LikeList = view.findViewById(R.id.recyclerView_LikeList);
-        LinearLayoutManager LikeList = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL, false);
+        LinearLayoutManager LikeList = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL, false);
         recyclerView_LikeList.setLayoutManager(LikeList);
         adapter = new HomeFragmentLikeListAdpater();
         recyclerView_LikeList.setAdapter(adapter);
