@@ -19,8 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.techtown.sns_project.Board.Upload.closet.closet_outer_adapter;
-import org.techtown.sns_project.Closet.Closet_Parser;
+import org.techtown.sns_project.fragment.profile.Closet.Closet_Parser;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.qr.ProductInfo;
 

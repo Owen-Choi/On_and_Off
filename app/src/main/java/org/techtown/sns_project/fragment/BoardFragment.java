@@ -21,14 +21,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.techtown.sns_project.Board.BoardAdapter;
 import org.techtown.sns_project.Board.BoardPostClickEvent;
-import org.techtown.sns_project.Closet.Closet_info;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.Board.Upload.UploadActivity;
 import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class BoardFragment extends Fragment {
 

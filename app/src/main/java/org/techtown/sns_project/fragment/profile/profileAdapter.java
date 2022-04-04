@@ -1,21 +1,15 @@
 package org.techtown.sns_project.fragment.profile;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import org.techtown.sns_project.Closet.ClosetAdapter;
-import org.techtown.sns_project.Closet.Closet_info;
 import org.techtown.sns_project.R;
 
 import java.util.ArrayList;
