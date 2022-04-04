@@ -365,7 +365,7 @@ public class ProfileFragment extends Fragment {
     }
 
     /**
-     * 옷장, 북마크 이동 이벤트
+     * 옷장, 북마크, 설정 이동 이벤트
      */
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -378,8 +378,10 @@ public class ProfileFragment extends Fragment {
                 case R.id.bookmarkButton:
                     StartActivity(bookmark.class);
                     break;
+
                 case R.id.Temp_Setting_Button:
                     StartActivity(NormalSettingActivity.class);
+                    break;
             }
         }
     };
