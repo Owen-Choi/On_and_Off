@@ -67,6 +67,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 StartActivity(NormalMemberInfo.class);
+
                 return true;
             }
         });

@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Closet;
+package org.techtown.sns_project.fragment.profile.Closet;
 
 public class Closet_info {
 

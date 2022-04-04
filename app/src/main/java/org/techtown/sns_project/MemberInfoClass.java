@@ -8,7 +8,7 @@ public class MemberInfoClass {
 
     public MemberInfoClass() { }
 
-    public MemberInfoClass(String name, String phone, String date, String address) {
+    public MemberInfoClass(String name, String address, String date, String phone) {
         this.name = name;
         this.phone = phone;
         this.date = date;

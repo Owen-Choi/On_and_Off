@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import org.techtown.sns_project.Closet.Closet_info;
+import org.techtown.sns_project.fragment.profile.Closet.Closet_info;
 import org.techtown.sns_project.R;
 
 import java.util.ArrayList;
