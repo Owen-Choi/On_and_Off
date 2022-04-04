@@ -381,7 +381,7 @@ public class ProfileFragment extends Fragment {
 
                 case R.id.Temp_Setting_Button:
                     StartActivity(NormalSettingActivity.class);
-                    break;
+
             }
         }
     };
