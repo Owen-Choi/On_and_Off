@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Normal;
+package org.techtown.sns_project.Normal.Setting;
 
 
 import android.content.Intent;
@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.sns_project.MemberInfo;
 import org.techtown.sns_project.MemberInfoClass;
+import org.techtown.sns_project.Normal.NormalMainActivity;
 import org.techtown.sns_project.R;
 
 public class NormalMemberInfoActivity extends AppCompatActivity implements MemberInfo {

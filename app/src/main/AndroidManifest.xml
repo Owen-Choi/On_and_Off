@@ -46,7 +46,7 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".Enterprise.EnterpriseMemberInfoActivity" />
-        <activity android:name=".Normal.NormalMemberInfoActivity" />
+        <activity android:name=".Normal.Setting.NormalMemberInfoActivity" />
         <activity android:name=".Board.Upload.UploadActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".Password_Init_Activity" />
@@ -60,6 +60,7 @@
         <activity android:name=".CommonSignInActivity" />
         <activity android:name=".Normal.Setting.NormalSettingActivity" />
         <activity android:name=".Normal.Setting.NormalMemberInfo" />
+        <activity android:name=".Normal.Setting.NormalMemberInfoChangeActivity" />
         <activity
             android:name=".fragment.profile.Closet.ClosetMainActivity"
             android:parentActivityName=".Normal.NormalMainActivity" />
