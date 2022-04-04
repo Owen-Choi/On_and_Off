@@ -123,16 +123,7 @@ public class NormalMainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.HomeFragQRButton:
-                    StartActivity(ScanQR.class);
-                    break;
-            }
-        }
-    };
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
