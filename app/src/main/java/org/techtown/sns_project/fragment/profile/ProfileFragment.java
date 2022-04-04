@@ -364,7 +364,7 @@ public class ProfileFragment extends Fragment {
                 .check();
     }
 
-    /**
+    /*
      * 옷장, 북마크, 설정 이동 이벤트
      */
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -381,7 +381,7 @@ public class ProfileFragment extends Fragment {
 
                 case R.id.Temp_Setting_Button:
                     StartActivity(NormalSettingActivity.class);
-
+                    break;
             }
         }
     };
