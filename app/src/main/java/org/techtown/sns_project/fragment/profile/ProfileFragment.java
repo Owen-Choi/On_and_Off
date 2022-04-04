@@ -38,9 +38,6 @@ import com.gun0912.tedpermission.TedPermission;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.techtown.sns_project.Board.BoardPostClickEvent;
-import org.techtown.sns_project.Closet.ClosetMainActivity;
-import org.techtown.sns_project.Closet.Closet_info;
-import org.techtown.sns_project.Normal.NormalMainActivity;
 import org.techtown.sns_project.Normal.Setting.NormalSettingActivity;
 import org.techtown.sns_project.fragment.profile.Closet.ClosetMainActivity;
 import org.techtown.sns_project.R;

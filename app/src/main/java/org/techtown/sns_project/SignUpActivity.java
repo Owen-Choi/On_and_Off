@@ -19,14 +19,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.sns_project.Enterprise.EnterpriseMainActivity;
-import org.techtown.sns_project.Enterprise.EnterpriseMemberInfoActivity;
 import org.techtown.sns_project.Normal.NormalMainActivity;
-import org.techtown.sns_project.Normal.NormalMemberInfoActivity;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
