@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,6 +37,7 @@ import com.google.firebase.storage.StorageReference;
 import org.techtown.sns_project.Board.CommentsActivity;
 import org.techtown.sns_project.Board.Upload.url.upload_items_adapter;
 import org.techtown.sns_project.Camera.Activity_codi;
+import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListActivity;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.qr.ProductInfo;
@@ -88,13 +92,13 @@ public class BoardPostClickEvent extends AppCompatActivity {
         setContentView(R.layout.activity_board_item);
         Intent intent = getIntent();
 
-        listImgUrl = (ArrayList<String>)getIntent().getSerializableExtra("listImgUrl");
-        listDescription = (ArrayList<String>)getIntent().getSerializableExtra("listDescription");
-        listPublisher = (ArrayList<String>)getIntent().getSerializableExtra("listPublisher");
-        listOfList = (ArrayList<ArrayList<ProductInfo>>)getIntent().getSerializableExtra("listOfList");
-        listDocument = (ArrayList<String>)getIntent().getSerializableExtra("listDocument");
+        listImgUrl = (ArrayList<String>) getIntent().getSerializableExtra("listImgUrl");
+        listDescription = (ArrayList<String>) getIntent().getSerializableExtra("listDescription");
+        listPublisher = (ArrayList<String>) getIntent().getSerializableExtra("listPublisher");
+        listOfList = (ArrayList<ArrayList<ProductInfo>>) getIntent().getSerializableExtra("listOfList");
+        listDocument = (ArrayList<String>) getIntent().getSerializableExtra("listDocument");
 
-        int position = getIntent().getIntExtra("position",1);
+        int position = getIntent().getIntExtra("position", 1);
         listImgURL2 = listImgUrl.get(position);
         list = listOfList.get(position);
         post_description = listDescription.get(position);
@@ -118,7 +122,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
             public void onItemClick(View v, int position, ArrayList<ProductInfo> listData) {
                 // listData에서 URL 가져와서 파싱된 화면 띄워주자.
                 Intent intent = new Intent(getApplicationContext(), Activity_codi.class);
-                String key =  listData.get(position).getURL().replaceAll("[^0-9]", "");
+                String key = listData.get(position).getURL().replaceAll("[^0-9]", "");
                 intent.putExtra("key", key);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);
@@ -139,24 +143,24 @@ public class BoardPostClickEvent extends AppCompatActivity {
         more = findViewById(R.id.more);
         image_profile = findViewById(R.id.image_profile);
 
-       // private void setFireBaseProfileImage(String filename_GetUid) {
+        // private void setFireBaseProfileImage(String filename_GetUid) {
         intent.putExtra("post_publisher", post_publisher);
-            FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
-            //다운로드는 주소를 넣는다.
-            StorageReference storageRef = storage.getReference(); //스토리지를 참조한다
-            storageRef.child("profile_images/" + post_publisher).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    //성공시
-                    Glide.with(getApplicationContext()).load(uri).into(image_profile);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    //실패시
-                    image_profile.setImageResource(R.drawable.ic_baseline_android_24);
-                }
-            });
+        FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
+        //다운로드는 주소를 넣는다.
+        StorageReference storageRef = storage.getReference(); //스토리지를 참조한다
+        storageRef.child("profile_images/" + post_publisher).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                //성공시
+                Glide.with(getApplicationContext()).load(uri).into(image_profile);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //실패시
+                image_profile.setImageResource(R.drawable.ic_baseline_android_24);
+            }
+        });
         db.collection("users").document(post_publisher).get().addOnCompleteListener(
                 task -> {
                     if (task.isSuccessful()) {
@@ -164,15 +168,13 @@ public class BoardPostClickEvent extends AppCompatActivity {
                         userNick_publisher = document.getData().get("name").toString();
                         if (userNick_publisher != null)
                             publisher.setText(userNick_publisher);
-                        else
-                        {
+                        else {
                             publisher.setText("NULL");
                         }
 
                         if (userNick_publisher != null)
                             username.setText(userNick_publisher);
-                        else
-                        {
+                        else {
                             username.setText("NULL");
                         }
                     }
@@ -183,31 +185,15 @@ public class BoardPostClickEvent extends AppCompatActivity {
         //글 설명
         if (post_description != null)
             description.setText(post_description);
-        else
-        {
+        else {
             description.setText("NULL");
         }
 
-//        //Publisher
-//        if (userNick_publisher != null)
-//            publisher.setText(userNick_publisher);
-//        else
-//        {
-//            publisher.setText("NULL");
-//        }
-//
-//        if (userNick_publisher != null)
-//            username.setText(userNick_publisher);
-//        else
-//        {
-//            username.setText("NULL");
-//        }
-
         nrlikes = 0;
-        //publisherInfo(holder.image_profile, holder.username, holder.publisher, post.getPublisher());
-        isLiked(user.getUid(),like);
+
+        isLiked(user.getUid(), like);
         nrLikes(likes);
-        isSaved(user.getUid(),save);
+        isSaved(user.getUid(), save);
 
         /*getCommetns(post.getPostid(), holder.comments);*/
 
@@ -219,23 +205,24 @@ public class BoardPostClickEvent extends AppCompatActivity {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(liked){
+                if (liked) {
                     nrlikes++;
                     likes.setText(String.valueOf(nrlikes) + "likes");
                     like.setImageResource(R.drawable.ic_liked);
-                    Map_like.put("user",user.getUid());
+                    Map_like.put("user", user.getUid());
 
                     likesRef.document(user.getUid())
                             .set(Map_like)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Log.d("like","Document written success");
-                                }})
+                                    Log.d("like", "Document written success");
+                                }
+                            })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w("Like","Fail",e);
+                                    Log.w("Like", "Fail", e);
                                 }
                             });
                     liked = false;
@@ -245,16 +232,16 @@ public class BoardPostClickEvent extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Log.d("like_userlike","Document written success");
-                                }})
+                                    Log.d("like_userlike", "Document written success");
+                                }
+                            })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w("Like","Fail",e);
+                                    Log.w("Like", "Fail", e);
                                 }
                             });
-                }
-                else{
+                } else {
                     nrlikes--;
                     likes.setText(String.valueOf(nrlikes) + "likes");
                     like.setImageResource(R.drawable.ic_like);
@@ -299,21 +286,22 @@ public class BoardPostClickEvent extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(saved){
+                if (saved) {
                     save.setImageResource(R.drawable.ic_save_black);
-                    Map_save.put("user",user.getUid());
+                    Map_save.put("user", user.getUid());
 
                     savesRef.document(user.getUid())
                             .set(Map_save)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Log.d("save","Document written success");
-                                }})
+                                    Log.d("save", "Document written success");
+                                }
+                            })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w("save","Fail",e);
+                                    Log.w("save", "Fail", e);
                                 }
                             });
 
@@ -322,17 +310,17 @@ public class BoardPostClickEvent extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Log.d("Save_userSave","Document written success");
-                                }})
+                                    Log.d("Save_userSave", "Document written success");
+                                }
+                            })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w("Like","Fail",e);
+                                    Log.w("Like", "Fail", e);
                                 }
                             });
                     saved = false;
-                }
-                else{
+                } else {
                     save.setImageResource(R.drawable.ic_save);
                     savesRef.document(user.getUid())
                             .delete()
@@ -373,8 +361,8 @@ public class BoardPostClickEvent extends AppCompatActivity {
         comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),CommentsActivity.class);
-                intent.putExtra("post_document",post_document);
+                Intent intent = new Intent(getApplicationContext(), CommentsActivity.class);
+                intent.putExtra("post_document", post_document);
                 startActivity(intent);
             }
         });
@@ -382,14 +370,111 @@ public class BoardPostClickEvent extends AppCompatActivity {
         comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),CommentsActivity.class);
-                intent.putExtra("postid",user.getUid());
-                intent.putExtra("post_document",post_document);
+                Intent intent = new Intent(getApplicationContext(), CommentsActivity.class);
+                intent.putExtra("postid", user.getUid());
+                intent.putExtra("post_document", post_document);
                 startActivity(intent);
             }
         });
 
+
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CollectionReference likesRef_user = db.collection("users").document(user.getUid()).collection("board_likes");
+                CollectionReference savesRef_user = db.collection("users").document(user.getUid()).collection("board_saves");
+                CollectionReference myboardRef_user = db.collection("users").document(user.getUid()).collection("Myboard");
+
+                Log.d("click", "me success");
+                PopupMenu popupMenu = new PopupMenu(getApplicationContext(), view);
+                popupMenu.inflate(R.menu.post_menu);
+                if (!post_publisher.equals(user.getUid())) {
+                    Log.d("click", "me success");
+                    popupMenu.getMenu().findItem(R.id.edit).setVisible(false);
+                    popupMenu.getMenu().findItem(R.id.delete).setVisible(false);
+                }
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+//                            case R.id.edit:
+//                                editPost(post.getPostid());
+//                                return true;
+                            case R.id.delete:
+
+                                db.collection("board").document(post_document)
+                                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("Board delete", "delete success");
+                                        finish();
+                                    }
+                                })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d("Boarddelete", "delete failed");
+                                            }
+                                        });
+
+                                likesRef_user.document(post_document)
+                                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("Board delete", "delete success");
+                                        finish();
+                                    }
+                                })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d("Boarddelete", "delete failed");
+                                            }
+                                        });
+
+                                savesRef_user.document(post_document)
+                                        .delete()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+
+                                            }
+                                        });
+
+                                myboardRef_user.document(post_document)
+                                        .delete()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+
+                                            }
+                                        });
+
+
+                            default:
+                                return false;
+                        }
+                    }
+                });
+
+            }
+        });
     }
+
+
 
     private void isSaved(String uid, ImageView save) {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
