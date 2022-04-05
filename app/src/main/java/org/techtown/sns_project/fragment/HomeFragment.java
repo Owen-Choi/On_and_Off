@@ -53,6 +53,7 @@ public class HomeFragment extends Fragment {
     static HomeFragmentLikeListAdpater adapter;
     public static ArrayList<String> listImgUrl = new ArrayList<>();
     static ArrayList<String> listDescription = new ArrayList<>();
+    static ArrayList<Integer> listLike = new ArrayList<>();
     static ArrayList<String> listPublisher = new ArrayList<>();
     public static ArrayList<String> listDocument = new ArrayList<>();
     static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
@@ -95,11 +96,11 @@ int count=0;
                             listDescription.add(df.getDescription());
                             listDocument.add(document.getId());
                             listOfList.add(df.getList());
-                            int like =nrLikes(document.getId());
+                            listLike.add(df.getLike());
                             count++;
-                            System.out.println(count+"COUNT"+nrlikes+df.getPublisher()+ df.getImageUrl()+ df.getDescription());
+                            System.out.println(count+"COUNT"+df.getLike()+df.getPublisher()+ df.getImageUrl()+ df.getDescription());
                             if (num < ranking) {
-                                LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), 1);
+                                LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getLike());
                                 likeRank.add(num, data);
                                 num++;
                                 if (num == ranking) {
@@ -112,8 +113,8 @@ int count=0;
 
                             } else {
                                 for (int i = 0; i < ranking; i++) {
-                                    if (likeRank.get(i).getLike() < like) {
-                                        LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), like);
+                                    if (likeRank.get(i).getLike() < df.getLike()) {
+                                        LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getLike());
                                         likeRank.add(i, data);
                                         likeRank.remove(ranking + 1);
                                     }
