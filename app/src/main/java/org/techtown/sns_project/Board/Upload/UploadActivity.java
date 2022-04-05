@@ -371,7 +371,7 @@ public class UploadActivity extends AppCompatActivity {
         ClosetShoesRecyclerView.setAdapter(shoes_adapter);
         shoes_adapter.ClearList();
 
-        String[] categotyList = {"아우터", "상의", "하의", "신발"};
+        String[] categotyList = {"아우터", "상의", "바지", "신발"};
         for (String element : categotyList) {
             RecyclerViewInsertion(element);
         }
@@ -397,7 +397,7 @@ public class UploadActivity extends AppCompatActivity {
                                 case "상의":
                                     top_adapter.ItemChange(CI);
                                     break;
-                                case "하의":
+                                case "바지":
                                     pants_adapter.ItemChange(CI);
                                     break;
                                 case "신발":

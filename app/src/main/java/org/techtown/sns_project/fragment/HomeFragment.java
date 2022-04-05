@@ -1,11 +1,14 @@
 package org.techtown.sns_project.fragment;
 
+import static android.os.SystemClock.sleep;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,10 +17,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.techtown.sns_project.Board.BoardAdapter;
 import org.techtown.sns_project.Board.BoardPostClickEvent;
@@ -30,6 +38,8 @@ import org.techtown.sns_project.Camera.ScanQR;
 import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class HomeFragment extends Fragment {
     private View view;
@@ -39,12 +49,17 @@ public class HomeFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView recyclerView_LikeList;
     DataFormat df;
+    static int nrlikes =0;
+    int ranking=10;
+    int num=0;
     static HomeFragmentLikeListAdpater adapter;
     public static ArrayList<String> listImgUrl = new ArrayList<>();
     static ArrayList<String> listDescription = new ArrayList<>();
+    static ArrayList<Integer> listLike = new ArrayList<>();
     static ArrayList<String> listPublisher = new ArrayList<>();
     public static ArrayList<String> listDocument = new ArrayList<>();
     static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
+    ArrayList<LikeBoardInfo> likeRank = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,7 +70,6 @@ public class HomeFragment extends Fragment {
         recyclerView_LikeList.setLayoutManager(LikeList);
         adapter = new HomeFragmentLikeListAdpater();
         recyclerView_LikeList.setAdapter(adapter);
-
         adapter.setOnItemClickListener (new HomeFragmentLikeListAdpater.OnItemClickListener () {
 
             //아이템 클릭시 토스트메시지
@@ -75,8 +89,10 @@ public class HomeFragment extends Fragment {
                         listDocument.clear();
                         adapter.listData.clear();
 
-                        for(QueryDocumentSnapshot document : task.getResult()) {
+                        int count=0;
 
+                        for(QueryDocumentSnapshot document : task.getResult()) {
+                            int like =nrLikes(document.getId());
 //             List = (HashMap<String, Object>) document.getData();
                             df = document.toObject(DataFormat.class);
                             listImgUrl.add(df.getImageUrl());
@@ -84,10 +100,35 @@ public class HomeFragment extends Fragment {
                             listDescription.add(df.getDescription());
                             listDocument.add(document.getId());
                             listOfList.add(df.getList());
-                            LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(),df.getImageUrl(),df.getDescription());
-                            adapter.addItem(data);
-                        }
 
+                            count++;
+                            Log.e(TAG, count+"COUNT : "+like);
+                            if (num < ranking) {
+                                LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), 1);
+
+                                likeRank.add(num, data);
+                                num++;
+                                if (num == ranking) {
+                                    Collections.sort(likeRank, new BoardLikeComparator());
+
+                                    for(int i=0; i<10; i++)
+                                        System.out.println("test"+likeRank.get(i).getLike());
+
+                                }
+
+                            } else {
+                                for (int i = 0; i < ranking; i++) {
+
+                                    if (likeRank.get(i).getLike() < like) {
+                                        LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), like);
+
+                                        likeRank.add(i, data);
+                                        likeRank.remove(ranking + 1);
+                                    }
+                                }
+                            }
+                        }
+                        adapter.addItemList(likeRank);
                         adapter.notifyDataSetChanged();
                     }
 
@@ -111,4 +152,44 @@ public class HomeFragment extends Fragment {
 
         startActivity(intent);
     }
-}
+
+    private int nrLikes(String post_document) {
+
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        CollectionReference likesRef = db.collection("board").document(post_document).collection("Likes");
+        likesRef.get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        nrlikes = 0;
+                        if (task.isSuccessful()) {
+
+                            Log.e(TAG, "nrLikes: hi there");
+                            for (DocumentSnapshot document : task.getResult()) {
+                                nrlikes++;
+                            }
+                            Log.e(TAG, "In NRLIKES : " + nrlikes);
+
+                        } else {
+                            Log.d("nrlikes", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        return nrlikes;
+    }
+    class BoardLikeComparator implements Comparator<LikeBoardInfo> {
+        @Override
+        public int compare(LikeBoardInfo f1, LikeBoardInfo f2) {
+
+            Log.e(TAG, "TEST"+f1.getLike() + f2.getLike());
+
+            if (f1.like > f2.like) {
+                return 1;
+            } else if (f1.getLike() < f2.getLike()) {
+                return -1;
+            }
+            return 0;
+        }
+    }
+    }
+
