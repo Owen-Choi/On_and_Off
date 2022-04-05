@@ -5,16 +5,19 @@ import org.techtown.sns_project.qr.ProductInfo;
 import java.util.ArrayList;
 
 public class DataFormat {
-    String ImageUrl, publisher, description;
-    int like;
+    String ImageUrl, publisher, description,userid;
     ArrayList<ProductInfo> list;
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
 
     public String getImageUrl() {
         return ImageUrl;
-    }
-
-    public int getLike() {
-        return like;
     }
 
     public void setImageUrl(String imageUrl) {
@@ -48,12 +51,12 @@ public class DataFormat {
     public DataFormat() {
     }
 
-    public DataFormat(String imageUrl, String publisher, String description, ArrayList<ProductInfo> list) {
+    public DataFormat(String imageUrl, String publisher, String description, ArrayList<ProductInfo> list,String userid) {
         ImageUrl = imageUrl;
         this.publisher = publisher;
         this.description = description;
         this.list = list;
-
+        this.userid = userid;
 
     }
 }
