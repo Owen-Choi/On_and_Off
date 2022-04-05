@@ -23,9 +23,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -35,9 +37,11 @@ import org.techtown.sns_project.Camera.Activity_codi;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.qr.ProductInfo;
+import org.w3c.dom.Document;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -398,6 +402,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         CollectionReference likesRef = db.collection("board").document(post_document).collection("Likes");
+        DocumentReference CountlikesRef = db.collection("board").document(post_document);
         likesRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -412,6 +417,10 @@ public class BoardPostClickEvent extends AppCompatActivity {
                         }
                         System.out.println(nrlikes);
                         likes.setText(String.valueOf(nrlikes) + "likes");
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("nrlikes", nrlikes);
+                        CountlikesRef.set(data, SetOptions.merge());
+
                     }
                 });
 
