@@ -55,6 +55,7 @@ public class HomeFragment extends Fragment {
     static HomeFragmentLikeListAdpater adapter;
     public static ArrayList<String> listImgUrl = new ArrayList<>();
     static ArrayList<String> listDescription = new ArrayList<>();
+    static ArrayList<Integer> listLike = new ArrayList<>();
     static ArrayList<String> listPublisher = new ArrayList<>();
     public static ArrayList<String> listDocument = new ArrayList<>();
     static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
@@ -87,7 +88,9 @@ public class HomeFragment extends Fragment {
                         listOfList.clear();
                         listDocument.clear();
                         adapter.listData.clear();
+
                         int count=0;
+
                         for(QueryDocumentSnapshot document : task.getResult()) {
                             int like =nrLikes(document.getId());
 //             List = (HashMap<String, Object>) document.getData();
@@ -97,10 +100,12 @@ public class HomeFragment extends Fragment {
                             listDescription.add(df.getDescription());
                             listDocument.add(document.getId());
                             listOfList.add(df.getList());
+
                             count++;
                             Log.e(TAG, count+"COUNT : "+like);
                             if (num < ranking) {
                                 LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), 1);
+
                                 likeRank.add(num, data);
                                 num++;
                                 if (num == ranking) {
@@ -113,8 +118,10 @@ public class HomeFragment extends Fragment {
 
                             } else {
                                 for (int i = 0; i < ranking; i++) {
+
                                     if (likeRank.get(i).getLike() < like) {
                                         LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), like);
+
                                         likeRank.add(i, data);
                                         likeRank.remove(ranking + 1);
                                     }
@@ -147,6 +154,7 @@ public class HomeFragment extends Fragment {
     }
 
     private int nrLikes(String post_document) {
+
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         CollectionReference likesRef = db.collection("board").document(post_document).collection("Likes");
         likesRef.get()
@@ -155,11 +163,13 @@ public class HomeFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         nrlikes = 0;
                         if (task.isSuccessful()) {
+
                             Log.e(TAG, "nrLikes: hi there");
                             for (DocumentSnapshot document : task.getResult()) {
                                 nrlikes++;
                             }
                             Log.e(TAG, "In NRLIKES : " + nrlikes);
+
                         } else {
                             Log.d("nrlikes", "Error getting documents: ", task.getException());
                         }
@@ -170,7 +180,9 @@ public class HomeFragment extends Fragment {
     class BoardLikeComparator implements Comparator<LikeBoardInfo> {
         @Override
         public int compare(LikeBoardInfo f1, LikeBoardInfo f2) {
+
             Log.e(TAG, "TEST"+f1.getLike() + f2.getLike());
+
             if (f1.like > f2.like) {
                 return 1;
             } else if (f1.getLike() < f2.getLike()) {
