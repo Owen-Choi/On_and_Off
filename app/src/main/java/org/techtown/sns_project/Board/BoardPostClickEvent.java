@@ -162,7 +162,19 @@ public class BoardPostClickEvent extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         userNick_publisher = document.getData().get("name").toString();
+                        if (userNick_publisher != null)
+                            publisher.setText(userNick_publisher);
+                        else
+                        {
+                            publisher.setText("NULL");
+                        }
 
+                        if (userNick_publisher != null)
+                            username.setText(userNick_publisher);
+                        else
+                        {
+                            username.setText("NULL");
+                        }
                     }
                 });
         Glide.with(this).load(listImgURL2).error(R.drawable.ic_launcher_background).into(post_image);
@@ -176,20 +188,20 @@ public class BoardPostClickEvent extends AppCompatActivity {
             description.setText("NULL");
         }
 
-        //Publisher
-        if (userNick_publisher != null)
-            publisher.setText(userNick_publisher);
-        else
-        {
-            publisher.setText("NULL");
-        }
-
-        if (userNick_publisher != null)
-            username.setText(userNick_publisher);
-        else
-        {
-            username.setText("NULL");
-        }
+//        //Publisher
+//        if (userNick_publisher != null)
+//            publisher.setText(userNick_publisher);
+//        else
+//        {
+//            publisher.setText("NULL");
+//        }
+//
+//        if (userNick_publisher != null)
+//            username.setText(userNick_publisher);
+//        else
+//        {
+//            username.setText("NULL");
+//        }
 
         nrlikes = 0;
         //publisherInfo(holder.image_profile, holder.username, holder.publisher, post.getPublisher());
