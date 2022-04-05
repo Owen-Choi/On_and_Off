@@ -32,8 +32,18 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/colorPrimaryDark"
+                    android:ems="15"
                     android:textSize="16sp"
                     android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_more"
+                    android:id="@+id/more"
+                    android:layout_margin="15dp"/>
+
 
             </LinearLayout>
 
