@@ -6,10 +6,15 @@ import java.util.ArrayList;
 
 public class DataFormat {
     String ImageUrl, publisher, description;
+    int like;
     ArrayList<ProductInfo> list;
 
     public String getImageUrl() {
         return ImageUrl;
+    }
+
+    public int getLike() {
+        return like;
     }
 
     public void setImageUrl(String imageUrl) {
@@ -48,6 +53,7 @@ public class DataFormat {
         this.publisher = publisher;
         this.description = description;
         this.list = list;
+
 
     }
 }

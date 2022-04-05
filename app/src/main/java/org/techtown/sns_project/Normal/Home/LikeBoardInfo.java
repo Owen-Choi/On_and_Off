@@ -4,18 +4,23 @@ import java.io.Serializable;
 
 public class LikeBoardInfo {
 
-        String publisher;
-        String ImgURL;
-        String descrpition;
-
-        public LikeBoardInfo(String publisher,  String ImgURL,String descrpition) {
+    public String publisher;
+    public String ImgURL;
+    public String descrpition;
+    public int like=0;
+        public LikeBoardInfo(String publisher,  String ImgURL,String descrpition,int like) {
             this.publisher = publisher;
             this.ImgURL = ImgURL;
             this.descrpition = descrpition;
+            this.like = like;
         }
 
         public LikeBoardInfo(){
         }
+
+        public int getLike() {
+        return like;
+    }
 
         public String getPublisher() {
             return publisher;
