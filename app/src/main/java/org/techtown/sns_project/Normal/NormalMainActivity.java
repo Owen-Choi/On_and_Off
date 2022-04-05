@@ -11,13 +11,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.techtown.sns_project.CommonSignInActivity;
-import org.techtown.sns_project.Normal.Search.NormalSearchActivity;
 import org.techtown.sns_project.Normal.Setting.NormalSettingActivity;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.Camera.ScanQR;
@@ -27,7 +27,7 @@ import org.techtown.sns_project.fragment.profile.ProfileFragment;
 import org.techtown.sns_project.fragment.SearchFragment;
 import org.techtown.sns_project.fragment.SomethingFragment;
 
-// 인범
+
 public class NormalMainActivity extends AppCompatActivity {
     Fragment Board_Fragment;
     Fragment Home_Fragment;
@@ -35,7 +35,8 @@ public class NormalMainActivity extends AppCompatActivity {
     Fragment Search_Fragment;
     Fragment Something_Fragment;
     BottomNavigationView bottomNavigationView;
-
+    private long backKeyPressedTime = 0;
+    private Toast terminate_guide_msg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,16 +123,7 @@ public class NormalMainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.HomeFragQRButton:
-                    StartActivity(ScanQR.class);
-                    break;
-            }
-        }
-    };
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -144,13 +136,28 @@ public class NormalMainActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 StartActivity(CommonSignInActivity.class);
                 break;
-            case R.id.SearchMenu:
-                StartActivity(NormalSearchActivity.class);
-                break;
+
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
 
+        if (System.currentTimeMillis() > backKeyPressedTime + 1000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            terminate_guide_msg = Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+            terminate_guide_msg.show();
+            return;
+        }
+
+        if (System.currentTimeMillis() <= backKeyPressedTime + 1000) {
+            terminate_guide_msg.cancel();
+            moveTaskToBack(true);
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
+        }
+
+    }
 }

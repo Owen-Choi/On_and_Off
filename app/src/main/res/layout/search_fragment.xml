@@ -5,10 +5,19 @@
     android:layout_height="match_parent">
 
     <SearchView
-        android:id="@+id/search_bar"
-        android:layout_width="match_parent"
+        android:id="@+id/search"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        />
+        android:iconifiedByDefault="false">
 
+        <requestFocus />
+    </SearchView>
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="fill_parent"
+        android:layout_height="400dp"
+        android:layout_below="@+id/search" />
+    
 
 </LinearLayout>

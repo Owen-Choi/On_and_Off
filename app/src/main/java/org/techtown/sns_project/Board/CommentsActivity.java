@@ -137,6 +137,7 @@ public class CommentsActivity extends AppCompatActivity {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("comment", addcomment.getText().toString());
         hashMap.put("commentid", commentid);
+        hashMap.put("getuid", user.getUid());
 
         CommentsRef.document(user.getUid())
                 .set(hashMap)
@@ -169,7 +170,7 @@ public class CommentsActivity extends AppCompatActivity {
                         for(QueryDocumentSnapshot document : task.getResult()) {
                             List = (HashMap<String, Object>) document.getData();
                             //Comment data = new Comment((String)List.get("comment"),(String)List.get("publisher"),(String)List.get("commentid"));
-                            Comment data = new Comment((String)List.get("comment"),(String)List.get("commentid"));
+                            Comment data = new Comment((String)List.get("comment"),(String)List.get("commentid"),(String)List.get("getuid"));
                             commentAdapter.addItem(data);
                         }
                         commentAdapter.notifyDataSetChanged();

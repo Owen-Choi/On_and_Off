@@ -87,6 +87,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board_item);
         Intent intent = getIntent();
+
         listImgUrl = (ArrayList<String>)getIntent().getSerializableExtra("listImgUrl");
         listDescription = (ArrayList<String>)getIntent().getSerializableExtra("listDescription");
         listPublisher = (ArrayList<String>)getIntent().getSerializableExtra("listPublisher");

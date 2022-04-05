@@ -19,14 +19,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.sns_project.Enterprise.EnterpriseMainActivity;
-import org.techtown.sns_project.Enterprise.EnterpriseMemberInfoActivity;
 import org.techtown.sns_project.Normal.NormalMainActivity;
-import org.techtown.sns_project.Normal.NormalMemberInfoActivity;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -35,6 +31,8 @@ public class SignUpActivity extends AppCompatActivity {
     private static final String TAG = "SignUpActivity";
     private RadioGroup radioGroup;
     private static boolean isNormal, isEnter;
+    private long backKeyPressedTime = 0;
+    private Toast terminate_guide_msg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,15 +111,23 @@ public class SignUpActivity extends AppCompatActivity {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    // 로그아웃을 누른 뒤 회원가입창에서 다시 뒤로가기를 누르면 메인 액티비티 창이 또
-    // 나타나는 현상을 없애기 위함.
-    // 회원가입 창에서 뒤로가기를 누르면 앱을 종료하는 코드
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        moveTaskToBack(true);
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
+
+        if (System.currentTimeMillis() > backKeyPressedTime + 1000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            terminate_guide_msg = Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+            terminate_guide_msg.show();
+            return;
+        }
+
+        if (System.currentTimeMillis() <= backKeyPressedTime + 1000) {
+            terminate_guide_msg.cancel();
+            moveTaskToBack(true);
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
+        }
+
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -160,7 +166,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     // 회원가입만 하고, (프로그램 오류 등으로)회원정보를 기입하지 못했을 경우
     // 해당 계정은 사용불가 계정이 돼버린다.
-    // 이런 상황을 방지하기 위해서 회원가입 단계에서
+    // 이런 상황을 방지하기 위해서 회원가입 단계에서 회원정보를 입력받도록 하겠다.
     private void dbInsertion(String name, String address, String date, String phone) {
         String temp;
         temp = isNormal ? "users" : "enterprises";

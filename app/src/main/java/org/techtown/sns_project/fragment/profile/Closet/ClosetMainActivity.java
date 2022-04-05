@@ -1,4 +1,4 @@
-package org.techtown.sns_project.Closet;
+package org.techtown.sns_project.fragment.profile.Closet;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,12 +19,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.qr.New_Parser;
 
 
 public class ClosetMainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+
+    //옷 추가시 프래그먼트 새로그침을 위한 변수
+    static String WhatFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +82,32 @@ public class ClosetMainActivity extends AppCompatActivity {
                                 Closet_Parser closet_Parser = new Closet_Parser(firebaseAuth, firebaseUser, db, inputValue);
 
                                 if(closet_Parser.result==1){
-                                    StartToast(closet_Parser.URL + " is add on closet ! ");
+                                    StartToast(" add on closet success! ");
+
+                                    //옷 추가시 새로고침
+                                    switch (WhatFragment){
+                                        case "all" :
+                                            AllFragment.scatter();
+                                            break;
+                                        case "outer" :
+                                            outerFragment.scatter();
+                                            break;
+                                        case "top" :
+                                            topFragment.scatter();
+                                            break;
+                                        case "bottom" :
+                                            bottomFragment.scatter();
+                                            break;
+                                        case "shoes" :
+                                            shoesFragment.scatter();
+                                            break;
+
+                                    }
+
                                     dialog.dismiss();
 
                                 }else{
-                                    StartToast(closet_Parser.URL + " is invalid clothes type ");
+                                    StartToast(" invalid clothes type ");
                                     dialog.dismiss();
                                 }
 
@@ -136,6 +158,11 @@ public class ClosetMainActivity extends AppCompatActivity {
         });
 
     }
+    //옷 추가했을 때 새로고침을 위해,,
+    public static void whatFragment(String v){
+        WhatFragment = v;
+    }
+
 
     private void StartToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();

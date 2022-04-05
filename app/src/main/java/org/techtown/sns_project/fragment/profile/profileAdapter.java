@@ -1,28 +1,32 @@
 package org.techtown.sns_project.fragment.profile;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import org.techtown.sns_project.Closet.ClosetAdapter;
-import org.techtown.sns_project.Closet.Closet_info;
 import org.techtown.sns_project.R;
 
 import java.util.ArrayList;
 
 public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ItemViewHolder> {
 
-    static ArrayList<String> mypostimgUrl_list = new ArrayList<>();
+    static ArrayList<MyProfile_info> list = new ArrayList<>();
+
+    public interface OnItemClickListener{
+        void onItemClick(View v, int position);
+    }
+
+    private profileAdapter.OnItemClickListener mListener = null;
+
+    public void setOnItemClickListener(profileAdapter.OnItemClickListener listener){
+        this.mListener = listener;
+    }
 
     @NonNull
     @Override //inflater는 xml파일에 정의된 정보를 실제 메모리에 할당하는 용도
@@ -32,7 +36,7 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ItemView
 
     @Override
     public void onBindViewHolder(@NonNull profileAdapter.ItemViewHolder holder, int position) {
-        holder.onBind(mypostimgUrl_list.get(position));
+        holder.onBind(list.get(position));
     }
 
 
@@ -47,35 +51,39 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ItemView
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    int position = getAdapterPosition ();
+                    if (position!=RecyclerView.NO_POSITION){
+                        if (mListener!=null){
+                            mListener.onItemClick (v,position);
+                        }
+                    }
                     }
                 }
             );
         }
 
-        void onBind(String data) {
-            Glide.with(itemView.getContext()).load(data).error(R.drawable.ic_launcher_background).into(mypost_imgview);
+        void onBind(MyProfile_info data) {
+            Glide.with(itemView.getContext()).load(data.getImgURL()).error(R.drawable.ic_launcher_background).into(mypost_imgview);
 
         }
     }
 
-    void addItem(String mypostimgUrl) {
-
-        mypostimgUrl_list.add(mypostimgUrl);
+    void addItem(MyProfile_info data) {
+        list.add(data);
         this.notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return mypostimgUrl_list.size();
+        return list.size();
     }
 
     void removeItem(int position) {
-        mypostimgUrl_list.remove(position);
+        list.remove(position);
         notifyItemRemoved(position);
     }
 
     public void clearList() {
-        mypostimgUrl_list.clear();
+        list.clear();
     }
 }
