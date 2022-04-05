@@ -110,8 +110,8 @@ public class BoardPostClickEvent extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         UIA = new upload_items_adapter(this, firebaseAuth, user, db);
         recyclerView.setAdapter(UIA);
-        UIA.clearList();
         Duplicate_Removal();
+        UIA.clearList();
         UIA.addItem(list);
         UIA.setOnItemClickListener(new upload_items_adapter.OnItemClickListener() {
             @Override
