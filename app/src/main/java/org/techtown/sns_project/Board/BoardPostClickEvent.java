@@ -139,7 +139,6 @@ public class BoardPostClickEvent extends AppCompatActivity {
         more = findViewById(R.id.more);
         image_profile = findViewById(R.id.image_profile);
 
-        username.setText(userNick_publisher);
        // private void setFireBaseProfileImage(String filename_GetUid) {
         intent.putExtra("post_publisher", post_publisher);
             FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
@@ -158,7 +157,14 @@ public class BoardPostClickEvent extends AppCompatActivity {
                     image_profile.setImageResource(R.drawable.ic_baseline_android_24);
                 }
             });
+        db.collection("users").document(post_publisher).get().addOnCompleteListener(
+                task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        userNick_publisher = document.getData().get("name").toString();
 
+                    }
+                });
         Glide.with(this).load(listImgURL2).error(R.drawable.ic_launcher_background).into(post_image);
 
 
@@ -171,11 +177,18 @@ public class BoardPostClickEvent extends AppCompatActivity {
         }
 
         //Publisher
-        if (post_publisher != null)
+        if (userNick_publisher != null)
             publisher.setText(userNick_publisher);
         else
         {
             publisher.setText("NULL");
+        }
+
+        if (userNick_publisher != null)
+            username.setText(userNick_publisher);
+        else
+        {
+            username.setText("NULL");
         }
 
         nrlikes = 0;
@@ -186,14 +199,6 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
         /*getCommetns(post.getPostid(), holder.comments);*/
 
-        db.collection("users").document(post_publisher).get().addOnCompleteListener(
-                task -> {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        userNick_publisher = document.getData().get("name").toString();
-
-                    }
-                });
 
         //Like
         CollectionReference likesRef = db.collection("board").document(post_document).collection("Likes");
@@ -416,6 +421,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
                         } else {
                             Log.d("nrlikes", "Error getting documents: ", task.getException());
                         }
+
                         System.out.println(nrlikes);
                         likes.setText(String.valueOf(nrlikes) + "likes");
                         Map<String, Object> data = new HashMap<>();
@@ -427,6 +433,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
 
     }
+
 
     private void isLiked(String uid, ImageView like) {
 
