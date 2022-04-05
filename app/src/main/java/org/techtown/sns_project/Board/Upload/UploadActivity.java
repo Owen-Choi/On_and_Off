@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -71,7 +72,7 @@ public class UploadActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
-
+    static String userid;
     ImageButton urlImageButton, closetImageButton;
     AlertDialog.Builder builder;
     EditText input;
@@ -173,6 +174,15 @@ public class UploadActivity extends AppCompatActivity {
                 final ProgressDialog pd = new ProgressDialog(UploadActivity.this);
                 pd.setMessage("Posting");
                 pd.show();
+                db.collection("users").document(user.getUid()).get().addOnCompleteListener(
+                        task -> {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                userid = document.getData().get("name").toString();
+                                Log.e("userid",userid);
+
+                            }
+                        });
                 if (imageUri != null) {
                     String GetUid = firebaseUser.getUid();
                     StorageReference storageRef = FirebaseStorage.getInstance().getReference("post/" + GetUid); //storgae의 저장경로
@@ -191,6 +201,7 @@ public class UploadActivity extends AppCompatActivity {
                     }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
+                            Log.e("Checkuserid",userid);
                             if (task.isSuccessful()) { //task가 성공하면
                                 Uri downloadUri = task.getResult(); //위의 return값을 받아 downloadUri에 저장
                                 pd.dismiss(); //로딩창 없애기
@@ -198,7 +209,7 @@ public class UploadActivity extends AppCompatActivity {
                                 //해쉬 맵에 저장해서 컬렉션에 넣기
 //                                Map<String, Object> data = new HashMap<>();
                                 DataFormat dataFormat = new DataFormat(DownloadUrl, firebaseUser.getUid(),
-                                        description.getText().toString(), list);
+                                        description.getText().toString(), list,userid);
 
                                 //추가할 정보들 입력, 우선 글에대한 설명과 getUid값
 //                                data.put("description", description.getText().toString());
