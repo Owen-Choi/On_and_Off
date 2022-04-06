@@ -1,5 +1,6 @@
 package org.techtown.sns_project.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -70,6 +72,7 @@ public class BoardFragment extends Fragment {
    public void onItemClick(View v, int position) {
 
     StartActivity(BoardPostClickEvent.class,position);
+
    }
 
    private void StartActivity(Class<BoardPostClickEvent> boardPostClickEventClass, int position) {
@@ -134,11 +137,10 @@ public class BoardFragment extends Fragment {
    }
   });
 
-
-
+     FragmentTransaction ft = getFragmentManager().beginTransaction();
+     ft.detach(this).attach(this).commit();
   return view;
  }
-
 
 }
 

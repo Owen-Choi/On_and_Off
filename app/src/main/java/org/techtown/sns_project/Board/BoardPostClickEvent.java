@@ -40,6 +40,7 @@ import org.techtown.sns_project.Camera.Activity_codi;
 import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListActivity;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.fragment.BoardFragment;
 import org.techtown.sns_project.qr.ProductInfo;
 import org.w3c.dom.Document;
 
@@ -408,7 +409,10 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d("Board delete", "delete success");
+                                        Intent intent = new Intent(getApplicationContext(), BoardFragment.class);
+                                        intent.putExtra("refresh", "refresh");
                                         finish();
+
                                     }
                                 })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -423,7 +427,6 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d("Board delete", "delete success");
-                                        finish();
                                     }
                                 })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -463,10 +466,10 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                             }
                                         });
 
-
                             default:
                                 return false;
                         }
+
                     }
                 });
 

@@ -144,6 +144,11 @@ public class CommentsActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     public void onComplete(@NonNull Task<Void> task) {
                         Log.d("Comments","Document written success");
+                        finish();
+                        overridePendingTransition(0, 0);//인텐트 효과 없애기
+                        Intent intent = getIntent(); //인텐트
+                        startActivity(intent); //액티비티 열기
+                        overridePendingTransition(0, 0);//인텐트 효과 없애기
                     }})
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
