@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.sns_project.Enterprise.EnterpriseMainActivity;
 import org.techtown.sns_project.Normal.NormalMainActivity;
+import org.techtown.sns_project.pushAlarm.BackgroundAlarmService;
 
 public class InitialActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
@@ -27,6 +28,9 @@ public class InitialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial);
+
+        Intent serviceintent = new Intent( InitialActivity.this, BackgroundAlarmService.class );
+        startService( serviceintent );
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
