@@ -3,6 +3,7 @@ package org.techtown.sns_project.fragment.profile;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -53,7 +54,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
 
     private View view;
-    private String TAG = "프래그먼트";
+    private String TAG = "profile ";
 
     //파이어베이스
     FirebaseAuth firebaseAuth;
@@ -83,10 +84,83 @@ public class ProfileFragment extends Fragment {
     static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
     DataFormat df;
 
+    //프래그먼트의 생명주기
+    //https://ddangeun.tistory.com/50 -> 프래그먼트 생명주기 참고
+    //이 시점부터 fragment is added 상태이다.
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Log.e(TAG, "onAttach()");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.e(TAG, "onCreate()");
+    }
+
+    //이 시점에 onCreateView 가 있다.
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.e(TAG, "onActivityCreated()");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e(TAG, "onStart()");
+
+        //파베에서 내가 포스트한 게시글 가져와서 뿌려주기
+        scatter();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e(TAG, "onResume()");
+    }
+
+    //이 시점부터 fragment is active 상태이다.
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e(TAG, "onPause()");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e(TAG, "onStop()");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.e(TAG, "onDestroyView()");
+    }
+    // onDestroyView 다음으로 onCreateView 로 넘어가는 경우가 있다.
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG, "onDestroy()");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.e(TAG, "onDetach()");
+    }
+    //이 시점부터 fragment is destroyed 상태이다.
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView");
+
+        Log.e(TAG, "onCreateView()");
         view = inflater.inflate(R.layout.profile_fragment, container, false);
 
         //클릭시 옷장 main activity로 이동
@@ -111,46 +185,6 @@ public class ProfileFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         profileAdapter = new profileAdapter();
         recyclerView.setAdapter(profileAdapter);
-
-        //파베에서 내가 포스트한 게시글 가져와서 뿌려주기
-        db.collection("board").get().
-                addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        //데이터 중복 방지
-                        listImgUrl.clear();
-                        listDescription.clear();
-                        listPublisher.clear();
-                        listOfList.clear();
-                        listDocument.clear();
-                        profileAdapter.clearList();
-
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-
-                            List = (HashMap<String, Object>) document.getData();
-                            String ismypost = (String) List.get("publisher");
-
-                            if (ismypost.equals(firebaseUser.getUid())) {
-
-                                df = document.toObject(DataFormat.class);
-                                listImgUrl.add(df.getImageUrl());
-                                listPublisher.add(df.getPublisher());
-                                listDescription.add(df.getDescription());
-                                listDocument.add(document.getId());
-                                listOfList.add(df.getList());
-
-                                MyProfile_info data = new MyProfile_info(
-                                        (String) List.get("publisher"),
-                                        (String) List.get("imageUrl"),
-                                        (String) List.get("description"));
-                                profileAdapter.addItem(data);
-                            }
-                        }
-                        profileAdapter.notifyDataSetChanged();
-
-                    } else {
-                        Log.d(TAG, "Error getting documents: ", task.getException());
-                    }
-                });
 
         //나의 포스트 클릭 이벤트
         profileAdapter.setOnItemClickListener(new profileAdapter.OnItemClickListener() {
@@ -223,6 +257,49 @@ public class ProfileFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void scatter(){
+        //파베에서 내가 포스트한 게시글 가져와서 뿌려주기
+        profileAdapter.clearList();
+        profileAdapter.notifyDataSetChanged();
+        db.collection("board").get().
+                addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        //데이터 중복 방지
+                        listImgUrl.clear();
+                        listDescription.clear();
+                        listPublisher.clear();
+                        listOfList.clear();
+                        listDocument.clear();
+
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+
+                            List = (HashMap<String, Object>) document.getData();
+                            String ismypost = (String) List.get("publisher");
+
+                            if (ismypost.equals(firebaseUser.getUid())) {
+
+                                df = document.toObject(DataFormat.class);
+                                listImgUrl.add(df.getImageUrl());
+                                listPublisher.add(df.getPublisher());
+                                listDescription.add(df.getDescription());
+                                listDocument.add(document.getId());
+                                listOfList.add(df.getList());
+
+                                MyProfile_info data = new MyProfile_info(
+                                        (String) List.get("publisher"),
+                                        (String) List.get("imageUrl"),
+                                        (String) List.get("description"));
+                                profileAdapter.addItem(data);
+                            }
+                        }
+                        profileAdapter.notifyDataSetChanged();
+
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                });
     }
 
     /**
