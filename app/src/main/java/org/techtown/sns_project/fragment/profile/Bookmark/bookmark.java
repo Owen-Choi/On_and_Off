@@ -2,6 +2,7 @@ package org.techtown.sns_project.fragment.profile.Bookmark;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -47,12 +48,63 @@ public class bookmark extends AppCompatActivity {
     static ArrayList<String> MysavepostID = new ArrayList<>();
     HashMap<String, Object> List;
 
+    String tag = "bookmark ";
+
+    //Activity의 생명주기
+    //수업 강의 자료 참고
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //파베에서 내가 save한 게시물id 가져오기
+        scatter(); 
+
+        Log.e(tag,"In the onStart() event");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        Log.e(tag,"In the onRestart() event");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.e(tag,"In the onResume() event");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Log.e(tag,"In the onPause() event");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Log.e(tag,"In the onStop() event");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.e(tag,"In the onDestroy() event");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark);
+
+        Log.e(tag,"In the onCreate() event");
 
         //타이틀 숨기기
         ActionBar actionBar = getSupportActionBar();
@@ -68,7 +120,30 @@ public class bookmark extends AppCompatActivity {
         adapter = new bookmark_ListViewAdapter();
         listview.setAdapter(adapter);
 
+        //북마크 아이템 뷰 클릭 이벤트
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(getApplicationContext(), BoardPostClickEvent.class);
+                intent.putExtra("position", position);
+                intent.putExtra("listImgUrl", listImgUrl);
+                intent.putExtra("listPublisher", listPublisher);
+                intent.putExtra("listDescription", listDescription);
+                intent.putExtra("listOfList", listOfList);
+                intent.putExtra("listDocument", listDocument);
+                System.out.println("Start activity :" + listImgUrl);
+                startActivity(intent);
+
+            }
+        });
+
+    }
+
+    public void scatter(){
         //파베에서 내가 save한 게시물id 가져오기
+        adapter.clearList();
+        adapter.notifyDataSetChanged();
         db.collection("users").document(firebaseUser.getUid()).
                 collection("board_saves").get().
                 addOnCompleteListener(task -> {
@@ -113,26 +188,6 @@ public class bookmark extends AppCompatActivity {
                                 });
                     }
                 });
-
-
-        //북마크 아이템 뷰 클릭 이벤트
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent = new Intent(getApplicationContext(), BoardPostClickEvent.class);
-                intent.putExtra("position", position);
-                intent.putExtra("listImgUrl", listImgUrl);
-                intent.putExtra("listPublisher", listPublisher);
-                intent.putExtra("listDescription", listDescription);
-                intent.putExtra("listOfList", listOfList);
-                intent.putExtra("listDocument", listDocument);
-                System.out.println("Start activity :" + listImgUrl);
-                startActivity(intent);
-
-            }
-        });
-
     }
 
     private void StartActivity(Class c) {

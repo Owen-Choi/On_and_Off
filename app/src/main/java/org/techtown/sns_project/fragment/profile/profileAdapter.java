@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ItemViewHolder> {
 
-    static ArrayList<MyProfile_info> list = new ArrayList<>();
+    static ArrayList<MyProfile_info> data_list = new ArrayList<>();
 
     public interface OnItemClickListener{
         void onItemClick(View v, int position);
@@ -36,7 +36,7 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ItemView
 
     @Override
     public void onBindViewHolder(@NonNull profileAdapter.ItemViewHolder holder, int position) {
-        holder.onBind(list.get(position));
+        holder.onBind(data_list.get(position));
     }
 
 
@@ -69,21 +69,22 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ItemView
     }
 
     void addItem(MyProfile_info data) {
-        list.add(data);
+        data_list.add(data);
         this.notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return data_list.size();
     }
 
     void removeItem(int position) {
-        list.remove(position);
+        data_list.remove(position);
         notifyItemRemoved(position);
     }
 
     public void clearList() {
-        list.clear();
+        data_list.clear();
+
     }
 }
