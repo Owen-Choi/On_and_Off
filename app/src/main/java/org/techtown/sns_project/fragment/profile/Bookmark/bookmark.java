@@ -57,7 +57,7 @@ public class bookmark extends AppCompatActivity {
         super.onStart();
 
         //파베에서 내가 save한 게시물id 가져오기
-        scatter();
+        scatter(); 
 
         Log.e(tag,"In the onStart() event");
     }
