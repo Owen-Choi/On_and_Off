@@ -174,7 +174,7 @@ public class bookmark extends AppCompatActivity {
 
                                         df = document.toObject(DataFormat.class);
 
-                                        if(List!=null) {
+                                        if(List!=null) { //게시글 삭제했을 때 board_saves 에서까지 굳이 삭제 안되도 일 북마크 돌아가게끔 설정단. 다만 파베에 데이터가 계속 쌓일뿐,,
                                             MyProfile_info data = new MyProfile_info(
                                                     (String) List.get("publisher"),
                                                     (String) List.get("imageUrl"),
