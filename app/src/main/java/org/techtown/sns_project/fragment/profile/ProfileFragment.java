@@ -90,13 +90,13 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        Log.e(TAG, "onAttach()");
+        //Log.e(TAG, "onAttach()");
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(TAG, "onCreate()");
+        //Log.e(TAG, "onCreate()");
     }
 
     //이 시점에 onCreateView 가 있다.
@@ -104,7 +104,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.e(TAG, "onActivityCreated()");
+        //Log.e(TAG, "onActivityCreated()");
     }
 
     @Override
@@ -119,7 +119,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e(TAG, "onResume()");
+        //Log.e(TAG, "onResume()");
     }
 
     //이 시점부터 fragment is active 상태이다.
@@ -127,32 +127,32 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.e(TAG, "onPause()");
+        //Log.e(TAG, "onPause()");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.e(TAG, "onStop()");
+        //Log.e(TAG, "onStop()");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.e(TAG, "onDestroyView()");
+        //Log.e(TAG, "onDestroyView()");
     }
     // onDestroyView 다음으로 onCreateView 로 넘어가는 경우가 있다.
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "onDestroy()");
+        //Log.e(TAG, "onDestroy()");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.e(TAG, "onDetach()");
+        //Log.e(TAG, "onDetach()");
     }
     //이 시점부터 fragment is destroyed 상태이다.
 
