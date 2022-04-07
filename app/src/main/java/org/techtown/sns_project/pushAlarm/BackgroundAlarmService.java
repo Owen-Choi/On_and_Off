@@ -42,7 +42,7 @@ public class BackgroundAlarmService extends Service {
 
     ArrayList<String> Original;
     ArrayList<String> Updated;
-
+    int id_counter = 0;
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -57,8 +57,9 @@ public class BackgroundAlarmService extends Service {
         db = FirebaseFirestore.getInstance();
         Original = new ArrayList<>();
         Updated = new ArrayList<>();
-        Original_data_crawl();
         thread = new ServiceThread(  handler );
+        Data_crawl(Original);
+        Data_crawl(Updated);
         thread.start();
 //        thread.stopForever();
         return START_STICKY;
@@ -114,40 +115,38 @@ public class BackgroundAlarmService extends Service {
                     .setColor( Color.parseColor( "#ffffff" ) );
             assert notificationManager != null;
 
-            // 아래의 조건을 db에 가는걸로 바꾸자. 됐으면 좋겠다....
-
 //            if(counter == 1) {
 //                Log.e("Thread", "들어왔다.");
 //                notificationManager.notify(counter, notificationBuilder.build());
 //                counter++;
 //            }
-
             db.collection("users")
                     .document(firebaseUser.getUid()).collection("board_likes").get().addOnCompleteListener(task -> {
-                        // 어떤 형태로든 변화가 생기면 알람을 주고싶은데...
                 if(task.isSuccessful()) {
+                    Updated.clear();
                     for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                         String temp = (String)documentSnapshot.getData().get("user");
                         Updated.add(temp);
                     }
                 } });
+            Log.e("updated", "fucking updated" + Updated.size());
+            Log.e("original", "fucking original " + Original.size());
             if(Updated.size() != Original.size()) {
-                notificationManager.notify(1, notificationBuilder.build());
-                Original_data_crawl();  // Original 리스트를 다시 변화된 값으로 최신화.
+                notificationManager.notify(id_counter++, notificationBuilder.build());
+                Original.clear();
+                Data_crawl(Original);  // Original 리스트를 다시 변화된 값으로 최신화.
             }
         }
     }
 
-    private void Original_data_crawl() {
+    private void Data_crawl(ArrayList<String> param_list) {
         db.collection("users")
                 .document(firebaseUser.getUid()).collection("board_likes").get().addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
                         for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                             String temp = (String)documentSnapshot.getData().get("user");
-                            Log.e("woong", "" + temp);
-                            Original.add(temp);
+                            param_list.add(temp);
                         }
-                        Log.e("test", " " + Original.size());
                     }
                 });
     }
