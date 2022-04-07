@@ -57,7 +57,7 @@ public class bookmark extends AppCompatActivity {
         super.onStart();
 
         //파베에서 내가 save한 게시물id 가져오기
-        scatter(); 
+        scatter();
 
         Log.e(tag,"In the onStart() event");
     }
@@ -66,28 +66,28 @@ public class bookmark extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
 
-        Log.e(tag,"In the onRestart() event");
+        //Log.e(tag,"In the onRestart() event");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        Log.e(tag,"In the onResume() event");
+        //Log.e(tag,"In the onResume() event");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
 
-        Log.e(tag,"In the onPause() event");
+        //Log.e(tag,"In the onPause() event");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        Log.e(tag,"In the onStop() event");
+        //Log.e(tag,"In the onStop() event");
 
     }
 
@@ -95,7 +95,7 @@ public class bookmark extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        Log.e(tag,"In the onDestroy() event");
+        //Log.e(tag,"In the onDestroy() event");
     }
 
     @Override
@@ -174,13 +174,16 @@ public class bookmark extends AppCompatActivity {
 
                                         df = document.toObject(DataFormat.class);
 
-                                        MyProfile_info data = new MyProfile_info(
-                                                (String) List.get("publisher"),
-                                                (String) List.get("imageUrl"),
-                                                (String) List.get("description"));
+                                        if(List!=null) { //게시글 삭제했을 때 board_saves 에서까지 굳이 삭제 안되도 일 북마크 돌아가게끔 설정단. 다만 파베에 데이터가 계속 쌓일뿐,,
+                                            MyProfile_info data = new MyProfile_info(
+                                                    (String) List.get("publisher"),
+                                                    (String) List.get("imageUrl"),
+                                                    (String) List.get("description"));
 
-                                        //밑에 클릭 이벤트에서 position 변수 매치가 안되서 3개 다 넘김
-                                        adapter.addItem(data, df, document);
+                                            //밑에 클릭 이벤트에서 position 변수 매치가 안되서 3개 다 넘김
+                                            adapter.addItem(data, df, document);
+                                        }
+
 
                                     }
                                     adapter.notifyDataSetChanged();
