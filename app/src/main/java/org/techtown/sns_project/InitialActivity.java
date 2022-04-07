@@ -29,9 +29,6 @@ public class InitialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial);
 
-        Intent serviceintent = new Intent( InitialActivity.this, BackgroundAlarmService.class );
-        startService( serviceintent );
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         firebaseAuth = FirebaseAuth.getInstance();

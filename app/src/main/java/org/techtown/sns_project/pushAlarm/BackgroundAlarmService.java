@@ -18,16 +18,30 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import org.techtown.sns_project.InitialActivity;
 import org.techtown.sns_project.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 public class BackgroundAlarmService extends Service {
     NotificationManager Notifi_M;
     ServiceThread thread;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    FirebaseFirestore db;
 
+    ArrayList<String> Original;
+    ArrayList<String> Updated;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -38,6 +52,12 @@ public class BackgroundAlarmService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Notifi_M = (NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
         myServiceHandler handler = new myServiceHandler();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+        Original = new ArrayList<>();
+        Updated = new ArrayList<>();
+        Original_data_crawl();
         thread = new ServiceThread(  handler );
         thread.start();
 //        thread.stopForever();
@@ -84,7 +104,7 @@ public class BackgroundAlarmService extends Service {
                     .setSmallIcon( R.drawable.appicon )
                     .setLargeIcon( BitmapFactory.decodeResource( getResources(), R.drawable.appicon ) )
                     .setContentTitle( "Title" )
-                    .setContentText( "ContentText" )
+                    .setContentText( "좋아요 수에 변화가 생겼습니다." )
                     .setAutoCancel( true )
                     .setSound( soundUri )
                     .setContentIntent( pendingIntent )
@@ -92,24 +112,43 @@ public class BackgroundAlarmService extends Service {
                     .setOnlyAlertOnce( true )
                     .setChannelId( "my_notification" )
                     .setColor( Color.parseColor( "#ffffff" ) );
-            //.setProgress(100,50,false);
             assert notificationManager != null;
-//            int m = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
-//            Calendar cal = Calendar.getInstance();
-//            int hour = cal.get( Calendar.HOUR_OF_DAY );
-//            if (hour == 18) {
-//                notificationManager.notify( m, notificationBuilder.build() );
-//                thread.stopForever();
-//            } else if (hour == 22) {
-//                notificationManager.notify( m, notificationBuilder.build() );
-//                thread.stopForever();
+
+            // 아래의 조건을 db에 가는걸로 바꾸자. 됐으면 좋겠다....
+
+//            if(counter == 1) {
+//                Log.e("Thread", "들어왔다.");
+//                notificationManager.notify(counter, notificationBuilder.build());
+//                counter++;
 //            }
-            int counter = 1;
-            if(counter == 1) {
-                notificationManager.notify(counter, notificationBuilder.build());
-                counter++;
+
+            db.collection("users")
+                    .document(firebaseUser.getUid()).collection("board_likes").get().addOnCompleteListener(task -> {
+                        // 어떤 형태로든 변화가 생기면 알람을 주고싶은데...
+                if(task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        String temp = (String)documentSnapshot.getData().get("user");
+                        Updated.add(temp);
+                    }
+                } });
+            if(Updated.size() != Original.size()) {
+                notificationManager.notify(1, notificationBuilder.build());
+                Original_data_crawl();  // Original 리스트를 다시 변화된 값으로 최신화.
             }
         }
     }
 
+    private void Original_data_crawl() {
+        db.collection("users")
+                .document(firebaseUser.getUid()).collection("board_likes").get().addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
+                        for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                            String temp = (String)documentSnapshot.getData().get("user");
+                            Log.e("woong", "" + temp);
+                            Original.add(temp);
+                        }
+                        Log.e("test", " " + Original.size());
+                    }
+                });
+    }
 }
