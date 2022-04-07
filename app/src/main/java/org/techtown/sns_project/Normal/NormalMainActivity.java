@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.techtown.sns_project.CommonSignInActivity;
+import org.techtown.sns_project.InitialActivity;
 import org.techtown.sns_project.Normal.Setting.NormalSettingActivity;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.Camera.ScanQR;
@@ -26,6 +27,7 @@ import org.techtown.sns_project.fragment.HomeFragment;
 import org.techtown.sns_project.fragment.profile.ProfileFragment;
 import org.techtown.sns_project.fragment.SearchFragment;
 import org.techtown.sns_project.fragment.SomethingFragment;
+import org.techtown.sns_project.pushAlarm.BackgroundAlarmService;
 
 
 public class NormalMainActivity extends AppCompatActivity {
@@ -42,6 +44,9 @@ public class NormalMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal_main);
         //findViewById(R.id.NormalQRScanButton).setOnClickListener(onClickListener);
+
+        Intent serviceintent = new Intent( NormalMainActivity.this, BackgroundAlarmService.class );
+        startService( serviceintent );
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
