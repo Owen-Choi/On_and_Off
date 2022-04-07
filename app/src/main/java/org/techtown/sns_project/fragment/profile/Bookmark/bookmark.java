@@ -76,7 +76,7 @@ public class bookmark extends AppCompatActivity {
                         //중복 방지
                         MysavepostID.clear();
                         for (QueryDocumentSnapshot document : task.getResult()){
-                            //post ID가 저장 되겠지..?
+                            //내가 저장한 post ID가 저장 되됨
                             MysavepostID.add(document.getId());
                         }
                     }
