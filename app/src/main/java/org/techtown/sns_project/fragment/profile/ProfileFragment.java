@@ -70,7 +70,7 @@ public class ProfileFragment extends Fragment {
     String userNick;
 
     //프사 관련 변수
-    CircleImageView imageView;
+    static CircleImageView imageView;
     private Uri photoUri;
     private Boolean isPermission = true;
     final CharSequence[] selectOption = {"앨범에서 사진 선택", "기본 이미지로 변경"};
@@ -401,7 +401,7 @@ public class ProfileFragment extends Fragment {
     }
 
     //storage 프사 정보 삭제
-    private void delProfile(String filename_GetUid) {
+    public static void delProfile(String filename_GetUid) {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageFef = storage.getReference();
