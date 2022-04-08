@@ -48,8 +48,8 @@ public class AllFragment extends Fragment {
             bundle = getArguments();
             post_publisher = bundle.getString("post_publisher");
             System.out.println("BUDLE"+post_publisher);
+            scatter(post_publisher);
         }
-
         View v = inflater.inflate(R.layout.activity_closet_all, container, false);
 
         //recyclerview
@@ -60,8 +60,9 @@ public class AllFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         //파베에서 옷 정보 가져와서 어뎁터에 전달
-        scatter(post_publisher);
+
         ClosetMainActivity.whatFragment("all");
+
 
         //클릭시 삭제 or 코디
         Closet_adapter.setOnItemClickListener(new ClosetAdapter.OnItemClickListener() {
