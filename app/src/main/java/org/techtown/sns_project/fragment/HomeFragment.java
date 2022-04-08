@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
                         adapter.listData.clear();
                         int count=0;
                         for(QueryDocumentSnapshot document : task.getResult()) {
-                            int like =nrLikes(document.getId());
+
 //             List = (HashMap<String, Object>) document.getData();
                             df = document.toObject(DataFormat.class);
                             listImgUrl.add(df.getImageUrl());
@@ -98,36 +98,34 @@ public class HomeFragment extends Fragment {
                             listDescription.add(df.getDescription());
                             listDocument.add(document.getId());
                             listOfList.add(df.getList());
-<<<<<<<<< Temporary merge branch 1
+
+                            listLike.add(df.getNrlikes());
                             count++;
-                            Log.e(TAG, count+"COUNT : "+like);
-=========
-                            listLike.add(df.getLike());
-                            count++;
-                            System.out.println(count+"COUNT"+df.getLike()+df.getPublisher()+ df.getImageUrl()+ df.getDescription());
->>>>>>>>> Temporary merge branch 2
+                            System.out.println(count+"COUNT"+df.getNrlikes()+df.getPublisher()+ df.getImageUrl()+ df.getDescription());
+
                             if (num < ranking) {
-                                LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getLike());
+                                LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getNrlikes());
                                 likeRank.add(num, data);
                                 num++;
-                                if (num == ranking) {
+                                if (num == 5) {
                                     Collections.sort(likeRank, new BoardLikeComparator());
 
-                                    for(int i=0; i<10; i++)
+                                    for(int i=0; i<5; i++)
                                         System.out.println("test"+likeRank.get(i).getLike());
 
                                 }
 
                             } else {
                                 for (int i = 0; i < ranking; i++) {
-                                    if (likeRank.get(i).getLike() < df.getLike()) {
-                                        LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getLike());
+                                    if (likeRank.get(i).getLike() < df.getNrlikes()) {
+                                        LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getNrlikes());
                                         likeRank.add(i, data);
                                         likeRank.remove(ranking + 1);
                                     }
                                 }
                             }
                         }
+
                         adapter.addItemList(likeRank);
                         adapter.notifyDataSetChanged();
                     }
@@ -153,27 +151,7 @@ public class HomeFragment extends Fragment {
         startActivity(intent);
     }
 
-    private int nrLikes(String post_document) {
-        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        CollectionReference likesRef = db.collection("board").document(post_document).collection("Likes");
-        likesRef.get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        nrlikes = 0;
-                        if (task.isSuccessful()) {
-                            Log.e(TAG, "nrLikes: hi there");
-                            for (DocumentSnapshot document : task.getResult()) {
-                                nrlikes++;
-                            }
-                            Log.e(TAG, "In NRLIKES : " + nrlikes);
-                        } else {
-                            Log.d("nrlikes", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-        return nrlikes;
-    }
+
     class BoardLikeComparator implements Comparator<LikeBoardInfo> {
         @Override
         public int compare(LikeBoardInfo f1, LikeBoardInfo f2) {
