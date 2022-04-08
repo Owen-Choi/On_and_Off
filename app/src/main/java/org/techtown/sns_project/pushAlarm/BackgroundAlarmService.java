@@ -129,8 +129,8 @@ public class BackgroundAlarmService extends Service {
                         Updated.add(temp);
                     }
                 } });
-            Log.e("updated", "fucking updated" + Updated.size());
-            Log.e("original", "fucking original " + Original.size());
+            //Log.e("updated", "fucking updated" + Updated.size());
+            //Log.e("original", "fucking original " + Original.size());
             if(Updated.size() != Original.size()) {
                 notificationManager.notify(id_counter++, notificationBuilder.build());
                 Original.clear();
