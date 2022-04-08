@@ -6,10 +6,15 @@ import java.util.ArrayList;
 
 public class DataFormat {
     String ImageUrl, publisher, description,userid;
+    int nrlikes;
     ArrayList<ProductInfo> list;
 
     public String getUserid() {
         return userid;
+    }
+
+    public int getNrlikes() {
+        return nrlikes;
     }
 
     public void setUserid(String userid) {

@@ -58,7 +58,7 @@ public class ProfileFragment extends Fragment {
 
     //파이어베이스
     FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
+        FirebaseUser firebaseUser;
     FirebaseFirestore db;
 
     //recyclerview
@@ -212,6 +212,7 @@ public class ProfileFragment extends Fragment {
                 task -> {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
+                        System.out.println("userID"+firebaseUser.getUid());
                         userNick = document.getData().get("name").toString();
                         view.findViewById(R.id.ClosetButton).setOnClickListener(onClickListener);
                         textView.setText(userNick);
