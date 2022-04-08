@@ -23,6 +23,7 @@ import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
 import org.techtown.sns_project.Normal.Setting.NormalMemberInfo;
 import org.techtown.sns_project.Password_Init_Activity;
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.fragment.profile.ProfileFragment;
 
 
 public class SettingsFragment extends PreferenceFragmentCompat {
@@ -93,6 +94,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         db.collection("users").document(firebaseAuth.getCurrentUser().getUid())
                                 .delete();
+                        //파베 storage에서 프사 정보 삭제 - 인범 추가
+                        ProfileFragment.delProfile(firebaseAuth.getCurrentUser().getUid());
                         StartActivity(CommonSignInActivity.class);
                     }
                 });
