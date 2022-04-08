@@ -2,6 +2,7 @@ package org.techtown.sns_project.fragment.profile.Bookmark;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -47,12 +48,63 @@ public class bookmark extends AppCompatActivity {
     static ArrayList<String> MysavepostID = new ArrayList<>();
     HashMap<String, Object> List;
 
+    String tag = "bookmark ";
+
+    //Activity의 생명주기
+    //수업 강의 자료 참고
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //파베에서 내가 save한 게시물id 가져오기
+        scatter();
+
+        Log.e(tag,"In the onStart() event");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        //Log.e(tag,"In the onRestart() event");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Log.e(tag,"In the onResume() event");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //Log.e(tag,"In the onPause() event");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        //Log.e(tag,"In the onStop() event");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        //Log.e(tag,"In the onDestroy() event");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark);
+
+        Log.e(tag,"In the onCreate() event");
 
         //타이틀 숨기기
         ActionBar actionBar = getSupportActionBar();
@@ -68,7 +120,30 @@ public class bookmark extends AppCompatActivity {
         adapter = new bookmark_ListViewAdapter();
         listview.setAdapter(adapter);
 
+        //북마크 아이템 뷰 클릭 이벤트
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(getApplicationContext(), BoardPostClickEvent.class);
+                intent.putExtra("position", position);
+                intent.putExtra("listImgUrl", listImgUrl);
+                intent.putExtra("listPublisher", listPublisher);
+                intent.putExtra("listDescription", listDescription);
+                intent.putExtra("listOfList", listOfList);
+                intent.putExtra("listDocument", listDocument);
+                System.out.println("Start activity :" + listImgUrl);
+                startActivity(intent);
+
+            }
+        });
+
+    }
+
+    public void scatter(){
         //파베에서 내가 save한 게시물id 가져오기
+        adapter.clearList();
+        adapter.notifyDataSetChanged();
         db.collection("users").document(firebaseUser.getUid()).
                 collection("board_saves").get().
                 addOnCompleteListener(task -> {
@@ -76,7 +151,7 @@ public class bookmark extends AppCompatActivity {
                         //중복 방지
                         MysavepostID.clear();
                         for (QueryDocumentSnapshot document : task.getResult()){
-                            //post ID가 저장 되겠지..?
+                            //내가 저장한 post ID가 저장 되됨
                             MysavepostID.add(document.getId());
                         }
                     }
@@ -99,13 +174,16 @@ public class bookmark extends AppCompatActivity {
 
                                         df = document.toObject(DataFormat.class);
 
-                                        MyProfile_info data = new MyProfile_info(
-                                                (String) List.get("publisher"),
-                                                (String) List.get("imageUrl"),
-                                                (String) List.get("description"));
+                                        if(List!=null) { //게시글 삭제했을 때 board_saves 에서까지 굳이 삭제 안되도 일 북마크 돌아가게끔 설정단. 다만 파베에 데이터가 계속 쌓일뿐,,
+                                            MyProfile_info data = new MyProfile_info(
+                                                    (String) List.get("publisher"),
+                                                    (String) List.get("imageUrl"),
+                                                    (String) List.get("description"));
 
-                                        //밑에 클릭 이벤트에서 position 변수 매치가 안되서 3개 다 넘김
-                                        adapter.addItem(data, df, document);
+                                            //밑에 클릭 이벤트에서 position 변수 매치가 안되서 3개 다 넘김
+                                            adapter.addItem(data, df, document);
+                                        }
+
 
                                     }
                                     adapter.notifyDataSetChanged();
@@ -113,26 +191,6 @@ public class bookmark extends AppCompatActivity {
                                 });
                     }
                 });
-
-
-        //북마크 아이템 뷰 클릭 이벤트
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent = new Intent(getApplicationContext(), BoardPostClickEvent.class);
-                intent.putExtra("position", position);
-                intent.putExtra("listImgUrl", listImgUrl);
-                intent.putExtra("listPublisher", listPublisher);
-                intent.putExtra("listDescription", listDescription);
-                intent.putExtra("listOfList", listOfList);
-                intent.putExtra("listDocument", listDocument);
-                System.out.println("Start activity :" + listImgUrl);
-                startActivity(intent);
-
-            }
-        });
-
     }
 
     private void StartActivity(Class c) {

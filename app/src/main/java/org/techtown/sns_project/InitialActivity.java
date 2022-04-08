@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.techtown.sns_project.Enterprise.EnterpriseMainActivity;
 import org.techtown.sns_project.Normal.NormalMainActivity;
+import org.techtown.sns_project.pushAlarm.BackgroundAlarmService;
 
 public class InitialActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;

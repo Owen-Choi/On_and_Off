@@ -26,6 +26,7 @@
                     android:layout_height="40dp"
                     android:layout_margin="10dp" />
 
+
                 <TextView
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
@@ -34,6 +35,21 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="16sp"
                     android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="right"
+                    android:src="@drawable/ic_more"
+                    android:id="@+id/more"
+                    android:layout_margin="10dp"/>
+
 
             </LinearLayout>
 
@@ -110,7 +126,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
-                android:text="View All 20 Comments"
+                android:text="댓글 더보기"
                 android:textColor="@color/colorAccent" />
 
             <androidx.recyclerview.widget.RecyclerView
