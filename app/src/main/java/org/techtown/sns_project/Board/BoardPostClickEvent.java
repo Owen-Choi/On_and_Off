@@ -36,6 +36,7 @@ import com.google.firebase.storage.StorageReference;
 
 import org.techtown.sns_project.Board.CommentsActivity;
 import org.techtown.sns_project.Board.Upload.url.upload_items_adapter;
+import org.techtown.sns_project.Board.profile.ProfileActivity;
 import org.techtown.sns_project.Camera.Activity_codi;
 import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListActivity;
 import org.techtown.sns_project.Model.PostInfo;
@@ -197,6 +198,23 @@ public class BoardPostClickEvent extends AppCompatActivity {
 
         /*getCommetns(post.getPostid(), holder.comments);*/
 
+        post_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                intent.putExtra("post_publisher", post_publisher);
+                startActivity(intent);
+            }
+        });
+
+        username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                intent.putExtra("post_publisher", post_publisher);
+                startActivity(intent);
+            }
+        });
 
         //Like
         CollectionReference likesRef = db.collection("board").document(post_document).collection("Likes");
