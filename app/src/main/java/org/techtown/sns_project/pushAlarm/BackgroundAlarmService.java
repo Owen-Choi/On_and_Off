@@ -42,7 +42,7 @@ public class BackgroundAlarmService extends Service {
 
     ArrayList<String> Original;
     ArrayList<String> Updated;
-    int id_counter = 0;
+    static int id_counter = 0;
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -105,7 +105,7 @@ public class BackgroundAlarmService extends Service {
                     .setSmallIcon( R.drawable.appicon )
                     .setLargeIcon( BitmapFactory.decodeResource( getResources(), R.drawable.appicon ) )
                     .setContentTitle( "Title" )
-                    .setContentText( "좋아요 수에 변화가 생겼습니다." )
+                    .setContentText( "좋아요가 눌렸습니다." )
                     .setAutoCancel( true )
                     .setSound( soundUri )
                     .setContentIntent( pendingIntent )
@@ -115,11 +115,7 @@ public class BackgroundAlarmService extends Service {
                     .setColor( Color.parseColor( "#ffffff" ) );
             assert notificationManager != null;
 
-//            if(counter == 1) {
-//                Log.e("Thread", "들어왔다.");
-//                notificationManager.notify(counter, notificationBuilder.build());
-//                counter++;
-//            }
+
             db.collection("users")
                     .document(firebaseUser.getUid()).collection("board_likes").get().addOnCompleteListener(task -> {
                 if(task.isSuccessful()) {
@@ -129,10 +125,10 @@ public class BackgroundAlarmService extends Service {
                         Updated.add(temp);
                     }
                 } });
-            //Log.e("updated", "fucking updated" + Updated.size());
-            //Log.e("original", "fucking original " + Original.size());
+
             if(Updated.size() != Original.size()) {
-                notificationManager.notify(id_counter++, notificationBuilder.build());
+                if(Updated.size() > Original.size())
+                    notificationManager.notify(id_counter++, notificationBuilder.build());
                 Original.clear();
                 Data_crawl(Original);  // Original 리스트를 다시 변화된 값으로 최신화.
             }

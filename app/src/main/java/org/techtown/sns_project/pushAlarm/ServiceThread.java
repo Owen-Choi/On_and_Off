@@ -20,8 +20,9 @@ public class ServiceThread extends Thread {
         while (isRun) {
             handler.sendEmptyMessage( 0 );
         //쓰레드에 있는 핸들러에게 메세지를 보냄
-            try { Thread.sleep( 1000 );
-                //10초씩 쉰다.
+            try { Thread.sleep( 2000 );
+                // 쓰레드는 2초를 주기로 돌아간다.
+                // 알람은 캐시로 쓰라던데
                 } catch (Exception e) { } } }
 
 }
