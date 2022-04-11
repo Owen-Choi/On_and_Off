@@ -125,6 +125,7 @@ public class BackgroundAlarmService extends Service {
                         Updated.add(temp);
                     }
                 } });
+
             if(Updated.size() != Original.size()) {
                 if(Updated.size() > Original.size())
                     notificationManager.notify(id_counter++, notificationBuilder.build());
