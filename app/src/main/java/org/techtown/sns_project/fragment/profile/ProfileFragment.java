@@ -122,14 +122,9 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    // 추가 좀 할게 인범아
     @Override
     public void onResume() {
         super.onResume();
-        Log.e(TAG, "onResume()");
-        Bundle bundle = getArguments();
-        alarmCount = bundle.getInt("alarm_count");
-        alarm_textView.setText(alarmCount);
     }
 
     //이 시점부터 fragment is active 상태이다.
