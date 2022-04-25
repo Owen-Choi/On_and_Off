@@ -17,6 +17,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -125,10 +126,11 @@ public class BackgroundAlarmService extends Service {
                         Updated.add(temp);
                     }
                 } });
-
             if(Updated.size() != Original.size()) {
-                if(Updated.size() > Original.size())
+                if(Updated.size() > Original.size()) {
                     notificationManager.notify(id_counter++, notificationBuilder.build());
+                    send_Message(id_counter);
+                }
                 Original.clear();
                 Data_crawl(Original);  // Original 리스트를 다시 변화된 값으로 최신화.
             }
@@ -145,5 +147,12 @@ public class BackgroundAlarmService extends Service {
                         }
                     }
                 });
+    }
+
+    private void send_Message(int id_counter) {
+        Intent intent = new Intent("Alarm_Count");
+        intent.putExtra("alarm_count", id_counter);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        Log.e("woong service", "send");
     }
 }
