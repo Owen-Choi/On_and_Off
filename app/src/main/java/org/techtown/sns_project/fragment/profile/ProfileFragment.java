@@ -3,9 +3,11 @@ package org.techtown.sns_project.fragment.profile;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,6 +42,7 @@ import com.gun0912.tedpermission.TedPermission;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.techtown.sns_project.Board.BoardPostClickEvent;
+import org.techtown.sns_project.Normal.NormalMainActivity;
 import org.techtown.sns_project.Normal.Setting.NormalSettingActivity;
 import org.techtown.sns_project.fragment.profile.Closet.ClosetMainActivity;
 import org.techtown.sns_project.R;
@@ -55,7 +59,7 @@ public class ProfileFragment extends Fragment {
 
     private View view;
     private String TAG = "profile ";
-
+    private int alarmCount = 0;
     //파이어베이스
     FirebaseAuth firebaseAuth;
         FirebaseUser firebaseUser;
@@ -84,6 +88,9 @@ public class ProfileFragment extends Fragment {
     static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
     DataFormat df;
 
+    // 알람 표시 관련 변수 - 철웅 추가
+    TextView alarm_textView;
+
     //프래그먼트의 생명주기
     //https://ddangeun.tistory.com/50 -> 프래그먼트 생명주기 참고
     //이 시점부터 fragment is added 상태이다.
@@ -111,15 +118,24 @@ public class ProfileFragment extends Fragment {
     public void onStart() {
         super.onStart();
         Log.e(TAG, "onStart()");
-
-        //파베에서 내가 포스트한 게시글 가져와서 뿌려주기
         scatter();
+
     }
 
+    // 추가 좀 할게 인범아
     @Override
     public void onResume() {
         super.onResume();
-        //Log.e(TAG, "onResume()");
+        Log.e(TAG, "onResume()");
+        BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                alarmCount = intent.getIntExtra("alarm_count", 0);
+                Log.e(TAG, " : " + alarmCount);
+                alarm_textView.setText(alarmCount);
+            }
+        };
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver, new IntentFilter("Alarm_count"));
     }
 
     //이 시점부터 fragment is active 상태이다.
@@ -224,6 +240,8 @@ public class ProfileFragment extends Fragment {
         //storage에서 프사 가져오기
         setFireBaseProfileImage(firebaseUser.getUid());
 
+        // 알람 개수 표시 관련 - 철웅 추가
+        alarm_textView = view.findViewById(R.id.Alarm_Count);
         //프사 클릭시 설정
         view.findViewById(R.id.circle_img).setOnClickListener(new View.OnClickListener() {
 

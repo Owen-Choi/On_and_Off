@@ -4,9 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,6 +44,7 @@ public class NormalMainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private long backKeyPressedTime = 0;
     private Toast terminate_guide_msg;
+    public int alarmCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +111,17 @@ public class NormalMainActivity extends AppCompatActivity {
             }
         });
 
+        //textView = view.findViewById(R.id.Alarm_Count);
+        BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                alarmCount = intent.getIntExtra("alarm_count", 0);
+                Bundle bundle = new Bundle();
+                bundle.putInt("alarm_count", alarmCount);
+                Profile_Fragment.setArguments(bundle);
+            }
+        };
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("Alarm_count"));
     }
     private void StartActivity(Class c) {
         Intent intent = new Intent(this, c);
