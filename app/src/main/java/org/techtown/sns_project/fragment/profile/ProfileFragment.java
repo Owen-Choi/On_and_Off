@@ -127,15 +127,9 @@ public class ProfileFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.e(TAG, "onResume()");
-        BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                alarmCount = intent.getIntExtra("alarm_count", 0);
-                Log.e(TAG, " : " + alarmCount);
-                alarm_textView.setText(alarmCount);
-            }
-        };
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver, new IntentFilter("Alarm_count"));
+        Bundle bundle = getArguments();
+        alarmCount = bundle.getInt("alarm_count");
+        alarm_textView.setText(alarmCount);
     }
 
     //이 시점부터 fragment is active 상태이다.

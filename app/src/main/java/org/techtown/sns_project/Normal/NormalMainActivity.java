@@ -111,11 +111,18 @@ public class NormalMainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("woong", "hi there");
         //textView = view.findViewById(R.id.Alarm_Count);
         BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 alarmCount = intent.getIntExtra("alarm_count", 0);
+                Log.e("woong", " " + alarmCount);
                 Bundle bundle = new Bundle();
                 bundle.putInt("alarm_count", alarmCount);
                 Profile_Fragment.setArguments(bundle);
@@ -123,6 +130,7 @@ public class NormalMainActivity extends AppCompatActivity {
         };
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("Alarm_count"));
     }
+
     private void StartActivity(Class c) {
         Intent intent = new Intent(this, c);
         startActivity(intent);
@@ -144,7 +152,6 @@ public class NormalMainActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
 
 
     @Override

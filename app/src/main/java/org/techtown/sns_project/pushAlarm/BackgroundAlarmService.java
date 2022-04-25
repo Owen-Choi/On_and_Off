@@ -153,5 +153,6 @@ public class BackgroundAlarmService extends Service {
         Intent intent = new Intent("Alarm_Count");
         intent.putExtra("alarm_count", id_counter);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        Log.e("woong service", "send");
     }
 }
