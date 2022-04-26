@@ -4,9 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,6 +44,8 @@ public class NormalMainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private long backKeyPressedTime = 0;
     private Toast terminate_guide_msg;
+    public int alarmCount;
+    private BroadcastReceiver mReceiver = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +113,13 @@ public class NormalMainActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("woong", "hi there");
+    }
+
     private void StartActivity(Class c) {
         Intent intent = new Intent(this, c);
         startActivity(intent);
@@ -127,7 +141,6 @@ public class NormalMainActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
 
 
     @Override
@@ -165,4 +178,5 @@ public class NormalMainActivity extends AppCompatActivity {
         }
 
     }
+
 }
