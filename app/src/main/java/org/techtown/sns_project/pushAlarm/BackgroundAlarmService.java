@@ -41,8 +41,10 @@ public class BackgroundAlarmService extends Service {
     FirebaseUser firebaseUser;
     FirebaseFirestore db;
 
-    ArrayList<String> Original;
-    ArrayList<String> Updated;
+//    ArrayList<String> Original;
+//    ArrayList<String> Updated;
+    ArrayList<Long> Original;
+    ArrayList<Long> Updated;
     static int id_counter = 0;
     @Override
     public IBinder onBind(Intent intent) {
@@ -117,42 +119,77 @@ public class BackgroundAlarmService extends Service {
             assert notificationManager != null;
 
 
+//            db.collection("users")
+//                    .document(firebaseUser.getUid()).collection("board_likes").get().addOnCompleteListener(task -> {
+//                if(task.isSuccessful()) {
+//                    Updated.clear();
+//                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+//                        String temp = (String)documentSnapshot.getData().get("user");
+//                        Updated.add(temp);
+//                    }
+//                } });
+//            if(Updated.size() != Original.size()) {
+//                if(Updated.size() > Original.size()) {
+//                    notificationManager.notify(id_counter++, notificationBuilder.build());
+//                    send_Message(id_counter);
+//                }
+//                Original.clear();
+//                Data_crawl(Original);  // Original 리스트를 다시 변화된 값으로 최신화.
+//            }
             db.collection("users")
-                    .document(firebaseUser.getUid()).collection("board_likes").get().addOnCompleteListener(task -> {
+                    .document(firebaseUser.getUid()).collection("Myboard")
+                    .get().addOnCompleteListener(task -> {
                 if(task.isSuccessful()) {
                     Updated.clear();
                     for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                        String temp = (String)documentSnapshot.getData().get("user");
+                        Long temp = (Long)documentSnapshot.getData().get("nrlikes");
+                        Log.e("woong", "handleMessage1 : " + temp);
                         Updated.add(temp);
                     }
+                    Log.e("woong", "handleMessage2 : " + Original.size());
                 } });
-            if(Updated.size() != Original.size()) {
-                if(Updated.size() > Original.size()) {
-                    notificationManager.notify(id_counter++, notificationBuilder.build());
-                    send_Message(id_counter);
+            // 게시글이 없으면 발생하는 IndexOutOfBound를 방지하기 위한 조건문.
+            if(Original.size() > 0) {
+                for (int i = 0; i < Original.size(); i++) {
+                    if (Updated.get(i).equals(Original.get(i))) {
+                        if (Updated.get(i) > Original.get(i))
+                            notificationManager.notify(id_counter++, notificationBuilder.build());
+                        Original.clear();
+                        Data_crawl(Original);
+                        break;
+                    }
                 }
-                Original.clear();
-                Data_crawl(Original);  // Original 리스트를 다시 변화된 값으로 최신화.
             }
+//            if(Updated.size() != Original.size()) {
+//                if(Updated.size() > Original.size()) {
+//                    notificationManager.notify(id_counter++, notificationBuilder.build());
+//                }
+//                Original.clear();
+//                Data_crawl(Original);  // Original 리스트를 다시 변화된 값으로 최신화.
+//            }
         }
     }
 
-    private void Data_crawl(ArrayList<String> param_list) {
+//    private void Data_crawl(ArrayList<String> param_list) {
+//        db.collection("users")
+//                .document(firebaseUser.getUid()).collection("board_likes").get().addOnCompleteListener(task -> {
+//                    if(task.isSuccessful()) {
+//                        for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+//                            String temp = (String)documentSnapshot.getData().get("user");
+//                            param_list.add(temp);
+//                        }
+//                    }
+//                });
+//    }
+private void Data_crawl(ArrayList<Long> param_list) {
         db.collection("users")
-                .document(firebaseUser.getUid()).collection("board_likes").get().addOnCompleteListener(task -> {
-                    if(task.isSuccessful()) {
-                        for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                            String temp = (String)documentSnapshot.getData().get("user");
-                            param_list.add(temp);
-                        }
-                    }
-                });
-    }
-
-    private void send_Message(int id_counter) {
-        Intent intent = new Intent("Alarm_Count");
-        intent.putExtra("alarm_count", id_counter);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-        Log.e("woong service", "send");
+            .document(firebaseUser.getUid()).collection("Myboard")
+            .get().addOnCompleteListener(task -> {
+        if(task.isSuccessful()) {
+            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                Long temp = (Long)documentSnapshot.getData().get("nrlikes");
+                param_list.add(temp);
+            }
+        } });
     }
 }
