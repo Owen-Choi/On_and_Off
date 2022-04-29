@@ -117,7 +117,8 @@ public class HomeFragment extends Fragment {
                                     if (likeRank.get(i).getNrlikes() < df.getNrlikes()) {
                                         LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getNrlikes(), document.getId());
                                         likeRank.add(i, data);
-                                        likeRank.remove(ranking + 1);
+                                        likeRank.remove(ranking-1);
+                                        break;
                                     }
                                 }
                             }
