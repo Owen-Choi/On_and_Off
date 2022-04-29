@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,13 @@ public class EnterpriseMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enterprise_main);
+        ActionBar ac = getSupportActionBar();
+        getSupportActionBar().setIcon(R.drawable.onandofflogo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         findViewById(R.id.EnterpsireQRButton).setOnClickListener(onClickListener);
         findViewById(R.id.EnterpriseQRListButton).setOnClickListener(onClickListener);
         // manifest에서 첫 화면은 MainActivity로 설정되어있는데,
@@ -58,6 +66,7 @@ public class EnterpriseMainActivity extends AppCompatActivity {
                 StartActivity(CommonSignInActivity.class);
                 finish();
                 break;
+
         }
 
         return super.onOptionsItemSelected(item);
