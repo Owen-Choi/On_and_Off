@@ -28,7 +28,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.techtown.sns_project.Board.BoardAdapter;
-import org.techtown.sns_project.Board.BoardPostClickEvent;
+import org.techtown.sns_project.Board.LikeBoardPostClickEvent;
 import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListAdapter;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.Normal.Home.HomeFragmentLikeListAdpater;
@@ -43,7 +43,7 @@ import java.util.Comparator;
 
 public class HomeFragment extends Fragment {
     private View view;
-    private String TAG = "프래그먼트";
+    private String TAG = "homefragmentTag";
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
     static ArrayList<String> listPublisher = new ArrayList<>();
     public static ArrayList<String> listDocument = new ArrayList<>();
     static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
-    ArrayList<LikeBoardInfo> likeRank = new ArrayList<>();
+    static ArrayList<LikeBoardInfo> likeRank = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,15 +70,7 @@ public class HomeFragment extends Fragment {
         recyclerView_LikeList.setLayoutManager(LikeList);
         adapter = new HomeFragmentLikeListAdpater();
         recyclerView_LikeList.setAdapter(adapter);
-        adapter.setOnItemClickListener (new HomeFragmentLikeListAdpater.OnItemClickListener () {
 
-            //아이템 클릭시 토스트메시지
-            @Override
-            public void onItemClick(View v, int position) {
-
-                StartActivity(BoardPostClickEvent.class,position);
-            }
-        });
         db.collectionGroup("board").get().
                 addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
@@ -88,7 +80,9 @@ public class HomeFragment extends Fragment {
                         listOfList.clear();
                         listDocument.clear();
                         adapter.listData.clear();
+                        likeRank.clear();
                         int count=0;
+                        num =0;
                         for(QueryDocumentSnapshot document : task.getResult()) {
 
 //             List = (HashMap<String, Object>) document.getData();
@@ -100,29 +94,33 @@ public class HomeFragment extends Fragment {
                             listOfList.add(df.getList());
                             listLike.add(df.getNrlikes());
                             count++;
-                            System.out.println(count+"COUNT"+df.getNrlikes()+df.getPublisher()+ df.getImageUrl()+ df.getDescription());
+                            Log.d(TAG,count+"COUNT"+"LIKE:"+df.getNrlikes()+
+                                    "\nPublisher:"+df.getPublisher()+ "\nImageUrl:"+
+                                    df.getImageUrl()+ "\ndescription:"+ df.getDescription()
+                                    +"\ndocumentID:"+document.getId());
 
-//                            if (num < ranking) {
-//                                LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getNrlikes());
-//                                likeRank.add(num, data);6
-//                                num++;
-//                                if (num == 5) {
-//                                    Collections.sort(likeRank, new BoardLikeComparator());
-//
-//                                    for(int i=0; i<5; i++)
-//                                        System.out.println("test"+likeRank.get(i).getLike());
-//
-//                                }
-//
-//                            } else {
-//                                for (int i = 0; i < ranking; i++) {
-//                                    if (likeRank.get(i).getLike() < df.getNrlikes()) {
-//                                        LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getNrlikes());
-//                                        likeRank.add(i, data);
-//                                        likeRank.remove(ranking + 1);
-//                                    }
-//                                }
-//                            }
+                            if (num < ranking) {
+                                LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getNrlikes(),document.getId());
+                                likeRank.add(data);
+                                num++;
+                                for(int i=0; i<likeRank.size(); i++)
+                                    System.out.println("before"+num+likeRank.get(i).getNrlikes());
+
+                                Collections.sort(likeRank, new BoardLikeComparator());
+                                for(int i=0; i<likeRank.size(); i++)
+                                    System.out.println("after"+num+likeRank.get(i).getNrlikes());
+
+
+
+                            } else {
+                                for (int i = 0; i < ranking; i++) {
+                                    if (likeRank.get(i).getNrlikes() < df.getNrlikes()) {
+                                        LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getNrlikes(), document.getId());
+                                        likeRank.add(i, data);
+                                        likeRank.remove(ranking + 1);
+                                    }
+                                }
+                            }
                         }
 
                         adapter.addItemList(likeRank);
@@ -131,19 +129,27 @@ public class HomeFragment extends Fragment {
 
 
                 });
+        adapter.setOnItemClickListener (new HomeFragmentLikeListAdpater.OnItemClickListener () {
+
+            //아이템 클릭시 토스트메시지
+            @Override
+            public void onItemClick(View v, int position) {
+                System.out.println("POSITION :"+position);
+                StartActivity(LikeBoardPostClickEvent.class,position);
+            }
+        });
           return view;
     }
 
 
 
-    private void StartActivity(Class<BoardPostClickEvent> boardPostClickEventClass, int position) {
-        Intent intent = new Intent(getContext(),boardPostClickEventClass);
-        intent.putExtra("position",position);
-        intent.putExtra("listImgUrl",listImgUrl);
-        intent.putExtra("listPublisher",listPublisher);
-        intent.putExtra("listDescription",listDescription);
-        intent.putExtra("listOfList", listOfList);
-        intent.putExtra("listDocument",listDocument);
+    private void StartActivity(Class<LikeBoardPostClickEvent> LikeBoardPostClickEventClass, int position) {
+        Intent intent = new Intent(getContext(),LikeBoardPostClickEventClass);
+        ArrayList<LikeBoardInfo> listData = adapter.getItem();
+        intent.putExtra("listImgUrl",listData.get(position).getImgURL());
+        intent.putExtra("listPublisher",listData.get(position).getPublisher());
+        intent.putExtra("listDescription",listData.get(position).getDescrpition());
+        intent.putExtra("listDocument",listData.get(position).getDocument());
 
         System.out.println("Start activity :" + listImgUrl);
 
@@ -154,10 +160,10 @@ public class HomeFragment extends Fragment {
     class BoardLikeComparator implements Comparator<LikeBoardInfo> {
         @Override
         public int compare(LikeBoardInfo f1, LikeBoardInfo f2) {
-            Log.e(TAG, "TEST"+f1.getLike() + f2.getLike());
-            if (f1.like > f2.like) {
+            Log.e("COMPARETEST", Integer.toString(f1.getNrlikes()) + Integer.toString(f2.getNrlikes()));
+            if (f1.getNrlikes() < f2.getNrlikes()) {
                 return 1;
-            } else if (f1.getLike() < f2.getLike()) {
+            } else if (f1.getNrlikes() > f2.getNrlikes()) {
                 return -1;
             }
             return 0;
