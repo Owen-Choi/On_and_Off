@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView recyclerView_LikeList;
-    DataFormat df;
+    LikeDataFormat df;
     static int nrlikes =0;
     int ranking=10;
     int num=0;
@@ -92,38 +92,37 @@ public class HomeFragment extends Fragment {
                         for(QueryDocumentSnapshot document : task.getResult()) {
 
 //             List = (HashMap<String, Object>) document.getData();
-                            df = document.toObject(DataFormat.class);
+                            df = document.toObject(LikeDataFormat.class);
                             listImgUrl.add(df.getImageUrl());
                             listPublisher.add(df.getPublisher());
                             listDescription.add(df.getDescription());
                             listDocument.add(document.getId());
                             listOfList.add(df.getList());
-
                             listLike.add(df.getNrlikes());
                             count++;
                             System.out.println(count+"COUNT"+df.getNrlikes()+df.getPublisher()+ df.getImageUrl()+ df.getDescription());
 
-                            if (num < ranking) {
-                                LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getNrlikes());
-                                likeRank.add(num, data);
-                                num++;
-                                if (num == 5) {
-                                    Collections.sort(likeRank, new BoardLikeComparator());
-
-                                    for(int i=0; i<5; i++)
-                                        System.out.println("test"+likeRank.get(i).getLike());
-
-                                }
-
-                            } else {
-                                for (int i = 0; i < ranking; i++) {
-                                    if (likeRank.get(i).getLike() < df.getNrlikes()) {
-                                        LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getNrlikes());
-                                        likeRank.add(i, data);
-                                        likeRank.remove(ranking + 1);
-                                    }
-                                }
-                            }
+//                            if (num < ranking) {
+//                                LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getNrlikes());
+//                                likeRank.add(num, data);6
+//                                num++;
+//                                if (num == 5) {
+//                                    Collections.sort(likeRank, new BoardLikeComparator());
+//
+//                                    for(int i=0; i<5; i++)
+//                                        System.out.println("test"+likeRank.get(i).getLike());
+//
+//                                }
+//
+//                            } else {
+//                                for (int i = 0; i < ranking; i++) {
+//                                    if (likeRank.get(i).getLike() < df.getNrlikes()) {
+//                                        LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getNrlikes());
+//                                        likeRank.add(i, data);
+//                                        likeRank.remove(ranking + 1);
+//                                    }
+//                                }
+//                            }
                         }
 
                         adapter.addItemList(likeRank);
