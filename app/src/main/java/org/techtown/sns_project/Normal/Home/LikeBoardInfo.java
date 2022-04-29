@@ -7,19 +7,21 @@ public class LikeBoardInfo {
     public String publisher;
     public String ImgURL;
     public String descrpition;
-    public int like=0;
-        public LikeBoardInfo(String publisher,  String ImgURL,String descrpition,int like) {
+    public String document;
+    public int nrlikes;
+        public LikeBoardInfo(String publisher,  String ImgURL,String descrpition,int nrlikes, String document) {
             this.publisher = publisher;
             this.ImgURL = ImgURL;
             this.descrpition = descrpition;
-            this.like = like;
+            this.nrlikes = nrlikes;
+            this.document = document;
         }
 
         public LikeBoardInfo(){
         }
 
-        public int getLike() {
-        return like;
+        public int getNrlikes() {
+        return nrlikes;
     }
 
         public String getPublisher() {
@@ -34,7 +36,9 @@ public class LikeBoardInfo {
             return descrpition;
         }
 
-
+        public String getDocument() {
+        return document;
+    }
     }
 
 
