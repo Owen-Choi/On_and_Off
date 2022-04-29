@@ -63,7 +63,6 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView");
         view = inflater.inflate(R.layout.home_fragment, container, false);
         recyclerView_LikeList = view.findViewById(R.id.recyclerView_LikeList);
         LinearLayoutManager LikeList = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL, false);
@@ -103,12 +102,7 @@ public class HomeFragment extends Fragment {
                                 LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getNrlikes(),document.getId());
                                 likeRank.add(data);
                                 num++;
-                                for(int i=0; i<likeRank.size(); i++)
-                                    System.out.println("before"+num+likeRank.get(i).getNrlikes());
-
                                 Collections.sort(likeRank, new BoardLikeComparator());
-                                for(int i=0; i<likeRank.size(); i++)
-                                    System.out.println("after"+num+likeRank.get(i).getNrlikes());
 
 
 
@@ -135,7 +129,6 @@ public class HomeFragment extends Fragment {
             //아이템 클릭시 토스트메시지
             @Override
             public void onItemClick(View v, int position) {
-                System.out.println("POSITION :"+position);
                 StartActivity(LikeBoardPostClickEvent.class,position);
             }
         });
@@ -152,8 +145,6 @@ public class HomeFragment extends Fragment {
         intent.putExtra("listDescription",listData.get(position).getDescrpition());
         intent.putExtra("listDocument",listData.get(position).getDocument());
 
-        System.out.println("Start activity :" + listImgUrl);
-
         startActivity(intent);
     }
 
@@ -161,7 +152,6 @@ public class HomeFragment extends Fragment {
     class BoardLikeComparator implements Comparator<LikeBoardInfo> {
         @Override
         public int compare(LikeBoardInfo f1, LikeBoardInfo f2) {
-            Log.e("COMPARETEST", Integer.toString(f1.getNrlikes()) + Integer.toString(f2.getNrlikes()));
             if (f1.getNrlikes() < f2.getNrlikes()) {
                 return 1;
             } else if (f1.getNrlikes() > f2.getNrlikes()) {
