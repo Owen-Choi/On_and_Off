@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -18,11 +19,13 @@ import androidx.core.content.ContextCompat;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
+import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,8 +39,8 @@ import org.techtown.sns_project.qr.QRGSaver;
 
 public class EnterpriseQRListClickEvent extends AppCompatActivity {
 
-    private ImageView qrImage;
-    private TextView txt_ProductUrl;
+    private ImageView qrImage, Img_ProductImg;
+    private TextView txt_ProductInfo,txt_ProductTitle,txt_ProductPrice;
     private String savePath = Environment.getExternalStorageDirectory().getPath() + "/QRCode/";
     private Bitmap bitmap;
     private QRGEncoder qrgEncoder;
@@ -50,14 +53,25 @@ public class EnterpriseQRListClickEvent extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enterprise_qr_list_click);
+        ActionBar ac = getSupportActionBar();
+        ac.setTitle("ON & OFF");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         int position = intent.getIntExtra("position",0);
         System.out.println(EnterpriseQRListActivity.listUrl.get (position)+"position : "+position);
         String key = EnterpriseQRListActivity.listUrl.get (position).replaceAll("[^0-9]", "");
         qrImage = findViewById(R.id.qr_image);
-        txt_ProductUrl = findViewById(R.id.txt_ProductUrl);
         activity = this;
-        txt_ProductUrl.setText(key);
+        Img_ProductImg = findViewById(R.id.Img_ProductImg);
+        txt_ProductInfo = findViewById(R.id.txt_ProductInfo);
+        txt_ProductTitle = findViewById(R.id.txt_ProductTitle);
+        txt_ProductPrice = findViewById(R.id.txt_ProductPrice);
+
+
+        txt_ProductTitle.setText(EnterpriseQRListActivity.listTitle.get (position));
+        txt_ProductInfo.setText(EnterpriseQRListActivity.listInfo.get (position));
+        txt_ProductPrice.setText(EnterpriseQRListActivity.listPrice.get (position));
+        Glide.with(this).load(EnterpriseQRListActivity.listImgUrl.get (position)).error(R.drawable.ic_launcher_background).into(Img_ProductImg);
 
         if (key.length() > 0) {
             WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
@@ -117,7 +131,7 @@ public class EnterpriseQRListClickEvent extends AppCompatActivity {
         findViewById(R.id.save_barcode).setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 try {
-
+                    Log.d("SAVE",key);
                     boolean save = new QRGSaver().save(savePath, key, bitmap, QRGContents.ImageType.IMAGE_JPEG);
                     String result = save ? "Image Saved" : "Image Not Saved";
                     Toast.makeText(activity, result, Toast.LENGTH_LONG).show();
@@ -130,7 +144,16 @@ public class EnterpriseQRListClickEvent extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void StartToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
