@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="org.techtown.sns_project">
+
     <!-- internet 사용을 위한 permission을 여기서 추가해준다. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -26,7 +27,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SNS_project">
-        <activity android:name=".fragment.profile.Bookmark.bookmark"/>
+        <service
+            android:name=".pushAlarm.BackgroundAlarmService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".fragment.profile.Bookmark.bookmark" />
         <activity
             android:name=".fragment.profile.profileAdapter"
             android:exported="false"
@@ -41,7 +47,10 @@
             </intent-filter>
         </activity> <!-- 새로 추가되는 Activity(view?)들은 모두 manifest에 추가를 해주어야 한다. -->
         <activity android:name=".Board.CommentsActivity" />
+        <activity android:name=".Board.profile.ProfileActivity" />
+        <activity android:name=".Board.profile.Closet.ClosetMainActivity" />
         <activity android:name=".Board.BoardPostClickEvent" />
+        <activity android:name=".Board.LikeBoardPostClickEvent" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

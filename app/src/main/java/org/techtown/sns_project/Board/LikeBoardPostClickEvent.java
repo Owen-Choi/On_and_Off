@@ -1,12 +1,12 @@
 package org.techtown.sns_project.Board;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -24,7 +24,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,16 +33,12 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import org.techtown.sns_project.Board.CommentsActivity;
 import org.techtown.sns_project.Board.Upload.url.upload_items_adapter;
 import org.techtown.sns_project.Board.profile.ProfileActivity;
 import org.techtown.sns_project.Camera.Activity_codi;
-import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListActivity;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.fragment.BoardFragment;
 import org.techtown.sns_project.qr.ProductInfo;
-import org.w3c.dom.Document;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +46,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class BoardPostClickEvent extends AppCompatActivity {
+public class LikeBoardPostClickEvent extends AppCompatActivity {
 
 
     public ImageView post_image, like, comment, save, more;
@@ -94,18 +89,11 @@ public class BoardPostClickEvent extends AppCompatActivity {
         setContentView(R.layout.activity_board_item);
         Intent intent = getIntent();
 
-        listImgUrl = (ArrayList<String>) getIntent().getSerializableExtra("listImgUrl");
-        listDescription = (ArrayList<String>) getIntent().getSerializableExtra("listDescription");
-        listPublisher = (ArrayList<String>) getIntent().getSerializableExtra("listPublisher");
-        listOfList = (ArrayList<ArrayList<ProductInfo>>) getIntent().getSerializableExtra("listOfList");
-        listDocument = (ArrayList<String>) getIntent().getSerializableExtra("listDocument");
 
-        int position = getIntent().getIntExtra("position", 1);
-        listImgURL2 = listImgUrl.get(position);
-        list = listOfList.get(position);
-        post_description = listDescription.get(position);
-        post_publisher = listPublisher.get(position);
-        post_document = listDocument.get(position);
+        listImgURL2 = (String)getIntent().getSerializableExtra("listImgUrl");
+        post_description = (String)getIntent().getSerializableExtra("listDescription");
+        post_publisher = (String)getIntent().getSerializableExtra("listPublisher");
+        post_document = (String)getIntent().getSerializableExtra("listDocument");
 
         // 최신화가 안된 게시글을 누르면 nullPointerException 앱이 종료된다. 디비를 한번 날려야 할 필요가 있다.
         //recycler view part
@@ -427,10 +415,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d("Board delete", "delete success");
-                                        Intent intent = new Intent(getApplicationContext(), BoardFragment.class);
-                                        intent.putExtra("refresh", "refresh");
                                         finish();
-
                                     }
                                 })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -445,6 +430,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d("Board delete", "delete success");
+                                        finish();
                                     }
                                 })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -484,10 +470,10 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                             }
                                         });
 
+
                             default:
                                 return false;
                         }
-
                     }
                 });
 

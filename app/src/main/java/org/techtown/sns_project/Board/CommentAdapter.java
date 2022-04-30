@@ -41,6 +41,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ItemView
     }
 
     private CommentAdapter.OnItemClickListener mListener = null;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
     public CommentAdapter() {
 
     }
@@ -83,15 +87,26 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ItemView
 
         public TextView username, comment;
         public CircleImageView image_profile;
-        public ItemViewHolder(View itemView) {
 
+        public ItemViewHolder(View itemView) {
             super(itemView);
             image_profile = itemView.findViewById(R.id.image_profile);
             username = itemView.findViewById(R.id.username);
             comment = itemView.findViewById(R.id.comment);
 
-
+            itemView.setOnClickListener (new View.OnClickListener () {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition ();
+                    if (position!=RecyclerView.NO_POSITION){
+                        if (mListener!=null){
+                            mListener.onItemClick (view,position);
+                        }
+                    }
+                }
+            });
         }
+
 
 
         void onBind(Comment data) {

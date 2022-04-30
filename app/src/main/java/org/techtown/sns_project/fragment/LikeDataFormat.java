@@ -4,7 +4,7 @@ import org.techtown.sns_project.qr.ProductInfo;
 
 import java.util.ArrayList;
 
-public class DataFormat {
+public class LikeDataFormat {
     String ImageUrl, publisher, description,userid;
     int nrlikes;
     ArrayList<ProductInfo> list;
@@ -53,15 +53,15 @@ public class DataFormat {
         this.list = list;
     }
 
-    public DataFormat() {
+    public LikeDataFormat() {
     }
 
-    public DataFormat(String imageUrl, String publisher, String description, ArrayList<ProductInfo> list,String userid) {
+    public LikeDataFormat(String imageUrl, String publisher, String description, ArrayList<ProductInfo> list,String userid ,int nrlikes) {
         ImageUrl = imageUrl;
         this.publisher = publisher;
         this.description = description;
         this.list = list;
         this.userid = userid;
-
+        this.nrlikes = nrlikes;
     }
 }

@@ -3,10 +3,12 @@ package org.techtown.sns_project.Enterprise.QR;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,7 +44,9 @@ public class EnterpriseQRListActivity  extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enterprise_qr_list);
-
+        ActionBar ac = getSupportActionBar();
+        ac.setTitle("ON & OFF");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView_QrList = findViewById(R.id.recyclerView_QrList);
 
         LinearLayoutManager QrList = new LinearLayoutManager(this,RecyclerView.VERTICAL, false);
@@ -114,7 +118,16 @@ public class EnterpriseQRListActivity  extends AppCompatActivity {
     private void StartToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void StartActivity(Class c, int key) {
         Intent intent = new Intent(this, c);
         intent.putExtra("position", key);

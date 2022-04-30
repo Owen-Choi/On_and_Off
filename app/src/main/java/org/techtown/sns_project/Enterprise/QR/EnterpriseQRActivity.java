@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -16,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -55,7 +57,9 @@ public class EnterpriseQRActivity extends AppCompatActivity {
         qrImage = findViewById(R.id.qr_image);
         edtValue = findViewById(R.id.URLTextBox);
         activity = this;
-        
+        ActionBar ac = getSupportActionBar();
+        ac.setTitle("ON & OFF");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     findViewById(R.id.generate_barcode).setOnClickListener(view -> {
         inputValue = edtValue.getText().toString().trim();
@@ -139,6 +143,16 @@ public class EnterpriseQRActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void StartToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }

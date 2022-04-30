@@ -4,9 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.techtown.sns_project.CommonSignInActivity;
+import org.techtown.sns_project.InitialActivity;
 import org.techtown.sns_project.Normal.Setting.NormalSettingActivity;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.Camera.ScanQR;
@@ -26,6 +32,7 @@ import org.techtown.sns_project.fragment.HomeFragment;
 import org.techtown.sns_project.fragment.profile.ProfileFragment;
 import org.techtown.sns_project.fragment.SearchFragment;
 import org.techtown.sns_project.fragment.SomethingFragment;
+import org.techtown.sns_project.pushAlarm.BackgroundAlarmService;
 
 
 public class NormalMainActivity extends AppCompatActivity {
@@ -37,11 +44,16 @@ public class NormalMainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private long backKeyPressedTime = 0;
     private Toast terminate_guide_msg;
+    public int alarmCount;
+    private BroadcastReceiver mReceiver = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal_main);
         //findViewById(R.id.NormalQRScanButton).setOnClickListener(onClickListener);
+
+        Intent serviceintent = new Intent( NormalMainActivity.this, BackgroundAlarmService.class );
+        startService( serviceintent );
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -101,6 +113,13 @@ public class NormalMainActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("woong", "hi there");
+    }
+
     private void StartActivity(Class c) {
         Intent intent = new Intent(this, c);
         startActivity(intent);
@@ -122,7 +141,6 @@ public class NormalMainActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
 
 
     @Override
@@ -160,4 +178,5 @@ public class NormalMainActivity extends AppCompatActivity {
         }
 
     }
+
 }

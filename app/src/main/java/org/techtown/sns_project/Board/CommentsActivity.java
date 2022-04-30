@@ -31,6 +31,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.techtown.sns_project.Board.profile.ProfileActivity;
 import org.techtown.sns_project.Model.Comment;
 import org.techtown.sns_project.R;
 
@@ -125,8 +126,23 @@ public class CommentsActivity extends AppCompatActivity {
 //        getImage();
         readComments();
 
-    }
+        commentAdapter.setOnItemClickListener (new CommentAdapter.OnItemClickListener()
+        {
+            //아이템 클릭시 토스트메시지
+            @Override
+            public void onItemClick (View v,int position){
+                System.out.println("position"+position);
+                StartActivity(position);
+            }
+        });
 
+    }
+    private void StartActivity(int position) {
+        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+        intent.putExtra("post_publisher",commentList.get(position).getGetuid());
+        System.out.println("post_publisher"+commentList.get(position).getGetuid());
+        startActivity(intent);
+    }
     private void addComment(){
 
 
@@ -175,7 +191,9 @@ public class CommentsActivity extends AppCompatActivity {
                         for(QueryDocumentSnapshot document : task.getResult()) {
                             List = (HashMap<String, Object>) document.getData();
                             //Comment data = new Comment((String)List.get("comment"),(String)List.get("publisher"),(String)List.get("commentid"));
+
                             Comment data = new Comment((String)List.get("comment"),(String)List.get("commentid"),(String)List.get("getuid"));
+                            commentList.add(data);
                             commentAdapter.addItem(data);
                         }
                         commentAdapter.notifyDataSetChanged();
@@ -183,7 +201,6 @@ public class CommentsActivity extends AppCompatActivity {
                 });
 
             }
-
 
 
 

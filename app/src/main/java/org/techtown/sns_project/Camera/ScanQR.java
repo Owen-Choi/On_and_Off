@@ -34,11 +34,10 @@ public class ScanQR extends AppCompatActivity {
 
 
 
-                Log.v("h","h");
                /* new IntentIntegrator(ScanQR.this).initiateScan();*/
                 qrScan = new IntentIntegrator(ScanQR.this);
                 qrScan.setOrientationLocked(false); // default가 세로모드인데 휴대폰 방향에 따라 가로, 세로로 자동 변경됩니다.
-                qrScan.setPrompt("상표에 붙어있는 QR 인식하세용 ㄹㅇㅋㅋ ");
+                qrScan.setPrompt("QR 코드를 인식해주세요.");
                 qrScan.initiateScan();
 
         /* new IntentIntegrator(this).initiateScan();*/
@@ -54,11 +53,9 @@ public class ScanQR extends AppCompatActivity {
 
         if (result != null) {
             if (result.getContents() == null) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
                 finish();
                 // todo
             } else {
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 // todo
                 Intent intent = new Intent(getApplicationContext(),Activity_codi.class);
                 String key = result.getContents();

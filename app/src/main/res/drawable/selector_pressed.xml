@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_pressed="true">
+        <!--image대신 직접 selector를 그리겠다고 선언한다. -->
+        <shape >
+
+            <corners
+                android:radius="30dp"
+                />
+            <gradient
+                android:angle="45"
+                />
+            <solid
+                android:color="#6A6D6E"
+                />
+            <padding
+                android:left="10dp"
+                android:top="0dp"
+                android:right="0dp"
+                android:bottom="0dp"
+                />
+            <stroke
+                android:width="3dp"
+                android:color="#878787"
+                />
+        </shape>
+    </item>
+
+    <!--위와 동일하다.
+    -->
+    <item android:state_pressed="false">
+        <shape>
+        <corners
+            android:radius="30dp"
+            />
+        <gradient
+            android:angle="45"
+            />
+        <solid
+            android:color="#333333"
+            />
+        <padding
+            android:left="10dp"
+            android:top="0dp"
+            android:right="0dp"
+            android:bottom="0dp"
+            />
+        <stroke
+            android:width="3dp"
+            android:color="#878787"
+            />
+        </shape>
+    </item>
+</selector>

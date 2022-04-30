@@ -50,7 +50,7 @@ public class HomeFragmentLikeListAdpater extends RecyclerView.Adapter<HomeFragme
     public int getItemCount() {
         return listData.size();
     }
-
+    public ArrayList<LikeBoardInfo> getItem(){ return listData;}
     public void addItemList(ArrayList<LikeBoardInfo> data) {
         // 외부에서 item을 추가시킬 함수입니다.
         listData=data;
