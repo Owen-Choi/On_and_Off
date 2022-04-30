@@ -134,7 +134,12 @@ public class EnterpriseQRListClickEvent extends AppCompatActivity {
                     Log.d("SAVE",key);
                     boolean save = new QRGSaver().save(savePath, key, bitmap, QRGContents.ImageType.IMAGE_JPEG);
                     String result = save ? "Image Saved" : "Image Not Saved";
-                    Toast.makeText(activity, result, Toast.LENGTH_LONG).show();
+                    if(result == "Image Saved")
+                        Toast.makeText(activity, "이미지가 저장되었습니다.", Toast.LENGTH_LONG).show();
+                    else
+                    {
+                        Toast.makeText(activity, "이미지가 저장에 실패했습니다.", Toast.LENGTH_LONG).show();
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
