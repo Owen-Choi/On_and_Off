@@ -226,6 +226,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
             public void onClick(View view) {
                 if (liked) {
                     nrlikes++;
+                    nrLikes(likes);
                     likes.setText(String.valueOf(nrlikes) + "likes");
                     like.setImageResource(R.drawable.ic_liked);
                     Map_like.put("user", user.getUid());
