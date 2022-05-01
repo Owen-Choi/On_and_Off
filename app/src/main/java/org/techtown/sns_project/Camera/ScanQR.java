@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -24,7 +25,8 @@ public class ScanQR extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         TedPermission.with(getApplicationContext())
                 .setPermissionListener(permissionListener)
                 .setRationaleMessage("카메라 권한이 필요합니다.")

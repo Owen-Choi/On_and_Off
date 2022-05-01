@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.techtown.sns_project.Board.BoardAdapter;
 import org.techtown.sns_project.Board.LikeBoardPostClickEvent;
+import org.techtown.sns_project.Board.Upload.UploadActivity;
 import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListAdapter;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.Normal.Home.HomeFragmentLikeListAdpater;
@@ -47,6 +49,7 @@ public class HomeFragment extends Fragment {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ImageView QrImage ;
     RecyclerView recyclerView_LikeList;
     LikeDataFormat df;
     static int nrlikes =0;
@@ -65,6 +68,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_fragment, container, false);
         recyclerView_LikeList = view.findViewById(R.id.recyclerView_LikeList);
+        QrImage = view.findViewById(R.id.Qr_image);
         LinearLayoutManager LikeList = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL, false);
         recyclerView_LikeList.setLayoutManager(LikeList);
         adapter = new HomeFragmentLikeListAdpater();
@@ -132,8 +136,18 @@ public class HomeFragment extends Fragment {
                 StartActivity(LikeBoardPostClickEvent.class,position);
             }
         });
+
+        QrImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ScanQR.class);
+                startActivity(intent);
+            }
+        });
+
           return view;
     }
+
 
 
 
