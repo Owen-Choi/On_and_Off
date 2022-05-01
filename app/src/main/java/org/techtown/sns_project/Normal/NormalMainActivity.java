@@ -40,7 +40,6 @@ public class NormalMainActivity extends AppCompatActivity {
     Fragment Home_Fragment;
     Fragment Profile_Fragment;
     Fragment Search_Fragment;
-    Fragment Something_Fragment;
     BottomNavigationView bottomNavigationView;
     private long backKeyPressedTime = 0;
     private Toast terminate_guide_msg;
@@ -67,7 +66,6 @@ public class NormalMainActivity extends AppCompatActivity {
         Home_Fragment = new HomeFragment();
         Profile_Fragment = new ProfileFragment();
         Search_Fragment = new SearchFragment();
-        Something_Fragment = new SomethingFragment();
 
         // 시작하면 home fragment를 띄운다.
         getSupportFragmentManager().beginTransaction()
@@ -102,11 +100,7 @@ public class NormalMainActivity extends AppCompatActivity {
                                 .replace(R.id.main_layout, Search_Fragment).commitAllowingStateLoss();
                         setTitle("SEARCH");
                         return true;
-                    case R.id.nav_something:
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.main_layout,Something_Fragment).commitAllowingStateLoss();
-                        setTitle("SOMETHING");
-                        return true;
+
                 }
                 return true;
             }

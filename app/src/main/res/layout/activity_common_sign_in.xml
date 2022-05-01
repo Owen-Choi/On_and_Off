@@ -10,8 +10,6 @@
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="212dp"
-        android:rotationX="10"
-        android:rotationY="5"
         app:srcCompat="@drawable/onandofflogo" />
 
     <LinearLayout

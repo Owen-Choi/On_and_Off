@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.techtown.sns_project.Board.BoardAdapter;
 import org.techtown.sns_project.Board.LikeBoardPostClickEvent;
+import org.techtown.sns_project.Board.Upload.UploadActivity;
 import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListAdapter;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.Normal.Home.HomeFragmentLikeListAdpater;
@@ -47,6 +49,7 @@ public class HomeFragment extends Fragment {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ImageView QrImage ;
     RecyclerView recyclerView_LikeList;
     LikeDataFormat df;
     static int nrlikes =0;
@@ -63,9 +66,9 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView");
         view = inflater.inflate(R.layout.home_fragment, container, false);
         recyclerView_LikeList = view.findViewById(R.id.recyclerView_LikeList);
+        QrImage = view.findViewById(R.id.Qr_image);
         LinearLayoutManager LikeList = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL, false);
         recyclerView_LikeList.setLayoutManager(LikeList);
         adapter = new HomeFragmentLikeListAdpater();
@@ -103,12 +106,7 @@ public class HomeFragment extends Fragment {
                                 LikeBoardInfo data = new LikeBoardInfo(df.getPublisher(), df.getImageUrl(), df.getDescription(), df.getNrlikes(),document.getId());
                                 likeRank.add(data);
                                 num++;
-                                for(int i=0; i<likeRank.size(); i++)
-                                    System.out.println("before"+num+likeRank.get(i).getNrlikes());
-
                                 Collections.sort(likeRank, new BoardLikeComparator());
-                                for(int i=0; i<likeRank.size(); i++)
-                                    System.out.println("after"+num+likeRank.get(i).getNrlikes());
 
 
 
@@ -135,12 +133,21 @@ public class HomeFragment extends Fragment {
             //아이템 클릭시 토스트메시지
             @Override
             public void onItemClick(View v, int position) {
-                System.out.println("POSITION :"+position);
                 StartActivity(LikeBoardPostClickEvent.class,position);
             }
         });
+
+        QrImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ScanQR.class);
+                startActivity(intent);
+            }
+        });
+
           return view;
     }
+
 
 
 
@@ -152,8 +159,6 @@ public class HomeFragment extends Fragment {
         intent.putExtra("listDescription",listData.get(position).getDescrpition());
         intent.putExtra("listDocument",listData.get(position).getDocument());
 
-        System.out.println("Start activity :" + listImgUrl);
-
         startActivity(intent);
     }
 
@@ -161,7 +166,6 @@ public class HomeFragment extends Fragment {
     class BoardLikeComparator implements Comparator<LikeBoardInfo> {
         @Override
         public int compare(LikeBoardInfo f1, LikeBoardInfo f2) {
-            Log.e("COMPARETEST", Integer.toString(f1.getNrlikes()) + Integer.toString(f2.getNrlikes()));
             if (f1.getNrlikes() < f2.getNrlikes()) {
                 return 1;
             } else if (f1.getNrlikes() > f2.getNrlikes()) {

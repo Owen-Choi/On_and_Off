@@ -4,18 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Normal.NormalMainActivity">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_weight="1"
+    android:weightSum="2"
+    >
     <Button
         android:id="@+id/EnterpsireQRButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="QR Generation"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="667dp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_pressed"
+        android:text="QR 생성"
+        android:layout_weight="1"
+         />
     <Button
         android:id="@+id/EnterpriseQRListButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="QR List"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_pressed"
+        android:layout_weight="1"
+        android:text="QR 리스트"/>
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
 </androidx.appcompat.widget.LinearLayoutCompat>

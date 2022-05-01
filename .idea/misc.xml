@@ -4,20 +4,35 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.37604166666666666" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/drawable/button_shape.xml" value="0.37222222222222223" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/drawable/ic_noun_menu_4719158.xml" value="0.1" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/drawable/selector_checked.xml" value="0.37222222222222223" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/drawable/selector_focused.xml" value="0.37222222222222223" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/drawable/selector_pressed.xml" value="0.37222222222222223" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/drawable/selector_selected.xml" value="0.37222222222222223" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/activity_closet_all.xml" value="0.12760416666666666" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/activity_codi.xml" value="0.23125" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/activity_comments.xml" value="0.2421875" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/activity_enterprise_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/activity_enterprise_qr_list_click.xml" value="0.2796875" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/activity_enterprise_qr_list_item.xml" value="0.2796875" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/activity_enterprise_setting.xml" value="0.2421875" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/activity_initial.xml" value="0.2421875" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/activity_normal_main.xml" value="0.2046875" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/activity_normal_search.xml" value="0.1296875" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/board_fragment_item.xml" value="0.1" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/home_fragment.xml" value="0.22" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/item_codi.xml" value="0.203125" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/like_Rank.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/like_rank.xml" value="0.23125" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/member_setting_activity.xml" value="0.2421875" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/other_profile_fragment.xml" value="0.14010416666666667" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/post_item.xml" value="0.203125" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/profile_fragment.xml" value="0.14010416666666667" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/search_fragment.xml" value="0.30586766541822724" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/similar_codi.xml" value="0.12760416666666666" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/layout/something_fragment.xml" value="0.2421875" />
+        <entry key="..\:/Users/idh10/AndroidStudioProjects/Codi_Code_test/app/src/main/res/menu/bottom_menu.xml" value="0.2046875" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/drawable-v24/ic_baseline_add_24.xml" value="0.1265625" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/drawable-v24/ic_baseline_info_24.xml" value="0.1265625" />
         <entry key="..\:/Users/idh10/AndroidStudioProjects/ToyProject_SNS/app/src/main/res/drawable-v24/ic_noun_clothes_1694117.xml" value="0.1265625" />
@@ -103,6 +118,9 @@
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/home_fragment.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/notice_fragment.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/post_item.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/board_fragment.xml" value="0.176" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/home_fragment.xml" value="0.13451086956521738" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/post_item.xml" value="0.13451086956521738" />
         <entry key="app/src/main/res/drawable-v24/ic_baseline_add_24.xml" value="0.4046875" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.4046875" />
         <entry key="app/src/main/res/drawable-v24/ic_noun_clothes_1694117.xml" value="0.3614583333333333" />
@@ -145,7 +163,7 @@
         <entry key="app/src/main/res/layout/bookmark_listview_item.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/layout/closet_all.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/layout/dialog_closet_item_list.xml" value="0.3609375" />
-        <entry key="app/src/main/res/layout/home_fragment.xml" value="0.3453125" />
+        <entry key="app/src/main/res/layout/home_fragment.xml" value="0.31424766977363516" />
         <entry key="app/src/main/res/layout/item_codi.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/list_view_items.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/member_setting_activity.xml" value="0.3453125" />
