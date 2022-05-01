@@ -263,6 +263,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
                             });
                 } else {
                     nrlikes--;
+                    nrLikes(likes);
                     likes.setText(String.valueOf(nrlikes) + "likes");
                     like.setImageResource(R.drawable.ic_like);
                     likesRef.document(user.getUid())
