@@ -1,5 +1,6 @@
 package org.techtown.sns_project.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,12 +50,14 @@ public class BoardFragment extends Fragment {
  static ArrayList<String> listPublisher = new ArrayList<>();
  public static ArrayList<String> listDocument = new ArrayList<>();
  static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
+    private at.markushi.ui.CircleButton m_circleButton;
  @Nullable
  @Override
  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
   Log.i(TAG, "onCreateView");
   view = inflater.inflate(R.layout.board_fragment, container, false);
-  Button upload_btn = (Button)view.findViewById(R.id.upload);
+  at.markushi.ui.CircleButton upload_btn = (at.markushi.ui.CircleButton)view.findViewById(R.id.upload);
+//  Button upload_btn = (Button)view.findViewById(R.id.upload);
   recyclerView_BoardItem = view.findViewById(R.id.recyclerView_BoardItem);
 
 
@@ -70,6 +74,7 @@ public class BoardFragment extends Fragment {
    public void onItemClick(View v, int position) {
 
     StartActivity(BoardPostClickEvent.class,position);
+
    }
 
    private void StartActivity(Class<BoardPostClickEvent> boardPostClickEventClass, int position) {
@@ -134,11 +139,10 @@ public class BoardFragment extends Fragment {
    }
   });
 
-
-
+     FragmentTransaction ft = getFragmentManager().beginTransaction();
+     ft.detach(this).attach(this).commit();
   return view;
  }
-
 
 }
 
