@@ -52,8 +52,12 @@ import org.techtown.sns_project.R;
 import org.techtown.sns_project.fragment.DataFormat;
 import org.techtown.sns_project.qr.ProductInfo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 
 public class UploadActivity extends AppCompatActivity {
@@ -206,6 +210,8 @@ public class UploadActivity extends AppCompatActivity {
                                 Uri downloadUri = task.getResult(); //위의 return값을 받아 downloadUri에 저장
                                 pd.dismiss(); //로딩창 없애기
                                 String DownloadUrl = downloadUri.toString();
+                                LocalDateTime now = LocalDateTime.now();
+                                String postdocument_bydate = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss", Locale.ENGLISH));
                                 //해쉬 맵에 저장해서 컬렉션에 넣기
 //                                Map<String, Object> data = new HashMap<>();
                                 DataFormat dataFormat = new DataFormat(DownloadUrl, firebaseUser.getUid(),
@@ -217,10 +223,11 @@ public class UploadActivity extends AppCompatActivity {
 //                                data.put("ImageUrl",DownloadUrl);
 //                                data.put("clothes_info", list);
 
-                                db.collection("board").add(dataFormat)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+
+                                db.collection("board").document(postdocument_bydate).set(dataFormat)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
-                                            public void onSuccess(DocumentReference documentReference) {
+                                            public void onSuccess(Void aVoid) {
                                                 Log.e("temp", "onSuccess: DB Insertion success");
                                             }
                                         })
@@ -231,10 +238,10 @@ public class UploadActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                db.collection("users").document(user.getUid()).collection("Myboard").add(dataFormat)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                db.collection("users").document(user.getUid()).collection("Myboard").document(postdocument_bydate).set(dataFormat)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
-                                            public void onSuccess(DocumentReference documentReference) {
+                                            public void onSuccess(Void aVoid) {
                                                 Log.e("temp", "onSuccess: DB Insertion success");
                                             }
                                         })
@@ -244,6 +251,20 @@ public class UploadActivity extends AppCompatActivity {
                                                 Log.e("temp", "onFailure: DB Insertion failed");
                                             }
                                         });
+
+//                                db.collection("users").document(user.getUid()).collection("Myboard").add(dataFormat)
+//                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                            @Override
+//                                            public void onSuccess(DocumentReference documentReference) {
+//                                                Log.e("temp", "onSuccess: DB Insertion success");
+//                                            }
+//                                        })
+//                                        .addOnFailureListener(new OnFailureListener() {
+//                                            @Override
+//                                            public void onFailure(@NonNull Exception e) {
+//                                                Log.e("temp", "onFailure: DB Insertion failed");
+//                                            }
+//                                        });
 
                                 startActivity(new Intent(UploadActivity.this, NormalMainActivity.class)); //다시 게시판 화면으로 돌아간다
                                 finish();
