@@ -143,44 +143,26 @@ public class BackgroundAlarmService extends Service {
                     Updated.clear();
                     for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                         Long temp = (Long)documentSnapshot.getData().get("nrlikes");
-                        Log.e("woong", "handleMessage1 : " + temp);
                         Updated.add(temp);
                     }
-                    Log.e("woong", "handleMessage2 : " + Original.size());
                 } });
             // 게시글이 없으면 발생하는 IndexOutOfBound를 방지하기 위한 조건문.
             if(Original.size() > 0) {
                 for (int i = 0; i < Original.size(); i++) {
-                    if (Updated.get(i).equals(Original.get(i))) {
-                        if (Updated.get(i) > Original.get(i))
+                    if (!Updated.get(i).equals(Original.get(i))) {
+                        if (Updated.get(i) > Original.get(i)) {
                             notificationManager.notify(id_counter++, notificationBuilder.build());
+                        }
                         Original.clear();
                         Data_crawl(Original);
                         break;
                     }
                 }
             }
-//            if(Updated.size() != Original.size()) {
-//                if(Updated.size() > Original.size()) {
-//                    notificationManager.notify(id_counter++, notificationBuilder.build());
-//                }
-//                Original.clear();
-//                Data_crawl(Original);  // Original 리스트를 다시 변화된 값으로 최신화.
-//            }
         }
     }
 
-//    private void Data_crawl(ArrayList<String> param_list) {
-//        db.collection("users")
-//                .document(firebaseUser.getUid()).collection("board_likes").get().addOnCompleteListener(task -> {
-//                    if(task.isSuccessful()) {
-//                        for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-//                            String temp = (String)documentSnapshot.getData().get("user");
-//                            param_list.add(temp);
-//                        }
-//                    }
-//                });
-//    }
+
 private void Data_crawl(ArrayList<Long> param_list) {
         db.collection("users")
             .document(firebaseUser.getUid()).collection("Myboard")
