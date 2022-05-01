@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">>
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:ignore="ExtraText"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/upload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Upload"
-        tools:layout_editor_absoluteX="316dp"
-        tools:layout_editor_absoluteY="683dp"
-        tools:ignore="MissingConstraints" />
+<!--    <Button-->
+<!--        android:id="@+id/upload"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Upload"-->
+<!--        tools:layout_editor_absoluteX="316dp"-->
+<!--        tools:layout_editor_absoluteY="683dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_BoardItem"
@@ -25,4 +28,16 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="-2dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <at.markushi.ui.CircleButton
+        android:id="@+id/upload"
+        android:layout_width="64dip"
+        android:layout_height="64dip"
+        android:src="@drawable/upload3"
+        app:cb_color="#FBEFEF"
+        app:cb_pressedRingWidth="8dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        tools:ignore="MissingConstraints"
+        />
+
+</RelativeLayout>

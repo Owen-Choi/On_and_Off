@@ -527,6 +527,8 @@ public class BoardPostClickEvent extends AppCompatActivity {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         CollectionReference likesRef = db.collection("board").document(post_document).collection("Likes");
         DocumentReference CountlikesRef = db.collection("board").document(post_document);
+        DocumentReference MyboardlikesRef = db.collection("users").document(post_publisher).collection("Myboard").document(post_document);
+
         likesRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -545,8 +547,11 @@ public class BoardPostClickEvent extends AppCompatActivity {
                         Map<String, Object> data = new HashMap<>();
                         data.put("nrlikes", nrlikes);
                         CountlikesRef.set(data, SetOptions.merge());
+                        MyboardlikesRef.set(data,SetOptions.merge());
 
                     }
+
+
                 });
 
 

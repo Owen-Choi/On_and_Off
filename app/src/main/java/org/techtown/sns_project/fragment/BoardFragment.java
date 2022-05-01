@@ -50,12 +50,14 @@ public class BoardFragment extends Fragment {
  static ArrayList<String> listPublisher = new ArrayList<>();
  public static ArrayList<String> listDocument = new ArrayList<>();
  static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
+    private at.markushi.ui.CircleButton m_circleButton;
  @Nullable
  @Override
  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
   Log.i(TAG, "onCreateView");
   view = inflater.inflate(R.layout.board_fragment, container, false);
-  Button upload_btn = (Button)view.findViewById(R.id.upload);
+  at.markushi.ui.CircleButton upload_btn = (at.markushi.ui.CircleButton)view.findViewById(R.id.upload);
+//  Button upload_btn = (Button)view.findViewById(R.id.upload);
   recyclerView_BoardItem = view.findViewById(R.id.recyclerView_BoardItem);
 
 
