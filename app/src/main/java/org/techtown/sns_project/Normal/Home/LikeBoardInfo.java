@@ -9,6 +9,7 @@ public class LikeBoardInfo {
     public String descrpition;
     public String document;
     public int nrlikes;
+
         public LikeBoardInfo(String publisher,  String ImgURL,String descrpition,int nrlikes, String document) {
             this.publisher = publisher;
             this.ImgURL = ImgURL;

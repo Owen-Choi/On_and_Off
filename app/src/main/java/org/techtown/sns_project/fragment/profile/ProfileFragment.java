@@ -62,7 +62,7 @@ public class ProfileFragment extends Fragment {
     private int alarmCount = 0;
     //파이어베이스
     FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
+        FirebaseUser firebaseUser;
     FirebaseFirestore db;
 
     //recyclerview
@@ -229,8 +229,6 @@ public class ProfileFragment extends Fragment {
         //storage에서 프사 가져오기
         setFireBaseProfileImage(firebaseUser.getUid());
 
-        // 알람 개수 표시 관련 - 철웅 추가
-        //alarm_textView = view.findViewById(R.id.Alarm_Count);
         //프사 클릭시 설정
         view.findViewById(R.id.circle_img).setOnClickListener(new View.OnClickListener() {
 

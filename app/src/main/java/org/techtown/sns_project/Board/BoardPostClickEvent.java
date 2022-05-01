@@ -41,6 +41,7 @@ import org.techtown.sns_project.Camera.Activity_codi;
 import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListActivity;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.fragment.BoardFragment;
 import org.techtown.sns_project.qr.ProductInfo;
 import org.w3c.dom.Document;
 
@@ -225,6 +226,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
             public void onClick(View view) {
                 if (liked) {
                     nrlikes++;
+                    nrLikes(likes);
                     likes.setText(String.valueOf(nrlikes) + "likes");
                     like.setImageResource(R.drawable.ic_liked);
                     Map_like.put("user", user.getUid());
@@ -261,6 +263,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
                             });
                 } else {
                     nrlikes--;
+                    nrLikes(likes);
                     likes.setText(String.valueOf(nrlikes) + "likes");
                     like.setImageResource(R.drawable.ic_like);
                     likesRef.document(user.getUid())
@@ -426,7 +429,10 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d("Board delete", "delete success");
+                                        Intent intent = new Intent(getApplicationContext(), BoardFragment.class);
+                                        intent.putExtra("refresh", "refresh");
                                         finish();
+
                                     }
                                 })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -441,7 +447,6 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d("Board delete", "delete success");
-                                        finish();
                                     }
                                 })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -481,10 +486,10 @@ public class BoardPostClickEvent extends AppCompatActivity {
                                             }
                                         });
 
-
                             default:
                                 return false;
                         }
+
                     }
                 });
 
@@ -524,6 +529,8 @@ public class BoardPostClickEvent extends AppCompatActivity {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         CollectionReference likesRef = db.collection("board").document(post_document).collection("Likes");
         DocumentReference CountlikesRef = db.collection("board").document(post_document);
+        DocumentReference MyboardlikesRef = db.collection("users").document(post_publisher).collection("Myboard").document(post_document);
+
         likesRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -542,8 +549,11 @@ public class BoardPostClickEvent extends AppCompatActivity {
                         Map<String, Object> data = new HashMap<>();
                         data.put("nrlikes", nrlikes);
                         CountlikesRef.set(data, SetOptions.merge());
+                        MyboardlikesRef.set(data,SetOptions.merge());
 
                     }
+
+
                 });
 
 
