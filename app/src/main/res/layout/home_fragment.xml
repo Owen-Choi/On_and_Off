@@ -9,14 +9,16 @@
 
     <ImageView
         android:id="@+id/Qr_image"
-        android:layout_width="305dp"
-        android:layout_height="171dp"
-        android:src="@drawable/ic_heart" />
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/qr_search" />
         <TextView
             android:id="@+id/LikeRank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LikeRanking" />
+            android:text="스타일 랭킹"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
 
 
     <LinearLayout
