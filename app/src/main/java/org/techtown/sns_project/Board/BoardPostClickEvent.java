@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -93,7 +94,8 @@ public class BoardPostClickEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board_item);
         Intent intent = getIntent();
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         listImgUrl = (ArrayList<String>) getIntent().getSerializableExtra("listImgUrl");
         listDescription = (ArrayList<String>) getIntent().getSerializableExtra("listDescription");
         listPublisher = (ArrayList<String>) getIntent().getSerializableExtra("listPublisher");

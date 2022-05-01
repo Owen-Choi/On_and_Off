@@ -20,14 +20,6 @@
         android:icon="@drawable/ic_search"
         android:enabled="true"
         />
-
-    <item
-        android:id="@+id/nav_something"
-        android:title="알파"
-        android:icon="@drawable/ic_heart"
-        android:enabled="true"
-        />
-
     <item
         android:id="@+id/nav_profile"
         android:title="마이페이지"
