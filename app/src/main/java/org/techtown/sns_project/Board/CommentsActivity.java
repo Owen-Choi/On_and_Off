@@ -1,6 +1,7 @@
 package org.techtown.sns_project.Board;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
@@ -73,7 +74,8 @@ public class CommentsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
-
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.hide();
         commentList = new ArrayList<>();
         commentAdapter = new CommentAdapter();
         //commentAdapter = new CommentAdapter(this, commentList, postid);

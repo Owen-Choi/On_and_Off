@@ -2,6 +2,7 @@ package org.techtown.sns_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ public class InitialActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        startLoading();
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         if(user != null){
@@ -83,7 +85,15 @@ public class InitialActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    private void startLoading() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 5000);
+    }
 
 
 
