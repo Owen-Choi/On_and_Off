@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -120,6 +121,7 @@ public class Activity_codi extends AppCompatActivity {
 
                 Document doc = Jsoup.connect(Codi_Url).get();
 
+
                 final Elements Codi_Img = doc.select("div[class=right_contents related-styling]  ul[class=style_list] li[class=list_item] img");
                 final Elements Codi_title = doc.select("div[class=right_contents related-styling]  ul[class=style_list] li[class=list_item] h5");
                 final Elements Codi_Spec = doc.select("div[class=right_contents related-styling]  ul[class=style_list] li[class=list_item] p");
@@ -147,7 +149,6 @@ public class Activity_codi extends AppCompatActivity {
                         Glide.with(txt_ProductImg).load("https:"+productImg.attr("src")).error(R.drawable.ic_launcher_background).into(txt_ProductImg);
                         txt_ProductTitle.setText(product_INFO.text());
                         txt_ProductPrice.setText(price.text());
-
                         int count=0;
                         for (Element element : product_Brand){
                             if(count==0){
