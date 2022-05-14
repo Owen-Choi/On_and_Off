@@ -207,7 +207,7 @@ public class Activity_codi extends AppCompatActivity {
                             }
                         }//데이터 입력
 
-                        for(int i=0; i<THeadSA2.length/(THeadSA.length-1)+1; i++)
+                        for(int i=0; i<sizeArr.length; i++)
                         {
                             System.out.println(sizeArr[i]);
 
@@ -231,12 +231,12 @@ public class Activity_codi extends AppCompatActivity {
                         TextView textView[][] = new TextView[sizeArr.length][THeadSA.length];
                         for(int j=0; j<sizeArr.length; j++) {
                             for (int i = 0; i < sizeArr[0].size(); i++) {
-                                textView[i][j] = new TextView(getApplicationContext());
-                                textView[i][j].setText(sizeArr[j].get(i));
-                                textView[i][j].setGravity(Gravity.CENTER);
-                                textView[i][j].setTextSize(10);
-                                textView[i][j].setTextColor(Color.WHITE);
-                                tablerow[j].addView(textView[i][j]);
+                                textView[j][i] = new TextView(getApplicationContext());
+                                textView[j][i].setText(sizeArr[j].get(i));
+                                textView[j][i].setGravity(Gravity.CENTER);
+                                textView[j][i].setTextSize(10);
+                                textView[j][i].setTextColor(Color.WHITE);
+                                tablerow[j].addView(textView[j][i]);
                             }
                             sizeTable.addView(tablerow[j]);
                         }
