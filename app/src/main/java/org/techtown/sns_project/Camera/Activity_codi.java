@@ -31,6 +31,7 @@ import org.techtown.sns_project.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Activity_codi extends AppCompatActivity {
 
@@ -260,17 +261,21 @@ public class Activity_codi extends AppCompatActivity {
                         Hashtag.append(listTag.get(i));
                         txt_ProductTag.setText(Hashtag);
 
+
                         for(Element element: Codi_title) {
                             listTitle.add(element.text());
                         }
+                        Collections.reverse(listTitle);
                         //가수정보
                         for (Element element : Codi_Spec) {
                             listBrand.add(element.text());
                         }
+                        Collections.reverse(listBrand);
                         // 이미지정보
                         for (Element element : Codi_Img){
                             listUrl.add("https:"+element.attr("src"));
                         }
+                        Collections.reverse(listUrl);
                         for (Element element : Codi_Url){
                             System.out.println("CODI IMG URL:"+element.attr("href"));
                             if(element.attr("href").contains("https://www.musinsa.com"))
@@ -284,6 +289,8 @@ public class Activity_codi extends AppCompatActivity {
                                 listImgLink.add("https://www.musinsa.com"+element.attr("href"));
                             }
                         }
+                        Collections.reverse(listImgLink);
+
                         for (Element element : Similar_Url){
                             System.out.println("S IMG URL:"+element.attr("href"));
                             if(element.attr("href").contains("https://www.musinsa.com"))
