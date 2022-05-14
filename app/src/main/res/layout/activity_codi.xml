@@ -111,6 +111,26 @@
         android:orientation="vertical"
         android:background="@color/black">
 
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*"
+            android:id="@+id/size"
+            >
+            <TableRow
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="사이즈"
+                    android:textColor="@color/white"
+                    />
+            </TableRow>
+        </TableLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

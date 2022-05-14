@@ -1,14 +1,19 @@
 package org.techtown.sns_project.Camera;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -49,10 +54,21 @@ public class Activity_codi extends AppCompatActivity {
     ArrayList<String> listSPrice = new ArrayList<>();
     ArrayList<String> listSImgLink = new ArrayList<>();
 
+    String THeadS1;
+    String THeadS2;
+    String[] THeadSA;
+    String[] THeadSA1;
+    String[] THeadSA2;
+    ArrayList<String>[] sizeArr;
+    String pattern = "[^a-zA-Z0-9]*$";
+    int n=1;
+    private TableLayout sizeTable ;
+    TableRow[] tablerow;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_codi);
+
 
         Intent intent = getIntent();
 
@@ -140,10 +156,90 @@ public class Activity_codi extends AppCompatActivity {
                 final Elements Similar_Price= product_Similar.select("p[class=price]");
                 final Elements Similar_Url= product_Similar.select("div[class=list_img] a");
 
+                //사이즈 어떤 타입인지
+                final Elements THead= doc.select("table[class=table_th_grey] thead");
+                //사이즈 어떤 종류인지
+                final Elements THead1= doc.select("table[class=table_th_grey] tbody tr th");
+                //사이즈 어떤 데이터인지
+                final Elements THead2= doc.select("table[class=table_th_grey] tbody tr td");
+
                 Handler handler = new Handler(Looper.getMainLooper()); // 객체생성
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+
+                        THeadSA = THead.text().split(" ");
+
+                        THeadS1  = THead1.text().replace("MY ","");
+                        THeadSA1 = THeadS1.split(" ");
+
+                        THeadS2 = THead2.text().replace("가지고 계신 제품의 실측을 입력해 보세요~! 위 구매 내역의 사이즈를 저장하시겠습니까? ","");
+                        THeadSA2 = THeadS2.split(" ");
+
+                        sizeArr = new ArrayList[THeadSA2.length/(THeadSA.length-1)+1];
+                        for (int i = 0; i < THeadSA2.length/(THeadSA.length-1)+1; i++) {
+                            sizeArr[i] = new ArrayList<>();
+                        }//어레이 리스트 만들기
+                        for(int i=0; i<THeadSA.length; i++)
+                        {
+                            sizeArr[0].add(THeadSA[i]);
+                        }//첫줄 데이터 입력
+
+
+                        for(int i=0; i<THeadSA1.length; i++)
+                        {
+                            if(THeadSA1[i].matches(pattern))
+                            {
+                                sizeArr[n-1].set(0,sizeArr[n-1].get(0)+THeadSA1[i]);
+                            }
+                            else
+                            {
+                                sizeArr[n].add(THeadSA1[i]);
+                                n++;
+                            }
+                        }
+
+                        for(int i=1; i<THeadSA2.length/(THeadSA.length-1)+1; i++)
+                        {
+                            for(int j=(THeadSA.length-1)*(i-1); j<(THeadSA.length-1)*i; j++)
+                            {
+                                sizeArr[i].add(THeadSA2[j]);
+                            }
+                        }//데이터 입력
+
+                        for(int i=0; i<THeadSA2.length/(THeadSA.length-1)+1; i++)
+                        {
+                            System.out.println(sizeArr[i]);
+
+                        }
+
+                        sizeTable = (TableLayout)findViewById(R.id.size);
+                        tablerow = new TableRow[sizeArr.length];
+                        for(int i=0; i<sizeArr.length; i++)
+                        {
+
+                            tablerow[i] = new TableRow(getApplicationContext());
+                            tablerow[i].setLayoutParams(new TableRow.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.WRAP_CONTENT
+                            ));
+                        }
+                        System.out.println("SA"+sizeArr.length);
+                        System.out.println("SA"+THeadSA.length);
+                        System.out.println("asdas"+sizeArr.length);
+                        System.out.println("asdas"+sizeArr[0].size());
+                        TextView textView[][] = new TextView[sizeArr.length][THeadSA.length];
+                        for(int j=0; j<sizeArr.length; j++) {
+                            for (int i = 0; i < sizeArr[0].size(); i++) {
+                                textView[i][j] = new TextView(getApplicationContext());
+                                textView[i][j].setText(sizeArr[j].get(i));
+                                textView[i][j].setGravity(Gravity.CENTER);
+                                textView[i][j].setTextSize(10);
+                                textView[i][j].setTextColor(Color.WHITE);
+                                tablerow[j].addView(textView[i][j]);
+                            }
+                            sizeTable.addView(tablerow[j]);
+                        }
                         final Elements productImg = doc.select("div[class=product-img] img"); //제품사진
                         txt_ProductImg=  findViewById(R.id.txt_ProductImg);
                         Glide.with(txt_ProductImg).load("https:"+productImg.attr("src")).error(R.drawable.ic_launcher_background).into(txt_ProductImg);
@@ -242,6 +338,7 @@ public class Activity_codi extends AppCompatActivity {
                             Sadapter.addItem(data);
 
                         }
+
                         Cadapter.notifyDataSetChanged();
                         Sadapter.notifyDataSetChanged();
                     }
