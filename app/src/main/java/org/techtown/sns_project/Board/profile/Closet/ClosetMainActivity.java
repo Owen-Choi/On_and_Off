@@ -41,6 +41,8 @@ public class ClosetMainActivity extends AppCompatActivity {
         //뒤로가기
         //getSupportActionBar().setTitle("Closet");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        /*
         //옷장 옷 추가 버튼
         findViewById(R.id.main_write_button).setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -97,7 +99,7 @@ public class ClosetMainActivity extends AppCompatActivity {
                         });
             }
         });
-
+*/
         //네비게이션바
         bottomNavigationView = findViewById(R.id.bottomNavi);
 
