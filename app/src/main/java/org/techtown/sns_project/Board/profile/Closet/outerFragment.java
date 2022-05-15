@@ -37,7 +37,7 @@ public class outerFragment extends Fragment {
     private static ClosetAdapter Closet_adapter;
 
     static HashMap<String,Object> List = new HashMap<String,Object>();
-    final CharSequence[] selectOption = {"코디 보기", "항목 삭제하기"};
+    final CharSequence[] selectOption = {"코디 보기"};
 
     static String TAG="DONG";
 
@@ -82,26 +82,7 @@ public class outerFragment extends Fragment {
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         v.getContext().startActivity(intent);
                                         break;
-                                    case 1:
-                                        //항목 삭제
-                                        db.collection("users").document(post_publisher).collection(clothes_type)
-                                                .document(delItem).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
 
-                                                Closet_adapter.removeItem(pos);
-                                                dialog.dismiss();
-                                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                                            }
-                                        })
-                                                .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Log.w(TAG, "Error deleting document", e);
-                                                    }
-                                                });
-
-                                        break;
                                 }
                             }
                         })

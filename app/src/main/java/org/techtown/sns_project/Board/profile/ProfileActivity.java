@@ -248,11 +248,6 @@ public class ProfileActivity extends AppCompatActivity {
                 });
     }
 
-
-
-
-
-
     //storage에서 저장된 프사 정보를 가져와서 img view에 뿌리기
     private void setFireBaseProfileImage(String filename_GetUid) {
 
