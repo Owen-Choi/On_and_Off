@@ -3,6 +3,7 @@ package org.techtown.sns_project.fragment;
 import static android.os.SystemClock.sleep;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +28,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper;
+import com.sdsmdg.harjot.rotatingtext.models.Rotatable;
 
 import org.techtown.sns_project.Board.BoardAdapter;
 import org.techtown.sns_project.Board.LikeBoardPostClickEvent;
@@ -73,6 +76,19 @@ public class HomeFragment extends Fragment {
         recyclerView_LikeList.setLayoutManager(LikeList);
         adapter = new HomeFragmentLikeListAdpater();
         recyclerView_LikeList.setAdapter(adapter);
+/*
+
+        // 인범 This is on and off 애니메이션
+        RotatingTextWrapper rotatingTextWrapper = (RotatingTextWrapper) view.findViewById(R.id.custom_switcher);
+        rotatingTextWrapper.setSize(35);
+
+        Rotatable rotatable = new Rotatable(Color.parseColor("#FFA036"), 1000, " ON", "  &", "OFF ");
+        rotatable.setSize(35);
+        rotatable.setAnimationDuration(500);
+
+        rotatingTextWrapper.setContent("This is ?", rotatable);
+        // 여기까지
+*/
 
         db.collectionGroup("board").get().
                 addOnCompleteListener(task -> {

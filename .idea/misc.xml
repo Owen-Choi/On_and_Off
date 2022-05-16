@@ -140,6 +140,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_volume_up_24.xml" value="0.4046875" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2765625" />
         <entry key="app/src/main/res/drawable/shape_for_circle_button.xml" value="0.26979166666666665" />
+        <entry key="app/src/main/res/drawable/shape_radius.xml" value="0.31302083333333336" />
         <entry key="app/src/main/res/layout/activity_board_item.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_bookmark.xml" value="0.29981884057971014" />
         <entry key="app/src/main/res/layout/activity_closet.xml" value="0.3609375" />
@@ -154,6 +155,7 @@
         <entry key="app/src/main/res/layout/activity_common_sign_in.xml" value="0.2513586956521739" />
         <entry key="app/src/main/res/layout/activity_enterprise_main.xml" value="0.2513586956521739" />
         <entry key="app/src/main/res/layout/activity_enterprise_member_info.xml" value="0.17553191489361702" />
+        <entry key="app/src/main/res/layout/activity_enterprise_qr_generate.xml" value="0.13425925925925927" />
         <entry key="app/src/main/res/layout/activity_enterprise_setting.xml" value="0.17553191489361702" />
         <entry key="app/src/main/res/layout/activity_initial.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_normal_main.xml" value="0.18" />
@@ -168,7 +170,7 @@
         <entry key="app/src/main/res/layout/board_fragment_item.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/layout/bookmark_listview_item.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/layout/closet_all.xml" value="0.18385416666666668" />
-        <entry key="app/src/main/res/layout/dialog_closet_item_list.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/dialog_closet_item_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/home_fragment.xml" value="0.31424766977363516" />
         <entry key="app/src/main/res/layout/item_codi.xml" value="0.33" />
         <entry key="app/src/main/res/layout/like_rank.xml" value="0.17553191489361702" />
@@ -201,7 +203,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.264" />
+        <option name="scale" value="0.22" />
       </ProjectState>
     </option>
   </component>
