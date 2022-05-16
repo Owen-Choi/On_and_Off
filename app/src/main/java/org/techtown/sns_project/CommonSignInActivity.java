@@ -3,6 +3,7 @@ package org.techtown.sns_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.royrodriguez.transitionbutton.TransitionButton;
 
 import org.techtown.sns_project.Enterprise.EnterpriseMainActivity;
 import org.techtown.sns_project.Normal.NormalMainActivity;
@@ -27,7 +29,11 @@ public class CommonSignInActivity extends AppCompatActivity implements SignInAct
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private FirebaseFirestore db;
-//
+
+    //
+    private TransitionButton transitionButton;
+
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +43,11 @@ public class CommonSignInActivity extends AppCompatActivity implements SignInAct
         actionBar.hide();
 
         mAuth = FirebaseAuth.getInstance();
-        findViewById(R.id.SignInButton).setOnClickListener(onClickListener);
+
+        //dlsqja
+        transitionButton = findViewById(R.id.SignInButton);
+        transitionButton.setOnClickListener(onClickListener);
+
         findViewById(R.id.CommonSignUpButton).setOnClickListener(onClickListener);
         findViewById(R.id.FindPassWord).setOnClickListener(onClickListener);
         //findViewById(R.id.ToPasswordInitButton).setOnClickListener(onClickListener);
@@ -67,13 +77,46 @@ public class CommonSignInActivity extends AppCompatActivity implements SignInAct
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 firebaseUser = mAuth.getCurrentUser();
                                 db = FirebaseFirestore.getInstance();
-                                CheckUser(firebaseUser, db);
+
+                                //인범 뾰로롱 로그인 애니메이션 코드
+                                transitionButton.startAnimation();
+                                // Do your networking task or background work here.
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        boolean isSuccessful = true;
+
+                                        // Choose a stop animation if your call was succesful or not
+                                        if (isSuccessful) {
+                                            transitionButton.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
+                                                @Override
+                                                public void onAnimationStopEnd() {
+                                                    CheckUser(firebaseUser, db); // 채크 ㄱㄱ
+
+                                                }
+                                            });
+                                        } else {
+                                            transitionButton.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
+                                        }
+                                    }
+                                }, 2000);
+                                //여기까지 애니메이션 코드
+
                             } else {
+                                //인범 뾰로롱 로그인 애니메이션 코드
+                                transitionButton.startAnimation();
+                                transitionButton.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
+                                //여기까지 애니메이션 코드
                                 StartToast("로그인 실패 : 로그인 정보가 일치하지 않습니다.");
                             }
                         }
                     });
         } else {
+            //인범 뾰로롱 로그인 애니메이션 코드
+            transitionButton.startAnimation();
+            transitionButton.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
+            //여기까지 애니메이션 코드
             StartToast("빈칸을 확인해주세요.");
         }
     }

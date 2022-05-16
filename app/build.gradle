@@ -64,7 +64,9 @@ dependencies {
     // 밤희 프로젝트 gradle
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.soundcloud.android:android-crop:1.0.1@aar'
-
+    implementation 'com.github.flavienlaurent.discrollview:library:0.0.2@aar' // 첫 시도
+    implementation 'com.royrodriguez:transitionbutton:0.2.0' //로그인 싱기한 버튼
+    implementation 'com.github.florent37:materialtextfield:1.0.7' //로그인 뾰로롱 editText
 }
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'

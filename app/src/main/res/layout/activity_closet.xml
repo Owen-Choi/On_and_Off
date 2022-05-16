@@ -16,7 +16,9 @@
         android:layout_above="@+id/bottomNavi"
         android:layout_margin="8dp"
         android:contentDescription="TODO"
-        android:src="@drawable/ic_baseline_add_24" />
+        android:src="@drawable/ic_baseline_add_24"
+        android:backgroundTint="#99ccff"
+        app:borderWidth="0dp"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavi"
