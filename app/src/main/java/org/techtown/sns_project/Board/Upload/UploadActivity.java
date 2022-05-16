@@ -333,6 +333,7 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 defaultString = input.getText().toString();
+                Toast.makeText(UploadActivity.this, "옷이 추가되었습니다", Toast.LENGTH_SHORT).show();
                 call_parser();
             }
         });
@@ -448,6 +449,7 @@ public class UploadActivity extends AppCompatActivity {
             public void onItemClick(View v, int position, ArrayList<Closet_info> listData) {
                 String url = listData.get(position).getUrl();
                 upload_parser_class parser = new upload_parser_class(url, UploadActivity.this);
+                Toast.makeText(UploadActivity.this, "아우터가 추가되었습니다", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -456,6 +458,7 @@ public class UploadActivity extends AppCompatActivity {
             public void onItemClick(View v, int position, ArrayList<Closet_info> listData) {
                 String url = listData.get(position).getUrl();
                 upload_parser_class parser = new upload_parser_class(url, UploadActivity.this);
+                Toast.makeText(UploadActivity.this, "상의가 추가되었습니다", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -464,6 +467,7 @@ public class UploadActivity extends AppCompatActivity {
             public void onItemClick(View v, int position, ArrayList<Closet_info> listData) {
                 String url = listData.get(position).getUrl();
                 upload_parser_class parser = new upload_parser_class(url, UploadActivity.this);
+                Toast.makeText(UploadActivity.this, "하의가 추가되었습니다", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -472,6 +476,7 @@ public class UploadActivity extends AppCompatActivity {
             public void onItemClick(View v, int position, ArrayList<Closet_info> listData) {
                 String url = listData.get(position).getUrl();
                 upload_parser_class parser = new upload_parser_class(url, UploadActivity.this);
+                Toast.makeText(UploadActivity.this, "신발이 추가되었습니다", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

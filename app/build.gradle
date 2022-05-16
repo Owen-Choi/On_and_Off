@@ -64,9 +64,10 @@ dependencies {
     // 밤희 프로젝트 gradle
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.soundcloud.android:android-crop:1.0.1@aar'
-    implementation 'com.github.flavienlaurent.discrollview:library:0.0.2@aar' // 첫 시도
+    implementation 'com.github.flavienlaurent.discrollview:library:0.0.2@aar' // QR 찍으면 나오는 화면 스크롤? 해주게 하기위한 발버둥
     implementation 'com.royrodriguez:transitionbutton:0.2.0' //로그인 싱기한 버튼
     implementation 'com.github.florent37:materialtextfield:1.0.7' //로그인 뾰로롱 editText
+    implementation 'com.sdsmdg.harjot:rotatingtext:1.0.2' // This is on & off 애니메이션
 }
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
