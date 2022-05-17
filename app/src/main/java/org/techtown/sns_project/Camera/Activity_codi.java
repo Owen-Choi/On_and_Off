@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -28,6 +29,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.fragment.profile.Closet.ClosetMainActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,6 +67,7 @@ public class Activity_codi extends AppCompatActivity {
     int n=1;
     private TableLayout sizeTable ;
     TableRow[] tablerow;
+    Button closetButton;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +98,7 @@ public class Activity_codi extends AppCompatActivity {
         Sadapter = new SimilarAdapter();
         recyclerView_Codi.setAdapter(Cadapter);
         recyclerView_Similar.setAdapter(Sadapter);
-
+        closetButton = findViewById(R.id.MoveToClosetButton);
         getData();
 
         Cadapter.setOnItemClickListener (new CodiAdapter.OnItemClickListener() {
@@ -121,6 +124,12 @@ public class Activity_codi extends AppCompatActivity {
 
         });
 
+        closetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StartActivityWithClass(ClosetMainActivity.class);
+            }
+        });
 
     }
 
@@ -361,6 +370,11 @@ public class Activity_codi extends AppCompatActivity {
     }
     private void StartActivity(String key) {
         Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(key));
+        startActivity(intent);
+    }
+
+    private void StartActivityWithClass(Class c) {
+        Intent intent = new Intent(this, c);
         startActivity(intent);
     }
 

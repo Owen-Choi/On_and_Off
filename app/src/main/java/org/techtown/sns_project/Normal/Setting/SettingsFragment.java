@@ -28,6 +28,8 @@ import org.techtown.sns_project.fragment.profile.ProfileFragment;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
     public SettingsFragment() {
     }
 
@@ -44,6 +46,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         Preference memberInfo = (Preference)findPreference("memberInfo");
         Preference PWChange = (Preference)findPreference("change_pw");
         Preference withdrawal = (Preference)findPreference("withdrawal");
+        Preference SignOut = (Preference)findPreference("sign_out");
 //        SeekBarPreference sp = findPreference("volume_notifications");
 //        sp.getValue();
         mypref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -109,12 +112,21 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             }
         });
+
+        SignOut.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                firebaseAuth.signOut();
+                StartActivity(CommonSignInActivity.class);
+                return true;
+            }
+        });
     }
 
     private void StartActivity(Class c) {
         Intent intent = new Intent(getActivity(), c);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-
 
 }
