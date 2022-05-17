@@ -27,6 +27,9 @@
         <Preference
             app:title="회원 탈퇴"
             app:key="withdrawal"/>
+        <Preference
+            app:title="로그아웃"
+            app:key="sign_out"/>
 
     </PreferenceCategory>
 
