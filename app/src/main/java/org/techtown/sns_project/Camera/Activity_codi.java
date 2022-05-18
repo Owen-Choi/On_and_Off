@@ -23,23 +23,29 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.techtown.sns_project.R;
+import org.techtown.sns_project.fragment.DataFormat;
 import org.techtown.sns_project.fragment.profile.Closet.ClosetMainActivity;
+import org.techtown.sns_project.qr.ProductInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class Activity_codi extends AppCompatActivity {
 
     RecyclerView recyclerView_Codi, recyclerView_Similar;
     CodiAdapter Cadapter;
-    SimilarAdapter Sadapter;
+    // 유사상품 삭제예정
+    PostAdapter postAdapter;
     String Codi_Url ="";
     ImageView txt_ProductImg ;
     TextView txt_ProductBrand, txt_ProductTitle,txt_ProductPrice,txt_ProductTag;
@@ -66,8 +72,14 @@ public class Activity_codi extends AppCompatActivity {
     String pattern = "[^a-zA-Z0-9]*$";
     int n=1;
     private TableLayout sizeTable ;
+    // 동혀 추가 (사이즈 테이블)
     TableRow[] tablerow;
+    // 철웅 추가 (옷장버튼, 게시글 리사이클러뷰)
     Button closetButton;
+    static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
+    static ArrayList<PostDTO> PDL = new ArrayList<>();
+    private HashMap<String, Object> List;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,9 +107,9 @@ public class Activity_codi extends AppCompatActivity {
         recyclerView_Codi.setLayoutManager(linearLayoutManager_Codi);
         recyclerView_Similar.setLayoutManager(linearLayoutManager_Similar);
         Cadapter = new CodiAdapter();
-        Sadapter = new SimilarAdapter();
+        postAdapter = new PostAdapter();
         recyclerView_Codi.setAdapter(Cadapter);
-        recyclerView_Similar.setAdapter(Sadapter);
+        recyclerView_Similar.setAdapter(postAdapter);
         closetButton = findViewById(R.id.MoveToClosetButton);
         getData();
 
@@ -112,16 +124,11 @@ public class Activity_codi extends AppCompatActivity {
             }
 
         });
-        Sadapter.setOnItemClickListener (new SimilarAdapter.OnItemClickListener() {
-            //아이템 클릭시 토스트메시지
+        postAdapter.setOnItemClickListener(new PostAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                System.out.println("position"+position);
-                System.out.println(listSImgLink.size());
-                System.out.println(listImgLink.size());
                 StartCodiActivity(listSImgLink.get(position));
             }
-
         });
 
         closetButton.setOnClickListener(new View.OnClickListener() {
@@ -140,13 +147,12 @@ public class Activity_codi extends AppCompatActivity {
 
     private class CodiJsoup extends AsyncTask<Void, Void, Void> {
 
-
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         @Override
         protected Void doInBackground(Void... voids) {
             try {
 
                 Document doc = Jsoup.connect(Codi_Url).get();
-
 
                 final Elements Codi_Img = doc.select("div[class=right_contents related-styling]  ul[class=style_list] li[class=list_item] img");
                 final Elements Codi_title = doc.select("div[class=right_contents related-styling]  ul[class=style_list] li[class=list_item] h5");
@@ -159,12 +165,13 @@ public class Activity_codi extends AppCompatActivity {
                 final Elements product_Price= doc.select("div[class=member_price] ul li ");
                 Element price = product_Price.select("span[class=txt_price_member]").first();
                 //가격
-                final Elements product_Similar= doc.select("div[id=wrap_similar_product] div[class=list-box box list_related_product owl-carousel] ul li");
-                final Elements Similar_Img = product_Similar.select("div[class=list_img] img");
-                final Elements Similar_Title= product_Similar.select("p[class=item_title]");
-                final Elements Similar_Brand= product_Similar.select("p[class=list_info]");
-                final Elements Similar_Price= product_Similar.select("p[class=price]");
-                final Elements Similar_Url= product_Similar.select("div[class=list_img] a");
+                // 유사 상품은 QR 화면에서 더 이상 지원하지 않음.
+//                final Elements product_Similar= doc.select("div[id=wrap_similar_product] div[class=list-box box list_related_product owl-carousel] ul li");
+//                final Elements Similar_Img = product_Similar.select("div[class=list_img] img");
+//                final Elements Similar_Title= product_Similar.select("p[class=item_title]");
+//                final Elements Similar_Brand= product_Similar.select("p[class=list_info]");
+//                final Elements Similar_Price= product_Similar.select("p[class=price]");
+//                final Elements Similar_Url= product_Similar.select("div[class=list_img] a");
 
                 //사이즈 어떤 타입인지
                 final Elements THead= doc.select("table[class=table_th_grey] thead");
@@ -250,6 +257,7 @@ public class Activity_codi extends AppCompatActivity {
                             }
                             sizeTable.addView(tablerow[j]);
                         }
+                        // 여기까지가 사이즈 테이블
                         final Elements productImg = doc.select("div[class=product-img] img"); //제품사진
                         txt_ProductImg=  findViewById(R.id.txt_ProductImg);
                         Glide.with(txt_ProductImg).load("https:"+productImg.attr("src")).error(R.drawable.ic_launcher_background).into(txt_ProductImg);
@@ -300,24 +308,25 @@ public class Activity_codi extends AppCompatActivity {
                         }
                         Collections.reverse(listImgLink);
 
-                        for (Element element : Similar_Url){
-                            System.out.println("S IMG URL:"+element.attr("href"));
-                            if(element.attr("href").contains("https://www.musinsa.com"))
-                            {
-                                System.out.println("CONTAIN : "+ element.attr("href"));
-                                listSImgLink.add(element.attr("href"));
-                            }
-                            else
-                            {
-                                listSImgLink.add("https://www.musinsa.com"+element.attr("href"));
-                                System.out.println("NONCONTAIN : "+ "https://www.musinsa.com"+element.attr("href"));
-                            }
-                        }
+//                        for (Element element : Similar_Url){
+//                            System.out.println("S IMG URL:"+element.attr("href"));
+//                            if(element.attr("href").contains("https://www.musinsa.com"))
+//                            {
+//                                System.out.println("CONTAIN : "+ element.attr("href"));
+//                                listSImgLink.add(element.attr("href"));
+//                            }
+//                            else
+//                            {
+//                                listSImgLink.add("https://www.musinsa.com"+element.attr("href"));
+//                                System.out.println("NONCONTAIN : "+ "https://www.musinsa.com"+element.attr("href"));
+//                            }
+//                        }
                         System.out.println("SIZE : "+ listSImgLink);
                         for (int i = 0; i < listTitle.size() ; i++) {
                             CodiDTO data = new CodiDTO();
 
                             data.setTitle(listTitle.get(i));
+                            // 여기에 게시물의 imageUrl이 들어가야 한다.
                             data.setImageUrl(listUrl.get(i));
                             data.setBrand(listBrand.get(i));
 
@@ -325,38 +334,77 @@ public class Activity_codi extends AppCompatActivity {
                         }
 
                      //비슷한 상품 출력
-                        for(Element ele : Similar_Img)
-                        {
-                            listSUrl.add("https:"+ele.attr("src"));
-                        }
-                        for(Element ele : Similar_Brand)
-                        {
-                            listSBrand.add(ele.text());
-                            listSBrand.add(ele.text());
-                        }
-                        for(Element ele : Similar_Title)
-                        {
-                            listSTitle.add(ele.text());
-                        }
-                        for(Element ele : Similar_Price) {
-                            listSPrice.add(ele.text());
-                        }
+//                        for(Element ele : Similar_Img)
+//                        {
+//                            listSUrl.add("https:"+ele.attr("src"));
+//                        }
+//                        for(Element ele : Similar_Brand)
+//                        {
+//                            listSBrand.add(ele.text());
+//                            listSBrand.add(ele.text());
+//                        }
+//                        for(Element ele : Similar_Title)
+//                        {
+//                            listSTitle.add(ele.text());
+//                        }
+//                        for(Element ele : Similar_Price) {
+//                            listSPrice.add(ele.text());
+//                        }
+//
+//
+//                        for(int i=0; i<listSTitle.size(); i++)
+//                        {
+//                            CodiDTO data = new CodiDTO();
+//                            data.setImageUrl(listSUrl.get(i));
+//                            data.setBrand(listSBrand.get(i));
+//                            data.setTitle(listSTitle.get(i));
+//                            data.setPrice(listSPrice.get(i));
+//
+//                            Sadapter.addItem(data);
+//
+//                        }
 
 
-                        for(int i=0; i<listSTitle.size(); i++)
-                        {
-                            CodiDTO data = new CodiDTO();
-                            data.setImageUrl(listSUrl.get(i));
-                            data.setBrand(listSBrand.get(i));
-                            data.setTitle(listSTitle.get(i));
-                            data.setPrice(listSPrice.get(i));
-
-                            Sadapter.addItem(data);
-
-                        }
+                        db.collection("board").get().addOnCompleteListener(task -> {
+                            DataFormat dataFormat;
+                            PDL.clear();
+                            if(task.isSuccessful()) {
+                                for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                    List = (HashMap<String, Object>) documentSnapshot.getData();
+                                    dataFormat = documentSnapshot.toObject(DataFormat.class);
+                                    ArrayList<ProductInfo> tempList = dataFormat.getList();
+                                    if(tempList.size() != 0) {
+                                        Log.e("woong", " : " + tempList.get(0).getInfo());
+                                        for (ProductInfo tempPI : tempList) {
+                                            if(tempPI.getInfo().equals(product_INFO.text())) {
+                                                // 게시글의 list (추가한 옷 정보들)에 유저가 QR scan한 상품의 정보가 있다면
+                                                // 해당 게시글 사진, userid, 좋아요 수 PostDTO에 저장해서 postAdapter에 넣기
+                                                Log.e(TAG, "find " + product_INFO.text());
+                                                Log.e(TAG, "and gonna insert " + List.get("imageUrl"));
+                                                PostDTO tempPostDTO = new PostDTO(
+                                                        (String)List.get("userid"),
+                                                        (String)List.get("description"),
+                                                        (String)List.get("imageUrl")
+                                                );
+                                                PDL.add(tempPostDTO);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            for (PostDTO datas : PDL) {
+                                postAdapter.addItem(datas);
+                            }
+                            postAdapter.notifyDataSetChanged();
+                        });
 
                         Cadapter.notifyDataSetChanged();
-                        Sadapter.notifyDataSetChanged();
+//                        Sadapter.notifyDataSetChanged();
+//                        for (PostDTO datas : PDL) {
+//                            postAdapter.addItem(datas);
+//                        }
+//                        postAdapter.notifyDataSetChanged();
                     }
                 });
 
