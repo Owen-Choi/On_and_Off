@@ -22,8 +22,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_profile"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_margin="10dp" />
 
 
@@ -42,13 +42,13 @@
                     android:layout_weight="1" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_gravity="right"
-                    android:src="@drawable/ic_more"
                     android:id="@+id/more"
-                    android:layout_margin="10dp"/>
+                    android:layout_width="40dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_more" />
 
 
             </LinearLayout>
@@ -60,7 +60,7 @@
                 <ImageView
                     android:id="@+id/post_image"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="450dp"
                     app:layout_constraintDimensionRatio="1:1"
                     tools:ignore="MissingConstraints"
                     tools:layout_editor_absoluteX="0dp"
@@ -138,7 +138,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="  착용 제품 "/>
+                android:text="  착용 제품 " />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/AddedItemList"
