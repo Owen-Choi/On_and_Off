@@ -163,7 +163,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="관련 상품"
+                    android:text="관련 게시글"
                     android:textColor="@color/white" />
 
                 <androidx.recyclerview.widget.RecyclerView
