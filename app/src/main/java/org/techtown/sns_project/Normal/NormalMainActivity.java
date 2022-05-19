@@ -84,6 +84,7 @@ public class NormalMainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.main_layout,Home_Fragment).commitAllowingStateLoss();
                         setTitle("QR");
+
                         return true;
                     case R.id.nav_board:
                         getSupportFragmentManager().beginTransaction()

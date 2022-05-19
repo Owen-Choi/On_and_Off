@@ -190,7 +190,7 @@
                     android:id="@+id/MoveToClosetButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="옷장 가기" />
+                    android:text="옷장  가기" />
             </LinearLayout>
 
         </LinearLayout>
