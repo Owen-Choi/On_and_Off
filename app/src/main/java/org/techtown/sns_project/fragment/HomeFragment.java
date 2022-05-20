@@ -3,11 +3,13 @@ package org.techtown.sns_project.fragment;
 import static android.os.SystemClock.sleep;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,9 +28,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper;
+import com.sdsmdg.harjot.rotatingtext.models.Rotatable;
 
 import org.techtown.sns_project.Board.BoardAdapter;
 import org.techtown.sns_project.Board.LikeBoardPostClickEvent;
+import org.techtown.sns_project.Board.Upload.UploadActivity;
 import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListAdapter;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.Normal.Home.HomeFragmentLikeListAdpater;
@@ -47,6 +52,7 @@ public class HomeFragment extends Fragment {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ImageView QrImage ;
     RecyclerView recyclerView_LikeList;
     LikeDataFormat df;
     static int nrlikes =0;
@@ -65,10 +71,24 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_fragment, container, false);
         recyclerView_LikeList = view.findViewById(R.id.recyclerView_LikeList);
+        QrImage = view.findViewById(R.id.Qr_image);
         LinearLayoutManager LikeList = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL, false);
         recyclerView_LikeList.setLayoutManager(LikeList);
         adapter = new HomeFragmentLikeListAdpater();
         recyclerView_LikeList.setAdapter(adapter);
+/*
+
+        // 인범 This is on and off 애니메이션
+        RotatingTextWrapper rotatingTextWrapper = (RotatingTextWrapper) view.findViewById(R.id.custom_switcher);
+        rotatingTextWrapper.setSize(35);
+
+        Rotatable rotatable = new Rotatable(Color.parseColor("#FFA036"), 1000, " ON", "  &", "OFF ");
+        rotatable.setSize(35);
+        rotatable.setAnimationDuration(500);
+
+        rotatingTextWrapper.setContent("This is ?", rotatable);
+        // 여기까지
+*/
 
         db.collectionGroup("board").get().
                 addOnCompleteListener(task -> {
@@ -132,8 +152,18 @@ public class HomeFragment extends Fragment {
                 StartActivity(LikeBoardPostClickEvent.class,position);
             }
         });
+
+        QrImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ScanQR.class);
+                startActivity(intent);
+            }
+        });
+
           return view;
     }
+
 
 
 

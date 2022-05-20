@@ -5,150 +5,195 @@
     android:layout_height="match_parent"
     android:weightSum="5">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:background="@color/black"
-        >
+        android:layout_weight="4">
 
         <LinearLayout
-            android:layout_width="123dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="5">
 
-            <ImageView
-                android:id="@+id/txt_ProductImg"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="4dp" />
+                android:layout_weight="4"
+                android:background="@color/black"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="123dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/txt_ProductImg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="287dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="회사 | "
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:id="@+id/txt_ProductBrand"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="회사"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="     가격 | "
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:id="@+id/txt_ProductPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="가격"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="제품 | "
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:id="@+id/txt_ProductTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="제품"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="해시태그 | "
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:id="@+id/txt_ProductTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="해시태그"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/black"
+                android:orientation="vertical"
+                android:weightSum="4">
+
+
+                <TableLayout
+                    android:id="@+id/size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="사이즈"
+                            android:textColor="@color/white" />
+                    </TableRow>
+                </TableLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="에디터 추천"
+                    android:textColor="@color/white" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_Codi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@color/black"
+                    android:scrollbarAlwaysDrawHorizontalTrack="true"
+                    android:scrollbarFadeDuration="0"
+                    android:scrollbarStyle="outsideInset"
+                    android:scrollbarThumbHorizontal="@color/white"
+                    android:scrollbars="horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="관련 게시글"
+                    android:textColor="@color/white" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_Similar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@color/black"
+                    android:scrollbarAlwaysDrawHorizontalTrack="true"
+                    android:scrollbarFadeDuration="0"
+                    android:scrollbarStyle="outsideInset"
+                    android:scrollbarThumbHorizontal="@color/white"
+                    android:scrollbars="horizontal" />
+
+                <TextView
+                    android:id="@+id/Closet_notice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/closet_notice"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/MoveToClosetButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="옷장  가기" />
+            </LinearLayout>
+
         </LinearLayout>
+    </ScrollView>
 
-        <LinearLayout
-            android:layout_width="287dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="회사 | "
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/txt_ProductBrand"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="회사"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="     가격 | "
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/txt_ProductPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="가격"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="제품 | "
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/txt_ProductTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="제품"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="해시태그 | "
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/txt_ProductTag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="해시태그"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:weightSum="4"
-        android:orientation="vertical"
-        android:background="@color/black">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="에디터 추천"
-            android:textColor="@color/white"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_Codi"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="horizontal"
-            android:scrollbarStyle="outsideInset"
-            android:scrollbarThumbHorizontal="@color/white"
-            android:scrollbarFadeDuration="0"
-            android:scrollbarAlwaysDrawHorizontalTrack="true"
-            android:layout_weight="2"
-            android:background="@color/black"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="관련 상품"
-            android:textColor="@color/white"
-            />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_Similar"
-            android:layout_weight="2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="horizontal"
-            android:scrollbarStyle="outsideInset"
-            android:scrollbarThumbHorizontal="@color/white"
-            android:scrollbarFadeDuration="0"
-            android:scrollbarAlwaysDrawHorizontalTrack="true"
-            android:background="@color/black"
-            />
-    </LinearLayout>
 </LinearLayout>

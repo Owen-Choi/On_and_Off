@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -89,7 +90,8 @@ public class LikeBoardPostClickEvent extends AppCompatActivity {
         setContentView(R.layout.activity_board_item);
         Intent intent = getIntent();
 
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         listImgURL2 = (String)getIntent().getSerializableExtra("listImgUrl");
         post_description = (String)getIntent().getSerializableExtra("listDescription");
         post_publisher = (String)getIntent().getSerializableExtra("listPublisher");

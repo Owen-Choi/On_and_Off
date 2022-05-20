@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -93,7 +94,8 @@ public class BoardPostClickEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board_item);
         Intent intent = getIntent();
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         listImgUrl = (ArrayList<String>) getIntent().getSerializableExtra("listImgUrl");
         listDescription = (ArrayList<String>) getIntent().getSerializableExtra("listDescription");
         listPublisher = (ArrayList<String>) getIntent().getSerializableExtra("listPublisher");
@@ -226,6 +228,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
             public void onClick(View view) {
                 if (liked) {
                     nrlikes++;
+                    nrLikes(likes);
                     likes.setText(String.valueOf(nrlikes) + "likes");
                     like.setImageResource(R.drawable.ic_liked);
                     Map_like.put("user", user.getUid());
@@ -262,6 +265,7 @@ public class BoardPostClickEvent extends AppCompatActivity {
                             });
                 } else {
                     nrlikes--;
+                    nrLikes(likes);
                     likes.setText(String.valueOf(nrlikes) + "likes");
                     like.setImageResource(R.drawable.ic_like);
                     likesRef.document(user.getUid())
