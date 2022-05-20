@@ -52,7 +52,7 @@ public class EnterpriseMainActivity extends AppCompatActivity {
         EnterpriseQRListButton.setShadowEnabled(true);
         EnterpriseQRListButton.setShadowHeight(20);
         EnterpriseQRListButton.setCornerRadius(20);
-
+//
 
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
