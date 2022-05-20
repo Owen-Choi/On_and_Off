@@ -28,6 +28,7 @@ public class EnterpriseMainActivity extends AppCompatActivity {
     private Toast terminate_guide_msg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enterprise_main);
         ActionBar ac = getSupportActionBar();
