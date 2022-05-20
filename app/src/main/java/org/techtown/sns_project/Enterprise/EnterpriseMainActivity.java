@@ -42,7 +42,7 @@ public class EnterpriseMainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         EnterpsireQRButton = (FButton) findViewById(R.id.EnterpsireQRButton);
-        EnterpsireQRButton.setButtonColor(getResources().getColor(R.color.fbutton_color_midnight_blue));
+        EnterpsireQRButton.setButtonColor(getResources().getColor(R.color.fbutton_color_carrot));
         EnterpsireQRButton.setShadowEnabled(true);
         EnterpsireQRButton.setShadowHeight(20);
         EnterpsireQRButton.setCornerRadius(20);
