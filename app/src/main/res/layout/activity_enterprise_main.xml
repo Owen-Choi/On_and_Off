@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,36 +7,31 @@
     android:orientation="vertical"
     tools:context=".Normal.NormalMainActivity">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:layout_weight="1"
-    android:weightSum="2"
-    >
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="212dp"
+            app:srcCompat="@drawable/onandofflogo" />
+
     <Button
         android:id="@+id/EnterpsireQRButton"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/selector_pressed"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
         android:text="QR 생성"
-        android:layout_weight="1"
          />
+
     <Button
         android:id="@+id/EnterpriseQRListButton"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/selector_pressed"
-        android:layout_weight="1"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
         android:text="QR 리스트"/>
+
+
+    </LinearLayout>
 </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        />
-</androidx.appcompat.widget.LinearLayoutCompat>
