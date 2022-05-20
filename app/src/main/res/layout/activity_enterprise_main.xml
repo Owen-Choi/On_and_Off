@@ -20,30 +20,27 @@
             android:layout_height="212dp"
             app:srcCompat="@drawable/onandofflogo" />
 
-    <Button
-        android:id="@+id/EnterpsireQRButton"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:text="QR 생성"
-         />
-
-    <Button
-        android:id="@+id/EnterpriseQRListButton"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:text="QR 리스트"/>
 
         <info.hoang8f.widget.FButton
-            android:id="@+id/disabled_button"
+            android:id="@+id/EnterpsireQRButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:minHeight="60dp"
-            android:minWidth="240dp"
-            android:text="Disabled Button"
+            android:minWidth="400dp"
+            android:text="QR을 생성하세요"
+            android:textColor="@android:color/white" />
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/EnterpriseQRListButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:minHeight="60dp"
+            android:minWidth="400dp"
+            android:text="저장한 QR리스트"
             android:textColor="@android:color/white" />
 
 

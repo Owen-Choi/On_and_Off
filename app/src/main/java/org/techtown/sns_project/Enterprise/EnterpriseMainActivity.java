@@ -28,7 +28,8 @@ public class EnterpriseMainActivity extends AppCompatActivity {
     private long backKeyPressedTime = 0;
     private Toast terminate_guide_msg;
     //
-    private FButton disabledBtn;
+    private FButton EnterpsireQRButton;
+    private FButton EnterpriseQRListButton;
     //
 
     @Override
@@ -40,17 +41,23 @@ public class EnterpriseMainActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.drawable.onandofflogo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        EnterpsireQRButton = (FButton) findViewById(R.id.EnterpsireQRButton);
+        EnterpsireQRButton.setButtonColor(getResources().getColor(R.color.fbutton_color_midnight_blue));
+        EnterpsireQRButton.setShadowEnabled(true);
+        EnterpsireQRButton.setShadowHeight(20);
+        EnterpsireQRButton.setCornerRadius(20);
+
+        EnterpriseQRListButton = (FButton) findViewById(R.id.EnterpriseQRListButton);
+        EnterpriseQRListButton.setButtonColor(getResources().getColor(R.color.fbutton_color_midnight_blue));
+        EnterpriseQRListButton.setShadowEnabled(true);
+        EnterpriseQRListButton.setShadowHeight(20);
+        EnterpriseQRListButton.setCornerRadius(20);
+
 
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        findViewById(R.id.EnterpsireQRButton).setOnClickListener(onClickListener);
-        findViewById(R.id.EnterpriseQRListButton).setOnClickListener(onClickListener);
-
-        disabledBtn = (FButton) findViewById(R.id.disabled_button);
-        disabledBtn.setButtonColor(getResources().getColor(R.color.fbutton_color_concrete));
-        disabledBtn.setShadowEnabled(true);
-        disabledBtn.setShadowHeight(5);
-        disabledBtn.setCornerRadius(5);
+        EnterpsireQRButton.setOnClickListener(onClickListener);
+        EnterpriseQRListButton.setOnClickListener(onClickListener);
 
 
         // manifest에서 첫 화면은 MainActivity로 설정되어있는데,
