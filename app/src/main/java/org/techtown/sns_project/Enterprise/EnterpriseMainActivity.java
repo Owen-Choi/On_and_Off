@@ -45,6 +45,14 @@ public class EnterpriseMainActivity extends AppCompatActivity {
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         findViewById(R.id.EnterpsireQRButton).setOnClickListener(onClickListener);
         findViewById(R.id.EnterpriseQRListButton).setOnClickListener(onClickListener);
+
+        disabledBtn = (FButton) findViewById(R.id.disabled_button);
+        disabledBtn.setButtonColor(getResources().getColor(R.color.fbutton_color_concrete));
+        disabledBtn.setShadowEnabled(true);
+        disabledBtn.setShadowHeight(5);
+        disabledBtn.setCornerRadius(5);
+
+
         // manifest에서 첫 화면은 MainActivity로 설정되어있는데,
         // 로그인이 되지 않은 상태면 로그인창을 띄워야 한다.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
