@@ -21,11 +21,16 @@ import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListActivity;
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.SignInActivity;
+import info.hoang8f.widget.FButton;
 
 public class EnterpriseMainActivity extends AppCompatActivity {
     private final String TAG = "MainActivityDB";
     private long backKeyPressedTime = 0;
     private Toast terminate_guide_msg;
+    //
+    private FButton disabledBtn;
+    //
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         
