@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="300dp"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:orientation="vertical">
 
     <TextView
@@ -11,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:gravity="center"
-        android:text="회원정보"
+        android:text="회원정보 수정"
+        android:textStyle="bold"
         android:textColor="#000000"
         android:textSize="24sp" />
 
@@ -21,43 +23,58 @@
         android:orientation="vertical"
         android:paddingBottom="5dp">
 
+
         <EditText
             android:id="@+id/NameEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
             android:ems="10"
-            android:hint="이름"
+            android:cursorVisible="false"
+            android:hint="   이름"
+            android:background="@drawable/border"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/PhoneEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
             android:ems="10"
-            android:hint="전화번호"
+            android:cursorVisible="false"
+            android:hint="   전화번호"
+            android:background="@drawable/border"
             android:inputType="phone" />
 
         <EditText
             android:id="@+id/DateEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
             android:ems="10"
-            android:hint="생년월일"
+            android:cursorVisible="false"
+            android:hint="   생년월일"
+            android:background="@drawable/border"
             android:inputType="date" />
 
         <EditText
             android:id="@+id/AddressEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="25dp"
             android:ems="10"
-            android:hint="주소"
+            android:cursorVisible="false"
+            android:hint="   주소"
+            android:background="@drawable/border"
             android:inputType="textPostalAddress" />
 
         <Button
             android:id="@+id/NormalMemberInfoCheckButton"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:text="확인" />
+            android:background="@drawable/round"
+            android:text="변경하기" />
 
     </LinearLayout>
 

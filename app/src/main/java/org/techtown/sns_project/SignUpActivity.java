@@ -110,6 +110,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void StartToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
+/*
 
     @Override
     public void onBackPressed() {
@@ -129,6 +130,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
     }
+*/
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
