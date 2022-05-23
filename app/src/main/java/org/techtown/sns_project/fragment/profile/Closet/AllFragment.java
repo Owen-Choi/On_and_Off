@@ -1,12 +1,18 @@
 package org.techtown.sns_project.fragment.profile.Closet;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -64,6 +70,71 @@ public class AllFragment extends Fragment {
             @Override
             public void onItemClick(View v, int pos, String delItem, String clothes_type, ArrayList<Closet_info> list) {
 
+
+                Dialog dilaog01; // 커스텀 다이얼로그
+                dilaog01 = new Dialog(getContext());       // Dialog 초기화
+                dilaog01.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
+                dilaog01.setContentView(R.layout.custom_dialog_2);             // xml 레이아웃 파일과 연결
+
+                TextView textView = dilaog01.findViewById(R.id.textview);
+                textView.setText("Menu");
+                textView.setTextSize(25);
+
+                dilaog01.show(); // 다이얼로그 띄우기
+                dilaog01.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // 투명 배경
+                /* 이 함수 안에 원하는 디자인과 기능을 구현하면 된다. */
+
+                // 위젯 연결 방식은 각자 취향대로~
+                // '아래 아니오 버튼'처럼 일반적인 방법대로 연결하면 재사용에 용이하고,
+                // '아래 네 버튼'처럼 바로 연결하면 일회성으로 사용하기 편함.
+                // *주의할 점: findViewById()를 쓸 때는 -> 앞에 반드시 다이얼로그 이름을 붙여야 한다.
+
+                // 왼쪽 버튼
+                Button noBtn = dilaog01.findViewById(R.id.leftBtn);
+                noBtn.setText("코디 보기");
+                noBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // 원하는 기능 구현
+                        //코디 보여주기
+                        // listData에서 URL 가져와서 파싱된 화면 띄워주자.
+                        Intent intent = new Intent(v.getContext(), Activity_codi.class);
+                        String key =  list.get(pos).getUrl().replaceAll("[^0-9]", "");
+                        intent.putExtra("key", key);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        v.getContext().startActivity(intent);
+                        dilaog01.dismiss(); // 다이얼로그 닫기
+                    }
+                });
+                // 오른쪽 버튼
+                Button yesBtn = dilaog01.findViewById(R.id.rightBtn);
+                yesBtn.setText("항목 삭제");
+                yesBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // 원하는 기능 구현
+                        //항목 삭제
+                        db.collection("users").document(firebaseUser.getUid()).collection(clothes_type)
+                                .document(delItem).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+                                Closet_adapter.removeItem(pos);
+                                dilaog01.dismiss();
+                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                            }
+                        })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error deleting document", e);
+                                    }
+                                });
+                        dilaog01.dismiss(); // 다이얼로그 닫기
+                    }
+                });
+/*
+
                 AlertDialog.Builder ad = new AlertDialog.Builder(v.getContext());
                 ad.setTitle("Menu")
                         .setIcon(R.drawable.ic_noun_menu_4719158)
@@ -106,6 +177,7 @@ public class AllFragment extends Fragment {
                         .setCancelable(true)
                         .show();
 
+*/
 
             }
         });
