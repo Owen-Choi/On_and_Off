@@ -160,6 +160,7 @@ public class Activity_codi extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             try {
 
+                System.out.println("TESTT"+Codi_Url);
                 Document doc = Jsoup.connect(Codi_Url).get();
 
                 final Elements Codi_Img = doc.select("div[class=right_contents related-styling]  ul[class=style_list] li[class=list_item] img");

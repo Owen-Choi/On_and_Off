@@ -34,10 +34,13 @@ import com.sdsmdg.harjot.rotatingtext.models.Rotatable;
 import org.techtown.sns_project.Board.BoardAdapter;
 import org.techtown.sns_project.Board.LikeBoardPostClickEvent;
 import org.techtown.sns_project.Board.Upload.UploadActivity;
+import org.techtown.sns_project.Camera.Activity_codi;
 import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListAdapter;
 import org.techtown.sns_project.Model.PostInfo;
 import org.techtown.sns_project.Normal.Home.HomeFragmentLikeListAdpater;
+import org.techtown.sns_project.Normal.Home.HomeFragmentQrListAdpater;
 import org.techtown.sns_project.Normal.Home.LikeBoardInfo;
+import org.techtown.sns_project.Normal.Home.QrListInfo;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.Camera.ScanQR;
 import org.techtown.sns_project.qr.ProductInfo;
@@ -54,11 +57,22 @@ public class HomeFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ImageView QrImage ;
     RecyclerView recyclerView_LikeList;
+    RecyclerView recyclerView_QrList;
     LikeDataFormat df;
+    QrDataFormat Qdf;
     static int nrlikes =0;
     int ranking=10;
+    int Qranking=10;
     int num=0;
     static HomeFragmentLikeListAdpater adapter;
+    static HomeFragmentQrListAdpater Qadapter;
+    public static ArrayList<String> listQrInfo = new ArrayList<>();
+    public static ArrayList<String> listQrImgUrl = new ArrayList<>();
+    public static ArrayList<String> listQrTitle = new ArrayList<>();
+    public static ArrayList<String> listQrEid = new ArrayList<>();
+    public static ArrayList<String> listUrl = new ArrayList<>();
+
+    public static ArrayList<Integer> listCount = new ArrayList<>();
     public static ArrayList<String> listImgUrl = new ArrayList<>();
     static ArrayList<String> listDescription = new ArrayList<>();
     static ArrayList<Integer> listLike = new ArrayList<>();
@@ -66,16 +80,23 @@ public class HomeFragment extends Fragment {
     public static ArrayList<String> listDocument = new ArrayList<>();
     static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
     static ArrayList<LikeBoardInfo> likeRank = new ArrayList<>();
+    static ArrayList<QrListInfo> QrRank = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_fragment, container, false);
-        recyclerView_LikeList = view.findViewById(R.id.recyclerView_LikeList);
         QrImage = view.findViewById(R.id.Qr_image);
+        recyclerView_LikeList = view.findViewById(R.id.recyclerView_LikeList);
         LinearLayoutManager LikeList = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL, false);
         recyclerView_LikeList.setLayoutManager(LikeList);
         adapter = new HomeFragmentLikeListAdpater();
         recyclerView_LikeList.setAdapter(adapter);
+
+        recyclerView_QrList = view.findViewById(R.id.recyclerView_QrList);
+        LinearLayoutManager QrList = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL, false);
+        recyclerView_QrList.setLayoutManager(QrList);
+        Qadapter = new HomeFragmentQrListAdpater();
+        recyclerView_QrList.setAdapter(Qadapter);
 /*
 
         // 인범 This is on and off 애니메이션
@@ -123,9 +144,6 @@ public class HomeFragment extends Fragment {
                                 likeRank.add(data);
                                 num++;
                                 Collections.sort(likeRank, new BoardLikeComparator());
-
-
-
                             } else {
                                 for (int i = 0; i < ranking; i++) {
                                     if (likeRank.get(i).getNrlikes() < df.getNrlikes()) {
@@ -145,7 +163,6 @@ public class HomeFragment extends Fragment {
 
                 });
         adapter.setOnItemClickListener (new HomeFragmentLikeListAdpater.OnItemClickListener () {
-
             //아이템 클릭시 토스트메시지
             @Override
             public void onItemClick(View v, int position) {
@@ -161,7 +178,63 @@ public class HomeFragment extends Fragment {
             }
         });
 
-          return view;
+
+        db.collectionGroup("brand").get().
+                addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
+                        listUrl.clear();
+                        listCount.clear();
+                        listQrInfo.clear();
+                        listQrTitle.clear();
+                        listQrImgUrl.clear();
+                        listQrEid.clear();
+                        int count=0;
+                        int qnum =0;
+                        for(QueryDocumentSnapshot document : task.getResult()) {
+
+//             List = (HashMap<String, Object>) document.getData();
+                            Qdf = document.toObject(QrDataFormat.class);
+                            listUrl.add(Qdf.getUrl());
+                            listCount.add(Qdf.getcount());
+                            listQrInfo.add(Qdf.getinfo());
+                            listQrTitle.add(Qdf.gettitle());
+                            listQrImgUrl.add(Qdf.getImgURL());
+                            listQrEid.add(Qdf.geteid());
+                            count++;
+                            Log.d("TESTSTSTST",Qdf.getUrl()+Qdf.getcount());
+
+                            if (qnum < Qranking) {
+                                QrListInfo data = new QrListInfo(Qdf.getinfo(), Qdf.getImgURL(), Qdf.gettitle(), Qdf.getcount(),Qdf.geteid(),Qdf.getUrl());
+                                QrRank.add(data);
+                                qnum++;
+                                Collections.sort(QrRank, new QrComparator());
+                            } else {
+                                for (int i = 0; i < Qranking; i++) {
+                                    if (QrRank.get(i).getcount() < Qdf.getcount()) {
+                                        QrListInfo data = new QrListInfo(Qdf.getinfo(), Qdf.getImgURL(), Qdf.gettitle(), Qdf.getcount(),Qdf.geteid(),Qdf.getUrl());
+                                        QrRank.add(i, data);
+                                        QrRank.remove(Qranking-1);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        Qadapter.addItemList(QrRank);
+                        Qadapter.notifyDataSetChanged();}
+
+
+                });
+        Qadapter.setOnItemClickListener (new HomeFragmentQrListAdpater.OnItemClickListener () {
+            //아이템 클릭시 토스트메시지
+            @Override
+            public void onItemClick(View v, int position) {
+                StartQActivity(Activity_codi.class,position);
+            }
+        });
+
+
+
+        return view;
     }
 
 
@@ -178,6 +251,12 @@ public class HomeFragment extends Fragment {
         startActivity(intent);
     }
 
+    private void StartQActivity(Class c, int position) {
+        Intent intent = new Intent(getContext(),c);
+        ArrayList<QrListInfo> listData = Qadapter.getItem();
+        intent.putExtra("key",listData.get(position).getUrl());
+        startActivity(intent);
+    }
 
     class BoardLikeComparator implements Comparator<LikeBoardInfo> {
         @Override
@@ -190,5 +269,21 @@ public class HomeFragment extends Fragment {
             return 0;
         }
     }
+
+    class QrComparator implements Comparator<QrListInfo> {
+        @Override
+        public int compare(QrListInfo f1, QrListInfo f2) {
+            if (f1.getcount() < f2.getcount()) {
+                return 1;
+            } else if (f1.getcount() > f2.getcount()) {
+                return -1;
+            }
+            return 0;
+        }
     }
+
+
+
+
+}
 
