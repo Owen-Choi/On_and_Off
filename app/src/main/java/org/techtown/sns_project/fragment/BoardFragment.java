@@ -62,10 +62,11 @@ public class BoardFragment extends Fragment {
   at.markushi.ui.CircleButton upload_btn = (at.markushi.ui.CircleButton)view.findViewById(R.id.upload);
 //  Button upload_btn = (Button)view.findViewById(R.id.upload);
   recyclerView_BoardItem = view.findViewById(R.id.recyclerView_BoardItem);
+/*
 
      // 인범 This is on and off 애니메이션
      // 하지만 게시글 엑티비티에 오래 있으면 앱 팅기는 현상 있음.
-     // 작업에 방해 되면 여기 주석처리하고 작업하시면 됩니다 7
+     // 작업에 방해 되면 여기 주석처리하고 작업하시면 됩니다
      RotatingTextWrapper rotatingTextWrapper = (RotatingTextWrapper) view.findViewById(R.id.custom_switcher);
      rotatingTextWrapper.setSize(35);
 
@@ -75,6 +76,7 @@ public class BoardFragment extends Fragment {
 
      rotatingTextWrapper.setContent("This is ?", rotatable);
      // 여기까지
+*/
 
 
   GridLayoutManager BoardItem = new GridLayoutManager(getContext(),2);
