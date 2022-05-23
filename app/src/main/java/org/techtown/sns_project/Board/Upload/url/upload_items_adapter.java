@@ -2,12 +2,17 @@ package org.techtown.sns_project.Board.Upload.url;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,6 +65,8 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
     }
 
 
+
+
     public class AddedItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, category, brand;
@@ -76,6 +83,51 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
                 @Override
                 public void onClick(View view) {
 
+                    // 인범 추가
+                    String str[] = {"옷장에 추가하기", "상세정보 보기"};
+                    Dialog dilaog01; // 커스텀 다이얼로그
+                    dilaog01 = new Dialog(context);       // Dialog 초기화
+                    dilaog01.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
+                    dilaog01.setContentView(R.layout.custom_dialog_2);             // xml 레이아웃 파일과 연결
+
+                    dilaog01.show(); // 다이얼로그 띄우기
+                    dilaog01.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // 투명 배경
+                    /* 이 함수 안에 원하는 디자인과 기능을 구현하면 된다. */
+
+                    // 위젯 연결 방식은 각자 취향대로~
+                    // '아래 아니오 버튼'처럼 일반적인 방법대로 연결하면 재사용에 용이하고,
+                    // '아래 네 버튼'처럼 바로 연결하면 일회성으로 사용하기 편함.
+                    // *주의할 점: findViewById()를 쓸 때는 -> 앞에 반드시 다이얼로그 이름을 붙여야 한다.
+
+                    // 왼쪽 버튼
+                    Button noBtn = dilaog01.findViewById(R.id.leftBtn);
+                    noBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // 원하는 기능 구현
+                            int position = getAdapterPosition();
+                            String url = listData.get(position).getURL();
+                            Closet_Parser closet_Parser = new Closet_Parser(firebaseAuth, firebaseUser, db, url);
+                            Log.e("woong", "onClick: 옷장에 추가");
+                            dilaog01.dismiss(); // 다이얼로그 닫기
+                        }
+                    });
+                    // 오른쪽 버튼
+                    dilaog01.findViewById(R.id.rightBtn).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // 원하는 기능 구현
+                            int position = getAdapterPosition ();
+                            if (position!=RecyclerView.NO_POSITION){
+                                if (mListener!=null){
+                                    mListener.onItemClick (view,position, listData);
+                                }
+                            }
+                            dilaog01.dismiss(); // 다이얼로그 닫기
+                        }
+                    });
+
+/*
                     String str[] = {"옷장에 추가하기", "상세정보 보기"};
 
                     AlertDialog.Builder builder  = new AlertDialog.Builder(context);
@@ -101,6 +153,8 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                    */
+
                 }
             });
 
