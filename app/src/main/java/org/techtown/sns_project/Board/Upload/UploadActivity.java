@@ -3,8 +3,11 @@ package org.techtown.sns_project.Board.Upload;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -58,6 +63,7 @@ import java.util.HashMap;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class UploadActivity extends AppCompatActivity {
@@ -120,6 +126,10 @@ public class UploadActivity extends AppCompatActivity {
         urlImageButton.setOnClickListener(onClickListener);
         closetImageButton = findViewById(R.id.ClosetImageButton);
         closetImageButton.setOnClickListener(onClickListener);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         //close: 게시판 화면으로 돌아가기
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -323,12 +333,74 @@ public class UploadActivity extends AppCompatActivity {
         }
     };
 
+    public class CustomDialog extends Dialog {
+
+        private EditText et_text;
+        private Context mContext;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.custom_dialog);
+
+            // 다이얼로그의 배경을 투명으로 만든다.
+            Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            // 커스텀 다이얼로그의 각 위젯들을 정의한다.
+            et_text = findViewById(R.id.put_text);
+            TextView textView = findViewById(R.id.text);
+            textView.setText("UML을 입력해주세요");
+
+            Button saveButton = findViewById(R.id.btnSave);
+            Button cancelButton = findViewById(R.id.btnCancle);
+
+            // 버튼 리스너 설정
+            saveButton.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // '확인' 버튼 클릭시
+                    // ...코드..
+                    // Custom Dialog 종료
+                    defaultString = et_text.getText().toString();
+                    Toast.makeText(UploadActivity.this, "옷이 추가되었습니다", Toast.LENGTH_SHORT).show();
+                    call_parser();
+
+                    dismiss();
+                }
+            });
+            cancelButton.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // '취소' 버튼 클릭시
+                    // ...코드..
+                    // Custom Dialog 종료
+                    dismiss();
+                }
+            });
+
+        }
+
+        public CustomDialog(Context mContext) {
+            super(mContext);
+            this.mContext = mContext;
+        }
+
+
+    }
+
     private void DialogManager() {
+
+        // 호출 - 인범 추가 커스텀 다이얼로그
+        CustomDialog dlg = new CustomDialog(UploadActivity.this);
+        dlg.show();
+        /*
         builder = new AlertDialog.Builder(this);
         builder.setTitle("URL Input");
         input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
+
+
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -343,9 +415,8 @@ public class UploadActivity extends AppCompatActivity {
                 dialogInterface.cancel();
             }
         });
-        builder.show();
+        builder.show();*/
     }
-
     // 아래는 URL로 추가 버튼 관련 코드이다.
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // 여기서 parser를 만들면 아래의 parsing 메서드를 parser에서 호출한다.

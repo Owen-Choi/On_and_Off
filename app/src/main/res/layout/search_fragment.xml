@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <SearchView
         android:id="@+id/search"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:iconifiedByDefault="false">
-
+        android:iconifiedByDefault="false"
+        app:defaultQueryHint="JDDi">
         <requestFocus />
     </SearchView>
+
+<!--
+
+    <com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper
+        android:id="@+id/custom_switcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+-->
 
     <ListView
         android:id="@+id/listview"
         android:layout_width="fill_parent"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
         android:layout_below="@+id/search" />
 
 
