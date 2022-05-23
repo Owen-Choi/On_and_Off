@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 배경색 -->
+    <solid android:color="#ffffff"/>
+    <!-- 테두리 색 및 두께 -->
+    <stroke android:color="#eeeeee" android:width="2dp" />
+    <!-- 모서리 둥글게-->
+    <corners android:radius="15dp"/>
+
+    <!-- 각각 적용하려면
+    <corners android:bottomRightRadius="15dp"
+        android:bottomLeftRadius="15dp"
+        android:topLeftRadius="15dp"
+        android:topRightRadius="15dp"/>
+    -->
+</shape>

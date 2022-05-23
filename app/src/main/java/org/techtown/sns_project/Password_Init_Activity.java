@@ -2,12 +2,18 @@ package org.techtown.sns_project;
 
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +25,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.techtown.sns_project.Board.Upload.UploadActivity;
+
+import java.util.Objects;
 
 public class Password_Init_Activity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -37,6 +47,59 @@ public class Password_Init_Activity extends AppCompatActivity {
         findViewById(R.id.SendButton).setOnClickListener(onClickListener);
     }
 
+    public class CustomDialog extends Dialog {
+
+        private EditText et_text;
+        private Context mContext;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.custom_dialog);
+
+            // 다이얼로그의 배경을 투명으로 만든다.
+            Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            // 커스텀 다이얼로그의 각 위젯들을 정의한다.
+            et_text = findViewById(R.id.put_text);
+            TextView textView = findViewById(R.id.text);
+            textView.setText("가입하신 이메일을 입력해주세요.");
+            Button saveButton = findViewById(R.id.btnSave);
+            Button cancelButton = findViewById(R.id.btnCancle);
+
+            // 버튼 리스너 설정
+            saveButton.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // '확인' 버튼 클릭시
+                    // ...코드..
+                    // Custom Dialog 종료
+                    email = et_text.getText().toString();
+                    createAlert();
+
+                    dismiss();
+                }
+            });
+            cancelButton.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // '취소' 버튼 클릭시
+                    // ...코드..
+                    // Custom Dialog 종료
+                    StartToast("취소하셨습니다.");
+                    dismiss();
+                }
+            });
+
+        }
+
+        public CustomDialog(Context mContext) {
+            super(mContext);
+            this.mContext = mContext;
+        }
+
+
+    }
 
     private void Send() {
 //        String email = ((EditText)findViewById(R.id.EmailEditText)).getText().toString();
@@ -44,8 +107,15 @@ public class Password_Init_Activity extends AppCompatActivity {
         // 그렇지 않다면 다이얼로그로부터 입력을 받는다.
         // 로그인화면에서 비밀번호를 재설정할 경우 로그인이 되어있지 않고,
         // 설정 화면에서 비밀번호를 재설정할 경우 로그인이 되어있기 때문에 분기를 나누는 것.
+
+
         if(user == null) {
-            // 다이얼로그로 이메일 받기
+
+            // 호출 - 인범 추가 커스텀 다이얼로그
+            CustomDialog dlg = new CustomDialog(Password_Init_Activity.this);
+            dlg.show();
+
+            /*// 다이얼로그로 이메일 받기
             final EditText input = new EditText(this);
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("가입하신 이메일을 입력해주세요.");
@@ -67,13 +137,12 @@ public class Password_Init_Activity extends AppCompatActivity {
                 }
             });
 
-            alert.show();
+            alert.show();*/
         }
         else {
             email = user.getEmail();
             createAlert();
         }
-
     }
 
     private void createAlert() {

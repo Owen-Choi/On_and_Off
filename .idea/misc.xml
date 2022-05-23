@@ -130,7 +130,10 @@
         <entry key="app/src/main/res/drawable/border.xml" value="0.32314814814814813" />
         <entry key="app/src/main/res/drawable/button_selector.xml" value="0.2814814814814815" />
         <entry key="app/src/main/res/drawable/closet_button.xml" value="0.3770833333333333" />
+        <entry key="app/src/main/res/drawable/dialog_round.xml" value="0.2962962962962963" />
+        <entry key="app/src/main/res/drawable/dialog_round_2.xml" value="0.2962962962962963" />
         <entry key="app/src/main/res/drawable/ic_baseline_assignment_ind_24.xml" value="0.3614583333333333" />
+        <entry key="app/src/main/res/drawable/ic_baseline_border_color_24.xml" value="0.2962962962962963" />
         <entry key="app/src/main/res/drawable/ic_baseline_dashboard_24.xml" value="0.4046875" />
         <entry key="app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.3614583333333333" />
         <entry key="app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.4046875" />
@@ -142,6 +145,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_table_rows_24.xml" value="0.4046875" />
         <entry key="app/src/main/res/drawable/ic_baseline_volume_up_24.xml" value="0.4046875" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2765625" />
+        <entry key="app/src/main/res/drawable/right_btn_background.xml" value="0.290625" />
         <entry key="app/src/main/res/drawable/round.xml" value="0.2601851851851852" />
         <entry key="app/src/main/res/drawable/shape_for_circle_button.xml" value="0.26979166666666665" />
         <entry key="app/src/main/res/drawable/shape_radius.xml" value="0.31302083333333336" />
@@ -156,11 +160,12 @@
         <entry key="app/src/main/res/layout/activity_closet_top.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/activity_codi.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_comments.xml" value="0.2513586956521739" />
-        <entry key="app/src/main/res/layout/activity_common_sign_in.xml" value="0.2513586956521739" />
+        <entry key="app/src/main/res/layout/activity_common_sign_in.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_enterprise_main.xml" value="0.2513586956521739" />
         <entry key="app/src/main/res/layout/activity_enterprise_member_info.xml" value="0.17553191489361702" />
         <entry key="app/src/main/res/layout/activity_enterprise_qr_generate.xml" value="0.13425925925925927" />
         <entry key="app/src/main/res/layout/activity_enterprise_qr_list.xml" value="0.17553191489361702" />
+        <entry key="app/src/main/res/layout/activity_enterprise_qr_list_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_enterprise_setting.xml" value="0.17553191489361702" />
         <entry key="app/src/main/res/layout/activity_initial.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_normal_main.xml" value="0.18" />
@@ -171,11 +176,16 @@
         <entry key="app/src/main/res/layout/activity_qr_scan.xml" value="0.3453125" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_upload.xml" value="0.3453125" />
-        <entry key="app/src/main/res/layout/board_fragment.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/board_fragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/board_fragment_item.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/layout/bookmark_listview_item.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/layout/closet_all.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/layout/comment_item.xml" value="0.17553191489361702" />
+        <entry key="app/src/main/res/layout/cumstom_dialog_2.xml" value="0.27898550724637683" />
+        <entry key="app/src/main/res/layout/custom_dialog.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/custom_dialog_2.xml" value="0.33" />
         <entry key="app/src/main/res/layout/dialog_closet_item_list.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/dialog_round.xml" value="0.27898550724637683" />
         <entry key="app/src/main/res/layout/home_fragment.xml" value="0.31424766977363516" />
         <entry key="app/src/main/res/layout/item_codi.xml" value="0.33" />
         <entry key="app/src/main/res/layout/like_rank.xml" value="0.17553191489361702" />
@@ -188,7 +198,7 @@
         <entry key="app/src/main/res/layout/profile_fragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recycler_view_board_added_closet_list.xml" value="0.3885416666666667" />
         <entry key="app/src/main/res/layout/recycler_view_board_added_list.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/search_fragment.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/search_fragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/similar_codi.xml" value="0.3885416666666667" />
         <entry key="app/src/main/res/layout/something_fragment.xml" value="0.3885416666666667" />
         <entry key="app/src/main/res/layout/values.xml" value="0.2390625" />
@@ -197,6 +207,7 @@
         <entry key="app/src/main/res/menu/closet.xml" value="0.3609375" />
         <entry key="app/src/main/res/menu/post_menu.xml" value="0.3265625" />
         <entry key="app/src/main/res/menu/setting_menu.xml" value="0.3265625" />
+        <entry key="app/src/main/res/xml/root_preferences.xml" value="0.27898550724637683" />
       </map>
     </option>
   </component>

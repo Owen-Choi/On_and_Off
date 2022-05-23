@@ -1,4 +1,5 @@
 package org.techtown.sns_project.fragment;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper;
+import com.sdsmdg.harjot.rotatingtext.models.Rotatable;
 
 import org.techtown.sns_project.Normal.Search.ListViewAdapter;
 import org.techtown.sns_project.Normal.Search.SearchTitleClass;
@@ -38,7 +41,20 @@ public class SearchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView");
         view = inflater.inflate(R.layout.search_fragment, container, false);
-        arraylist.clear();
+/*
+
+        // 인범 This is on and off 애니메이션
+        RotatingTextWrapper rotatingTextWrapper = (RotatingTextWrapper) view.findViewById(R.id.custom_switcher);
+        rotatingTextWrapper.setSize(35);
+
+        Rotatable rotatable = new Rotatable(Color.parseColor("#FFA036"), 1000, " ON", "  &", "OFF ");
+        rotatable.setSize(35);
+        rotatable.setAnimationDuration(500);
+
+        rotatingTextWrapper.setContent("This is ?", rotatable);
+        // 여기까지
+*/
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collectionGroup("brand").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
