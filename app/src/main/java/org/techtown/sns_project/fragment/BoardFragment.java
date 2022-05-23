@@ -65,7 +65,7 @@ public class BoardFragment extends Fragment {
 
      // 인범 This is on and off 애니메이션
      // 하지만 게시글 엑티비티에 오래 있으면 앱 팅기는 현상 있음.
-     // 작업에 방해 되면 여기 주석처리하고 작업하시면 됩니다
+     // 작업에 방해 되면 여기 주석처리하고 작업하시면 됩니다 7
      RotatingTextWrapper rotatingTextWrapper = (RotatingTextWrapper) view.findViewById(R.id.custom_switcher);
      rotatingTextWrapper.setSize(35);
 
