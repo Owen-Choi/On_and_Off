@@ -238,7 +238,10 @@ public class ProfileFragment extends Fragment {
                 //프사 클릭시 권한 받기
                 tedPermission();
 
-                AlertDialog.Builder ad = new AlertDialog.Builder(view.getContext());
+
+
+                android.app.AlertDialog.Builder ad = new android.app.AlertDialog.Builder(view.getContext(),
+                        android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
                 ad.setTitle("프로필 사진 설정")
                         .setIcon(R.drawable.ic_noun_selecting_1833829)
                         .setItems(selectOption, new DialogInterface.OnClickListener() {
