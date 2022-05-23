@@ -11,6 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.techtown.sns_project.Camera.productInfo;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -74,8 +75,8 @@ public class New_Parser {
 
 
 
-            ProductInfo pi = new ProductInfo(URL, "https:"+productImg.attr("src"), title
-                    , productINFO.text(), product_price);
+            productInfo PI = new productInfo(URL, "https:"+productImg.attr("src"), title
+                    , productINFO.text(), product_price,0,user.getUid());
 
             db.collectionGroup("brand").get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -84,10 +85,11 @@ public class New_Parser {
                         HashMap = (HashMap<String, Object>) documentSnapshot.getData();
                         String info = (String) HashMap.get("info");
                         System.out.println("URLTEST: "+((String)HashMap.get("url")).replaceAll("[^0-9]", ""));
-                            if (!info.equals(pi.Info))
+                            if (!info.equals(PI.getInfo()))
                             {
                                 db.collection("enterprises").document(user.getUid()).collection("brand").
-                                        document(pi.getURL().replaceAll("[^0-9]", "")).set(pi);
+                                        document(PI.getURL().replaceAll("[^0-9]", "")).set(PI);
+                                System.out.println("TESTST"+PI.getCount());
                             }
                     }
                 }

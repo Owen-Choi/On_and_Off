@@ -49,7 +49,7 @@ public class Activity_codi extends AppCompatActivity {
     PostAdapter postAdapter;
     String Codi_Url ="";
     ImageView txt_ProductImg ;
-    TextView txt_ProductBrand, txt_ProductTitle,txt_ProductPrice,txt_ProductTag;
+    TextView txt_ProductBrand, txt_ProductTitle,txt_ProductPrice;
     String TAG="DONG";
     String DEFAULT_URL="https://store.musinsa.com/app/goods/";
     ArrayList<String> listTitle = new ArrayList<>();
@@ -105,7 +105,6 @@ public class Activity_codi extends AppCompatActivity {
         txt_ProductBrand=findViewById(R.id.txt_ProductBrand);
         txt_ProductTitle=findViewById(R.id.txt_ProductTitle);
         txt_ProductPrice=findViewById(R.id.txt_ProductPrice);
-        txt_ProductTag=findViewById(R.id.txt_ProductTag);
 
         recyclerView_Codi = findViewById(R.id.recyclerView_Codi);
         recyclerView_Similar=findViewById(R.id.recyclerView_Similar);
@@ -282,10 +281,7 @@ public class Activity_codi extends AppCompatActivity {
                             }
                             count++;
                         }
-                        StringBuffer Hashtag = new StringBuffer();
-                        for(int i=0; i<listTag.size(); i++)
-                        Hashtag.append(listTag.get(i));
-                        txt_ProductTag.setText(Hashtag);
+
 
 
                         for(Element element: Codi_title) {
