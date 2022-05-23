@@ -10,9 +10,9 @@ public class ProductInfo implements Serializable {
     String Price;
     int Count;
 
-    public ProductInfo(String URL, String imgurl, String title, String info, String price) {
+    public ProductInfo(String URL, String ImgURL, String title, String info, String price) {
         this.URL = URL;
-        ImgURL = imgurl;
+        this.ImgURL = ImgURL;
         Title = title;
         Info = info;
         this.Price = price;
@@ -33,8 +33,8 @@ public class ProductInfo implements Serializable {
         return ImgURL;
     }
 
-    public void setImgURL(String imgurl) {
-        ImgURL = imgurl;
+    public void setImgURL(String ImgURL) {
+        this.ImgURL = ImgURL;
     }
 
     public String getTitle() {
