@@ -188,6 +188,8 @@ public class HomeFragment extends Fragment {
                         listQrTitle.clear();
                         listQrImgUrl.clear();
                         listQrEid.clear();
+                        Qadapter.listData.clear();
+                        QrRank.clear();
                         int count=0;
                         int qnum =0;
                         for(QueryDocumentSnapshot document : task.getResult()) {
