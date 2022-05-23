@@ -5,23 +5,37 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
+import org.techtown.sns_project.Normal.Search.ListViewAdapter;
+import org.techtown.sns_project.Normal.Search.SearchTitleClass;
 import org.techtown.sns_project.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ScanQR extends AppCompatActivity {
     private IntentIntegrator qrScan;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+    FirebaseFirestore db;
 
+    java.util.HashMap<String,Object> HashMap = new HashMap<String,Object>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,10 +73,33 @@ public class ScanQR extends AppCompatActivity {
                 // todo
             } else {
                 // todo
-                Intent intent = new Intent(getApplicationContext(),Activity_codi.class);
+
                 String key = result.getContents();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collectionGroup("brand").get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                            HashMap = (HashMap<String, Object>) documentSnapshot.getData();
+
+                            if(((String)HashMap.get("url")).contains(key))
+                            {
+                                System.out.println("TETETETE"+key);
+                                HashMap.put("count", Integer.parseInt(HashMap.get("count").toString()) + 1);
+                                System.out.println("TESTSTST"+HashMap);
+                                db.collection("enterprises").document((String)HashMap.get("eid")).collection("brand").document(key).update(HashMap);
+                            }
+
+                        }
+
+                        }});
+
+
+
+
+                Intent intent = new Intent(getApplicationContext(),Activity_codi.class);
                 intent.putExtra("key", key);
                 startActivity(intent);
+                finish();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
