@@ -89,8 +89,8 @@ public class bottomFragment extends Fragment {
                 // '아래 네 버튼'처럼 바로 연결하면 일회성으로 사용하기 편함.
                 // *주의할 점: findViewById()를 쓸 때는 -> 앞에 반드시 다이얼로그 이름을 붙여야 한다.
 
-                // 왼쪽 버튼
-                Button noBtn = dilaog01.findViewById(R.id.leftBtn);
+                // 오른쪽 버튼
+                Button noBtn = dilaog01.findViewById(R.id.rightBtn);
                 noBtn.setText("코디 보기");
                 noBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -106,8 +106,8 @@ public class bottomFragment extends Fragment {
                         dilaog01.dismiss(); // 다이얼로그 닫기
                     }
                 });
-                // 오른쪽 버튼
-                Button yesBtn = dilaog01.findViewById(R.id.rightBtn);
+                // 왼쪽 버튼
+                Button yesBtn = dilaog01.findViewById(R.id.leftBtn);
                 yesBtn.setText("항목 삭제");
                 yesBtn.setOnClickListener(new View.OnClickListener() {
                     @Override

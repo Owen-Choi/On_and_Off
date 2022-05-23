@@ -15,6 +15,8 @@ public class NormalSettingActivity extends AppCompatActivity {
         ActionBar menu = getSupportActionBar();
         menu.setDisplayShowHomeEnabled(true);
         menu.setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
 
     }
