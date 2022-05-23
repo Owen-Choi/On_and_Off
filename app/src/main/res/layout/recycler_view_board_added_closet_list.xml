@@ -9,6 +9,7 @@
     app:cardElevation="2dp"
     app:strokeColor="#000000"
     app:strokeWidth="20dp"
+    android:translationZ="10dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 

@@ -149,6 +149,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/round"
+        android:translationZ="10dp"
         android:text="회원 정보 변경하기"
         android:textStyle="bold" />
 
