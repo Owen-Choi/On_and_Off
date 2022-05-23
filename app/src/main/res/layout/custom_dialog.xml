@@ -41,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="center"
+                android:backgroundTint="#F38BA0"
                 android:text="cancle"
                 android:textSize="10dp" />
 
@@ -48,6 +49,7 @@
                 android:id="@+id/btnSave"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:backgroundTint="#B5EAEA"
                 android:layout_marginLeft="4dp"
                 android:scaleType="center"
                 android:text="OK"

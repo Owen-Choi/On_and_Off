@@ -85,10 +85,14 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
 
                     // 인범 추가
                     String str[] = {"옷장에 추가하기", "상세정보 보기"};
+
                     Dialog dilaog01; // 커스텀 다이얼로그
                     dilaog01 = new Dialog(context);       // Dialog 초기화
                     dilaog01.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
                     dilaog01.setContentView(R.layout.custom_dialog_2);             // xml 레이아웃 파일과 연결
+
+                    TextView textView = dilaog01.findViewById(R.id.textview);
+                    textView.setText("Selected Clothes");
 
                     dilaog01.show(); // 다이얼로그 띄우기
                     dilaog01.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // 투명 배경
@@ -101,6 +105,7 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
 
                     // 왼쪽 버튼
                     Button noBtn = dilaog01.findViewById(R.id.leftBtn);
+                    noBtn.setText("옷장에 추가");
                     noBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -113,7 +118,9 @@ public class upload_items_adapter extends RecyclerView.Adapter<upload_items_adap
                         }
                     });
                     // 오른쪽 버튼
-                    dilaog01.findViewById(R.id.rightBtn).setOnClickListener(new View.OnClickListener() {
+                    Button yesBtn = dilaog01.findViewById(R.id.rightBtn);
+                    yesBtn.setText("상세 정보");
+                    yesBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             // 원하는 기능 구현
