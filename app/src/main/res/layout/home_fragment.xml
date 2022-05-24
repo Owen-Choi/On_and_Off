@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="스타일 랭킹"
-        android:textStyle="bold" />
+        android:fontFamily="@font/military"
+        />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -46,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="QR 랭킹"
-        android:textStyle="bold" />
+        android:fontFamily="@font/military" />
 
 
 

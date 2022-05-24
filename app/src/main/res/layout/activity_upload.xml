@@ -23,8 +23,8 @@
 
                 <ImageView
                     android:id="@+id/close"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="32dp"
+                    android:layout_height="38dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
                     android:src="@drawable/ic_close" />
@@ -37,8 +37,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:text="UPLOAD"
-                    android:textColor="@color/colorPrimary"
+                    android:text="공유"
+                    android:textColor="@color/zxing_custom_viewfinder_laser"
                     android:textSize="16sp" />
 
             </RelativeLayout>
@@ -57,63 +57,47 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:scaleType="centerInside"
+            android:scaleType="fitCenter"
             android:src="@mipmap/ic_launcher" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:hint="Description"
+            android:hint="문구 입력..."
             android:id="@+id/description"
             android:maxLines="5"/>
 
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_marginTop="6dp"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/URLImageButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:padding="0dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/clothes" />
-
-            <TextView
-                android:id="@+id/AddFromURL"
-                android:layout_width="200dp"
-                android:layout_height="75dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="URL로 추가"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+                app:srcCompat="@drawable/urlimagebutton" />
 
             <ImageButton
                 android:id="@+id/ClosetImageButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/closet" />
+                app:srcCompat="@drawable/closetimagebutton" />
 
-            <TextView
-                android:id="@+id/AddFromCloset"
-                android:layout_width="200dp"
-                android:layout_height="75dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="옷장에서 추가"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+
         </LinearLayout>
-
 
     </LinearLayout>
 
