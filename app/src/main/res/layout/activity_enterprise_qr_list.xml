@@ -15,7 +15,7 @@
         android:layout_height="40dp"
         android:layout_weight="0.6"
         android:textSize="25dp"
-        android:text="URL을 입력해주세요"
+        android:text="등록한 제품 목록"
         android:fontFamily="@font/military"
         android:textColor="#000" />
 
