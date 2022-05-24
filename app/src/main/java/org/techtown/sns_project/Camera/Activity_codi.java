@@ -30,6 +30,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.techtown.sns_project.Board.BoardPostClickEvent;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.fragment.DataFormat;
 import org.techtown.sns_project.fragment.profile.Closet.ClosetMainActivity;
@@ -48,7 +49,7 @@ public class Activity_codi extends AppCompatActivity {
     PostAdapter postAdapter;
     String Codi_Url ="";
     ImageView txt_ProductImg ;
-    TextView txt_ProductBrand, txt_ProductTitle,txt_ProductPrice,txt_ProductTag;
+    TextView txt_ProductBrand, txt_ProductTitle,txt_ProductPrice;
     String TAG="DONG";
     String DEFAULT_URL="https://store.musinsa.com/app/goods/";
     ArrayList<String> listTitle = new ArrayList<>();
@@ -62,6 +63,13 @@ public class Activity_codi extends AppCompatActivity {
     ArrayList<String> listSUrl = new ArrayList<>();
     ArrayList<String> listSPrice = new ArrayList<>();
     ArrayList<String> listSImgLink = new ArrayList<>();
+
+    // 철웅 추가 : 연관 게시글 클릭시 게시글 띄워주기 위해 intent 전달할 리스트들
+    static ArrayList<String> BoardlistImgUrl = new ArrayList<>();
+    static ArrayList<String> BoardlistDescription = new ArrayList<>();
+    static ArrayList<String> BoardlistPublisher = new ArrayList<>();
+    static ArrayList<String> BoardlistDocument = new ArrayList<>();
+    static ArrayList<ArrayList<ProductInfo>> BoardlistOfList = new ArrayList<>();
 
     String THeadS1;
     String THeadS2;
@@ -97,7 +105,6 @@ public class Activity_codi extends AppCompatActivity {
         txt_ProductBrand=findViewById(R.id.txt_ProductBrand);
         txt_ProductTitle=findViewById(R.id.txt_ProductTitle);
         txt_ProductPrice=findViewById(R.id.txt_ProductPrice);
-        txt_ProductTag=findViewById(R.id.txt_ProductTag);
 
         recyclerView_Codi = findViewById(R.id.recyclerView_Codi);
         recyclerView_Similar=findViewById(R.id.recyclerView_Similar);
@@ -127,7 +134,8 @@ public class Activity_codi extends AppCompatActivity {
         postAdapter.setOnItemClickListener(new PostAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                StartCodiActivity(listSImgLink.get(position));
+                // 게시글로 이동.
+                StartActivity(BoardPostClickEvent.class, position);
             }
         });
 
@@ -152,6 +160,7 @@ public class Activity_codi extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             try {
 
+                System.out.println("TESTT"+Codi_Url);
                 Document doc = Jsoup.connect(Codi_Url).get();
 
                 final Elements Codi_Img = doc.select("div[class=right_contents related-styling]  ul[class=style_list] li[class=list_item] img");
@@ -273,17 +282,13 @@ public class Activity_codi extends AppCompatActivity {
                             }
                             count++;
                         }
-                        StringBuffer Hashtag = new StringBuffer();
-                        for(int i=0; i<listTag.size(); i++)
-                        Hashtag.append(listTag.get(i));
-                        txt_ProductTag.setText(Hashtag);
+
 
 
                         for(Element element: Codi_title) {
                             listTitle.add(element.text());
                         }
                         Collections.reverse(listTitle);
-                        //가수정보
                         for (Element element : Codi_Spec) {
                             listBrand.add(element.text());
                         }
@@ -308,19 +313,6 @@ public class Activity_codi extends AppCompatActivity {
                         }
                         Collections.reverse(listImgLink);
 
-//                        for (Element element : Similar_Url){
-//                            System.out.println("S IMG URL:"+element.attr("href"));
-//                            if(element.attr("href").contains("https://www.musinsa.com"))
-//                            {
-//                                System.out.println("CONTAIN : "+ element.attr("href"));
-//                                listSImgLink.add(element.attr("href"));
-//                            }
-//                            else
-//                            {
-//                                listSImgLink.add("https://www.musinsa.com"+element.attr("href"));
-//                                System.out.println("NONCONTAIN : "+ "https://www.musinsa.com"+element.attr("href"));
-//                            }
-//                        }
                         System.out.println("SIZE : "+ listSImgLink);
                         for (int i = 0; i < listTitle.size() ; i++) {
                             CodiDTO data = new CodiDTO();
@@ -333,36 +325,6 @@ public class Activity_codi extends AppCompatActivity {
                             Cadapter.addItem(data);
                         }
 
-                     //비슷한 상품 출력
-//                        for(Element ele : Similar_Img)
-//                        {
-//                            listSUrl.add("https:"+ele.attr("src"));
-//                        }
-//                        for(Element ele : Similar_Brand)
-//                        {
-//                            listSBrand.add(ele.text());
-//                            listSBrand.add(ele.text());
-//                        }
-//                        for(Element ele : Similar_Title)
-//                        {
-//                            listSTitle.add(ele.text());
-//                        }
-//                        for(Element ele : Similar_Price) {
-//                            listSPrice.add(ele.text());
-//                        }
-//
-//
-//                        for(int i=0; i<listSTitle.size(); i++)
-//                        {
-//                            CodiDTO data = new CodiDTO();
-//                            data.setImageUrl(listSUrl.get(i));
-//                            data.setBrand(listSBrand.get(i));
-//                            data.setTitle(listSTitle.get(i));
-//                            data.setPrice(listSPrice.get(i));
-//
-//                            Sadapter.addItem(data);
-//
-//                        }
 
 
                         db.collection("board").get().addOnCompleteListener(task -> {
@@ -381,6 +343,8 @@ public class Activity_codi extends AppCompatActivity {
                                                 // 해당 게시글 사진, userid, 좋아요 수 PostDTO에 저장해서 postAdapter에 넣기
                                                 Log.e(TAG, "find " + product_INFO.text());
                                                 Log.e(TAG, "and gonna insert " + List.get("imageUrl"));
+                                                SetIntent(dataFormat.getImageUrl(), dataFormat.getPublisher(),
+                                                        dataFormat.getDescription(), documentSnapshot.getId(), dataFormat.getList());
                                                 PostDTO tempPostDTO = new PostDTO(
                                                         (String)List.get("userid"),
                                                         (String)List.get("description"),
@@ -397,14 +361,10 @@ public class Activity_codi extends AppCompatActivity {
                                 postAdapter.addItem(datas);
                             }
                             postAdapter.notifyDataSetChanged();
+                            Cadapter.notifyDataSetChanged();
                         });
-
+                        // 한번 더 안하면 짤린다.
                         Cadapter.notifyDataSetChanged();
-//                        Sadapter.notifyDataSetChanged();
-//                        for (PostDTO datas : PDL) {
-//                            postAdapter.addItem(datas);
-//                        }
-//                        postAdapter.notifyDataSetChanged();
                     }
                 });
 
@@ -430,6 +390,27 @@ public class Activity_codi extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),Activity_codi.class);
         String key = Key;
         intent.putExtra("key", key);
+        startActivity(intent);
+    }
+
+    // 철웅 추가 : 게시글 클릭했을때 사용할 인텐트 데이터들 저장할 함수
+    private void SetIntent(String ImageUrl, String publisher, String description,
+                           String document, ArrayList<ProductInfo> list) {
+        BoardlistImgUrl.add(ImageUrl);
+        BoardlistPublisher.add(publisher);
+        BoardlistDescription.add(description);
+        BoardlistDocument.add(document);
+        BoardlistOfList.add(list);
+    }
+
+    private void StartActivity(Class<BoardPostClickEvent> boardPostClickEventClass, int position) {
+        Intent intent = new Intent(this,boardPostClickEventClass);
+        intent.putExtra("position",position);
+        intent.putExtra("listImgUrl",BoardlistImgUrl);
+        intent.putExtra("listPublisher",BoardlistPublisher);
+        intent.putExtra("listDescription",BoardlistDescription);
+        intent.putExtra("listOfList", BoardlistOfList);
+        intent.putExtra("listDocument",BoardlistDocument);
         startActivity(intent);
     }
 

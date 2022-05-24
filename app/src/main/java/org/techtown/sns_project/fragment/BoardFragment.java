@@ -2,6 +2,7 @@ package org.techtown.sns_project.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper;
+import com.sdsmdg.harjot.rotatingtext.models.Rotatable;
 
 import org.techtown.sns_project.Board.BoardAdapter;
 import org.techtown.sns_project.Board.BoardPostClickEvent;
@@ -59,6 +62,21 @@ public class BoardFragment extends Fragment {
   at.markushi.ui.CircleButton upload_btn = (at.markushi.ui.CircleButton)view.findViewById(R.id.upload);
 //  Button upload_btn = (Button)view.findViewById(R.id.upload);
   recyclerView_BoardItem = view.findViewById(R.id.recyclerView_BoardItem);
+/*
+
+     // 인범 This is on and off 애니메이션
+     // 하지만 게시글 엑티비티에 오래 있으면 앱 팅기는 현상 있음.
+     // 작업에 방해 되면 여기 주석처리하고 작업하시면 됩니다
+     RotatingTextWrapper rotatingTextWrapper = (RotatingTextWrapper) view.findViewById(R.id.custom_switcher);
+     rotatingTextWrapper.setSize(35);
+
+     Rotatable rotatable = new Rotatable(Color.parseColor("#FFA036"), 1000, " ON", "  &", "OFF ");
+     rotatable.setSize(35);
+     rotatable.setAnimationDuration(500);
+
+     rotatingTextWrapper.setContent("This is ?", rotatable);
+     // 여기까지
+*/
 
 
   GridLayoutManager BoardItem = new GridLayoutManager(getContext(),2);

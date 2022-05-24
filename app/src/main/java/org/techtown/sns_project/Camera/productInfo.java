@@ -1,30 +1,34 @@
-package org.techtown.sns_project.qr;
+package org.techtown.sns_project.Camera;
 
 import java.io.Serializable;
 
-public class ProductInfo implements Serializable {
+public class productInfo implements Serializable {
     String URL;
     String ImgURL;
     String Title;
     String Info;
     String Price;
-    int Count;
-
-    public ProductInfo(String URL, String ImgURL, String title, String info, String price) {
+    Number Count;
+    String EID;
+    public productInfo(String URL, String imgurl, String title, String info, String price, Number count,String EID) {
         this.URL = URL;
-        this.ImgURL = ImgURL;
+        ImgURL = imgurl;
         Title = title;
         Info = info;
-        this.Price = price;
+        Price = price;
+        Count = count;
+        this.EID = EID;
     }
 
-    public ProductInfo() {
+    public productInfo() {
     }
 
     public String getURL() {
         return URL;
     }
-
+    public Number getCount() {
+        return Count;
+    }
     public void setURL(String URL) {
         this.URL = URL;
     }
@@ -32,9 +36,11 @@ public class ProductInfo implements Serializable {
     public String getImgURL() {
         return ImgURL;
     }
-
-    public void setImgURL(String ImgURL) {
-        this.ImgURL = ImgURL;
+    public String getEID() {
+        return EID;
+    }
+    public void setImgURL(String imgurl) {
+        ImgURL = imgurl;
     }
 
     public String getTitle() {

@@ -6,10 +6,8 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="50dp"
     app:cardMaxElevation="1dp"
-    app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true"
-    app:strokeColor="#000000"
-    app:strokeWidth="20dp">
+    android:translationZ="10dp"
+    app:cardUseCompatPadding="true">
 
 
     <LinearLayout

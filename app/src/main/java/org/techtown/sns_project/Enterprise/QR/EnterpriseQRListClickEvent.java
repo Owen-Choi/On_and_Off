@@ -125,7 +125,6 @@ public class EnterpriseQRListClickEvent extends AppCompatActivity {
                     });
 
 
-
         });
 
         findViewById(R.id.save_barcode).setOnClickListener(v -> {

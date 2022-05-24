@@ -2,67 +2,136 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="250dp"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/MemberInfoTextView"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="150dp"
         android:editable="false"
-        android:text="회원정보" />
+        android:gravity="center"
+        android:text="회원정보"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/NameView"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="Company name" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_baseline_person_pin_24" />
+
+        <TextView
+            android:id="@+id/NameView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="유저 닉네임"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/NameText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="Name"
         android:textAlignment="viewStart"
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/AddressView"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="Location of company" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_baseline_location_city_24" />
+
+        <TextView
+            android:id="@+id/AddressView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="주소 | 회사 위치"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/AddressText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="Address"
         android:textAlignment="viewStart"
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/DateView"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="Founding date" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_baseline_cake_24" />
+
+        <TextView
+            android:id="@+id/DateView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="생년월일 | 회사 설립일"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/DateText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="Date"
         android:textAlignment="viewStart"
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/PhoneView"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="Telephone number" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_baseline_phone_24" />
+
+        <TextView
+            android:id="@+id/PhoneView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="전화번호"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/PhoneText"
@@ -75,9 +144,14 @@
 
     <Button
         android:id="@+id/MemberInfoChangeButton"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="회원 정보 변경하기" />
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round"
+        android:translationZ="10dp"
+        android:text="회원 정보 변경하기"
+        android:textStyle="bold" />
 
 </LinearLayout>
 
