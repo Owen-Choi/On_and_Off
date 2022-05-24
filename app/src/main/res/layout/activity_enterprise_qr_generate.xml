@@ -30,7 +30,7 @@
         android:inputType="text" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="right"
         android:layout_marginRight="12dp"
@@ -39,9 +39,10 @@
 
         <Button
             android:id="@+id/generate_barcode"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="center"
+            android:layout_weight="1"
             android:backgroundTint="#F38BA0"
             android:text="@string/generate"
             android:fontFamily="@font/military"
@@ -49,9 +50,10 @@
 
         <Button
             android:id="@+id/save_barcode"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="#B5EAEA"
+            android:layout_weight="1"
             android:layout_marginLeft="4dp"
             android:scaleType="center"
             android:text="@string/save"
