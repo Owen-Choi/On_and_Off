@@ -42,16 +42,16 @@ public class EnterpriseMainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         EnterpsireQRButton = (FButton) findViewById(R.id.EnterpsireQRButton);
-        EnterpsireQRButton.setButtonColor(getResources().getColor(R.color.fbutton_color_carrot));
+        EnterpsireQRButton.setButtonColor(getResources().getColor(R.color.white));
         EnterpsireQRButton.setShadowEnabled(true);
         EnterpsireQRButton.setShadowHeight(20);
-        EnterpsireQRButton.setCornerRadius(20);
+        EnterpsireQRButton.setCornerRadius(50);
 
         EnterpriseQRListButton = (FButton) findViewById(R.id.EnterpriseQRListButton);
-        EnterpriseQRListButton.setButtonColor(getResources().getColor(R.color.fbutton_color_midnight_blue));
+        EnterpriseQRListButton.setButtonColor(getResources().getColor(R.color.white));
         EnterpriseQRListButton.setShadowEnabled(true);
         EnterpriseQRListButton.setShadowHeight(20);
-        EnterpriseQRListButton.setCornerRadius(20);
+        EnterpriseQRListButton.setCornerRadius(50);
 //
 
 
