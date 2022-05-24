@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -21,6 +22,7 @@
             android:id="@+id/txt_ProductTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:text="제품"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -30,6 +32,7 @@
             android:id="@+id/txt_ProductBrand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:text="회사"
             android:textStyle="bold"
             android:textColor="#4D96FF"
@@ -39,6 +42,7 @@
             android:id="@+id/txt_ProductPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:text="가격"
             android:textStyle="bold"
             android:textColor="#FF6B6B"
@@ -54,7 +58,7 @@
             app:cardMaxElevation="5dp"
             app:strokeColor="#000000"
             app:strokeWidth="20dp"
-            android:translationZ="3dp"
+            android:translationZ="10dp"
             android:backgroundTint="#413F42"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
