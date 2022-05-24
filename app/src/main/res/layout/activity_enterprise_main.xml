@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/fbutton_color_midnight_blue"
+    android:background="@color/white"
+
     tools:context=".Normal.NormalMainActivity">
     <LinearLayout
         android:layout_width="300dp"
@@ -21,6 +22,13 @@
             android:layout_height="212dp"
             app:srcCompat="@drawable/onandofflogo" />
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp">
+        </LinearLayout>
+
+        </LinearLayout>
         <info.hoang8f.widget.FButton
             android:id="@+id/EnterpsireQRButton"
             android:layout_width="wrap_content"
@@ -28,7 +36,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:minHeight="60dp"
-            android:minWidth="400dp"
+            android:minWidth="330dp"
             android:text="QR을 생성하세요"
             android:textSize="15dp"
             android:textColor="@android:color/black" />
@@ -40,11 +48,9 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:minHeight="60dp"
-            android:minWidth="400dp"
+            android:minWidth="330dp"
             android:textSize="15dp"
             android:text="저장한 QR리스트"
             android:textColor="@android:color/black" />
 
-
     </LinearLayout>
-</LinearLayout>
