@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="212dp"
             app:srcCompat="@drawable/onandofflogo"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="20dp"/>
 
         <info.hoang8f.widget.FButton
             android:id="@+id/EnterpsireQRButton"
@@ -33,6 +33,7 @@
             android:minHeight="60dp"
             android:minWidth="330dp"
             android:text="QR을 생성하세요"
+            android:fontFamily="@font/military"
             android:textSize="15dp"
             android:textColor="@android:color/black" />
 
@@ -45,6 +46,7 @@
             android:minHeight="60dp"
             android:minWidth="330dp"
             android:textSize="15dp"
+            android:fontFamily="@font/military"
             android:text="저장한 QR리스트"
             android:textColor="@android:color/black" />
 
@@ -57,8 +59,8 @@
             android:text="Enterprise Mode"
             android:layout_margin="20dp"
             android:textSize="20dp"
+            android:fontFamily="@font/military"
             android:textColor="@color/black"
-            android:textStyle="bold|italic"
             android:layout_gravity="center"/>
 
 
