@@ -48,6 +48,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             app:cardCornerRadius="10dp"
             app:cardMaxElevation="5dp"
@@ -58,23 +59,23 @@
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
-            <TableLayout
-                android:id="@+id/size"
+        <TableLayout
+            android:id="@+id/size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
+
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="*">
+                android:layout_height="match_parent">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"/>
-
-                </TableRow>
-            </TableLayout>
+            </TableRow>
+        </TableLayout>
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -89,6 +90,7 @@
             android:id="@+id/recyclerView_Codi"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
             android:scrollbarAlwaysDrawHorizontalTrack="true"
             android:scrollbarFadeDuration="0"
             android:scrollbarStyle="outsideInset"
@@ -106,7 +108,7 @@
             android:id="@+id/recyclerView_Similar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:scrollbarAlwaysDrawHorizontalTrack="true"
             android:scrollbarFadeDuration="0"
             android:scrollbarStyle="outsideInset"
@@ -116,7 +118,7 @@
             android:id="@+id/MoveToClosetButton"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
