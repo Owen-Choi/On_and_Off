@@ -7,28 +7,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-
+    android:layout_weight="9"
     tools:context=".Normal.NormalMainActivity">
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
+        android:layout_weight="9"
         android:paddingBottom="5dp">
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="212dp"
-            app:srcCompat="@drawable/onandofflogo" />
+            app:srcCompat="@drawable/onandofflogo"
+            android:layout_marginBottom="30dp"/>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="10dp">
-        </LinearLayout>
-
-        </LinearLayout>
         <info.hoang8f.widget.FButton
             android:id="@+id/EnterpsireQRButton"
             android:layout_width="wrap_content"
@@ -53,4 +48,20 @@
             android:text="저장한 QR리스트"
             android:textColor="@android:color/black" />
 
+
     </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enterprise Mode"
+            android:layout_margin="20dp"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:textStyle="bold|italic"
+            android:layout_gravity="center"/>
+
+
+</LinearLayout>
+
+
