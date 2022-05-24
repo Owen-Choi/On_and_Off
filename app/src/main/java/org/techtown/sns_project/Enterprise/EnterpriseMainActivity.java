@@ -21,24 +21,45 @@ import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListActivity;
 import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
 import org.techtown.sns_project.R;
 import org.techtown.sns_project.SignInActivity;
+import info.hoang8f.widget.FButton;
 
 public class EnterpriseMainActivity extends AppCompatActivity {
     private final String TAG = "MainActivityDB";
     private long backKeyPressedTime = 0;
     private Toast terminate_guide_msg;
+    //
+    private FButton EnterpsireQRButton;
+    private FButton EnterpriseQRListButton;
+    //
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enterprise_main);
         ActionBar ac = getSupportActionBar();
         getSupportActionBar().setIcon(R.drawable.onandofflogo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        EnterpsireQRButton = (FButton) findViewById(R.id.EnterpsireQRButton);
+        EnterpsireQRButton.setButtonColor(getResources().getColor(R.color.buttonColor2));
+        EnterpsireQRButton.setShadowEnabled(true);
+        EnterpsireQRButton.setShadowHeight(20);
+        EnterpsireQRButton.setCornerRadius(50);
+
+        EnterpriseQRListButton = (FButton) findViewById(R.id.EnterpriseQRListButton);
+        EnterpriseQRListButton.setButtonColor(getResources().getColor(R.color.buttonColor2));
+        EnterpriseQRListButton.setShadowEnabled(true);
+        EnterpriseQRListButton.setShadowHeight(20);
+        EnterpriseQRListButton.setCornerRadius(50);
+//
 
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        findViewById(R.id.EnterpsireQRButton).setOnClickListener(onClickListener);
-        findViewById(R.id.EnterpriseQRListButton).setOnClickListener(onClickListener);
+        EnterpsireQRButton.setOnClickListener(onClickListener);
+        EnterpriseQRListButton.setOnClickListener(onClickListener);
+
+
         // manifest에서 첫 화면은 MainActivity로 설정되어있는데,
         // 로그인이 되지 않은 상태면 로그인창을 띄워야 한다.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
