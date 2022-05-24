@@ -120,16 +120,20 @@
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/notice_fragment.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/FashionCodeReal/app/src/main/res/layout/post_item.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/font/font.xml" value="0.2794871794871795" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_board_item.xml" value="0.16893115942028986" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_bookmark.xml" value="0.2" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_closet.xml" value="0.16927083333333334" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_closet_all.xml" value="0.16927083333333334" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_closet_item.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_closet_top.xml" value="0.16927083333333334" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_codi.xml" value="0.1331521739130435" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_common_sign_in.xml" value="0.12335359675785208" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_enterprise_main.xml" value="0.152" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_enterprise_member_info.xml" value="0.16927083333333334" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_enterprise_qr_generate.xml" value="0.16927083333333334" />
-        <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_enterprise_qr_list_click.xml" value="0.264" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_enterprise_qr_list.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_enterprise_qr_list_click.xml" value="0.2" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_enterprise_qr_list_item.xml" value="0.264" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_normal_main.xml" value="0.1" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_normal_member_info.xml" value="0.15443840579710144" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/activity_normal_search.xml" value="0.15443840579710144" />
@@ -139,8 +143,11 @@
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/bookmark_listview_item.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/custom_dialog.xml" value="0.176" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/home_fragment.xml" value="0.13451086956521738" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/list_view_items.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/post_item.xml" value="0.13451086956521738" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/posted_codi.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/profile_fragment.xml" value="0.1331521739130435" />
+        <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/recycler_view_board_added_closet_list.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/twoon/AndroidStudioProjects/On_and_Off/app/src/main/res/layout/recycler_view_board_added_list.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/drawable-v24/ic_baseline_add_24.xml" value="0.4046875" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.4046875" />
