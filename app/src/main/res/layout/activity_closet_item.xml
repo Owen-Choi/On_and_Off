@@ -40,6 +40,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Name"
+            android:textColor="#68A7AD"
+            android:textStyle="bold"
             android:textSize="12sp"
             tools:ignore="HardcodedText" />
 

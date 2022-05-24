@@ -84,6 +84,7 @@
             android:background="#00ff0000"
             android:backgroundTint="@color/white"
             android:text="회원가입"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
         <Button
@@ -94,6 +95,7 @@
             android:background="#00ff0000"
             android:backgroundTint="@color/white"
             android:text="비밀번호 찾기"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
 
