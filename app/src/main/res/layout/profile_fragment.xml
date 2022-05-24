@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="나의 포스트"
-            android:textStyle="bold" />
+            android:fontFamily="@font/military" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_mypost"
