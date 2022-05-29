@@ -74,7 +74,7 @@ public class BoardFragment extends Fragment {
      rotatable.setSize(35);
      rotatable.setAnimationDuration(500);
 
-     rotatingTextWrapper.setContent("This is ?", rotatable);
+     rotatingTextWrapper.setContent("Board ", rotatable);
      // 여기까지
 */
 

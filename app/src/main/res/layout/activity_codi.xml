@@ -1,189 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="5">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
+    <LinearLayout
 
-    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="4">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/txt_ProductImg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:weightSum="5">
+            tools:srcCompat="@tools:sample/avatars" />
 
-            <LinearLayout
+        <TextView
+            android:id="@+id/txt_ProductTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="제품"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="3dp"/>
+
+        <TextView
+            android:id="@+id/txt_ProductBrand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="회사"
+            android:textStyle="bold"
+            android:textColor="#4D96FF"
+            android:layout_marginBottom="3dp"/>
+
+        <TextView
+            android:id="@+id/txt_ProductPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="가격"
+            android:textStyle="bold"
+            android:textColor="#FF6B6B"
+            android:layout_marginBottom="10dp" />
+
+        <androidx.cardview.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardCornerRadius="10dp"
+            app:cardMaxElevation="5dp"
+            app:strokeColor="#000000"
+            app:strokeWidth="20dp"
+            android:translationZ="10dp"
+            android:backgroundTint="#413F42"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
+
+            <TableLayout
+                android:id="@+id/size"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:background="@color/black"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:stretchColumns="*">
 
-                <LinearLayout
-                    android:layout_width="123dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:id="@+id/txt_ProductImg"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="4dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="287dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
-
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:textStyle="bold"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="회사 | "
-                            android:textColor="@color/white" />
+                </TableRow>
+            </TableLayout>
+        </androidx.cardview.widget.CardView>
 
-                        <TextView
-                            android:id="@+id/txt_ProductBrand"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="회사"
-                            android:textColor="@color/white" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="에디터 추천"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="@color/black" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="     가격 | "
-                            android:textColor="@color/white" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_Codi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarStyle="outsideInset"
+            android:scrollbars="none" />
 
-                        <TextView
-                            android:id="@+id/txt_ProductPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="가격"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="관련 게시글"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="@color/black" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_Similar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarStyle="outsideInset"
+            android:scrollbars="none" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="제품 | "
-                            android:textColor="@color/white" />
+        <ImageButton
+            android:id="@+id/MoveToClosetButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            style="?android:attr/borderlessButtonStyle"
+            android:src="@drawable/closet_inbum"/>
+    </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/txt_ProductTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="제품"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
+</ScrollView>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/black"
-                android:orientation="vertical"
-                android:weightSum="4">
-
-
-                <TableLayout
-                    android:id="@+id/size"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:stretchColumns="*">
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="사이즈"
-                            android:textColor="@color/white" />
-                    </TableRow>
-                </TableLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text="에디터 추천"
-                    android:textColor="@color/white" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_Codi"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:background="@color/black"
-                    android:scrollbarAlwaysDrawHorizontalTrack="true"
-                    android:scrollbarFadeDuration="0"
-                    android:scrollbarStyle="outsideInset"
-                    android:scrollbarThumbHorizontal="@color/white"
-                    android:scrollbars="horizontal" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="관련 게시글"
-                    android:textColor="@color/white" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_Similar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:background="@color/black"
-                    android:scrollbarAlwaysDrawHorizontalTrack="true"
-                    android:scrollbarFadeDuration="0"
-                    android:scrollbarStyle="outsideInset"
-                    android:scrollbarThumbHorizontal="@color/white"
-                    android:scrollbars="horizontal" />
-
-                <TextView
-                    android:id="@+id/Closet_notice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/closet_notice"
-                    android:textAlignment="center"
-                    android:textColor="#FFFFFF" />
-
-                <Button
-                    android:id="@+id/MoveToClosetButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="옷장  가기" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
