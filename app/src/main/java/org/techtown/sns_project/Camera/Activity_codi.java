@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -83,7 +83,7 @@ public class Activity_codi extends AppCompatActivity {
     // 동혀 추가 (사이즈 테이블)
     TableRow[] tablerow;
     // 철웅 추가 (옷장버튼, 게시글 리사이클러뷰)
-    Button closetButton;
+    ImageButton closetButton;
     static ArrayList<ArrayList<ProductInfo>> listOfList = new ArrayList<>();
     static ArrayList<PostDTO> PDL = new ArrayList<>();
     private HashMap<String, Object> List;
