@@ -110,27 +110,6 @@ public class SignUpActivity extends AppCompatActivity {
     private void StartToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
-/*
-
-    @Override
-    public void onBackPressed() {
-
-        if (System.currentTimeMillis() > backKeyPressedTime + 1000) {
-            backKeyPressedTime = System.currentTimeMillis();
-            terminate_guide_msg = Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
-            terminate_guide_msg.show();
-            return;
-        }
-
-        if (System.currentTimeMillis() <= backKeyPressedTime + 1000) {
-            terminate_guide_msg.cancel();
-            moveTaskToBack(true);
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
-        }
-
-    }
-*/
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override

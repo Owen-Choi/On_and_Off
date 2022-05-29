@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -37,6 +38,7 @@ public class InitialActivity extends AppCompatActivity {
         user = firebaseAuth.getCurrentUser();
         if(user != null){
             // 로그인이 되어있다면 회원 정보가 등록됐는지 본다.
+            Log.e("Automatic SignIn", "user exist");
             String[] temp = {"users", "enterprises"};
             FirebaseFirestore fb = FirebaseFirestore.getInstance();
             for (String tempPath : temp) {
@@ -48,10 +50,12 @@ public class InitialActivity extends AppCompatActivity {
                             DocumentSnapshot document = task.getResult();
                             if(document != null) {
                                 if(document.exists()) {
-                                    if (tempPath.equals("users"))
+                                    if (tempPath.equals("users")) {
+                                        StartToast("일반 회원으로 자동 로그인합니다.");
                                         StartActivity(NormalMainActivity.class);
+                                    }
                                     else if (tempPath.equals("enterprises")) {
-                                        Log.e("woong", "onComplete: " + user.getEmail());
+                                        StartToast("기업회원으로 자동 로그인합니다.");
                                         StartActivity(EnterpriseMainActivity.class);
                                     } else {
                                         // 유저는 있는데 db가 없는 상황이 있다.
@@ -95,6 +99,9 @@ public class InitialActivity extends AppCompatActivity {
         }, 5000);
     }
 
+    private void StartToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 
 
 
