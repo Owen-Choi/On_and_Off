@@ -66,9 +66,10 @@ public class InitialActivity extends AppCompatActivity {
                                         StartActivity(CommonSignInActivity.class);
                                     }
                                 }
-                                else{
-                                    StartActivity(CommonSignInActivity.class);
-                                }
+//                                else{
+//                                    Log.e("temp", "왜 조건문에 필터링이 안되는거지?");
+//                                    StartActivity(CommonSignInActivity.class);
+//                                }
                             }
                         }
                     }

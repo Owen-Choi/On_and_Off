@@ -18,9 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import org.techtown.sns_project.CommonSignInActivity;
 import org.techtown.sns_project.Enterprise.QR.EnterpriseQRActivity;
 import org.techtown.sns_project.Enterprise.QR.EnterpriseQRListActivity;
-import org.techtown.sns_project.Enterprise.Setting.EnterpriseSettingActivity;
 import org.techtown.sns_project.R;
-import org.techtown.sns_project.SignInActivity;
 
 public class EnterpriseMainActivity extends AppCompatActivity {
     private final String TAG = "MainActivityDB";
@@ -57,16 +55,10 @@ public class EnterpriseMainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()) {
-            case  R.id.SettingMenu:
-                StartActivity(EnterpriseSettingActivity.class);
-                break;
-            case R.id.LogoutMenu:
-                FirebaseAuth.getInstance().signOut();
-                StartActivity(CommonSignInActivity.class);
-                finish();
-                break;
-
+        if (item.getItemId() == R.id.LogoutMenu) {
+            FirebaseAuth.getInstance().signOut();
+            StartActivity(CommonSignInActivity.class);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

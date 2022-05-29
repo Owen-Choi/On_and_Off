@@ -54,32 +54,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        app:icon="@drawable/ic_baseline_notifications_24"
-        app:title="@string/alarm_header">
 
-        <SwitchPreferenceCompat
-            android:key="notifications"
-            app:title="Enable notifications"
-            android:summaryOn="알림을 켭니다."
-            android:summaryOff="알림을 끕니다."/>
-
-        <SeekBarPreference
-            android:dependency="notifications"
-            android:key="volume_notifications"
-            app:title="volume"
-            app:showSeekBarValue="true"
-            app:defaultValue="50"/>
-
-        <ListPreference
-            android:dependency="notifications"
-            android:key="bellsounds"
-            android:title="Sounds"
-            app:defaultValue="BellName1"
-            app:entries="@array/bell_sounds_entries"
-            app:entryValues="@array/bell_sounds_values"
-            app:useSimpleSummaryProvider="true" />
-    </PreferenceCategory>
 
     <PreferenceCategory
         app:icon="@drawable/ic_baseline_info_24"
