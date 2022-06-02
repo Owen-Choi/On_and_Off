@@ -152,25 +152,20 @@
                 android:id="@+id/UserChoiceRadioButtonGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/EnterpriseUserButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enterprise" />
 
-                    <RadioButton
-                        android:id="@+id/NormalUserButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Normal" />
-
-                    <RadioButton
-                        android:id="@+id/EnterpriseUserButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Enterprise" />
-                </LinearLayout>
+                <RadioButton
+                    android:id="@+id/NormalUserButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Normal" />
 
             </RadioGroup>
 
