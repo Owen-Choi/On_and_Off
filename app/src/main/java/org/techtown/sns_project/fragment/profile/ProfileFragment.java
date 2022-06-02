@@ -270,6 +270,7 @@ public class ProfileFragment extends Fragment {
 
     public void scatter(){
         //파베에서 내가 포스트한 게시글 가져와서 뿌려주기
+
         profileAdapter.clearList();
         profileAdapter.notifyDataSetChanged();
         db.collection("board").get().
