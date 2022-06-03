@@ -50,7 +50,9 @@
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable-v24/ic_baseline_add_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2515625" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/border.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_assignment_ind_24.xml" value="0.2515625" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_cake_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_dashboard_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.2515625" />
@@ -58,6 +60,7 @@
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_qr_code_scanner_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_baseline_table_rows_24.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2515625" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/drawable/round.xml" value="0.2515625" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_Password_Init.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_board_item.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_camera.xml" value="0.2105978260869565" />
@@ -87,6 +90,7 @@
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/activity_upload.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/board_fragment.xml" value="0.19021739130434784" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/board_fragment_item.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/bookmark_listview_item.xml" value="0.18432971014492755" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/fragment_first.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/home_fragment.xml" value="0.264" />
         <entry key="..\:/Users/oldst/AndroidStudioProjects/SNS_project/app/src/main/res/layout/item_codi.xml" value="0.223731884057971" />

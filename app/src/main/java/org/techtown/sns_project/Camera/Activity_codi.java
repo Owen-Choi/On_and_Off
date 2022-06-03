@@ -255,6 +255,7 @@ public class Activity_codi extends AppCompatActivity {
                         System.out.println("asdas"+sizeArr.length);
                         System.out.println("asdas"+sizeArr[0].size());
                         TextView textView[][] = new TextView[sizeArr.length][THeadSA.length];
+                       // null 처리 해야할듯
                         for(int j=0; j<sizeArr.length; j++) {
                             for (int i = 0; i < sizeArr[0].size(); i++) {
                                 textView[j][i] = new TextView(getApplicationContext());

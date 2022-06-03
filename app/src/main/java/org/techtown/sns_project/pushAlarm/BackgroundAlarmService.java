@@ -105,9 +105,9 @@ public class BackgroundAlarmService extends Service {
                 notificationManager.createNotificationChannel( notificationChannel );
             }
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder( BackgroundAlarmService.this )
-                    .setSmallIcon( R.drawable.appicon )
-                    .setLargeIcon( BitmapFactory.decodeResource( getResources(), R.drawable.appicon ) )
-                    .setContentTitle( "Title" )
+                    .setSmallIcon( R.drawable.onoff )
+                    .setLargeIcon( BitmapFactory.decodeResource( getResources(), R.drawable.onoff ) )
+                    .setContentTitle( "On&Off" )
                     .setContentText( "좋아요가 눌렸습니다." )
                     .setAutoCancel( true )
                     .setSound( soundUri )
