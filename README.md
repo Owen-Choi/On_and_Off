@@ -5,7 +5,7 @@ QR코드를 인식해서, 온라인과 오프라인의 결합을 만나보세요
 # Demo video
 https://www.youtube.com/watch?v=oF1gIOFgOGc
 
-### 1. initial screen  
+### 1. Home  
 ![image](https://user-images.githubusercontent.com/82303989/171528107-9bf9c829-5940-458b-a4ad-706ad03257c0.png)
 
 ### 2. board screen
@@ -26,4 +26,5 @@ https://www.youtube.com/watch?v=oF1gIOFgOGc
 ### 5. Settings
 ![image](https://user-images.githubusercontent.com/82303989/171528802-6e06209f-31cb-4e04-8ebf-85736e5c1501.png)
 
-## See more details and whole process in the demo video
+## See more details and whole process in the demo video  
+you can see the QR scanning and enterprise version in the link.
