@@ -21,18 +21,19 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavi"
-        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
+        android:background="#fff"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/closet"/>
+        app:menu="@menu/closet" />
 
     <FrameLayout
         android:id="@+id/main_frame"
         android:layout_width="match_parent"
-        android:layout_height="510dp">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomNavi">
 
     </FrameLayout>
 </RelativeLayout>
