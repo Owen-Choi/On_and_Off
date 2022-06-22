@@ -4,7 +4,7 @@ We provide both,
 QR코드 인식으로 온라인과 오프라인의 결합을 만나보세요!
 ```
 # 🎥🎬Demo video📽📺
-https://www.youtube.com/watch?v=oF1gIOFgOGc
+https://youtu.be/NHY4dgQMNQE
 
 ### 1. Home  
 ![image](https://user-images.githubusercontent.com/82303989/171528107-9bf9c829-5940-458b-a4ad-706ad03257c0.png)
@@ -30,6 +30,7 @@ https://www.youtube.com/watch?v=oF1gIOFgOGc
 ## See more details and whole process in the demo video  
 ```xml
 you can see the QR scanning and enterprise version in the link.
+https://youtu.be/NHY4dgQMNQE
 ```
 # License
 ```xml
