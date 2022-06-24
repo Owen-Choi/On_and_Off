@@ -41,8 +41,7 @@ public class BackgroundAlarmService extends Service {
     FirebaseUser firebaseUser;
     FirebaseFirestore db;
 
-//    ArrayList<String> Original;
-//    ArrayList<String> Updated;
+
     ArrayList<Long> Original;
     ArrayList<Long> Updated;
     static int id_counter = 0;
