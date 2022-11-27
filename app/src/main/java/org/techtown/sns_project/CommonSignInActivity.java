@@ -74,7 +74,6 @@ public class CommonSignInActivity extends AppCompatActivity implements SignInAct
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                FirebaseUser user = mAuth.getCurrentUser();
                                 firebaseUser = mAuth.getCurrentUser();
                                 db = FirebaseFirestore.getInstance();
 

@@ -546,7 +546,6 @@ public class BoardPostClickEvent extends AppCompatActivity {
                             Log.d("nrlikes", "Error getting documents: ", task.getException());
                         }
 
-                        System.out.println(nrlikes);
                         likes.setText(String.valueOf(nrlikes) + "likes");
                         Map<String, Object> data = new HashMap<>();
                         data.put("nrlikes", nrlikes);

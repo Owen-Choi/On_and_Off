@@ -153,7 +153,6 @@ public class CommentsActivity extends AppCompatActivity {
 
 
         CollectionReference CommentsRef = db.collection("board").document(post_document).collection("Comments");
-        CollectionReference CommentsRef_user = db.collection("users").document(user.getUid()).collection("board").document(post_document).collection("Comments");
 
 
         HashMap<String, Object> hashMap = new HashMap<>();
