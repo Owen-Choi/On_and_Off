@@ -82,7 +82,6 @@ public class bookmark_ListViewAdapter<ListViewItem> extends BaseAdapter {
         datafomat_list.add(df);
         snapshots_list.add(documentSnapshot);
         this.notifyDataSetChanged();
-
     }
 
     public void clearList() {
